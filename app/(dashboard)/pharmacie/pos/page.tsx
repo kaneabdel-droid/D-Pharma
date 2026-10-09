@@ -29,7 +29,7 @@ export default async function POSPage() {
     .order('date_peremption', { ascending: true })
 
   // Reformater les données pour le client
-  const initialMedicaments = (stocks || []).map(stock => ({
+  const initialMedicaments = (stocks || []).map((stock: any) => ({
     id: stock.medicaments.id,
     nom: stock.medicaments.nom,
     code_barres: stock.medicaments.code_barres,

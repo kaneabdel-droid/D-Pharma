@@ -88,7 +88,7 @@ export default async function StocksPage() {
                 </thead>
                 <tbody className="divide-y divide-surface-border bg-surface">
                   {stocks && stocks.length > 0 ? (
-                    stocks.map((item) => {
+                    stocks.map((item: any) => {
                       const isExpiring = new Date(item.date_peremption) <= limitDate
                       const isExpired = new Date(item.date_peremption) < new Date()
                       

@@ -109,13 +109,13 @@ export default async function CommandesLaboPage() {
                           {new Date(cmd.date_commande).toLocaleDateString('fr-FR')}
                         </td>
                         <td className="whitespace-nowrap px-3 py-4 text-sm text-foreground-muted">
-                          {cmd.fournisseurs_labo?.nom}
+                          {(cmd.fournisseurs_labo as any)?.nom}
                         </td>
                         <td className="px-3 py-4 text-sm text-foreground-muted">
                           <ul className="list-disc pl-4 space-y-1">
                             {cmd.lignes_commande_labo?.map((ligne: any, idx: number) => (
                               <li key={idx}>
-                                {ligne.quantite_commandee}x <span className="font-medium text-foreground">{ligne.medicaments?.nom}</span>
+                                {ligne.quantite_commandee}x <span className="font-medium text-foreground">{(ligne.medicaments as any)?.nom}</span>
                               </li>
                             ))}
                           </ul>
