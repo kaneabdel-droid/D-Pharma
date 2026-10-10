@@ -1,1603 +1,1622 @@
 {
   "landing": {
     "nav": {
-      "products": "Products",
-      "pricing": "Pricing",
-      "tips": "Tips",
-      "subscribe": "Subscribe",
-      "login": "Log in",
-      "contact": "Contact us"
+      "products": "Produits",
+      "pricing": "Tarifs",
+      "tips": "Astuces",
+      "subscribe": "S'abonner",
+      "login": "Connexion",
+      "contact": "Nous contacter"
     },
     "hero": {
-      "title_1": "Simplify the management of your",
-      "title_2": "Business",
-      "desc": "Demba Solution offers modern and intuitive IT solutions to automate your processes, track your finances, and boost your productivity."
+      "title_1": "Simplifiez la gestion de votre",
+      "title_2": "Entreprise",
+      "desc": "Demba Solution offre des solutions informatiques modernes et intuitives pour automatiser vos processus, suivre vos finances et booster votre productivité."
     },
     "features": {
-      "title": "Excellence at the service of your business",
-      "desc": "Tools designed for local realities and international standards.",
-      "f1_title": "Fast & Efficient",
-      "f1_desc": "Fluid interfaces that save you valuable time every day.",
-      "f2_title": "Maximum Security",
-      "f2_desc": "Your data is encrypted, backed up, and accessible only by you.",
+      "title": "L'excellence au service de votre activité",
+      "desc": "Des outils pensés pour les réalités locales et les standards internationaux.",
+      "f1_title": "Rapide & Efficace",
+      "f1_desc": "Des interfaces fluides qui vous font gagner un temps précieux chaque jour.",
+      "f2_title": "Sécurité Maximale",
+      "f2_desc": "Vos données sont cryptées, sauvegardées et accessibles uniquement par vous.",
       "f3_title": "100% Responsive",
-      "f3_desc": "Manage your business from your office or in the field with your smartphone."
+      "f3_desc": "Gérez votre activité depuis votre bureau ou sur le terrain avec votre smartphone."
     },
     "products": {
-      "title": "Our Web Solutions",
-      "desc": "Discover our ecosystem of applications designed to simplify your daily life.",
-      "online_badge": "Live",
-      "coming_soon_badge": "Coming soon",
-      "siggie_desc": "The Integrated Management System for Economic Interest Groups and similar organizations. Manage your members, agricultural seasons, inputs and treasury in one click and much more.",
-      "discover_link": "Discover SIGGIE",
-      "subscribe_link": "Subscribe to SIGGIE",
-      "dquinca_desc": "The management solution for hardware stores in Africa. Track your stock, sales, and store performance with ease.",
-      "discover_link_dquinca": "Discover D-QUINCA",
-      "subscribe_link_dquinca": "Subscribe to D-QUINCA",
-      "dintrants_desc": "Your ally for managing sales of agricultural inputs and equipment. Optimize your stock and track your sales in real time.",
-      "discover_link_dintrants": "Discover D-INTRANTS",
-      "subscribe_link_dintrants": "Subscribe to D-INTRANTS",
-      "dagrobusiness_desc": "Integrated management of the agricultural value chain: financing, production, processing plant, HR and cost accounting for agro-industrial companies.",
-      "discover_link_dagrobusiness": "Discover D-AGROBUSINESS",
-      "subscribe_link_dagrobusiness": "Subscribe to D-AGROBUSINESS",
-      "dscholar_desc": "The school management platform: enrolment, classes, teachers, timetables, grades, report cards, attendance, promotions and a parent portal, from pre-school to upper secondary.",
-      "discover_link_dscholar": "Discover D-SCHOLAR",
-      "subscribe_link_dscholar": "Subscribe to D-SCHOLAR",
-      "pcas_desc": "The agricultural marketing platform for Senegal: producer offers, supervised orders, bank payment vouchers, deliveries, invoices and QR-verifiable documents.",
-      "discover_link_pcas": "Discover PCAS",
-      "access_link_pcas": "Request access to PCAS"
+      "title": "Nos Solutions Web",
+      "desc": "Découvrez notre écosystème d'applications conçues pour simplifier votre quotidien.",
+      "online_badge": "En ligne",
+      "coming_soon_badge": "Bientôt disponible",
+      "siggie_desc": "Le Système Intégré de Gestion de Groupement d'Intérêt Économique et entreprises assimilées. Gérez vos membres, campagnes agricoles, intrants et trésorerie en un clic et bien plus.",
+      "discover_link": "Découvrir SIGGIE",
+      "subscribe_link": "S'abonner à SIGGIE",
+      "dquinca_desc": "La solution de gestion pour quincailleries en Afrique. Suivez vos stocks, vos ventes et la performance de vos magasins en toute simplicité.",
+      "discover_link_dquinca": "Découvrir D-QUINCA",
+      "subscribe_link_dquinca": "S'abonner à D-QUINCA",
+      "dintrants_desc": "Votre allié pour la gestion de vos ventes d'intrants et matériels agricoles. Optimisez vos stocks et suivez vos ventes en temps réel.",
+      "discover_link_dintrants": "Découvrir D-INTRANTS",
+      "subscribe_link_dintrants": "S'abonner à D-INTRANTS",
+      "dagrobusiness_desc": "Gestion intégrée de la chaîne de valeur agricole : financement, production, usine de transformation, RH et comptabilité analytique pour les entreprises agro-industrielles.",
+      "discover_link_dagrobusiness": "Découvrir D-AGROBUSINESS",
+      "subscribe_link_dagrobusiness": "S'abonner à D-AGROBUSINESS",
+      "dscholar_desc": "La plateforme de gestion scolaire : inscriptions, classes, enseignants, emplois du temps, notes, bulletins, assiduité, passages et portail parents, de la maternelle au lycée.",
+      "discover_link_dscholar": "Découvrir D-SCHOLAR",
+      "subscribe_link_dscholar": "S'abonner à D-SCHOLAR",
+      "pcas_desc": "La plateforme de commercialisation agricole du Sénégal : offres des producteurs, commandes supervisées, paiement par bon bancaire, livraisons, factures et documents vérifiables par QR code.",
+      "discover_link_pcas": "Découvrir PCAS",
+      "access_link_pcas": "Demander un accès à PCAS"
     },
     "pricing": {
-      "title": "Pricing adapted to your growth",
-      "desc": "Choose the plan that fits your business needs. Secure annual payment via Wave, Orange Money, Visa, or Bank Transfer.",
-      "per_year": "FCFA / year",
-      "popular_badge": "Popular",
-      "feature_membres": "Member management",
-      "feature_campagnes": "Season management",
-      "feature_all_standard": "Everything in Standard",
-      "feature_materiel": "Full equipment management",
-      "feature_all_medium": "Everything in Medium",
-      "feature_etats": "Complete budget tracking statements",
-      "choose_standard": "Choose Standard",
-      "choose_medium": "Choose Medium",
-      "choose_premium": "Choose Premium"
+      "title": "Des tarifs adaptés à votre croissance",
+      "desc": "Choisissez le plan qui correspond aux besoins de votre entreprise. Paiement annuel sécurisé via Wave, Orange Money, Visa ou Virement.",
+      "per_year": "FCFA / an",
+      "popular_badge": "Populaire",
+      "feature_membres": "Gestion des membres",
+      "feature_campagnes": "Gestion des campagnes",
+      "feature_all_standard": "Tout du plan Standard",
+      "feature_materiel": "Gestion complète du matériel",
+      "feature_all_medium": "Tout du plan Medium",
+      "feature_etats": "États de suivi budgétaire complets",
+      "choose_standard": "Choisir Standard",
+      "choose_medium": "Choisir Medium",
+      "choose_premium": "Choisir Premium"
     },
     "tips": {
-      "title": "Management Tips",
-      "tip1": "Digitize your receipts",
-      "tip2": "Track profitability by machine",
-      "tip3": "Involve your members",
-      "tip3_desc": "Get your key ratios and benefit from relevant analyses of your data.",
-      "tip1_desc": "With our multi-user applications, available anytime, anywhere.",
-      "tip2_desc": "Across all your activities, through our analytical approaches."
+      "title": "Astuces de Gestion",
+      "tip1": "Digitalisez vos processus",
+      "tip2": "Suivez la rentabilité par secteur",
+      "tip3": "Impliquez vos membres",
+      "tip3_desc": "Disposez de vos ratios et bénéficiez d’analyses pertinentes de vos données.",
+      "tip1_desc": "Avec nos applications multiutilisateurs, disponibles à tout moment, en tout lieu.",
+      "tip2_desc": "De toutes vos activités, grâce à nos approches analytiques."
     },
     "footer": {
-      "desc": "Propel the management of your organization into the future with our intuitive and high-performance software solutions."
+      "desc": "Propulsez la gestion de votre organisation vers l'avenir avec nos solutions logicielles intuitives et performantes."
     },
     "contact": {
-      "title": "Contact us",
-      "desc": "A question about our solutions, a demo, a quote? Write to us: we reply by email within 24 business hours.",
-      "phone": "Phone / WhatsApp",
+      "title": "Nous contacter",
+      "desc": "Une question sur nos solutions, une démo, un devis ? Écrivez-nous : nous vous répondons par email sous 24 h ouvrées.",
+      "phone": "Téléphone / WhatsApp",
       "email": "Email",
-      "name": "Full name",
-      "name_placeholder": "E.g. Awa Diop",
+      "name": "Nom complet",
+      "name_placeholder": "Ex : Awa Diop",
       "email_label": "Email",
-      "email_placeholder": "you@example.com",
-      "phone_label": "Phone (optional)",
-      "product": "Solution you are interested in",
-      "product_any": "Not sure yet",
-      "message": "Your message",
-      "message_placeholder": "Tell us about your business and your needs...",
-      "send": "Send",
-      "sending": "Sending...",
-      "sent_title": "Message sent!",
-      "sent_desc": "Thank you, our team will reply by email as soon as possible.",
-      "send_another": "Send another message",
+      "email_placeholder": "vous@exemple.com",
+      "phone_label": "Téléphone (facultatif)",
+      "product": "Solution qui vous intéresse",
+      "product_any": "Je ne sais pas encore",
+      "message": "Votre message",
+      "message_placeholder": "Présentez votre activité et votre besoin...",
+      "send": "Envoyer",
+      "sending": "Envoi en cours...",
+      "sent_title": "Message envoyé !",
+      "sent_desc": "Merci, notre équipe vous répondra par email dans les plus brefs délais.",
+      "send_another": "Envoyer un autre message",
       "errors": {
-        "required": "Please enter your name, your email and your message.",
-        "email": "Invalid email address.",
-        "too_long": "One of the fields is too long.",
-        "failed": "The message could not be sent. Please try again or email us at support@dembasolution.com."
+        "required": "Veuillez renseigner votre nom, votre email et votre message.",
+        "email": "Adresse email invalide.",
+        "too_long": "Un des champs est trop long.",
+        "failed": "Le message n'a pas pu être envoyé. Réessayez ou écrivez-nous à support@dembasolution.com."
       }
     }
   },
   "decouvrir": {
-    "meta_title": "Discover SIGGIE - How it works",
-    "back_home": "Back to home",
-    "hero_title_prefix": "How does",
-    "hero_desc": "From creating your account to the daily management of your group: what you get, how it works, and what changes depending on your plan.",
-    "steps_title": "Your journey in 3 steps",
-    "step1_title": "1. Create an account",
-    "step1_desc_before": "Choose a plan, enter your group's name, your email and a password. Your account is created immediately, with",
-    "step1_desc_strong": "7 days free trial",
-    "step1_desc_after": "on the chosen plan — no payment required to get started.",
-    "step1_link": "Create my account",
-    "step2_title": "2. Log in",
-    "step2_desc": "Access your dashboard with your email and password. Forgot your password? A reset link is sent to you by email in one click.",
-    "step2_link": "Log in",
-    "step3_title": "3. Subscribe",
-    "step3_desc": "Before the trial ends, pay your annual subscription via Wave, Orange Money, credit card or bank transfer, directly from your \"My Subscription\" area. You can also change plans at any time by paying only the difference.",
-    "warning_before": "Without confirmed payment before the end of the 7-day trial, access to your workspace is automatically suspended",
-    "warning_after": "until payment — your data remains intact, nothing is lost.",
-    "modules_title": "Modules by plan",
-    "modules_desc": "Each higher plan includes everything from the previous one, plus its own modules.",
-    "choose_prefix": "Choose",
-    "cta_text": "Start my free trial",
-    "demo_title": "Try SIGGIE live",
-    "demo_desc": "Access the WaloAgro demo group in one click to explore every feature before creating your own account.",
-    "demo_login_btn": "Try the demo now",
-    "demo_note": "This space is shared between all visitors: do not enter sensitive information.",
-    "demo_error": "Unable to access the demo right now. Please try again in a moment.",
+    "meta_title": "Découvrir SIGGIE - Comment ça marche",
+    "back_home": "Retour à l'accueil",
+    "hero_title_prefix": "Comment fonctionne",
+    "hero_desc": "De la création de votre compte à la gestion quotidienne de votre GIE : ce que vous obtenez, comment ça se passe, et ce qui change selon votre forfait.",
+    "steps_title": "Votre parcours en 3 étapes",
+    "step1_title": "1. Créer un compte",
+    "step1_desc_before": "Choisissez un forfait, renseignez le nom de votre GIE, votre email et un mot de passe. Votre compte est créé immédiatement, avec",
+    "step1_desc_strong": "7 jours d'essai gratuit",
+    "step1_desc_after": "sur le forfait choisi — aucun paiement requis pour démarrer.",
+    "step1_link": "Créer mon compte",
+    "step2_title": "2. Se connecter",
+    "step2_desc": "Retrouvez votre tableau de bord avec votre email et votre mot de passe. Mot de passe oublié ? Un lien de réinitialisation vous est envoyé par email en un clic.",
+    "step2_link": "Se connecter",
+    "step3_title": "3. S'abonner",
+    "step3_desc": "Avant la fin de l'essai, réglez votre abonnement annuel par Wave, Orange Money, carte bancaire ou virement, directement depuis votre espace « Mon Abonnement ». Vous pouvez aussi changer de forfait à tout moment en ne payant que la différence.",
+    "warning_before": "Sans paiement confirmé avant la fin des 7 jours d'essai, l'accès à votre espace est automatiquement suspendu",
+    "warning_after": "jusqu'au règlement — vos données restent intactes, rien n'est perdu.",
+    "modules_title": "Les modules selon votre forfait",
+    "modules_desc": "Chaque forfait supérieur inclut tout ce qui précède, plus ses propres modules.",
+    "choose_prefix": "Choisir",
+    "cta_text": "Démarrer mon essai gratuit",
+    "demo_title": "Essayez SIGGIE en direct",
+    "demo_desc": "Accédez en un clic au GIE de démonstration WaloAgro pour explorer toutes les fonctionnalités avant de créer votre propre compte.",
+    "demo_login_btn": "Essayer la démo maintenant",
+    "demo_note": "Cet espace est partagé entre tous les visiteurs : n'y saisissez pas d'informations sensibles.",
+    "demo_error": "Impossible d'accéder à la démo pour le moment. Réessayez dans un instant.",
     "modules": {
-      "dashboard": "Dashboard",
-      "membres": "Members",
-      "campagnes": "Agricultural seasons",
-      "intrants": "Inputs & Stock",
+      "dashboard": "Tableau de bord",
+      "membres": "Membres",
+      "campagnes": "Campagnes agricoles",
+      "intrants": "Intrants & Stock",
       "distribution": "Distribution",
-      "credits": "Bank loans",
-      "facturation": "Invoicing",
-      "remboursements": "Repayments",
-      "tresorerie": "Treasury",
-      "materiel": "Equipment management (inventory, services, consumption, profitability, depreciation)",
-      "bilans": "Advanced budget tracking statements"
+      "credits": "Crédits bancaires",
+      "facturation": "Facturation",
+      "remboursements": "Remboursements",
+      "tresorerie": "Trésorerie",
+      "materiel": "Gestion du matériel (inventaire, prestations, consommations, rentabilité, amortissements)",
+      "bilans": "Bilans & états de suivi budgétaire avancés"
     },
     "plans": {
-      "standard_resume": "The essentials to manage a group: members, seasons, stock and treasury.",
-      "medium_resume": "Everything in Standard, plus full tracking of agricultural equipment.",
-      "premium_resume": "Everything in Medium, plus the group's complete budget tracking statements."
+      "standard_resume": "L'essentiel pour gérer un GIE : membres, campagnes, stock et trésorerie.",
+      "medium_resume": "Tout Standard, plus le suivi complet du matériel agricole.",
+      "premium_resume": "Tout Medium, plus les bilans et états de suivi budgétaire complets du GIE."
     }
   },
   "auth": {
     "login": {
-      "title": "Login to SIGGIE",
-      "desc": "Integrated Management System for Agricultural Groups",
-      "email": "Email Address",
-      "password": "Password",
-      "forgot": "Forgot password?",
-      "btn": "Log in",
-      "no_account": "Your group doesn't have an account yet?",
-      "signup": "Register your group"
+      "title": "Connexion à SIGGIE",
+      "desc": "Système Intégré de Gestion des GIE Agricoles",
+      "email": "Adresse e-mail",
+      "password": "Mot de passe",
+      "forgot": "Mot de passe oublié ?",
+      "btn": "Se connecter",
+      "no_account": "Votre GIE n'a pas encore de compte ?",
+      "signup": "Inscrivez votre GIE"
     },
     "signup": {
-      "title": "Create a SIGGIE account",
-      "desc": "Register your group to start managing your campaigns.",
-      "gie_name": "Group Name",
-      "email": "Email Address",
-      "password": "Password",
-      "btn": "Register",
-      "has_account": "Already have an account?",
-      "login": "Log in",
-      "country": "Country",
-      "other_country": "Other country",
-      "other_country_name": "Your country",
-      "usd_note": "Outside the listed countries, the subscription is paid by bank card in US dollars and amounts are shown without a currency."
+      "title": "Créer un compte SIGGIE",
+      "desc": "Inscrivez votre GIE pour commencer à gérer vos campagnes.",
+      "gie_name": "Nom du GIE",
+      "email": "Adresse e-mail",
+      "password": "Mot de passe",
+      "btn": "S'inscrire",
+      "has_account": "Vous avez déjà un compte ?",
+      "login": "Connectez-vous",
+      "country": "Pays",
+      "other_country": "Autre pays",
+      "other_country_name": "Nom de votre pays",
+      "usd_note": "Hors des pays listés, l’abonnement se paie par carte bancaire en dollars US et les montants s’affichent sans unité."
     },
     "forgot_password": {
-      "title": "Forgot password",
-      "desc": "Enter your email address and we'll send you a link to reset your password.",
-      "email": "Email address",
-      "submit": "Send the link",
-      "back_to_login": "Back to login"
+      "title": "Mot de passe oublié",
+      "desc": "Entrez votre adresse email et nous vous enverrons un lien pour réinitialiser votre mot de passe.",
+      "email": "Adresse e-mail",
+      "submit": "Envoyer le lien",
+      "back_to_login": "Retour à la connexion"
     }
   },
   "sidebar": {
-    "dashboard": "Dashboard",
-    "membres": "Members",
-    "campagnes": "Seasons",
-    "intrants": "Inputs & Stock",
+    "dashboard": "Tableau de bord",
+    "membres": "Membres",
+    "campagnes": "Campagnes",
+    "intrants": "Intrants & Stock",
     "distribution": "Distribution",
-    "credits": "Bank Loans",
-    "facturation": "Billing",
-    "remboursements": "Repayments",
-    "tresorerie": "Cash Flow",
-    "materiel": "Equipment",
-    "bilans": "Reports & Statements",
-    "abonnement": "Subscription",
-    "parametres": "Settings",
-    "support": "Help & Support",
-    "logout": "Log out"
+    "credits": "Crédits Bancaires",
+    "facturation": "Facturation",
+    "remboursements": "Remboursements",
+    "tresorerie": "Trésorerie",
+    "materiel": "Matériel",
+    "bilans": "Bilans & Relevés",
+    "abonnement": "Abonnement",
+    "parametres": "Paramètres",
+    "support": "Aide & Support",
+    "logout": "Déconnexion",
+    "pos_pharma": "Point de Vente",
+    "stock_pharma": "Stocks (Pharma)",
+    "commandes_pharma": "Commandes Labo"
   },
   "header": {
     "admin": "Admin",
-    "open_sidebar": "Open sidebar",
-    "close_sidebar": "Close sidebar"
+    "open_sidebar": "Ouvrir la barre latérale",
+    "close_sidebar": "Fermer la barre latérale"
   },
   "dashboard": {
-    "title": "Dashboard",
-    "welcome": "Welcome to SIGGIE. Here is a summary of your group's activity.",
+    "title": "Tableau de bord",
+    "welcome": "Bienvenue sur D-PHARMA. Voici un résumé de votre officine.",
     "stats": {
-      "members": "Registered Members",
-      "members_desc": "In the cooperative",
-      "season": "Current Season",
-      "season_none": "None",
-      "season_active": "In progress",
-      "season_done": "Completed",
-      "repayment": "Repayment Rate",
-      "repayment_desc": "For the season",
-      "equipment": "Equipment Fleet",
-      "equipment_link": "View equipment"
+      "members": "Membres Inscrits",
+      "members_desc": "Dans la coopérative",
+      "season": "Campagne Actuelle",
+      "season_none": "Aucune",
+      "season_active": "En cours",
+      "season_done": "Terminée",
+      "repayment": "Taux de Remboursement",
+      "repayment_desc": "Sur la campagne",
+      "equipment": "Parc Matériel",
+      "equipment_link": "Voir les équipements"
     },
     "finance": {
-      "title": "Financial Overview",
-      "view_journal": "View journal",
-      "balance": "Cash Balance",
-      "inflows": "Total Inflows",
-      "outflows": "Total Outflows"
+      "title": "Aperçu Financier",
+      "view_journal": "Voir le journal",
+      "balance": "Solde de la Trésorerie",
+      "inflows": "Total Entrées",
+      "outflows": "Total Sorties"
     },
     "recent_members": {
-      "title": "Recent Members",
-      "registered": "Registration of",
-      "empty": "No recent members.",
-      "view_all": "View all members"
+      "title": "Membres Récents",
+      "registered": "Inscription de",
+      "empty": "Aucun membre récent.",
+      "view_all": "Voir tous les membres"
+    },
+    "pharma_stats": {
+      "sales_today": "Ventes du jour",
+      "sales_today_desc": "Chiffre d'affaires",
+      "low_stock": "Stock Faible",
+      "low_stock_desc": "Médicaments à réapprovisionner",
+      "pending_orders": "Commandes Labo",
+      "pending_orders_desc": "En attente",
+      "expired": "Périmés ou proches",
+      "expired_desc": "À retirer des rayons"
+    },
+    "recent_sales": {
+      "title": "Dernières ventes",
+      "empty": "Aucune vente récente",
+      "pos_link": "Aller au Point de Vente",
+      "sale_of": "Ticket N°"
     }
   },
   "membres": {
-    "title": "Members",
-    "desc": "List of all group members, including their name, village, and phone number.",
+    "title": "Membres",
+    "desc": "Liste de tous les membres du GIE, incluant leur nom, village, et numéro de téléphone.",
     "table": {
-      "name": "Full Name",
+      "name": "Nom complet",
       "village": "Village",
-      "phone": "Phone",
-      "superficie": "Area (ha)",
-      "status": "Status",
+      "phone": "Téléphone",
+      "superficie": "Superficie (ha)",
+      "status": "Statut",
       "actions": "Actions"
     },
     "status": {
-      "active": "Active",
-      "inactive": "Inactive"
+      "active": "Actif",
+      "inactive": "Inactif"
     },
-    "empty": "No members found. Click \"New Member\" to get started."
+    "empty": "Aucun membre trouvé. Cliquez sur \"Nouveau Membre\" pour commencer."
   },
   "campagnes": {
-    "title": "Agricultural Seasons",
-    "desc": "Manage your seasons, configure repayment methods, and close the financial years.",
+    "title": "Campagnes Agricoles",
+    "desc": "Gérez vos campagnes, configurez les modes de remboursement et clôturez les exercices.",
     "status": {
-      "active": "In progress",
-      "completed": "Completed",
-      "cancelled": "Cancelled"
+      "active": "En cours",
+      "completed": "Terminée",
+      "cancelled": "Annulée"
     },
     "card": {
-      "from": "From",
-      "to": "to",
-      "repayment": "Repayment:",
-      "configure": "Configure",
-      "report": "Report",
-      "repartition": "Allocation"
+      "from": "Du",
+      "to": "au",
+      "repayment": "Remboursement:",
+      "configure": "Configurer",
+      "report": "Bilan",
+      "repartition": "Répartition"
     },
-    "empty": "No seasons found. Click \"New Season\" to get started."
+    "empty": "Aucune campagne trouvée. Cliquez sur \"Nouvelle Campagne\" pour commencer."
   },
   "intrants": {
-    "title": "Inputs & Stock",
-    "desc": "Manage your input catalog, track purchases, distributions, and stock levels in real time.",
+    "title": "Intrants & Stock",
+    "desc": "Gérez votre catalogue d'intrants, suivez les achats, les distributions et l'état des stocks en temps réel.",
     "kpis": {
-      "value": "Total Stock Value",
-      "distributions": "Distributions (Current season)",
-      "repayments": "In-kind Repayments",
-      "units": "Units"
+      "value": "Valeur Totale du Stock",
+      "distributions": "Distributions (Campagne en cours)",
+      "repayments": "Remboursements en Nature",
+      "units": "Unités"
     },
     "table": {
-      "item": "Input",
+      "item": "Intrant",
       "type": "Type",
-      "details": "Details",
-      "supplier": "Supplier",
-      "price": "Unit Price",
-      "stock": "In Stock",
+      "details": "Détails",
+      "supplier": "Fournisseur",
+      "price": "Prix Unitaire",
+      "stock": "En Stock",
       "actions": "Actions"
     },
-    "empty": "No inputs found. Click \"New Input\" to populate your catalog."
+    "empty": "Aucun intrant trouvé. Cliquez sur \"Nouvel Intrant\" pour alimenter votre catalogue."
   },
   "materiel": {
-    "title": "Equipment & Tracking",
-    "desc": "Manage your equipment, services, and maintenance expenses.",
+    "title": "Parc Matériel & Suivi",
+    "desc": "Gérez votre équipement, vos prestations et vos dépenses d'entretien.",
     "tabs": {
-      "inventaire": "Inventory",
-      "prestations": "Services (Income)",
-      "consommations": "Consumptions (Expenses)",
-      "rentabilite": "Profitability",
-      "amortissements": "Depreciations"
+      "inventaire": "Inventaire",
+      "prestations": "Prestations (Recettes)",
+      "consommations": "Consommations (Dépenses)",
+      "rentabilite": "Rentabilité",
+      "amortissements": "Amortissements"
     },
     "inventaire_table": {
-      "name": "Name / Equipment",
+      "name": "Nom / Équipement",
       "type": "Type",
-      "supplier": "Supplier",
-      "value": "Value",
-      "lifespan": "Lifespan",
-      "acq_date": "Acq. Date",
-      "status": "Current Status",
+      "supplier": "Fournisseur",
+      "value": "Valeur",
+      "lifespan": "Durée de vie",
+      "acq_date": "Date Acq.",
+      "status": "État Actuel",
       "actions": "Actions",
-      "years": "years",
-      "status_good": "Good condition",
-      "status_repair": "Under repair",
-      "status_broken": "Broken",
-      "action_delete": "Delete",
-      "empty": "No equipment registered.",
-      "confirm_delete": "Are you sure you want to delete this equipment?"
+      "years": "ans",
+      "status_good": "Bon état",
+      "status_repair": "En réparation",
+      "status_broken": "En panne",
+      "action_delete": "Supprimer",
+      "empty": "Aucun équipement enregistré.",
+      "confirm_delete": "Êtes-vous sûr de vouloir supprimer cet équipement ?"
     }
   },
   "distribution": {
-    "title": "Distribution to Members",
-    "desc": "Distribute inputs to members enrolled in the seasons.",
+    "title": "Distribution aux Membres",
+    "desc": "Remettez des intrants aux membres inscrits dans les campagnes.",
     "kpis": {
-      "total": "Total Distributed",
-      "members": "Beneficiary Members",
-      "operations": "Operations",
-      "units": "units"
+      "total": "Total Distribué",
+      "members": "Membres Bénéficiaires",
+      "operations": "Opérations",
+      "units": "unités"
     },
     "table": {
       "date": "Date",
-      "beneficiary": "Beneficiary",
-      "product": "Product Distributed",
-      "quantity": "Quantity",
-      "season": "Season",
+      "beneficiary": "Bénéficiaire",
+      "product": "Produit Remis",
+      "quantity": "Quantité",
+      "season": "Campagne",
       "actions": "Actions",
-      "unknown_member": "Unknown member",
-      "deleted_product": "Deleted product",
-      "empty": "No distribution has been registered yet."
+      "unknown_member": "Membre inconnu",
+      "deleted_product": "Produit supprimé",
+      "empty": "Aucune distribution n'a encore été enregistrée."
     }
   },
   "tresorerie": {
-    "title": "Treasury & Bank",
-    "desc": "Manage your bank accounts, cash desk, and reconcile your season credits.",
+    "title": "Trésorerie & Banque",
+    "desc": "Gérez vos comptes en banque, votre caisse, et rapprochez vos crédits de campagne.",
     "tabs": {
-      "comptes": "Accounts (Balances)",
-      "journaux": "Ledgers",
-      "rapprochement": "Reconciliation",
-      "imputations": "Allocations"
+      "comptes": "Comptes (Soldes)",
+      "journaux": "Journaux",
+      "rapprochement": "Rapprochement",
+      "imputations": "Imputations"
     },
     "balances": {
-      "title": "Balances Overview",
-      "desc": "Current balance of the cash desk and your bank accounts.",
-      "total": "Total Treasury",
-      "empty": "No account created yet."
+      "title": "Aperçu des Soldes",
+      "desc": "Solde actuel de la caisse et de vos comptes bancaires.",
+      "total": "Trésorerie Globale",
+      "empty": "Aucun compte créé pour le moment."
     }
   },
   "credits": {
-    "title": "Bank Credits (GIE)",
-    "desc": "Manage financing requests of the GIE to partner banks, track disbursements, and reconciliation.",
+    "title": "Crédits Bancaires (GIE)",
+    "desc": "Gérez les demandes de financement du GIE auprès des banques partenaires, le suivi des déblocages et le rapprochement.",
     "kpis": {
-      "demanded": "Total Demanded",
-      "granted": "Total Granted",
-      "pending": "Pending",
+      "demanded": "Total Demandé",
+      "granted": "Total Accordé",
+      "pending": "En Attente",
       "dossiers": "Dossier(s)",
-      "available": "Available Credit"
+      "available": "Crédit Disponible"
     },
     "table": {
-      "season": "Season",
-      "bank": "Bank",
-      "demanded": "Demanded",
-      "granted": "Granted",
-      "status": "Status",
+      "season": "Campagne",
+      "bank": "Banque",
+      "demanded": "Demandé",
+      "granted": "Accordé",
+      "status": "Statut",
       "actions": "Actions",
-      "unspecified": "Unspecified",
-      "status_pending": "Pending",
-      "status_valid": "Validated",
-      "status_rejected": "Rejected",
-      "empty": "No credit request found."
+      "unspecified": "Non spécifiée",
+      "status_pending": "En attente",
+      "status_valid": "Validé",
+      "status_rejected": "Rejeté",
+      "empty": "Aucune demande de crédit trouvée."
     }
   },
   "facturation": {
-    "title": "Billing",
-    "desc": "Generate, view, and print season invoices for each member.",
-    "search": "Search for an invoice (Member name, No)...",
+    "title": "Facturation",
+    "desc": "Générez, consultez et imprimez les factures de la campagne pour chaque membre.",
+    "search": "Rechercher une facture (Nom du membre, N°)...",
     "table": {
-      "member": "No / Member",
-      "season": "Season",
-      "total_due": "Total Due",
-      "paid": "Amount Paid",
-      "remaining": "Remaining to Pay",
-      "status": "Status",
+      "member": "N° / Membre",
+      "season": "Campagne",
+      "total_due": "Total Dû",
+      "paid": "Montant Payé",
+      "remaining": "Reste à Payer",
+      "status": "Statut",
       "actions": "Actions",
-      "status_unpaid": "Unpaid",
-      "status_paid": "Paid",
-      "status_partial": "Partial",
-      "empty": "No invoice found."
+      "status_unpaid": "Impayée",
+      "status_paid": "Payée",
+      "status_partial": "Partiel",
+      "empty": "Aucune facture trouvée."
     }
   },
   "parametres": {
-    "title": "Settings",
-    "subtitle": "Cooperative information, shown on printed documents (invoices, receipts).",
+    "title": "Paramètres",
+    "subtitle": "Informations du GIE, affichées sur les documents imprimés (factures, reçus).",
     "logoTitle": "Logo",
-    "changeLogo": "Change logo",
-    "addLogo": "Add a logo",
-    "uploading": "Uploading...",
-    "logoHint": "PNG or JPG, 2 MB maximum.",
-    "generalInfo": "General information",
-    "companyName": "Cooperative name",
-    "address": "Address",
-    "phone": "Phone",
-    "email": "Email",
-    "identification": "Tax identification (NINEA, RCCM or equivalent)",
-    "identificationPlaceholder": "E.g.: NINEA 0012345678",
-    "currency": "Working currency",
-    "currencyHint": "Used for every amount shown and printed in the application.",
-    "saved": "Saved",
-    "logoSaved": "Logo updated"
+    "changeLogo": "Changer le logo",
+    "addLogo": "Ajouter un logo",
+    "uploading": "Envoi...",
+    "logoHint": "PNG ou JPG, 2 Mo maximum.",
+    "generalInfo": "Informations générales",
+    "companyName": "Dénomination",
+    "address": "Adresse",
+    "phone": "Téléphone",
+    "email": "E-mail",
+    "identification": "Identification fiscale (NINEA, RCCM ou équivalent)",
+    "identificationPlaceholder": "Ex : NINEA 0012345678",
+    "currency": "Devise de travail",
+    "currencyHint": "Utilisée pour tous les montants affichés et imprimés dans l'application.",
+    "saved": "Enregistré",
+    "logoSaved": "Logo mis à jour"
   },
   "common": {
-    "cancel": "Cancel",
-    "close": "Close",
-    "save": "Save",
-    "saving": "Saving...",
-    "add": "Add",
-    "adding": "Adding...",
-    "create": "Create",
-    "creating": "Creating...",
-    "edit": "Edit",
-    "delete": "Delete",
-    "deleting": "Deleting...",
+    "cancel": "Annuler",
+    "close": "Fermer",
+    "save": "Enregistrer",
+    "saving": "Enregistrement...",
+    "add": "Ajouter",
+    "adding": "Ajout...",
+    "create": "Créer",
+    "creating": "Création...",
+    "edit": "Modifier",
+    "delete": "Supprimer",
+    "deleting": "Suppression...",
     "actions": "Actions",
     "date": "Date",
-    "print": "Print",
-    "irreversible_warning": "⚠️ Warning: This action cannot be undone."
+    "print": "Imprimer",
+    "irreversible_warning": "⚠️ Attention : Cette action est irréversible."
   },
   "campagnes_extra": {
-    "search_placeholder": "Search by name or product...",
-    "create_btn": "New Season",
+    "search_placeholder": "Rechercher par nom ou produit...",
+    "create_btn": "Nouvelle Campagne",
     "modal": {
-      "create_title": "Create a new season",
-      "edit_title": "Edit season",
-      "name": "Season name",
-      "name_placeholder": "E.g.: Rainy season 2024",
-      "start_date": "Start date",
-      "end_date": "End date",
-      "mode": "Repayment method",
-      "mode_espece": "Cash only",
-      "mode_nature": "In-kind (Products) only",
-      "mode_mixte": "Mixed (Cash + In-kind)",
-      "product": "Collected product",
-      "product_placeholder": "E.g.: Peanuts, Millet...",
-      "price": "Collection price (FCFA/Kg)",
-      "standard_weight": "Standard weight (Kg)",
-      "status": "Status",
-      "create_submit": "Create season",
-      "delete_title": "Delete season",
-      "delete_confirm": "Are you sure you want to delete the season",
-      "delete_warning": "⚠️ Warning: This will also delete all inputs and loans linked to this season!",
-      "configure_tooltip": "Season configuration"
+      "create_title": "Créer une nouvelle campagne",
+      "edit_title": "Modifier la campagne",
+      "name": "Nom de la campagne",
+      "name_placeholder": "Ex: Hivernage 2024",
+      "start_date": "Date de début",
+      "end_date": "Date de fin",
+      "mode": "Mode de remboursement",
+      "mode_espece": "Espèces uniquement",
+      "mode_nature": "Nature (Produits) uniquement",
+      "mode_mixte": "Mixte (Espèces + Nature)",
+      "product": "Produit collecté",
+      "product_placeholder": "Ex: Arachide, Mil...",
+      "price": "Prix collecté (FCFA/Kg)",
+      "standard_weight": "Poids standard (Kg)",
+      "status": "Statut",
+      "create_submit": "Créer la campagne",
+      "delete_title": "Supprimer la campagne",
+      "delete_confirm": "Êtes-vous sûr de vouloir supprimer la campagne",
+      "delete_warning": "⚠️ Attention : Cela supprimera également tous les intrants et crédits liés à cette campagne !",
+      "configure_tooltip": "Configuration de la campagne"
     }
   },
   "credits_extra": {
-    "create_btn": "New Request",
-    "reject_confirm": "Are you sure you want to reject this loan request?",
-    "approve_tooltip": "Grant the loan",
-    "reject_tooltip": "Reject the request",
-    "decaissement_tooltip": "Record a disbursement",
-    "remboursement_tooltip": "Repay loan",
-    "delete_tooltip": "Delete the record",
+    "create_btn": "Nouvelle Demande",
+    "reject_confirm": "Êtes-vous sûr de vouloir rejeter cette demande de crédit ?",
+    "approve_tooltip": "Accorder le crédit",
+    "reject_tooltip": "Rejeter la demande",
+    "decaissement_tooltip": "Enregistrer un décaissement",
+    "remboursement_tooltip": "Rembourser crédit",
+    "delete_tooltip": "Supprimer l'enregistrement",
     "modal": {
-      "create_title": "Record a loan request for the group",
-      "linked_campaign": "Linked season",
-      "select_campaign": "Select a season...",
-      "bank_optional": "Partner bank (optional)",
-      "amount_requested": "Amount requested (FCFA)",
-      "reason": "Purpose of the loan",
-      "reason_placeholder": "E.g.: Group purchase of inputs for the rainy season",
-      "create_submit": "Record the request",
-      "decaissement_title": "New disbursement on the loan",
-      "credit_granted_label": "Loan Granted:",
-      "operation_type": "Transaction type",
-      "op_supplier": "Supplier Payment (Transfer)",
-      "op_withdrawal": "Cash withdrawal",
-      "source_account": "Source account (Bank)",
-      "select_account": "Select an account...",
-      "amount": "Amount (FCFA)",
-      "reason_ref": "Reason / Reference",
-      "reason_ref_placeholder": "E.g.: Payment of fertilizer invoice #123",
-      "decaissement_submit": "Record the disbursement",
-      "remboursement_title": "New repayment on the loan",
-      "remboursement_account": "Account to debit",
-      "remboursement_reason_placeholder": "E.g.: March installment repayment",
-      "remboursement_submit": "Record the repayment",
-      "approve_title_prefix": "Loan validation",
-      "bank_unspecified": "Bank not specified",
-      "amount_requested_label": "Amount initially requested:",
-      "amount_granted": "Amount actually granted (FCFA)",
-      "amount_granted_note": "The amount granted by the bank may differ from the initial request.",
-      "interest_rate": "Interest rate (%)",
-      "credit_duration": "Credit duration (months)",
-      "approve_submit": "Confirm the amount",
-      "delete_title": "Delete the record",
-      "delete_confirm": "Are you sure you want to delete this row?"
+      "create_title": "Enregistrer une demande de crédit pour le GIE",
+      "linked_campaign": "Campagne liée",
+      "select_campaign": "Sélectionnez une campagne...",
+      "bank_optional": "Banque partenaire (optionnel)",
+      "amount_requested": "Montant demandé (FCFA)",
+      "reason": "Motif / But du crédit",
+      "reason_placeholder": "Ex: Achat groupé d'intrants pour la saison des pluies",
+      "create_submit": "Enregistrer la demande",
+      "decaissement_title": "Nouveau décaissement sur le crédit",
+      "credit_granted_label": "Crédit Accordé :",
+      "operation_type": "Type d'opération",
+      "op_supplier": "Paiement Fournisseur (Virement)",
+      "op_withdrawal": "Retrait d'espèces",
+      "source_account": "Compte source (Banque)",
+      "select_account": "Sélectionnez un compte...",
+      "amount": "Montant (FCFA)",
+      "reason_ref": "Motif / Référence",
+      "reason_ref_placeholder": "Ex: Paiement facture engrais N°123",
+      "decaissement_submit": "Enregistrer le décaissement",
+      "remboursement_title": "Nouveau remboursement du crédit",
+      "remboursement_account": "Compte à débiter",
+      "remboursement_reason_placeholder": "Ex: Remboursement échéance Mars",
+      "remboursement_submit": "Enregistrer le remboursement",
+      "approve_title_prefix": "Validation du crédit",
+      "bank_unspecified": "Banque non spécifiée",
+      "amount_requested_label": "Montant initialement demandé :",
+      "amount_granted": "Montant réellement accordé (FCFA)",
+      "amount_granted_note": "Le montant accordé par la banque peut être différent de la demande initiale.",
+      "interest_rate": "Taux d'intérêt (%)",
+      "credit_duration": "Durée du crédit (mois)",
+      "approve_submit": "Confirmer le montant",
+      "delete_title": "Supprimer l'enregistrement",
+      "delete_confirm": "Êtes-vous sûr de vouloir supprimer cette ligne ?"
     }
   },
   "distribution_extra": {
-    "edit_tooltip": "Edit the quantity",
-    "cancel_tooltip": "Cancel the distribution",
-    "invalid_quantity": "Invalid quantity",
-    "create_btn": "New Distribution",
+    "edit_tooltip": "Modifier la quantité",
+    "cancel_tooltip": "Annuler la distribution",
+    "invalid_quantity": "Quantité invalide",
+    "create_btn": "Nouvelle Distribution",
     "create_modal": {
-      "title": "Bulk Distribution",
-      "tab1": "Option 1: By Product (Input)",
-      "tab2": "Option 2: By Member",
-      "campaign": "Season",
-      "select_campaign": "Select a season...",
-      "no_members_prefix": "⚠️ No member is enrolled in this season yet.",
-      "no_members_link": "Click here to go to the season configuration",
-      "no_members_suffix": "to enroll participants.",
-      "no_products_prefix": "⚠️ No product is configured for this season.",
-      "no_products_link": "Go to Configuration",
-      "no_products_suffix": "to add inputs.",
-      "product_to_distribute": "Product to distribute",
-      "select_product": "Select a product...",
+      "title": "Distribution Groupée",
+      "tab1": "Option 1 : Par Produit (Intrant)",
+      "tab2": "Option 2 : Par Membre",
+      "campaign": "Campagne",
+      "select_campaign": "Sélectionnez une campagne...",
+      "no_members_prefix": "⚠️ Aucun membre n'est encore inscrit à cette campagne.",
+      "no_members_link": "Cliquez ici pour aller dans la Configuration de la campagne",
+      "no_members_suffix": "pour y inscrire les participants.",
+      "no_products_prefix": "⚠️ Aucun produit n'est configuré pour cette campagne.",
+      "no_products_link": "Allez dans la Configuration",
+      "no_products_suffix": "pour y ajouter des intrants.",
+      "product_to_distribute": "Produit à distribuer",
+      "select_product": "Sélectionnez un produit...",
       "stock_label": "Stock",
-      "quantities_by_member": "Quantities by Member",
-      "amounts_by_member": "Amounts by Member (FCFA)",
-      "total_entered": "Total entered:",
-      "invalid_quantity_alert": "Enter at least one quantity.",
-      "exceeds_stock_alert": "The total entered exceeds the available stock!",
-      "beneficiary": "Beneficiary (Enrolled member)",
-      "select_member": "Select a member...",
-      "quantities_by_product": "Quantities by Product (Input)",
-      "no_intrants_configured": "No input is configured for this season.",
-      "stock_colon": "Stock:",
+      "quantities_by_member": "Quantités par Membre",
+      "amounts_by_member": "Montants par Membre (FCFA)",
+      "total_entered": "Total saisi :",
+      "invalid_quantity_alert": "Saisissez au moins une quantité.",
+      "exceeds_stock_alert": "Le total saisi dépasse le stock disponible !",
+      "beneficiary": "Bénéficiaire (Membre inscrit)",
+      "select_member": "Sélectionnez un membre...",
+      "quantities_by_product": "Quantités par Produit (Intrant)",
+      "no_intrants_configured": "Aucun intrant n'est configuré pour cette campagne.",
+      "stock_colon": "Stock :",
       "amount_unit": "FCFA",
-      "select_campaign_prompt": "Please select a season to continue.",
-      "validate_submit": "Validate the distribution",
-      "validating": "Validating...",
-      "prorata_hint": "Suggested values: each member's share in proportion to their farmed area (campaign Allocation page), minus what has already been distributed to them.",
-      "prorata_short": "Pro-rata share"
+      "select_campaign_prompt": "Veuillez sélectionner une campagne pour continuer.",
+      "validate_submit": "Valider la distribution",
+      "validating": "Validation...",
+      "prorata_hint": "Valeurs proposées : part au prorata de la superficie de chaque membre (page Répartition de la campagne), moins ce qui lui a déjà été distribué.",
+      "prorata_short": "Part au prorata"
     },
     "modal": {
-      "edit_title": "Edit distributed quantity",
-      "product_label": "Product:",
-      "current_quantity_label": "Current quantity:",
-      "new_quantity": "New quantity",
-      "cancel_title": "Cancel the distribution",
-      "cancel_confirm_prefix": "Are you sure you want to cancel this delivery of",
-      "cancel_note": "✅ The stock will be credited back the same quantity.",
-      "cancelling": "Cancelling...",
-      "cancel_submit": "Cancel the distribution"
+      "edit_title": "Modifier la quantité distribuée",
+      "product_label": "Produit :",
+      "current_quantity_label": "Quantité actuelle :",
+      "new_quantity": "Nouvelle quantité",
+      "cancel_title": "Annuler la distribution",
+      "cancel_confirm_prefix": "Êtes-vous sûr de vouloir annuler cette remise de",
+      "cancel_note": "✅ Le stock sera recrédité de la même quantité.",
+      "cancelling": "Annulation...",
+      "cancel_submit": "Annuler la distribution"
     }
   },
   "facturation_extra": {
-    "generate_btn": "Bulk Invoicing",
-    "print_tooltip": "Print the invoice",
-    "download_tooltip": "Download PDF",
-    "interest_col": "Interest",
+    "generate_btn": "Facturation Groupée",
+    "print_tooltip": "Imprimer la facture",
+    "download_tooltip": "Télécharger PDF",
+    "interest_col": "Intérêt",
     "interet": {
-      "btn": "Calculate Interest",
-      "title": "Calculate and allocate credit interest",
-      "desc": "Allocates the season's validated credit interest across members' invoices, using the chosen method.",
-      "campaign": "Season",
-      "select_campaign": "Select a season",
-      "method_label": "Allocation method",
-      "method_superficie": "Pro-rata of the area worked for the season",
-      "method_intrants": "Pro-rata of the total inputs billed to the member",
-      "calculating": "Calculating...",
-      "submit": "Calculate and allocate"
+      "btn": "Calcul de l'intérêt",
+      "title": "Calculer et répartir l'intérêt du crédit",
+      "desc": "Répartit l'intérêt du crédit validé de la campagne entre les factures des membres, selon la méthode choisie.",
+      "campaign": "Campagne",
+      "select_campaign": "Sélectionnez une campagne",
+      "method_label": "Méthode de répartition",
+      "method_superficie": "Au prorata des superficies exploitées pour la campagne",
+      "method_intrants": "Au prorata du total des intrants facturés au membre",
+      "calculating": "Calcul en cours...",
+      "submit": "Calculer et répartir"
     },
     "modal": {
-      "title": "Generate invoices for the season",
-      "desc": "This will add up the inputs received and validated loans for each member, and generate or update invoices.",
-      "campaign": "Season",
-      "select_campaign": "Select a season",
-      "generating": "Generating...",
-      "submit": "Generate"
+      "title": "Générer les factures de la campagne",
+      "desc": "Cette action va additionner les intrants reçus et les crédits validés pour chaque membre, et générer ou mettre à jour les factures.",
+      "campaign": "Campagne",
+      "select_campaign": "Sélectionnez une campagne",
+      "generating": "Génération...",
+      "submit": "Générer"
     }
   },
   "intrants_extra": {
-    "search_placeholder": "Search an input...",
-    "buy_btn": "New Purchase",
-    "create_btn": "New Input",
+    "search_placeholder": "Rechercher un intrant...",
+    "buy_btn": "Nouvel Achat",
+    "create_btn": "Nouvel Intrant",
     "type_options": [
-      "Fertilizer",
-      "Seed",
+      "Engrais",
+      "Semence",
       "Pesticide",
-      "Fungicide",
+      "Fongicide",
       "Herbicide",
-      "Equipment",
-      "Rebilling",
-      "Water Service",
-      "Cultivation Work"
+      "Matériel",
+      "Refacturation",
+      "Service Hydraulique",
+      "Façon culturale"
     ],
     "modal": {
-      "buy_title": "Record an input purchase",
-      "buy_submit": "Confirm the purchase",
-      "product_bought": "Product bought",
-      "select_product": "Select a product...",
-      "current_stock": "Current stock",
-      "quantity_bought": "Quantity bought (to add to stock)",
-      "purchase_price": "Unit purchase price (FCFA)",
-      "purchase_date": "Purchase date",
-      "invoice_number": "Invoice number (optional)",
-      "invoice_number_placeholder": "E.g.: INV-2024-0123",
-      "create_title": "Add a new input",
-      "edit_title": "Edit input",
-      "product_name": "Product name",
-      "product_name_placeholder": "E.g.: NPK 15-15-15 Fertilizer",
-      "type": "Input type",
-      "type_placeholder": "E.g.: Fertilizer, Seed...",
-      "supplier_optional": "Supplier (optional)",
-      "supplier_placeholder": "Supplier or company name",
-      "unit_price": "Unit price (FCFA)",
-      "initial_stock": "Quantity (Initial stock)",
-      "stock": "Quantity (Stock)",
-      "description_optional": "Description / Unit (optional)",
-      "description_placeholder": "E.g.: 50kg bag, Liter...",
-      "create_submit": "Add to catalog",
-      "delete_title": "Delete input",
-      "delete_confirm_prefix": "Are you sure you want to delete the input",
-      "delete_confirm_suffix": "from the catalog?"
+      "buy_title": "Enregistrer un achat d'intrant",
+      "buy_submit": "Valider l'achat",
+      "product_bought": "Produit acheté",
+      "select_product": "Sélectionnez un produit...",
+      "current_stock": "Stock actuel",
+      "quantity_bought": "Quantité achetée (à ajouter au stock)",
+      "purchase_price": "Prix d'achat unitaire (FCFA)",
+      "purchase_date": "Date d'achat",
+      "invoice_number": "N° Facture (optionnel)",
+      "invoice_number_placeholder": "Ex: FAC-2024-0123",
+      "create_title": "Ajouter un nouvel intrant",
+      "edit_title": "Modifier l'intrant",
+      "product_name": "Nom du produit",
+      "product_name_placeholder": "Ex: Engrais NPK 15-15-15",
+      "type": "Type d'intrant",
+      "type_placeholder": "Ex: Engrais, Semence...",
+      "supplier_optional": "Fournisseur (optionnel)",
+      "supplier_placeholder": "Nom du fournisseur ou de la société",
+      "unit_price": "Prix unitaire (FCFA)",
+      "initial_stock": "Quantité (Stock initial)",
+      "stock": "Quantité (Stock)",
+      "description_optional": "Description / Unité (optionnel)",
+      "description_placeholder": "Ex: Sac de 50kg, Litre...",
+      "create_submit": "Ajouter au catalogue",
+      "delete_title": "Supprimer l'intrant",
+      "delete_confirm_prefix": "Êtes-vous sûr de vouloir supprimer l'intrant",
+      "delete_confirm_suffix": "du catalogue ?"
     }
   },
   "materiel_extra": {
-    "add_btn": "Add equipment",
-    "edit_tooltip": "Edit equipment",
-    "etat_bon": "Good condition",
-    "etat_reparation": "Under repair",
-    "etat_panne": "Out of order",
+    "add_btn": "Ajouter un équipement",
+    "edit_tooltip": "Modifier l'équipement",
+    "etat_bon": "Bon état",
+    "etat_reparation": "En réparation",
+    "etat_panne": "En panne",
     "type_labels": {
-      "Bâtiment et installations": "Buildings and Facilities",
-      "Matériel agricole": "Agricultural Equipment",
-      "Matériel et mobilier": "Equipment and Furniture",
-      "Matériel informatique": "IT Equipment",
-      "Matériel de transport": "Transport Equipment"
+      "Bâtiment et installations": "Bâtiment et installations",
+      "Matériel agricole": "Matériel agricole",
+      "Matériel et mobilier": "Matériel et mobilier",
+      "Matériel informatique": "Matériel informatique",
+      "Matériel de transport": "Matériel de transport"
     },
     "modal": {
-      "add_title": "Add new equipment",
-      "edit_title": "Edit equipment",
-      "name": "Name (e.g.: John Deere Tractor)",
+      "add_title": "Ajouter un nouvel équipement",
+      "edit_title": "Modifier l'équipement",
+      "name": "Nom (ex: Tracteur John Deere)",
       "type": "Type",
-      "supplier": "Supplier",
-      "supplier_placeholder": "Supplier name",
-      "value": "Value (FCFA)",
-      "lifespan": "Useful life (Years)",
-      "acq_date": "Acquisition date",
-      "initial_state": "Initial condition",
-      "current_state": "Current condition"
+      "supplier": "Fournisseur",
+      "supplier_placeholder": "Nom du fournisseur",
+      "value": "Valeur (FCFA)",
+      "lifespan": "Durée de vie (Années)",
+      "acq_date": "Date d'acquisition",
+      "initial_state": "État initial",
+      "current_state": "État actuel"
     }
   },
   "membres_extra": {
-    "search_placeholder": "Search by first name, last name or village...",
-    "create_btn": "New Member",
+    "search_placeholder": "Rechercher par nom, prénom ou village...",
+    "create_btn": "Nouveau Membre",
     "modal": {
-      "create_title": "Add a new member",
-      "edit_title": "Edit member",
-      "last_name": "Last name",
-      "first_name": "First name",
+      "create_title": "Ajouter un nouveau membre",
+      "edit_title": "Modifier le membre",
+      "last_name": "Nom",
+      "first_name": "Prénom",
       "village": "Village",
-      "phone": "Phone",
-      "superficie": "Area (ha)",
-      "status": "Status",
-      "status_active": "Active",
-      "status_inactive": "Inactive",
-      "delete_title": "Delete member",
-      "delete_confirm_prefix": "Are you sure you want to delete",
-      "delete_confirm_suffix": "? This action cannot be undone."
+      "phone": "Téléphone",
+      "superficie": "Superficie (ha)",
+      "status": "Statut",
+      "status_active": "Actif",
+      "status_inactive": "Inactif",
+      "delete_title": "Supprimer le membre",
+      "delete_confirm_prefix": "Êtes-vous sûr de vouloir supprimer",
+      "delete_confirm_suffix": "? Cette action est irréversible."
     }
   },
   "remboursements_extra": {
     "modal": {
-      "title_cash": "Record a cash payment",
-      "title_nature": "Record an in-kind payment",
-      "surplus_label": "Repayment surplus:",
-      "remaining_label": "Remaining to pay:",
-      "amount_paid": "Amount paid (FCFA)",
-      "amount_paid_note": "The amount will be credited to the Treasury.",
-      "nature_product": "Nature of the product received",
-      "nature_product_placeholder": "E.g.: Paddy rice, Tomato, Peanut...",
-      "weight_label": "Weight or quantity received",
-      "calc_base": "Calculation basis:",
-      "per_unit_suffix": "FCFA/unit",
-      "equivalent_label": "Financial equivalent deducted from the invoice:",
-      "missing_product_error": "Please specify the nature of the product received (e.g.: Paddy rice, Tomato, Peanut...).",
-      "invalid_amount_error": "The amount must be greater than 0",
-      "validating": "Validating...",
-      "validate_submit": "Validate the payment",
-      "account": "Treasury account to credit",
-      "no_account": "No treasury account: create one in Treasury before recording a cash payment."
+      "title_cash": "Enregistrer un paiement en numéraire",
+      "title_nature": "Enregistrer un paiement en nature",
+      "surplus_label": "Surplus de remboursement :",
+      "remaining_label": "Reste à payer :",
+      "amount_paid": "Montant versé (FCFA)",
+      "amount_paid_note": "Le montant sera crédité à la Trésorerie.",
+      "nature_product": "Nature du produit reçu",
+      "nature_product_placeholder": "Ex: Riz paddy, Tomate, Arachide...",
+      "weight_label": "Poids ou quantité récupérée",
+      "calc_base": "Base de calcul :",
+      "per_unit_suffix": "FCFA/unité",
+      "equivalent_label": "Équivalent financier déduit de la facture :",
+      "missing_product_error": "Veuillez préciser la nature du produit reçu (ex: Riz paddy, Tomate, Arachide...).",
+      "invalid_amount_error": "Le montant doit être supérieur à 0",
+      "validating": "Validation...",
+      "validate_submit": "Valider le paiement",
+      "account": "Compte de trésorerie à créditer",
+      "no_account": "Aucun compte de trésorerie : créez-en un dans Trésorerie avant d'enregistrer un paiement en espèces."
     }
   },
   "tresorerie_extra": {
-    "add_account_btn": "New Account",
+    "add_account_btn": "Nouveau Compte",
     "modal": {
-      "title": "Create an account",
-      "name": "Account name",
-      "name_placeholder": "E.g.: Main Cash Box, Agricultural Bank...",
-      "type": "Account type",
-      "type_caisse": "Cash Box",
-      "type_banque": "Bank Account",
-      "initial_balance": "Initial balance (FCFA)"
+      "title": "Créer un compte",
+      "name": "Nom du compte",
+      "name_placeholder": "Ex: Caisse Principale, Banque Agricole...",
+      "type": "Type de compte",
+      "type_caisse": "Caisse (Espèces)",
+      "type_banque": "Compte Bancaire",
+      "initial_balance": "Solde initial (FCFA)"
     }
   },
   "checkout_extra": {
-    "back_offers": "Back to plans",
-    "order_summary": "Order summary",
-    "subscription": "Subscription",
-    "total_ttc": "Total due",
-    "payment_method": "Payment method",
+    "back_offers": "Retour aux offres",
+    "order_summary": "Résumé de la commande",
+    "subscription": "Abonnement",
+    "total_ttc": "Total à payer (TTC)",
+    "payment_method": "Moyen de paiement",
     "orange_money": "Orange Money",
-    "card": "Credit Card",
-    "mobile_money_chariow": "Chariow",
-    "transfer": "Bank Transfer",
-    "transfer_instructions": "Please make the transfer to the following account:",
-    "transfer_note": "Your subscription will be activated once the funds are received and confirmed.",
-    "phone_label": "Phone number",
+    "card": "Carte Bancaire",
+    "mobile_money_chariow": "Mobile Money (Chariow)",
+    "transfer": "Virement",
+    "transfer_instructions": "Veuillez effectuer le virement sur le compte suivant :",
+    "transfer_note": "Votre abonnement sera activé dès réception et confirmation des fonds.",
+    "phone_label": "Numéro de téléphone",
     "phone_placeholder": "77 123 45 67",
-    "phone_required_error": "Please enter your phone number",
-    "redirect_notice_prefix": "You will be redirected to the secure payment page to complete your",
-    "redirect_notice_card": "card payment",
-    "redirect_notice_mobile": "mobile money payment",
-    "processing": "Processing...",
-    "create_account_btn": "Create my account",
-    "pay_prefix": "Pay",
-    "virement_saved_title": "Transfer recorded",
-    "virement_saved_desc": "Your request has been recorded. Your subscription will be activated once your transfer is received and confirmed.",
-    "back_to_subscription": "Back to my subscription",
+    "phone_required_error": "Veuillez saisir votre numéro de téléphone",
+    "redirect_notice_prefix": "Vous allez être redirigé(e) vers la page de paiement sécurisée pour finaliser votre",
+    "redirect_notice_card": "paiement par carte",
+    "redirect_notice_mobile": "paiement mobile money",
+    "processing": "Traitement en cours...",
+    "create_account_btn": "Créer mon compte",
+    "pay_prefix": "Payer",
+    "virement_saved_title": "Virement enregistré",
+    "virement_saved_desc": "Votre demande a été enregistrée. Votre abonnement sera activé dès réception et confirmation de votre virement.",
+    "back_to_subscription": "Retour à mon abonnement",
     "retour": {
-      "activated_title": "Subscription activated!",
-      "activated_desc_prefix": "Thank you, your payment has been confirmed and your",
-      "activated_desc_suffix": "plan is active.",
-      "dashboard_link": "Go to dashboard",
-      "failed_title": "Payment unsuccessful",
-      "failed_desc": "The payment could not be confirmed. You can try again from your subscription page.",
-      "retry_link": "Try again",
-      "pending_title": "Verifying payment...",
-      "pending_desc": "This may take a few moments. Refresh this page or come back later to your subscription page."
+      "activated_title": "Abonnement activé !",
+      "activated_desc_prefix": "Merci, votre paiement a été confirmé et votre forfait",
+      "activated_desc_suffix": "est actif.",
+      "dashboard_link": "Accéder au tableau de bord",
+      "failed_title": "Paiement non abouti",
+      "failed_desc": "Le paiement n'a pas pu être confirmé. Vous pouvez réessayer depuis votre espace abonnement.",
+      "retry_link": "Réessayer",
+      "pending_title": "Vérification du paiement...",
+      "pending_desc": "Cela peut prendre quelques instants. Actualisez cette page ou revenez plus tard sur votre espace abonnement."
     },
-    "usd_card_only": "Your country does not use a supported currency: the subscription is paid by bank card in US dollars.",
-    "card_unavailable": "Card payment is not available yet. Contact support to subscribe."
+    "usd_card_only": "Votre pays n’utilise pas une devise gérée : l’abonnement se paie par carte bancaire en dollars US.",
+    "card_unavailable": "Le paiement par carte n’est pas encore disponible. Contactez le support pour souscrire."
   },
   "update_password": {
-    "title": "Update your password",
-    "desc": "Enter your new password.",
-    "label": "New password",
-    "submit": "Save"
+    "title": "Mettre à jour le mot de passe",
+    "desc": "Saisissez votre nouveau mot de passe.",
+    "label": "Nouveau mot de passe",
+    "submit": "Enregistrer"
   },
   "bilans": {
-    "title": "Reports & Statements",
-    "desc": "Summary dashboard of the group's financial and operational health.",
+    "title": "Bilans & Relevés",
+    "desc": "Tableau de bord récapitulatif de la santé financière et opérationnelle du GIE.",
     "tabs": {
-      "overview": "Overview",
-      "releve_membre": "Member Statement",
-      "releve_client": "Customer Statement",
-      "suivi_budgetaire": "Budget Tracking",
-      "bilan_annuel": "Annual Balance Sheet"
+      "overview": "Vue d'ensemble",
+      "releve_membre": "Relevé Membre",
+      "releve_client": "Relevé Client",
+      "suivi_budgetaire": "Suivi Budgétaire",
+      "bilan_annuel": "Bilan annuel"
     },
-    "tresorerie_title": "Overall Cash Position",
+    "tresorerie_title": "Trésorerie Globale",
     "tresorerie": {
-      "balance": "Current Balance",
-      "inflows": "Total Inflows",
-      "outflows": "Total Outflows"
+      "balance": "Solde Actuel",
+      "inflows": "Total Entrées",
+      "outflows": "Total Sorties"
     },
-    "creances_title": "Liabilities and Receivables",
+    "creances_title": "Engagements et Créances",
     "creances": {
-      "unpaid": "Unpaid Invoices",
-      "credits": "Outstanding Loans"
+      "unpaid": "Factures Impayées",
+      "credits": "Crédits Non Remboursés"
     },
-    "materiel_title": "Equipment Fleet Summary",
+    "materiel_title": "Synthèse Parc Matériel",
     "materiel": {
-      "net_profit": "Net Fleet Profitability",
-      "net_profit_desc": "Revenue - Expenses - Depreciation",
-      "revenue": "Total Revenue",
-      "expenses": "Total Expenses",
-      "depreciation": "Depreciation"
+      "net_profit": "Rentabilité Nette du Parc",
+      "net_profit_desc": "Recettes - Dépenses - Amortissements",
+      "revenue": "Total Recettes",
+      "expenses": "Total Dépenses",
+      "depreciation": "Dépréciation (Amort.)"
     }
   },
   "suivi_budgetaire": {
-    "title": "Budget Tracking",
-    "desc": "Compare forecast and actual spending for each season, by budget line.",
-    "select_campaign": "Choose a season",
-    "no_campaigns": "No season found.",
-    "loading": "Loading budget data...",
+    "title": "Suivi Budgétaire",
+    "desc": "Comparez les prévisions et les réalisations de chaque campagne, par rubrique.",
+    "select_campaign": "Choisir une campagne",
+    "no_campaigns": "Aucune campagne trouvée.",
+    "loading": "Chargement des données budgétaires...",
     "tabs": {
-      "exploitation": "Operating",
-      "materiel": "Equipment",
-      "consolide": "Consolidated"
+      "exploitation": "Exploitation",
+      "materiel": "Matériel",
+      "consolide": "Consolidé"
     },
-    "recettes_title": "Revenue",
-    "depenses_title": "Expenses",
-    "solde_title": "Balance (Revenue - Expenses)",
+    "recettes_title": "Recettes",
+    "depenses_title": "Dépenses",
+    "solde_title": "Solde (Recettes - Dépenses)",
     "headers": {
-      "rubrique": "Budget line",
-      "sous_rubrique": "Sub-line",
-      "prevu": "Forecast",
-      "realise": "Actual",
-      "ecart": "Variance",
-      "taux": "Realization rate"
+      "rubrique": "Rubrique",
+      "sous_rubrique": "Sous-Rubrique",
+      "prevu": "Prévu",
+      "realise": "Réalisé",
+      "ecart": "Écart",
+      "taux": "Taux de réalisation"
     },
     "total": "Total",
-    "empty": "No budget data for this season."
+    "empty": "Aucune donnée budgétaire pour cette campagne."
   },
   "support": {
-    "title": "Help & Support",
-    "desc": "Need help using SIGGIE? Our team is here to assist you.",
-    "phone": "Phone",
-    "phone_hours": "Mon-Fri, 9am to 6pm",
+    "title": "Aide & Support",
+    "desc": "Besoin d'aide pour utiliser SIGGIE ? Notre équipe est à votre disposition pour vous accompagner.",
+    "phone": "Téléphone",
+    "phone_hours": "Lun-Ven de 9h à 18h",
     "email": "Email",
-    "email_desc": "Technical support",
-    "form_title": "Send us a message",
-    "form_desc": "Found a bug or have a specific question? Fill out this form and we'll reply directly by email.",
+    "email_desc": "Assistance technique",
+    "form_title": "Envoyez-nous un message",
+    "form_desc": "Vous rencontrez un bug ou avez une question spécifique ? Remplissez ce formulaire et nous vous répondrons directement par email.",
     "form": {
-      "subject": "Subject",
-      "subject_placeholder": "E.g.: Issue with a season, Billing question...",
-      "message": "Detailed message",
-      "message_placeholder": "Describe your issue or question in detail...",
-      "send": "Send message",
-      "sending": "Sending...",
-      "sent_title": "Message sent successfully!",
-      "sent_desc": "Our support team has received your message and will get back to you shortly.",
-      "send_another": "Send another message",
+      "subject": "Sujet de votre demande",
+      "subject_placeholder": "Ex: Problème avec une campagne, Question sur la facturation...",
+      "message": "Message détaillé",
+      "message_placeholder": "Décrivez votre problème ou votre question en détail...",
+      "send": "Envoyer le message",
+      "sending": "Envoi en cours...",
+      "sent_title": "Message envoyé avec succès !",
+      "sent_desc": "Notre équipe de support a bien reçu votre message et vous répondra dans les plus brefs délais.",
+      "send_another": "Envoyer un autre message",
       "errors": {
-        "required": "Please fill in all fields.",
-        "too_long": "The subject (max 200 characters) or the message (max 5000 characters) is too long.",
-        "not_authenticated": "Your session has expired. Please sign in again.",
-        "failed": "The message could not be sent. Please try again or email us at support@dembasolution.com."
+        "required": "Veuillez remplir tous les champs.",
+        "too_long": "Le sujet (200 caractères max) ou le message (5000 caractères max) est trop long.",
+        "not_authenticated": "Votre session a expiré. Veuillez vous reconnecter.",
+        "failed": "Le message n'a pas pu être envoyé. Réessayez ou écrivez-nous à support@dembasolution.com."
       }
     }
   },
   "materiel_pages": {
     "amortissements": {
-      "title": "Depreciation Schedules",
-      "desc": "View the accounting depreciation schedule for each piece of equipment in your fleet.",
-      "select_label": "Select a piece of equipment to view its depreciation schedule:",
-      "not_valued": "Not valued",
-      "table_title": "Depreciation schedule (Straight-line)",
-      "acq_date": "Acquisition date",
-      "duration": "Duration",
-      "years": "years",
-      "rate": "Rate",
+      "title": "Tableaux d'Amortissement",
+      "desc": "Consultez le plan d'amortissement comptable de chaque équipement de votre parc.",
+      "select_label": "Sélectionner un équipement pour voir son tableau d'amortissement :",
+      "not_valued": "Non valorisé",
+      "table_title": "Tableau d'amortissement (Linéaire)",
+      "acq_date": "Date d'acquisition",
+      "duration": "Durée",
+      "years": "ans",
+      "rate": "Taux",
       "headers": {
-        "year": "Year",
-        "base": "Depreciable base",
-        "annuity": "Annuity",
-        "cumulative": "Cumulative depreciation",
-        "vnc": "Net book value"
+        "year": "Année",
+        "base": "Base à amortir",
+        "annuity": "Annuité",
+        "cumulative": "Amort. Cumulé",
+        "vnc": "VNC (Valeur Nette)"
       },
-      "error": "Unable to calculate depreciation for this equipment. Check that the acquisition value, date, and useful life are filled in."
+      "error": "Impossible de calculer l'amortissement pour cet équipement. Vérifiez que la valeur d'acquisition, la date et la durée de vie sont bien renseignées."
     },
     "consommations": {
-      "title": "Expenses & Consumables",
-      "desc": "Track maintenance, fuel, and parts costs for each piece of equipment.",
-      "add_btn": "Record an expense",
-      "total": "Total Expenses (Maintenance & Fuel)",
+      "title": "Dépenses et Consommations",
+      "desc": "Suivez les frais d'entretien, de carburant et de pièces pour chaque équipement.",
+      "add_btn": "Saisir une dépense",
+      "total": "Total des Dépenses (Entretien & Carburant)",
       "headers": {
-        "equipment": "Equipment",
-        "type": "Type (Supplier)",
-        "quantity": "Quantity",
-        "amount": "Amount (FCFA)"
+        "equipment": "Équipement",
+        "type": "Type (Fournisseur)",
+        "quantity": "Quantité",
+        "amount": "Montant (FCFA)"
       },
-      "at_supplier": "at",
-      "empty": "No expense recorded.",
-      "delete_confirm": "Are you sure you want to delete this expense?",
-      "delete_title": "Delete expense",
-      "edit_title_btn": "Edit expense",
+      "at_supplier": "chez",
+      "empty": "Aucune dépense enregistrée.",
+      "delete_confirm": "Êtes-vous sûr de vouloir supprimer cette dépense ?",
+      "delete_title": "Supprimer la dépense",
+      "edit_title_btn": "Modifier la dépense",
       "form": {
-        "add_title": "New Expense (Consumable / Maintenance)",
-        "edit_title": "Edit Expense",
-        "equipment_label": "Equipment",
-        "select_machine": "Select a machine",
-        "type_label": "Expense type",
-        "type_fuel": "Fuel",
-        "type_oil": "Oil / Lubricant",
-        "type_part": "Spare part",
-        "type_repair": "Repair / Labor",
-        "type_other": "Other",
-        "supplier_label": "Supplier / Service station",
-        "quantity_label": "Quantity (L, Unit...)",
-        "amount_label": "Total amount (FCFA)",
+        "add_title": "Nouvelle Dépense (Consommation / Entretien)",
+        "edit_title": "Modifier la Dépense",
+        "equipment_label": "Équipement concerné",
+        "select_machine": "Sélectionner une machine",
+        "type_label": "Type de dépense",
+        "type_fuel": "Carburant",
+        "type_oil": "Huile / Lubrifiant",
+        "type_part": "Pièce de rechange",
+        "type_repair": "Réparation / Main d'œuvre",
+        "type_other": "Autre",
+        "supplier_label": "Fournisseur / Station service",
+        "quantity_label": "Quantité (L, Unité...)",
+        "amount_label": "Montant total (FCFA)",
         "date_label": "Date"
       }
     },
     "prestations": {
-      "title": "Service History",
-      "desc": "Work performed by your equipment generating revenue.",
-      "add_btn": "Add a service",
-      "total": "Total Revenue (Services)",
+      "title": "Historique des Prestations",
+      "desc": "Travaux réalisés par vos équipements générant des recettes.",
+      "add_btn": "Ajouter une prestation",
+      "total": "Total des Recettes (Prestations)",
       "headers": {
-        "equipment": "Equipment",
+        "equipment": "Équipement",
         "type": "Type (Client)",
-        "area": "Area",
-        "amount": "Amount (FCFA)",
-        "quantity": "Recorded quantity",
-        "obtained": "Obtained",
+        "area": "Superficie",
+        "amount": "Montant (FCFA)",
+        "quantity": "Quantité pointée",
+        "obtained": "Obtenu",
         "client": "Client"
       },
-      "for_client": "for",
-      "empty": "No service recorded.",
-      "delete_confirm": "Are you sure you want to delete this service?",
-      "delete_title": "Delete service",
-      "edit_title_btn": "Edit service",
+      "for_client": "pour",
+      "empty": "Aucune prestation enregistrée.",
+      "delete_confirm": "Êtes-vous sûr de vouloir supprimer cette prestation ?",
+      "delete_title": "Supprimer la prestation",
+      "edit_title_btn": "Modifier la prestation",
       "form": {
-        "add_title": "New Service (Revenue)",
-        "edit_title": "Edit Service",
-        "equipment_label": "Equipment used",
-        "select_machine": "Select a machine",
-        "type_label": "Service type",
-        "type_placeholder": "E.g.: Offset, Plowing, Harvest...",
-        "client_label": "Client / Member",
-        "area_label": "Area (ha)",
-        "amount_label": "Total amount (FCFA)",
-        "date_label": "Completion date",
+        "add_title": "Nouvelle Prestation (Recette)",
+        "edit_title": "Modifier la Prestation",
+        "equipment_label": "Équipement utilisé",
+        "select_machine": "Sélectionner une machine",
+        "type_label": "Type de prestation",
+        "type_placeholder": "Ex: Offset, Labour, Moisson...",
+        "client_label": "Client / Membre",
+        "area_label": "Superficie (ha)",
+        "amount_label": "Montant total (FCFA)",
+        "date_label": "Date de réalisation",
         "section_client": "Client",
-        "phone_label": "Client phone number",
-        "phone_placeholder": "E.g. 77 123 45 67",
-        "section_work": "Work done",
-        "unit_label": "Recording unit",
+        "phone_label": "Téléphone du client",
+        "phone_placeholder": "Ex : 77 123 45 67",
+        "section_work": "Travail réalisé",
+        "unit_label": "Unité de pointage",
         "unit_options": {
           "ha": "Hectares (ha)",
-          "h": "Hours (h)",
-          "sac": "Bags",
-          "autre": "Other unit"
+          "h": "Heures (h)",
+          "sac": "Sacs",
+          "autre": "Autre unité"
         },
-        "unit_other_label": "Unit (specify)",
-        "unit_other_placeholder": "E.g. km, trips, tonnes",
+        "unit_other_label": "Unité (préciser)",
+        "unit_other_placeholder": "Ex : km, voyages, tonnes",
         "qty_labels": {
-          "ha": "Area worked (ha)",
-          "h": "Working time (hours)",
-          "sac": "Number of bags processed",
-          "autre": "Quantity processed"
+          "ha": "Superficie traitée (ha)",
+          "h": "Durée de travail (heures)",
+          "sac": "Nombre de sacs traités",
+          "autre": "Quantité traitée"
         },
-        "section_output": "Quantity obtained (harvest)",
-        "product_label": "Product",
-        "no_product": "No product",
-        "variety_label": "Variety",
-        "variety_required_hint": "required for this product",
-        "obtained_label": "Quantity obtained",
-        "obtained_unit_label": "Unit",
-        "section_payment": "Payment",
-        "payment_cash": "In cash (rate or flat fee)",
-        "payment_share": "As a share of the harvest (%)",
-        "rate_label": "Rate per unit (FCFA)",
-        "share_rate_label": "Share taken (%)",
-        "share_qty": "Share due to the GIE",
-        "share_price_label": "Value of one harvest unit (FCFA)",
-        "amount_auto_hint": "Calculated automatically, can be changed."
+        "section_output": "Quantité obtenue (récolte)",
+        "product_label": "Produit",
+        "no_product": "Aucun produit",
+        "variety_label": "Variété",
+        "variety_required_hint": "obligatoire pour ce produit",
+        "obtained_label": "Quantité obtenue",
+        "obtained_unit_label": "Unité",
+        "section_payment": "Paiement",
+        "payment_cash": "En argent (tarif ou forfait)",
+        "payment_share": "En part de la récolte (%)",
+        "rate_label": "Tarif par unité (FCFA)",
+        "share_rate_label": "Part prélevée (%)",
+        "share_qty": "Part revenant au GIE",
+        "share_price_label": "Valeur d’une unité de récolte (FCFA)",
+        "amount_auto_hint": "Calculé automatiquement, modifiable."
       },
-      "products_btn": "Products and varieties",
-      "share": "Share",
+      "products_btn": "Produits et variétés",
+      "share": "Part",
       "units": {
         "ha": "ha",
         "h": "h",
-        "sac": "bags",
-        "autre": "other"
+        "sac": "sacs",
+        "autre": "autre"
       },
       "products": {
-        "title": "Products and varieties",
-        "desc": "Products whose obtained quantity is recorded. Tick “Variety required” for those where the recorder must specify the variety.",
-        "name": "Product",
-        "unit": "Unit",
-        "variety_required": "Variety required",
-        "name_placeholder": "E.g. Paddy rice",
-        "empty": "No products. Add for example Paddy rice, Groundnut, Maize.",
-        "delete_confirm": "Delete this product? Services already recorded are kept, without a product."
+        "title": "Produits et variétés",
+        "desc": "Produits dont on pointe la quantité obtenue. Cochez « Variété obligatoire » pour ceux dont le pointeur doit préciser la variété.",
+        "name": "Produit",
+        "unit": "Unité",
+        "variety_required": "Variété obligatoire",
+        "name_placeholder": "Ex : Riz paddy",
+        "empty": "Aucun produit. Ajoutez par exemple Riz paddy, Arachide, Maïs.",
+        "delete_confirm": "Supprimer ce produit ? Les prestations déjà pointées restent enregistrées, sans produit."
       },
       "errors": {
-        "unit": "Invalid recording unit.",
-        "unit_other": "Please specify the recording unit.",
-        "quantity": "Enter the quantity processed (greater than 0).",
-        "phone": "Enter the client’s phone number (at least 7 digits).",
-        "product": "Product not found.",
-        "variety": "This product requires a variety.",
-        "obtained": "Invalid quantity obtained.",
-        "obtained_required": "Enter the quantity obtained to calculate the harvest share.",
-        "rate": "Enter the share taken, between 0 and 100%.",
-        "amount": "Invalid amount or rate.",
-        "required": "Please fill in the required fields.",
-        "product_exists": "This product already exists."
+        "unit": "Unité de pointage invalide.",
+        "unit_other": "Précisez l’unité de pointage.",
+        "quantity": "Indiquez la quantité traitée (supérieure à 0).",
+        "phone": "Indiquez le téléphone du client (au moins 7 chiffres).",
+        "product": "Produit introuvable.",
+        "variety": "Ce produit exige de préciser la variété.",
+        "obtained": "Quantité obtenue invalide.",
+        "obtained_required": "Indiquez la quantité obtenue pour calculer la part de récolte.",
+        "rate": "Indiquez la part prélevée, entre 0 et 100 %.",
+        "amount": "Montant ou tarif invalide.",
+        "required": "Veuillez remplir les champs obligatoires.",
+        "product_exists": "Ce produit existe déjà."
       }
     },
     "rentabilite": {
-      "title": "Equipment Fleet Profitability",
-      "desc": "Financial analysis (Revenue - Expenses - Depreciation) by equipment.",
-      "revenue": "Total Revenue",
-      "expenses": "Total Expenses",
-      "gross_balance": "Gross Balance (Cash)",
-      "net_profit": "Net Profitability",
-      "net_profit_badge": "Includes depreciation",
+      "title": "Rentabilité du Parc Matériel",
+      "desc": "Analyse financière (Recettes - Dépenses - Amortissement) par équipement.",
+      "revenue": "Total Recettes",
+      "expenses": "Total Dépenses",
+      "gross_balance": "Solde Brut (Tréso.)",
+      "net_profit": "Rentabilité Nette",
+      "net_profit_badge": "Inclut amort.",
       "headers": {
-        "equipment": "Equipment",
-        "revenue": "Revenue (Services)",
-        "expenses": "Expenses (Consumables)",
-        "gross_balance": "Gross Balance",
-        "depreciation": "Cumulative Depreciation",
-        "net_result": "Net Result"
+        "equipment": "Équipement",
+        "revenue": "Recettes (Prest.)",
+        "expenses": "Dépenses (Consom.)",
+        "gross_balance": "Solde Brut",
+        "depreciation": "Amortissement Cumulé",
+        "net_result": "Résultat Net"
       },
-      "acq_value": "Acq. value",
-      "empty": "No equipment recorded."
+      "acq_value": "Valeur acq",
+      "empty": "Aucun équipement enregistré."
     },
     "budget": {
-      "campaign_label": "Season (budget execution)",
-      "no_campaign": "Outside any season",
-      "type_hint": "Preferably choose a type budgeted for this equipment: the amount will count in the season’s budget tracking."
+      "campaign_label": "Campagne (exécution budgétaire)",
+      "no_campaign": "Hors campagne",
+      "type_hint": "Choisissez de préférence un type budgété pour cet équipement : le montant comptera dans le réalisé du suivi budgétaire de la campagne."
     }
   },
   "tresorerie_pages": {
     "journaux": {
-      "no_account": "No account found. Please create an account first.",
-      "title": "Cash & Bank Journals",
-      "desc": "Select an account to view all its transactions with the running balance.",
-      "select_account": "Choose an account",
-      "add_operation": "Record a transaction",
-      "loading": "Loading journal...",
+      "no_account": "Aucun compte trouvé. Veuillez d'abord créer un compte.",
+      "title": "Journaux de Caisse et de Banque",
+      "desc": "Sélectionnez un compte pour voir toutes ses opérations avec le solde progressif.",
+      "select_account": "Choisir un compte",
+      "add_operation": "Saisir une opération",
+      "loading": "Chargement du journal...",
       "headers": {
-        "reason": "Reason",
-        "imputation": "Allocation",
-        "in": "In",
-        "out": "Out",
-        "balance": "Running balance",
+        "reason": "Motif",
+        "imputation": "Imputation",
+        "in": "Entrée",
+        "out": "Sortie",
+        "balance": "Solde en cours",
         "actions": "Actions"
       },
-      "initial_balance": "Initial Balance",
-      "edit_tooltip": "Edit the transaction",
-      "delete_tooltip": "Delete the transaction",
-      "edit_title": "Edit the transaction",
-      "delete_title": "Delete the transaction",
-      "delete_confirm_prefix": "Are you sure you want to delete the transaction",
-      "delete_confirm_suffix": "? The account balance will be recalculated.",
+      "initial_balance": "Solde Initial",
+      "edit_tooltip": "Modifier l'opération",
+      "delete_tooltip": "Supprimer l'opération",
+      "edit_title": "Modifier l'opération",
+      "delete_title": "Supprimer l'opération",
+      "delete_confirm_prefix": "Êtes-vous sûr de vouloir supprimer l'opération",
+      "delete_confirm_suffix": "? Le solde du compte sera recalculé.",
       "form": {
-        "title": "Record a new transaction",
-        "type_label": "Transaction type",
-        "type_in": "Money in (+)",
-        "type_out": "Money out (-)",
-        "piece_label": "Document type (Optional)",
-        "piece_none": "-- None --",
-        "piece_supplier": "Supplier invoice payment",
-        "piece_withdrawal": "Cash withdrawal",
-        "piece_deposit": "Deposit",
-        "amount_label": "Amount (FCFA)",
-        "reason_label": "Reason (Description)",
-        "reason_placeholder": "E.g.: Urea purchase from Supplier X",
-        "imputation_label": "Allocation (Optional)",
-        "imputation_none": "-- None --",
-        "campagne_label": "Campaign (Optional)",
-        "campagne_none": "-- None --"
+        "title": "Saisir une nouvelle opération",
+        "type_label": "Type d'opération",
+        "type_in": "Entrée d'argent (+)",
+        "type_out": "Sortie d'argent (-)",
+        "piece_label": "Type de pièce (Optionnel)",
+        "piece_none": "-- Aucun --",
+        "piece_supplier": "Paiement Facture Fournisseur",
+        "piece_withdrawal": "Retrait en espèces",
+        "piece_deposit": "Versement",
+        "amount_label": "Montant (FCFA)",
+        "reason_label": "Motif (Description)",
+        "reason_placeholder": "Ex: Achat Urée Fournisseur X",
+        "imputation_label": "Imputation (Optionnel)",
+        "imputation_none": "-- Aucune --",
+        "campagne_label": "Campagne (Optionnel)",
+        "campagne_none": "-- Aucune --"
       }
     },
     "imputations": {
-      "title": "Allocation List",
-      "desc": "Categories used to classify cash and bank transactions, and to build the season budget tracking.",
-      "add_btn": "New Allocation",
-      "admin_only_notice": "Only the GIE administrator can create, edit or delete an allocation.",
+      "title": "Liste des Imputations",
+      "desc": "Catégories utilisées pour classer les opérations de caisse et de banque, et pour construire le budget de suivi par campagne.",
+      "add_btn": "Nouvelle Imputation",
+      "admin_only_notice": "Seul l'administrateur du GIE peut créer, modifier ou supprimer une imputation.",
       "table": {
-        "libelle": "Budget line",
-        "compte": "Sub-line / Item",
+        "libelle": "Rubrique",
+        "compte": "Sous-Rubrique / Poste",
         "categorie": "Type",
         "nature": "Nature",
         "actions": "Actions",
-        "empty": "No allocation created yet."
+        "empty": "Aucune imputation créée pour le moment."
       },
       "modal": {
-        "create_title": "Create an allocation",
-        "edit_title": "Edit the allocation",
-        "libelle": "Budget line",
-        "libelle_placeholder": "E.g.: Farm inputs",
-        "compte": "Sub-line / Item",
-        "compte_placeholder": "E.g.: NPK fertilizer",
-        "categorie": "Budget type",
+        "create_title": "Créer une imputation",
+        "edit_title": "Modifier l'imputation",
+        "libelle": "Rubrique",
+        "libelle_placeholder": "Ex: Intrants agricoles",
+        "compte": "Sous-Rubrique / Poste",
+        "compte_placeholder": "Ex: Engrais NPK",
+        "categorie": "Type de budget",
         "categorie_exploitation": "Exploitation",
         "categorie_materiel": "Matériel",
         "nature": "Nature",
-        "nature_recette": "Revenue",
-        "nature_depense": "Expense",
-        "delete_title": "Delete the allocation",
-        "delete_confirm_prefix": "Are you sure you want to delete the allocation",
+        "nature_recette": "Recette",
+        "nature_depense": "Dépense",
+        "delete_title": "Supprimer l'imputation",
+        "delete_confirm_prefix": "Êtes-vous sûr de vouloir supprimer l'imputation",
         "delete_confirm_suffix": "?"
       }
     },
     "rapprochement": {
-      "no_campaigns": "No season found.",
-      "title": "Bank Reconciliation",
-      "desc": "Overview of bank loan usage for a given season.",
-      "select_campaign": "Choose a season",
-      "loading": "Loading statement...",
-      "credit_granted": "Loan Granted",
-      "supplier_payments": "Supplier Payments",
-      "cash_withdrawals": "Cash Withdrawals",
-      "credit_balance": "Loan Balance",
-      "supplier_payments_title": "Supplier Payments",
-      "cash_withdrawals_title": "Cash Withdrawals",
-      "account_label": "Account",
-      "unknown_account": "Unknown",
-      "no_payment": "No payment.",
-      "no_withdrawal": "No withdrawal."
+      "no_campaigns": "Aucune campagne trouvée.",
+      "title": "Rapprochement Bancaire",
+      "desc": "Bilan de l'utilisation du crédit de la banque pour une campagne donnée.",
+      "select_campaign": "Choisir une campagne",
+      "loading": "Chargement du bilan...",
+      "credit_granted": "Crédit Accordé",
+      "supplier_payments": "Paiements Frs",
+      "cash_withdrawals": "Retraits Espèces",
+      "credit_balance": "Solde du Crédit",
+      "supplier_payments_title": "Paiements Fournisseurs",
+      "cash_withdrawals_title": "Retraits en Espèces",
+      "account_label": "Compte",
+      "unknown_account": "Inconnu",
+      "no_payment": "Aucun paiement.",
+      "no_withdrawal": "Aucun retrait."
     }
   },
   "campagnes_detail": {
-    "back": "Back to seasons",
+    "back": "Retour aux campagnes",
     "config": {
-      "title": "Configuration:",
-      "desc": "Select the members participating in this season. Only members enrolled here will be able to receive inputs during distribution.",
-      "enrollment_rate": "Enrollment rate",
-      "members_unit": "members",
-      "intrants_title": "Season inputs",
-      "intrants_desc": "Add the inputs that will be distributed during this season and set their billing price to members.",
-      "select_intrant": "Select an input",
-      "purchase_price": "Purchase",
-      "billing_price_placeholder": "Billing price (FCFA)",
-      "forfaitaire_price_locked": "Flat-rate input: the amount entered at distribution is directly the billed amount (price fixed to 1).",
-      "remove_confirm": "Do you really want to remove this input from the season?",
-      "edit_price_title": "Edit price",
-      "remove_title": "Remove input",
-      "intrants_empty": "No input has been added to this season.",
-      "enrolled_title": "Enrolled members",
+      "title": "Configuration :",
+      "desc": "Sélectionnez les membres qui participent à cette campagne. Seuls les membres inscrits ici pourront recevoir des intrants lors de la distribution.",
+      "enrollment_rate": "Taux d'inscription",
+      "members_unit": "membres",
+      "intrants_title": "Intrants de la campagne",
+      "intrants_desc": "Ajoutez les intrants qui seront distribués lors de cette campagne et définissez leur prix de facturation aux membres.",
+      "select_intrant": "Sélectionner un intrant",
+      "purchase_price": "Achat",
+      "billing_price_placeholder": "Prix de facturation (FCFA)",
+      "forfaitaire_price_locked": "Intrant forfaitaire : le montant saisi à la distribution est directement le montant facturé (prix fixé à 1).",
+      "remove_confirm": "Voulez-vous vraiment retirer cet intrant de la campagne ?",
+      "edit_price_title": "Modifier le prix",
+      "remove_title": "Retirer l'intrant",
+      "intrants_empty": "Aucun intrant n'a été ajouté à cette campagne.",
+      "enrolled_title": "Membres inscrits",
       "headers": {
-        "member": "Member",
+        "member": "Membre",
         "code": "Code",
         "village": "Village",
-        "superficie": "Area (ha)",
-        "enrolled": "Enrolled in season?"
+        "superficie": "Superficie (ha)",
+        "enrolled": "Inscrit à la campagne ?"
       },
-      "empty": "No member found in the group.",
+      "empty": "Aucun membre trouvé dans le GIE.",
       "budget": {
-        "title": "Budget Forecast",
-        "desc": "Define this season's forecast budget by line (revenue or expense), for the Exploitation budget and the Matériel budget. For Matériel, the budget line is the equipment and the sub-line is its service or consumption type: actuals are pulled automatically from the services and consumptions recorded for that equipment.",
-        "exploitation_title": "Exploitation Budget",
-        "materiel_title": "Matériel Budget",
-        "recettes_title": "Forecast revenue",
-        "depenses_title": "Forecast expenses",
-        "solde": "Forecast balance",
-        "nature_recette": "Revenue",
-        "nature_depense": "Expense",
-        "add_rubrique_placeholder_libelle": "Budget line",
-        "add_rubrique_placeholder_compte": "Sub-line / Item",
-        "add_rubrique_placeholder_type_prestation": "Service type (e.g.: Plowing, Harvest...)",
-        "select_equipement": "Select an equipment",
-        "select_type": "Select a type",
-        "amount_placeholder": "Forecast amount (FCFA)",
+        "title": "Prévision budgétaire",
+        "desc": "Définissez le budget prévisionnel de cette campagne par rubrique (recette ou dépense), pour le budget Exploitation et le budget Matériel. Pour le Matériel, la rubrique est l'équipement et la sous-rubrique son type de prestation ou de consommation : la réalisation sera automatiquement tirée des prestations et consommations enregistrées pour cet équipement.",
+        "exploitation_title": "Budget Exploitation",
+        "materiel_title": "Budget Matériel",
+        "recettes_title": "Recettes prévues",
+        "depenses_title": "Dépenses prévues",
+        "solde": "Solde prévisionnel",
+        "nature_recette": "Recette",
+        "nature_depense": "Dépense",
+        "add_rubrique_placeholder_libelle": "Rubrique",
+        "add_rubrique_placeholder_compte": "Sous-rubrique / Poste",
+        "add_rubrique_placeholder_type_prestation": "Type de prestation (Ex: Labour, Moisson...)",
+        "select_equipement": "Sélectionner un équipement",
+        "select_type": "Sélectionner un type",
+        "amount_placeholder": "Montant prévu (FCFA)",
         "total": "Total",
-        "grand_total": "Consolidated balance",
-        "empty": "No budget line created yet.",
-        "premium_required": "Budget forecasting is reserved for the Premium plan.",
-        "premium_upgrade_link": "View plans"
+        "grand_total": "Solde consolidé",
+        "empty": "Aucune rubrique créée pour ce budget.",
+        "premium_required": "La prévision budgétaire est réservée au forfait Premium.",
+        "premium_upgrade_link": "Voir les forfaits"
       }
     },
     "bilan": {
-      "title": "Statement:",
-      "desc": "Distribution statistics, financial valuation, margin and theoretical debt overview.",
-      "not_found": "Season not found.",
-      "print": "Print",
+      "title": "Bilan :",
+      "desc": "Statistiques des distributions, valorisation financière, état des marges et dettes théoriques.",
+      "not_found": "Campagne introuvable.",
+      "print": "Imprimer",
       "kpis": {
-        "enrolled": "Enrolled Members",
-        "served": "Served",
-        "served_unit": "members",
-        "total_billed": "Total Billed",
-        "net_margin": "Net Margin",
-        "operations": "Operations",
-        "operations_unit": "entries"
+        "enrolled": "Membres Inscrits",
+        "served": "Servis",
+        "served_unit": "membres",
+        "total_billed": "Total Facturé",
+        "net_margin": "Marge Nette",
+        "operations": "Opérations",
+        "operations_unit": "saisies"
       },
       "margin_section": {
-        "title": "Margin by Input",
-        "desc": "Comparison between purchase prices and billing prices.",
+        "title": "État de Marge par Intrant",
+        "desc": "Comparaison entre les prix d'achat et les prix de facturation.",
         "headers": {
-          "product": "Product",
-          "buy_price": "Buy Price",
-          "billed_price": "Billed Price",
-          "unit_margin": "Margin/Unit",
-          "total_qty": "Total Qty",
-          "global_margin": "Global Margin"
+          "product": "Produit",
+          "buy_price": "Prix Achat",
+          "billed_price": "Prix Facturé",
+          "unit_margin": "Marge/U",
+          "total_qty": "Total Qté",
+          "global_margin": "Marge Globale"
         },
-        "grand_total": "GRAND TOTAL",
-        "empty": "No distribution recorded for this season."
+        "grand_total": "TOTAL GÉNÉRAL",
+        "empty": "Aucune distribution enregistrée pour cette campagne."
       },
       "debts_section": {
-        "title": "Debts and Repayments by Member",
-        "desc": "Tracking of billed debts and repayments made.",
+        "title": "Dettes et Remboursements par Membre",
+        "desc": "Suivi des dettes facturées et des remboursements effectués.",
         "headers": {
-          "beneficiary": "Beneficiary",
-          "debt": "Debt (FCFA)",
-          "repayment": "Repayment",
-          "balance": "Balance"
+          "beneficiary": "Bénéficiaire",
+          "debt": "Dette (FCFA)",
+          "repayment": "Remboursement",
+          "balance": "Solde"
         },
-        "settled": "Settled",
-        "empty": "No member has received inputs yet.",
-        "grand_total": "GRAND TOTAL"
+        "settled": "Soldé",
+        "empty": "Aucun membre n'a encore reçu d'intrants.",
+        "grand_total": "TOTAL GÉNÉRAL"
       },
       "deliveries_section": {
-        "title": "Deliveries by Member",
-        "desc": "Detailed summary of quantities and amounts delivered to each member for each input.",
-        "beneficiary": "Beneficiary",
-        "quantity": "Qty",
-        "amount": "Amount",
-        "interest": "Interest (FCFA)",
-        "total_global": "Grand Total (FCFA)",
-        "grand_total": "GRAND TOTAL",
-        "empty": "No delivery recorded for this season."
+        "title": "État des Livraisons par Membre",
+        "desc": "Récapitulatif détaillé des quantités et montants livrés à chaque membre pour chaque intrant.",
+        "beneficiary": "Bénéficiaire",
+        "quantity": "Qté",
+        "amount": "Montant",
+        "interest": "Intérêt (FCFA)",
+        "total_global": "Total Global (FCFA)",
+        "grand_total": "TOTAL GÉNÉRAL",
+        "empty": "Aucune livraison enregistrée pour cette campagne."
       }
     },
     "repartition": {
-      "title": "Input allocation:",
-      "desc": "Set the total quantity of each input to allocate: each enrolled member's share is calculated in proportion to the area they farm for the campaign, and suggested by default during distribution.",
-      "enrolled_members": "Enrolled members",
-      "total_area": "Total farmed area",
-      "no_members": "No member is enrolled in this campaign.",
-      "no_area": "No area has been entered for the enrolled members.",
-      "no_intrants": "No input to allocate is configured for this campaign (Cultivation Work and Water Service are already distributed per hectare).",
-      "config_link": "Go to campaign configuration",
-      "quantities_title": "Quantities to allocate",
-      "quantities_desc": "Total quantity of each input to share among enrolled members.",
-      "use_stock": "Use stock",
-      "shares_title": "Each member's share",
-      "shares_desc": "Share = quantity to allocate × member's area ÷ total area. These values are suggested by default during distribution.",
-      "already_distributed": "Already distributed:",
+      "title": "Répartition des intrants :",
+      "desc": "Définissez la quantité totale de chaque intrant à répartir : la part de chaque membre inscrit est calculée au prorata de la superficie qu'il exploite pour la campagne, et proposée par défaut lors de la distribution.",
+      "enrolled_members": "Membres inscrits",
+      "total_area": "Superficie totale exploitée",
+      "no_members": "Aucun membre n'est inscrit à cette campagne.",
+      "no_area": "Aucune superficie n'est renseignée pour les membres inscrits.",
+      "no_intrants": "Aucun intrant à répartir n'est configuré pour cette campagne (Façon culturale et Service Hydraulique sont déjà distribués à l'hectare).",
+      "config_link": "Aller à la configuration de la campagne",
+      "quantities_title": "Quantités à répartir",
+      "quantities_desc": "Quantité totale de chaque intrant à partager entre les membres inscrits.",
+      "use_stock": "Utiliser le stock",
+      "shares_title": "Part de chaque membre",
+      "shares_desc": "Part = quantité à répartir × superficie du membre ÷ superficie totale. Ces valeurs sont proposées par défaut lors de la distribution.",
+      "already_distributed": "Déjà distribué :",
       "total": "Total",
       "headers": {
-        "intrant": "Input",
+        "intrant": "Intrant",
         "stock": "Stock",
-        "quantity_to_split": "Quantity to allocate",
-        "dose_per_ha": "Rate / ha",
-        "member": "Member",
-        "area": "Area (ha)",
-        "percent": "Share (%)"
+        "quantity_to_split": "Quantité à répartir",
+        "dose_per_ha": "Dose / ha",
+        "member": "Membre",
+        "area": "Superficie (ha)",
+        "percent": "Part (%)"
       }
     }
   },
   "abonnement": {
-    "title": "My Subscription",
-    "manage_desc": "Manage your group's plan:",
-    "trial_locked": "Your trial period has ended and access to your workspace has been locked. Choose a payment method below to keep using SIGGIE.",
-    "trial_remaining_prefix": "You have",
-    "trial_remaining_day": "day",
-    "trial_remaining_days": "days",
-    "trial_remaining_suffix": "left of your free trial. Pay before the trial ends to avoid your workspace being locked.",
-    "current_plan": "Current plan:",
-    "renewal": "Annual renewal -",
-    "upgrade_title": "Upgrade",
-    "upgrade_desc": "Move up a tier by paying only the difference between your current plan and the new one.",
-    "current_badge": "Current",
-    "current_plan_btn": "Current Plan",
-    "lower_tier": "Lower tier",
-    "pay_prefix": "Pay",
+    "title": "Mon Abonnement",
+    "manage_desc": "Gérez le forfait de votre GIE :",
+    "trial_locked": "Votre période d'essai est terminée et l'accès à votre espace a été verrouillé. Choisissez un moyen de paiement ci-dessous pour continuer à utiliser SIGGIE.",
+    "trial_remaining_prefix": "Il vous reste",
+    "trial_remaining_day": "jour",
+    "trial_remaining_days": "jours",
+    "trial_remaining_suffix": "d'essai gratuit. Payez avant la fin de l'essai pour éviter le verrouillage de votre espace.",
+    "current_plan": "Forfait actuel :",
+    "renewal": "Renouvellement annuel -",
+    "upgrade_title": "Mettre à niveau (Upgrade)",
+    "upgrade_desc": "Passez au niveau supérieur en ne payant que la différence entre votre forfait actuel et le nouveau forfait.",
+    "current_badge": "Actuel",
+    "current_plan_btn": "Forfait Actuel",
+    "lower_tier": "Niveau inférieur",
+    "pay_prefix": "Payer",
     "plans": {
       "standard": {
         "name": "Standard",
         "features": [
-          "Dashboard",
-          "Member management",
-          "Contributions",
-          "Loans"
+          "Tableau de bord",
+          "Gestion des membres",
+          "Cotisations",
+          "Emprunts"
         ]
       },
       "medium": {
         "name": "Medium",
         "features": [
-          "Dashboard",
-          "Member management",
-          "Contributions",
-          "Loans",
-          "Equipment & stock management"
+          "Tableau de bord",
+          "Gestion des membres",
+          "Cotisations",
+          "Emprunts",
+          "Gestion du matériel & stocks"
         ]
       },
       "premium": {
         "name": "Premium",
         "features": [
-          "Dashboard",
-          "Member management",
-          "Contributions",
-          "Loans",
-          "Equipment & stock management",
-          "Advanced budget tracking statements"
+          "Tableau de bord",
+          "Gestion des membres",
+          "Cotisations",
+          "Emprunts",
+          "Gestion du matériel & stocks",
+          "États de suivi budgétaire avancés"
         ]
       }
     }
   },
   "remboursements": {
-    "title": "Repayments Tracking",
-    "desc": "Record cash payments and weighings for repayments in kind.",
+    "title": "Suivi des Remboursements",
+    "desc": "Enregistrez les paiements en numéraire et les pesées pour les remboursements en nature.",
     "tabs": {
-      "factures": "Invoices",
-      "stock_nature": "In-Kind Stock",
-      "ristournes": "Rebates"
+      "factures": "Factures",
+      "stock_nature": "Stock en Nature",
+      "ristournes": "Ristournes"
     },
-    "search": "Search for a member...",
+    "search": "Rechercher un membre...",
     "list": {
-      "surplus": "Repayment surplus: ",
-      "reste": "Remaining: ",
-      "empty": "No invoice found."
+      "surplus": "Surplus de remboursement : ",
+      "reste": "Reste : ",
+      "empty": "Aucune facture trouvée."
     },
     "details": {
-      "title": "Invoice of",
-      "total_due": "Total Due",
-      "surplus": "Repayment Surplus",
-      "remaining": "Remaining to Pay",
-      "record_payment": "Record a payment",
-      "cash": "In Cash",
-      "nature": "In Kind (Weighing)",
-      "empty": "Select a member to view their repayments"
+      "title": "Facture de",
+      "total_due": "Total Dû",
+      "surplus": "Surplus de Remboursement",
+      "remaining": "Reste à Payer",
+      "record_payment": "Enregistrer un paiement",
+      "cash": "En Numéraire (Espèces)",
+      "nature": "En Nature (Pesée)",
+      "empty": "Sélectionnez un membre pour voir ses remboursements"
     }
   },
   "remboursements_pages": {
     "stock_nature": {
-      "no_campaigns": "No season found.",
-      "title": "In-Kind Repayment Stock",
-      "desc": "Track incoming repayments, sales and physical rebates, with the running stock balance, per season.",
-      "select_campaign": "Choose a season",
-      "add_sortie": "Record an outflow",
-      "loading": "Loading stock...",
-      "current_stock": "Current stock",
+      "no_campaigns": "Aucune campagne trouvée.",
+      "title": "Stock de Remboursement en Nature",
+      "desc": "Suivi des entrées (remboursements reçus), des ventes et des ristournes physiques, avec le solde en cours du stock, par campagne.",
+      "select_campaign": "Choisir une campagne",
+      "add_sortie": "Enregistrer une sortie",
+      "loading": "Chargement du stock...",
+      "current_stock": "Stock actuel",
       "headers": {
         "date": "Date",
         "type": "Type",
-        "tiers": "Party",
-        "unit_price": "Unit price",
-        "quantity": "Quantity",
-        "balance": "Running balance"
+        "tiers": "Tiers",
+        "unit_price": "Prix unitaire",
+        "quantity": "Quantité",
+        "balance": "Solde en cours"
       },
-      "type_entree": "In (Repayment)",
-      "type_vente": "Sale",
-      "type_ristourne": "Rebate",
-      "empty": "No movement recorded for this season yet.",
+      "type_entree": "Entrée (Remboursement)",
+      "type_vente": "Vente",
+      "type_ristourne": "Ristourne",
+      "empty": "Aucun mouvement enregistré pour cette campagne.",
       "form": {
-        "title": "Record a stock outflow",
-        "type_label": "Outflow type",
-        "tiers_type_label": "Party",
-        "tiers_type_membre": "A GIE member",
-        "tiers_type_client": "An external customer",
-        "membre_label": "Member",
-        "select_membre": "Select a member...",
-        "client_label": "Customer",
-        "select_client": "Select a customer...",
-        "new_client_option": "+ New customer...",
-        "client_placeholder": "New customer's name",
-        "quantity_label": "Quantity (kg)",
-        "price_label_vente": "Unit sale price (FCFA/kg)",
-        "price_label_ristourne": "Estimated unit value (FCFA/kg)",
+        "title": "Enregistrer une sortie de stock",
+        "type_label": "Type de sortie",
+        "tiers_type_label": "Tiers",
+        "tiers_type_membre": "Un membre du GIE",
+        "tiers_type_client": "Un client externe",
+        "membre_label": "Membre",
+        "select_membre": "Sélectionnez un membre...",
+        "client_label": "Client",
+        "select_client": "Sélectionnez un client...",
+        "new_client_option": "+ Nouveau client...",
+        "client_placeholder": "Nom du nouveau client",
+        "quantity_label": "Quantité (kg)",
+        "price_label_vente": "Prix de vente unitaire (FCFA/kg)",
+        "price_label_ristourne": "Valeur estimée unitaire (FCFA/kg)",
         "date_label": "Date",
-        "motif_label": "Reason (Optional)",
-        "motif_placeholder": "E.g.: Sale at the weekly market"
+        "motif_label": "Motif (Optionnel)",
+        "motif_placeholder": "Ex: Vente au marché hebdomadaire"
       }
     }
   },
   "bilans_pages": {
     "releve_membre": {
-      "no_members": "No member found.",
-      "title": "Member Statement",
-      "desc": "Amount billed, amount paid and running balance for each member, season by season.",
-      "select_member": "Choose a member",
-      "loading": "Loading statement...",
-      "current_balance": "Current balance",
+      "no_members": "Aucun membre trouvé.",
+      "title": "Relevé Membre",
+      "desc": "Montant facturé, montant payé et solde progressif de chaque membre, campagne par campagne.",
+      "select_member": "Choisir un membre",
+      "loading": "Chargement du relevé...",
+      "current_balance": "Solde actuel",
       "headers": {
-        "season": "Season",
+        "season": "Campagne",
         "date": "Date",
-        "billed": "Amount Billed",
-        "paid": "Amount Paid",
-        "balance": "Running Balance"
+        "billed": "Montant Facturé",
+        "paid": "Montant Payé",
+        "balance": "Solde Progressif"
       },
-      "empty": "No invoice for this member."
+      "empty": "Aucune facture pour ce membre."
     },
     "releve_client": {
-      "no_clients": "No customer registered.",
-      "title": "Customer Statement",
-      "desc": "Sales and payments received from an external customer, with running balance.",
-      "select_client": "Choose a customer",
-      "add_client": "New Customer",
-      "add_payment": "Record a payment",
-      "loading": "Loading statement...",
-      "current_balance": "Current balance (owed)",
+      "no_clients": "Aucun client enregistré.",
+      "title": "Relevé Client",
+      "desc": "Ventes et paiements reçus d'un client externe, avec solde progressif.",
+      "select_client": "Choisir un client",
+      "add_client": "Nouveau Client",
+      "add_payment": "Enregistrer un paiement",
+      "loading": "Chargement du relevé...",
+      "current_balance": "Solde actuel (créance)",
       "headers": {
         "date": "Date",
         "type": "Type",
-        "quantity": "Quantity",
-        "unit_price": "Unit price",
-        "amount": "Amount",
-        "balance": "Running Balance"
+        "quantity": "Quantité",
+        "unit_price": "Prix unitaire",
+        "amount": "Montant",
+        "balance": "Solde Progressif"
       },
-      "type_sale": "Sale",
-      "type_payment": "Payment received",
-      "empty": "No movement for this customer.",
+      "type_sale": "Vente",
+      "type_payment": "Paiement reçu",
+      "empty": "Aucun mouvement pour ce client.",
       "new_client_form": {
-        "title": "New customer",
-        "name": "Customer name",
-        "name_placeholder": "E.g.: Ndiaganiao Shop",
-        "phone": "Phone (optional)",
-        "submit": "Create customer"
+        "title": "Nouveau client",
+        "name": "Nom du client",
+        "name_placeholder": "Ex: Boutique Ndiaganiao",
+        "phone": "Téléphone (optionnel)",
+        "submit": "Créer le client"
       },
       "payment_form": {
-        "title": "Record a customer payment",
-        "amount": "Amount received (FCFA)",
+        "title": "Enregistrer un paiement client",
+        "amount": "Montant reçu (FCFA)",
         "date": "Date",
-        "motif": "Reason (Optional)",
-        "motif_placeholder": "E.g.: Partial settlement",
-        "submit": "Record the payment"
+        "motif": "Motif (Optionnel)",
+        "motif_placeholder": "Ex: Règlement partiel",
+        "submit": "Enregistrer le paiement"
       }
     }
   },
   "bilan_annuel": {
-    "title": "Annual balance sheet & income statement",
-    "desc": "Financial position at 31 December and the year's result, computed from the group's management data.",
-    "year": "Fiscal year",
-    "saving": "Saving...",
-    "actif_title": "Balance sheet - Assets",
-    "passif_title": "Balance sheet - Liabilities",
-    "resultat_title": "Income statement for the year",
+    "title": "Bilan annuel & compte de résultat",
+    "desc": "Situation patrimoniale au 31 décembre et résultat de l'exercice, calculés à partir des données de gestion du GIE.",
+    "year": "Exercice",
+    "saving": "Enregistrement...",
+    "actif_title": "Bilan - Actif",
+    "passif_title": "Bilan - Passif",
+    "resultat_title": "Compte de résultat de l'année",
     "cols": {
-      "rubrique": "Items",
-      "brut": "Gross amount",
-      "amo": "Depr./Prov.",
-      "net": "Net amount",
+      "rubrique": "Rubriques",
+      "brut": "Montant brut",
+      "amo": "Amo/Prov",
+      "net": "Montant net",
       "net_n1": "Net N-1",
-      "montant": "Amount",
-      "montant_n1": "Amount N-1",
-      "calculs": "Calculation"
+      "montant": "Montant",
+      "montant_n1": "Montant N-1",
+      "calculs": "Calculs"
     },
     "rows": {
-      "immobilisations": "Fixed assets",
+      "immobilisations": "Immobilisations",
       "stocks": "Stocks",
-      "creances": "Receivables",
-      "disponibilites": "Cash & bank",
-      "total_actif": "Total Assets",
+      "creances": "Créances",
+      "disponibilites": "Disponibilités",
+      "total_actif": "Total Actif",
       "capital": "Capital",
-      "resultat": "Year's result",
-      "subventions": "Grants",
-      "emprunts": "Loans",
-      "dettes": "Payables",
-      "credits_tresorerie": "Cash credits",
-      "total_passif": "Total Liabilities",
-      "ventes": "Sales of inputs and services",
-      "gain_remboursement": "Gain on repayment sales",
-      "prestations": "Equipment services",
-      "autres_produits": "Other income",
-      "total_produits": "Total Income",
-      "achats": "Purchases of inputs and services",
-      "variation_stock": "Change in stock",
-      "perte_remboursement": "Loss on repayment sales",
-      "charges_materiel": "Equipment costs",
-      "interets": "Bank interest",
-      "autres_charges": "Other expenses",
-      "total_charges": "Total Expenses"
+      "resultat": "Résultat de l'année",
+      "subventions": "Subventions",
+      "emprunts": "Emprunts",
+      "dettes": "Dettes",
+      "credits_tresorerie": "Crédits de trésorerie",
+      "total_passif": "Total Passif",
+      "ventes": "Ventes d'intrants et services",
+      "gain_remboursement": "Gain/vente de remboursement",
+      "prestations": "Prestations du matériel",
+      "autres_produits": "Autres produits",
+      "total_produits": "Total Produits",
+      "achats": "Achats d'intrants et services",
+      "variation_stock": "Variation de stock",
+      "perte_remboursement": "Perte/vente de remboursement",
+      "charges_materiel": "Charges du matériel",
+      "interets": "Intérêts bancaires",
+      "autres_charges": "Autres charges",
+      "total_charges": "Total charges"
     },
     "notes": {
-      "immobilisations": "Equipment: acquisition cost, cumulative straight-line depreciation",
-      "stocks": "Input stock (latest price) + in-kind stock (collection price)",
-      "creances": "Customer accounts balance: per member, invoices - repayments + rebates (if positive), plus external customers",
-      "disponibilites": "Balance of treasury accounts",
-      "capital": "Balancing figure (assets / liabilities)",
-      "resultat_passif": "See income statement",
-      "a_saisir": "To be entered",
-      "dettes": "Supplier accounts balance (unpaid purchases) + repayment surplus owed to members (a member's negative balance)",
-      "credits_tresorerie": "Remaining balance of validated campaign credits",
-      "ventes": "Total member invoices (re-invoiced interest included)",
-      "gain_remboursement": "Sales of the product received as repayment: (sale price - collection price) × quantity",
-      "prestations": "Total equipment services",
-      "achats": "Year's purchases",
-      "perte_remboursement": "Same, when the sale price is below the collection price",
-      "charges_materiel": "Consumption + the year's depreciation charge",
-      "interets": "Interest on validated credits (rate × duration)",
-      "resultat": "Total income - total expenses",
-      "variation_stock": "Opening stock (end N-1) - closing stock (end N); negative if stock increases"
+      "immobilisations": "Matériel : valeur d'acquisition, amortissement linéaire cumulé",
+      "stocks": "Stock d'intrants (dernier prix) + stock en nature (prix de collecte)",
+      "creances": "Solde des comptes clients : par membre, factures - remboursements + ristournes (si positif), plus clients externes",
+      "disponibilites": "Solde des comptes de trésorerie",
+      "capital": "Solde du bilan (équilibre actif / passif)",
+      "resultat_passif": "Voir compte de résultat",
+      "a_saisir": "À saisir",
+      "dettes": "Solde des comptes fournisseurs (achats non réglés) + surplus de remboursement dû aux membres (solde négatif d'un membre)",
+      "credits_tresorerie": "Restant dû des crédits de campagne validés",
+      "ventes": "Total des factures membres (intérêts refacturés inclus)",
+      "gain_remboursement": "Ventes du produit issu des remboursements : (prix de vente - prix de collecte) × quantité",
+      "prestations": "Total des prestations du matériel",
+      "achats": "Achats de l'année",
+      "perte_remboursement": "Idem, lorsque le prix de vente est inférieur au prix de collecte",
+      "charges_materiel": "Consommations + dotation aux amortissements de l'année",
+      "interets": "Intérêts des crédits validés (taux × durée)",
+      "resultat": "Total produits - total charges",
+      "variation_stock": "Stock initial (fin N-1) - stock final (fin N) ; négatif si le stock augmente"
     },
-    "footnote": "Amounts \"to be entered\" are recorded per fiscal year; switch year to enter the previous year's. Past-year stock, balances and depreciation are rebuilt from history (stocks at the latest known price).",
-    "read_only": "You are not allowed to edit the entered amounts.",
-    "export_pdf": "Download PDF"
+    "footnote": "Les montants « à saisir » se renseignent par exercice ; changez d'exercice pour saisir ceux de l'année précédente. Le stock, les soldes et l'amortissement des exercices passés sont reconstitués à partir de l'historique (au dernier prix connu pour les stocks).",
+    "read_only": "Vous n'avez pas le droit de modifier les montants saisis.",
+    "export_pdf": "Télécharger PDF"
   },
   "ristournes": {
-    "title": "Member rebates",
-    "desc": "Repayment surplus given back to a member: the rebate leaves the treasury and reduces what the member has repaid.",
-    "surplus_title": "Repayment surplus to give back",
-    "surplus_desc": "Surplus = repaid - invoiced - rebates already given (cash or in kind).",
-    "no_surplus": "No member has a surplus to recover.",
+    "title": "Ristournes aux membres",
+    "desc": "Surplus de remboursement rendu à un membre : la ristourne sort de la trésorerie et vient en réduction de ce qu'il a remboursé.",
+    "surplus_title": "Surplus de remboursement à rendre",
+    "surplus_desc": "Surplus = remboursé - facturé - ristournes déjà rendues (en numéraire ou en nature).",
+    "no_surplus": "Aucun membre n'a de surplus à récupérer.",
     "cols": {
-      "membre": "Member",
-      "facture": "Invoiced",
-      "rembourse": "Repaid",
-      "ristournes": "Rebates given",
-      "surplus": "Surplus to give back"
+      "membre": "Membre",
+      "facture": "Facturé",
+      "rembourse": "Remboursé",
+      "ristournes": "Ristournes rendues",
+      "surplus": "Surplus à rendre"
     },
-    "give_back": "Give back",
-    "form_title": "New cash rebate",
-    "select_member": "Select a member",
-    "amount": "Amount",
-    "account": "Treasury account",
+    "give_back": "Rendre",
+    "form_title": "Nouvelle ristourne en numéraire",
+    "select_member": "Choisir un membre",
+    "amount": "Montant",
+    "account": "Compte de trésorerie",
     "date": "Date",
-    "motif": "Reason (optional)",
-    "form_hint": "Creates a treasury outflow on the selected account.",
-    "submit": "Record rebate",
-    "saving": "Saving...",
-    "history_title": "Cash rebate history",
-    "no_history": "No rebate recorded.",
-    "delete": "Delete",
-    "confirm_delete": "Delete this rebate and its treasury outflow?",
-    "nature_hint": "In-kind rebates are recorded in \"In-kind stock\" (outflow of type Rebate); they are included in the surplus above."
+    "motif": "Motif (optionnel)",
+    "form_hint": "Crée une sortie de trésorerie sur le compte choisi.",
+    "submit": "Enregistrer la ristourne",
+    "saving": "Enregistrement...",
+    "history_title": "Historique des ristournes en numéraire",
+    "no_history": "Aucune ristourne enregistrée.",
+    "delete": "Supprimer",
+    "confirm_delete": "Supprimer cette ristourne et sa sortie de trésorerie ?",
+    "nature_hint": "Les ristournes en nature s'enregistrent dans « Stock en nature » (sortie de type Ristourne) ; elles sont prises en compte dans le surplus ci-dessus."
   },
   "guide": {
     "meta": {
-      "back": "Back to home",
-      "pageTitle": "Getting-started guide",
-      "toc": "Contents",
+      "back": "Retour à l’accueil",
+      "pageTitle": "Guide de prise en main",
+      "toc": "Sommaire",
       "menu": "Menu",
       "important": "Important",
-      "edition": "Related printout:",
-      "editionLink": "See part 3",
-      "needHelp": "Need help getting started?",
-      "needHelpText": "Our getting-started guide explains, in plain words, how to set up SIGGIE and then use it throughout a season.",
-      "readGuide": "Read the guide",
+      "edition": "Édition liée :",
+      "editionLink": "Voir la partie 3",
+      "needHelp": "Besoin d’aide pour démarrer ?",
+      "needHelpText": "Notre guide de prise en main explique, avec des mots simples, comment configurer SIGGIE puis l’utiliser au fil d’une campagne.",
+      "readGuide": "Consulter le guide",
       "guideNav": "Guide"
     },
     "hero": {
-      "eyebrow": "Getting-started guide",
+      "eyebrow": "Guide de prise en main",
       "title": "SIGGIE",
-      "subtitle": "The management platform for your grassroots farming organization (GIE, cooperative, SME): members, seasons, inputs, loans, billing, repayments and cash management.",
-      "intro": "This guide explains, in plain words, how to use SIGGIE. It is read in three steps: first the setup, done once to prepare your GIE; then the operations, repeated throughout each season; finally the printouts, statements and reports."
+      "subtitle": "La plateforme de gestion de votre organisation agricole de base (GIE, coopérative, PME) : membres, campagnes, intrants, crédits, facturation, remboursements et trésorerie.",
+      "intro": "Ce guide explique, avec des mots simples, comment utiliser SIGGIE. Il se lit en trois temps : d’abord la configuration, à faire une seule fois pour préparer votre GIE ; puis les opérations, que vous répétez au fil de chaque campagne ; enfin les éditions, états et rapports."
     },
     "overview": {
       "id": "apercu",
-      "title": "SIGGIE in one minute",
-      "lead": "SIGGIE follows a full farming season of your GIE, from the money borrowed from the bank to the last repayment by the members.",
+      "title": "SIGGIE en une minute",
+      "lead": "SIGGIE suit le déroulement complet d’une campagne agricole de votre GIE, de l’argent emprunté à la banque jusqu’au dernier remboursement des membres.",
       "cards": [
         {
-          "t": "The loan",
-          "x": "The GIE asks the bank for financing and tracks the money released."
+          "t": "Le crédit",
+          "x": "Le GIE demande un financement à la banque et suit l’argent débloqué."
         },
         {
-          "t": "The inputs",
-          "x": "The GIE buys fertilizer, seeds and other products, and puts them in stock."
+          "t": "Les intrants",
+          "x": "Le GIE achète engrais, semences et autres produits, et les met en stock."
         },
         {
-          "t": "The distribution",
-          "x": "Inputs are handed to the members enrolled in the season."
+          "t": "La distribution",
+          "x": "Les intrants sont remis aux membres inscrits à la campagne."
         },
         {
-          "t": "The billing",
-          "x": "Each member receives an invoice: what they received, their share of the interest, and any unpaid amounts."
+          "t": "La facturation",
+          "x": "Chaque membre reçoit une facture : ce qu’il a reçu, sa part des intérêts, et ses impayés éventuels."
         },
         {
-          "t": "The repayment",
-          "x": "The member repays in cash or in kind (by bringing their harvest)."
+          "t": "Le remboursement",
+          "x": "Le membre rembourse en espèces ou en nature (en apportant sa récolte)."
         },
         {
-          "t": "The report",
-          "x": "The GIE compares its forecasts with reality and keeps a record of everything."
+          "t": "Le bilan",
+          "x": "Le GIE compare ses prévisions à la réalité et garde une trace de tout."
         }
       ]
     },
     "parts": [
       {
         "id": "partie-config",
-        "label": "Part 1",
-        "title": "Setup",
-        "text": "To be done once, before your first season. You can complete it at any time afterwards.",
+        "label": "Partie 1",
+        "title": "La configuration",
+        "text": "À faire une seule fois, avant votre première campagne. Vous pourrez ensuite la compléter à tout moment.",
         "sections": [
           {
             "id": "c-gie",
-            "title": "The GIE’s details",
-            "menu": "Settings",
+            "title": "Les informations du GIE",
+            "menu": "Paramètres",
             "blocks": [
               {
-                "p": "Enter the GIE’s name, address, phone number, email and tax identification (NINEA, RCCM or equivalent). Add your logo (PNG or JPG, 2 MB maximum) and choose the working currency. These details appear on all your printed documents: invoices and receipts."
+                "p": "Renseignez le nom du GIE, son adresse, son téléphone, son e-mail et son identification fiscale (NINEA, RCCM ou équivalent). Ajoutez votre logo (PNG ou JPG, 2 Mo maximum) et choisissez la devise de travail. Ces informations apparaissent sur tous vos documents imprimés : factures et reçus."
               }
             ]
           },
           {
             "id": "c-membres",
-            "title": "The members",
-            "menu": "Members",
+            "title": "Les membres",
+            "menu": "Membres",
             "blocks": [
               {
-                "p": "Click “New Member” and fill in: last name, first name, village, phone, farmed area and status (active or inactive). You can then search for a member by last name, first name or village."
+                "p": "Cliquez sur « Nouveau Membre » et remplissez : nom, prénom, village, téléphone, superficie exploitée et statut (actif ou inactif). Vous pouvez ensuite rechercher un membre par son nom, son prénom ou son village."
               }
             ]
           },
           {
             "id": "c-comptes",
-            "title": "The money accounts",
-            "menu": "Cash Flow",
+            "title": "Les comptes d’argent",
+            "menu": "Trésorerie",
             "blocks": [
               {
-                "p": "Create an account for each place where the GIE keeps money: for example a bank account and a cash box. Enter the opening balance of each one: this way you can properly track your money coming in and going out, with the real balance of each account."
+                "p": "Créez un compte pour chaque endroit où le GIE garde de l’argent : par exemple un compte en banque et une caisse. Indiquez le solde de départ de chacun : vous pourrez ainsi bien suivre vos opérations d’entrée et de sortie d’argent, avec les soldes réels de chaque compte."
               }
             ]
           },
           {
             "id": "c-intrants",
-            "title": "The input catalog",
-            "menu": "Inputs & Stock",
+            "title": "Le catalogue d’intrants",
+            "menu": "Intrants & Stock",
             "blocks": [
               {
-                "p": "With “New Input”, create the list of what the GIE distributes: enter the type (fertilizer, seed…), the name, the supplier, the unit price and the opening stock quantity. There are three kinds of inputs:"
+                "p": "Avec « Nouvel Intrant », créez la liste de ce que le GIE distribue : indiquez le type (engrais, semence…), le nom, le fournisseur, le prix unitaire et la quantité en stock de départ. Il existe trois sortes d’intrants :"
               },
               {
                 "cards": [
                   {
-                    "t": "Inputs in stock",
-                    "x": "Fertilizer, seeds, products… Their stock quantity goes down with each distribution."
+                    "t": "Intrants en stock",
+                    "x": "Engrais, semences, produits… Leur quantité en stock baisse à chaque distribution."
                   },
                   {
-                    "t": "Cultivation work and irrigation service",
-                    "x": "These are services, not bags: no stock to track. They are billed by area (per hectare)."
+                    "t": "Façon culturale et service hydraulique",
+                    "x": "Ce sont des services, pas des sacs : pas de stock à suivre. Ils sont facturés à la superficie (à l’hectare)."
                   },
                   {
-                    "t": "Rebilling",
-                    "x": "A fixed fee that the GIE rebills to its members: you enter the amount in FCFA directly."
+                    "t": "Refacturation",
+                    "x": "Un frais fixe que le GIE refacture aux membres : on saisit directement le montant en FCFA."
                   }
                 ]
               }
@@ -1605,39 +1624,39 @@
           },
           {
             "id": "c-materiel",
-            "title": "The equipment",
-            "menu": "Equipment",
-            "note": "Medium and Premium plans",
+            "title": "Le matériel",
+            "menu": "Matériel",
+            "note": "formules Medium et Premium",
             "blocks": [
               {
-                "p": "If your plan allows it, record the GIE’s equipment (tractors, motor pumps…) and its condition in the inventory."
+                "p": "Si votre formule le permet, enregistrez dans l’inventaire l’équipement du GIE (tracteurs, motopompes…) avec son état."
               }
             ]
           },
           {
             "id": "c-campagne",
-            "title": "The season",
-            "menu": "Seasons",
+            "title": "La campagne",
+            "menu": "Campagnes",
             "blocks": [
               {
-                "p": "A season is a farming season. Everything else (distributions, invoices, repayments) is attached to it."
+                "p": "Une campagne est une saison agricole. Tout le reste (distributions, factures, remboursements) se rattache à elle."
               },
               {
                 "ol": [
                   {
-                    "t": "Create the season",
-                    "x": "with “New Season”: name, start and end dates, repayment method (cash, in kind or mixed), collected product, collection price, standard weight, and status (in progress, finished or cancelled)."
+                    "t": "Créez la campagne",
+                    "x": "avec « Nouvelle Campagne » : nom, dates de début et de fin, mode de remboursement (en espèces, en nature ou mixte), produit collecté, prix de collecte, poids standard, et statut (en cours, terminée ou annulée)."
                   },
                   {
-                    "t": "Configure it",
-                    "x": "by opening the season: enroll the members taking part (with each member’s area), choose the inputs offered this season, and prepare your forecast budget by line item."
+                    "t": "Configurez-la",
+                    "x": "en ouvrant la campagne : inscrivez les membres qui y participent (avec la superficie de chacun), choisissez les intrants proposés cette saison, et préparez votre budget prévisionnel par rubrique."
                   }
                 ]
               },
               {
                 "callout": {
                   "l": "Important",
-                  "x": "Only members enrolled in the season can receive inputs. Enroll them before starting the distributions."
+                  "x": "Seuls les membres inscrits à la campagne peuvent recevoir des intrants. Inscrivez-les avant de commencer les distributions."
                 }
               }
             ]
@@ -1646,164 +1665,164 @@
       },
       {
         "id": "partie-operations",
-        "label": "Part 2",
-        "title": "Operations",
-        "text": "What you do throughout the season, in the order things happen.",
+        "label": "Partie 2",
+        "title": "Les opérations",
+        "text": "Ce que vous faites au fil de la campagne, dans l’ordre où les choses arrivent.",
         "sections": [
           {
             "id": "o-credit",
-            "title": "The bank loan",
-            "menu": "Bank Loans",
+            "title": "Le crédit bancaire",
+            "menu": "Crédits Bancaires",
             "blocks": [
               {
                 "ul": [
                   {
-                    "t": "Make the request.",
-                    "x": "Enter the season, the bank (for example LB or CMS), the requested amount and the purpose of the loan. The status starts as “Pending”."
+                    "t": "Faire la demande.",
+                    "x": "Indiquez la campagne, la banque (par exemple LB ou CMS), le montant demandé et le but du crédit. Le statut est d’abord « En attente »."
                   },
                   {
-                    "t": "Record the bank’s answer.",
-                    "x": "The loan becomes “Validated” or “Rejected”. If validated, enter the granted amount, the interest rate and the duration: they are then used to calculate each member’s interest."
+                    "t": "Enregistrer la réponse de la banque.",
+                    "x": "Le crédit devient « Validé » ou « Rejeté ». S’il est validé, notez le montant accordé, le taux d’intérêt et la durée : ils servent ensuite à calculer les intérêts de chaque membre."
                   },
                   {
-                    "t": "Track the releases.",
-                    "x": "Each time the bank releases money, record the account concerned, the type of document (payment of a supplier invoice or cash withdrawal), the amount and the reason."
+                    "t": "Suivre les déblocages.",
+                    "x": "Chaque fois que la banque débloque de l’argent, enregistrez le compte concerné, le type de pièce (paiement d’une facture fournisseur ou retrait d’espèces), le montant et le motif."
                   },
                   {
-                    "t": "Record your repayments to the bank,",
-                    "x": "with the account used and the amount."
+                    "t": "Enregistrer vos remboursements à la banque,",
+                    "x": "avec le compte utilisé et le montant."
                   }
                 ]
               },
               {
-                "edition": "the total requested, the total granted, pending files and the available credit, at the top of the page."
+                "edition": "le total demandé, le total accordé, les dossiers en attente et le crédit disponible, en haut de la page."
               }
             ]
           },
           {
             "id": "o-achats",
-            "title": "Buying inputs",
-            "menu": "Inputs & Stock",
+            "title": "Les achats d’intrants",
+            "menu": "Intrants & Stock",
             "blocks": [
               {
-                "p": "When the GIE buys inputs, enter the input, the quantity, the price, the supplier, the date and the invoice number: the stock goes up by itself, and its total value is shown at the top of the page."
+                "p": "Quand le GIE achète des intrants, notez l’intrant, la quantité, le prix, le fournisseur, la date et le numéro de facture : le stock augmente tout seul, et sa valeur totale s’affiche en haut de la page."
               },
               {
-                "edition": "the total stock value and the remaining quantity of each input."
+                "edition": "la valeur totale du stock et les quantités restantes de chaque intrant."
               }
             ]
           },
           {
             "id": "o-distribution",
-            "title": "Distribution to members",
+            "title": "La distribution aux membres",
             "menu": "Distribution",
             "blocks": [
               {
-                "p": "Hand inputs to the members enrolled in the season. You can make one distribution at a time, give the same input to several members, or several inputs to the same member. The stock goes down automatically. For cultivation work and irrigation service, the suggested quantity matches the member’s area."
+                "p": "Remettez des intrants aux membres inscrits à la campagne. Vous pouvez faire une distribution à la fois, remettre un même intrant à plusieurs membres, ou plusieurs intrants à un même membre. Le stock diminue automatiquement. Pour la façon culturale et le service hydraulique, la quantité proposée correspond à la superficie du membre."
               },
               {
-                "edition": "the season report summarizes what was distributed to each member."
+                "edition": "le bilan de campagne récapitule ce qui a été distribué à chaque membre."
               }
             ]
           },
           {
             "id": "o-facturation",
-            "title": "Billing",
-            "menu": "Billing",
+            "title": "La facturation",
+            "menu": "Facturation",
             "blocks": [
               {
                 "ol": [
                   {
-                    "t": "Generate the season’s invoices.",
-                    "x": "Each member receives an invoice adding up the inputs received, their share of the loan interest and, if any, their unpaid amounts from previous seasons."
+                    "t": "Générez les factures de la campagne.",
+                    "x": "Chaque membre reçoit une facture qui additionne les intrants reçus, sa part des intérêts du crédit et, s’il y en a, ses impayés des campagnes précédentes."
                   },
                   {
-                    "t": "Calculate the interest.",
-                    "x": "SIGGIE spreads the interest of validated loans across the invoices. For this, the loan’s rate and duration must have been entered."
+                    "t": "Calculez les intérêts.",
+                    "x": "SIGGIE répartit l’intérêt des crédits validés entre les factures. Pour cela, le taux et la durée du crédit doivent avoir été renseignés."
                   },
                   {
-                    "t": "View and print",
-                    "x": "the invoices, member by member."
+                    "t": "Consultez et imprimez",
+                    "x": "les factures, membre par membre."
                   }
                 ]
               },
               {
-                "edition": "each member’s invoice can be printed or downloaded as a PDF."
+                "edition": "la facture de chaque membre s’imprime ou se télécharge en PDF."
               }
             ]
           },
           {
             "id": "o-remboursements",
-            "title": "Repayments",
-            "menu": "Repayments",
+            "title": "Les remboursements",
+            "menu": "Remboursements",
             "blocks": [
               {
                 "ul": [
                   {
-                    "t": "In cash.",
-                    "x": "Choose the member and their invoice, the account receiving the money and the amount: the money goes into your cash position."
+                    "t": "En espèces.",
+                    "x": "Choisissez le membre et sa facture, le compte qui reçoit l’argent et le montant : l’argent entre dans votre trésorerie."
                   },
                   {
-                    "t": "In kind.",
-                    "x": "The member brings their harvest: it is weighed and the product and quantity are recorded. It goes into the “In-kind stock”, without touching the cash position."
+                    "t": "En nature.",
+                    "x": "Le membre apporte sa récolte : on la pèse et on note le produit et la quantité. Elle entre dans le « Stock en nature », sans toucher à la trésorerie."
                   },
                   {
-                    "t": "The surplus (rebate).",
-                    "x": "If a member repaid more than their invoice, the difference is given back: in cash (a cash outflow) or in kind (an outflow from the in-kind stock)."
+                    "t": "Le surplus (ristourne).",
+                    "x": "Si un membre a remboursé plus que sa facture, la différence lui est rendue : en argent (une sortie de trésorerie) ou en nature (une sortie du stock en nature)."
                   }
                 ]
               },
               {
-                "edition": "the rebate history, the in-kind stock and each member’s statement."
+                "edition": "l’historique des ristournes, le stock en nature et le relevé de chaque membre."
               }
             ]
           },
           {
             "id": "o-tresorerie",
-            "title": "Cash management",
-            "menu": "Cash Flow",
+            "title": "La trésorerie",
+            "menu": "Trésorerie",
             "blocks": [
               {
                 "ul": [
                   {
-                    "t": "Accounts.",
-                    "x": "The list of your accounts with their balances."
+                    "t": "Comptes.",
+                    "x": "La liste de vos comptes avec leurs soldes."
                   },
                   {
-                    "t": "Journals.",
-                    "x": "Choose an account to see all its transactions, with the balance changing line after line. You can enter, correct or delete a transaction."
+                    "t": "Journaux.",
+                    "x": "Choisissez un compte pour voir toutes ses opérations, avec le solde qui évolue ligne après ligne. Vous pouvez saisir, corriger ou supprimer une opération."
                   },
                   {
-                    "t": "Reconciliation.",
-                    "x": "Check that your season loans and movements match what the bank shows."
+                    "t": "Rapprochement.",
+                    "x": "Vérifiez que vos crédits de campagne et vos mouvements correspondent bien à la réalité de la banque."
                   }
                 ]
               },
               {
-                "edition": "the journal of each account, with the running balance."
+                "edition": "le journal de chaque compte, avec le solde progressif."
               }
             ]
           },
           {
             "id": "o-materiel",
-            "title": "Equipment day to day",
-            "menu": "Equipment",
-            "note": "Medium and Premium plans",
+            "title": "Le matériel au quotidien",
+            "menu": "Matériel",
+            "note": "formules Medium et Premium",
             "blocks": [
               {
                 "ul": [
                   {
-                    "t": "Services.",
-                    "x": "Work done with the equipment, recorded in the field: quantity processed in its unit (hectares for a tractor or combine harvester, hours for a grader or excavator, bags, or another unit), client phone number (required), quantity obtained with the product and, when the product requires it, its variety. When the service is paid as a share of the harvest, enter the percentage: SIGGIE calculates the bags due to the GIE and their value. The “Products and varieties” button sets the recorded products and those whose variety is required. Choose the season and a budgeted type: the amount counts in the season’s budget tracking (consumption too)."
+                    "t": "Prestations.",
+                    "x": "Les travaux réalisés avec le matériel, pointés sur le terrain : quantité traitée dans son unité (hectares pour le tracteur ou la moissonneuse, heures pour la niveleuse ou la pelle, sacs, ou une autre unité), téléphone du client (obligatoire), quantité obtenue avec le produit et, si le produit l’exige, sa variété. Quand la prestation est payée en part de récolte, indiquez le pourcentage : SIGGIE calcule les sacs revenant au GIE et leur valeur. Le bouton « Produits et variétés » définit les produits pointés et ceux dont la variété est obligatoire. Choisissez la campagne et un type budgété : le montant compte dans le réalisé du suivi budgétaire de la campagne (les consommations aussi)."
                   },
                   {
-                    "t": "Consumption.",
-                    "x": "Fuel, maintenance and the other costs of the equipment."
+                    "t": "Consommations.",
+                    "x": "Le carburant, l’entretien et les autres dépenses du matériel."
                   }
                 ]
               },
               {
-                "edition": "the inventory, services, consumption, depreciation and profitability can be printed."
+                "edition": "l’inventaire, les prestations, les consommations, les amortissements et la rentabilité peuvent s’imprimer."
               }
             ]
           }
@@ -1811,28 +1830,28 @@
       },
       {
         "id": "partie-etats",
-        "label": "Part 3",
-        "title": "Printouts, statements and reports",
-        "text": "Once your operations are recorded, SIGGIE gathers them for you into printable documents and monitoring statements.",
+        "label": "Partie 3",
+        "title": "Les éditions, états et rapports",
+        "text": "Une fois vos opérations enregistrées, SIGGIE les rassemble pour vous dans des documents à imprimer et des états de suivi.",
         "sections": [
           {
             "id": "e-imprimer",
-            "title": "Documents to print",
-            "lead": "They carry the name, address, tax identification and logo entered in the Settings.",
+            "title": "Les documents à imprimer",
+            "lead": "Ils portent le nom, l’adresse, l’identification fiscale et le logo renseignés dans les Paramètres.",
             "blocks": [
               {
                 "ul": [
                   {
-                    "t": "Members’ invoices.",
-                    "x": "Billing menu: view each member’s invoice, print it or download it as a PDF."
+                    "t": "Les factures des membres.",
+                    "x": "Menu Facturation : consultez la facture de chaque membre, imprimez-la ou téléchargez-la en PDF."
                   },
                   {
-                    "t": "Cash and bank journals.",
-                    "x": "Cash Flow menu: all the transactions of an account with the running balance."
+                    "t": "Les journaux de caisse et de banque.",
+                    "x": "Menu Trésorerie : toutes les opérations d’un compte avec le solde progressif."
                   },
                   {
-                    "t": "Statements and lists.",
-                    "x": "Most statement pages (reports, statements, budget monitoring, equipment inventory and services) have a button to print them."
+                    "t": "Les états et les listes.",
+                    "x": "La plupart des pages d’états (bilans, relevés, suivi budgétaire, inventaire et prestations du matériel) ont un bouton pour les imprimer."
                   }
                 ]
               }
@@ -1840,19 +1859,19 @@
           },
           {
             "id": "e-membres",
-            "title": "Statements",
-            "menu": "Reports & Statements",
-            "note": "Premium plan",
+            "title": "Les relevés",
+            "menu": "Bilans & Relevés",
+            "note": "formule Premium",
             "blocks": [
               {
                 "ul": [
                   {
-                    "t": "A member’s statement.",
-                    "x": "Everything a member received, what they owe and what they have already repaid."
+                    "t": "Le relevé d’un membre.",
+                    "x": "Tout ce qu’un membre a reçu, ce qu’il doit et ce qu’il a déjà remboursé."
                   },
                   {
-                    "t": "An outside customer’s statement.",
-                    "x": "The same tracking for a person who is not a member of the GIE."
+                    "t": "Le relevé d’un client extérieur.",
+                    "x": "Le même suivi pour une personne qui n’est pas membre du GIE."
                   }
                 ]
               }
@@ -1860,21 +1879,21 @@
           },
           {
             "id": "e-campagne",
-            "title": "Season monitoring",
+            "title": "Le suivi de la campagne",
             "blocks": [
               {
                 "ul": [
                   {
-                    "t": "The season report.",
-                    "x": "From a season’s page: a summary of what was distributed, billed and repaid, member by member."
+                    "t": "Le bilan de campagne.",
+                    "x": "Depuis la page d’une campagne : un récapitulatif de ce qui a été distribué, facturé et remboursé, membre par membre."
                   },
                   {
-                    "t": "Budget monitoring",
-                    "x": "(Reports & Statements menu, Premium plan). Your forecasts compared with what actually happened, line by line, with the balance of income minus expenses."
+                    "t": "Le suivi budgétaire",
+                    "x": "(menu Bilans & Relevés, formule Premium). Vos prévisions comparées à ce qui s’est réellement passé, rubrique par rubrique, avec le solde recettes moins dépenses."
                   },
                   {
-                    "t": "Rebates and in-kind stock",
-                    "x": "(Repayments menu). The history of what was given back to members and the status of the harvest stock received as repayment."
+                    "t": "Les ristournes et le stock en nature",
+                    "x": "(menu Remboursements). L’historique de ce qui a été rendu aux membres et l’état du stock de récolte reçue en remboursement."
                   }
                 ]
               }
@@ -1882,36 +1901,36 @@
           },
           {
             "id": "e-annuel",
-            "title": "The annual report",
-            "menu": "Reports & Statements",
-            "note": "Premium plan",
+            "title": "Le bilan annuel",
+            "menu": "Bilans & Relevés",
+            "note": "formule Premium",
             "blocks": [
               {
-                "p": "SIGGIE presents the GIE’s position at December 31 and the result of the year (income minus expenses), calculated from everything you have recorded. A few amounts cannot be guessed and are entered once a year: subsidies, loans, other income and other expenses. To see a past year, change the fiscal year."
+                "p": "SIGGIE présente la situation du GIE au 31 décembre et le résultat de l’année (recettes moins dépenses), calculés à partir de tout ce que vous avez enregistré. Quelques montants ne peuvent pas être devinés et se saisissent une fois par an : subventions, emprunts, autres produits et autres charges. Pour consulter une année passée, changez d’exercice."
               }
             ]
           },
           {
             "id": "e-autres",
-            "title": "Other statements",
+            "title": "Les autres états",
             "blocks": [
               {
                 "ul": [
                   {
-                    "t": "The dashboard.",
-                    "x": "The home page: the GIE’s key figures at a glance."
+                    "t": "Le tableau de bord.",
+                    "x": "La page d’accueil : les chiffres importants du GIE en un coup d’œil."
                   },
                   {
-                    "t": "The stock status.",
-                    "x": "Inputs & Stock menu: the total stock value and the remaining quantity of each input."
+                    "t": "L’état des stocks.",
+                    "x": "Menu Intrants & Stock : la valeur totale du stock et les quantités restantes de chaque intrant."
                   },
                   {
-                    "t": "Loans.",
-                    "x": "Bank Loans menu: the total requested, the total granted, pending files and the credit still available."
+                    "t": "Les crédits.",
+                    "x": "Menu Crédits Bancaires : le total demandé, le total accordé, les dossiers en attente et le crédit encore disponible."
                   },
                   {
-                    "t": "Equipment",
-                    "x": "(Medium and Premium plans). Depreciation, that is the loss of value of each machine over time, and profitability, that is what each machine really earns for the GIE."
+                    "t": "Le matériel",
+                    "x": "(formules Medium et Premium). Les amortissements, c’est-à-dire la perte de valeur de chaque machine avec le temps, et la rentabilité, c’est-à-dire ce que chaque machine rapporte réellement au GIE."
                   }
                 ]
               }
@@ -1923,32 +1942,32 @@
     "closing": [
       {
         "id": "formules",
-        "title": "Plans and subscription",
-        "lead": "You start with a free trial period. At the end, access is blocked until the subscription is paid: pay before the due date so nothing is interrupted.",
+        "title": "Les formules et l’abonnement",
+        "lead": "Vous démarrez par une période d’essai gratuite. À la fin, l’accès est bloqué tant que l’abonnement n’est pas payé : payez avant l’échéance pour ne rien interrompre.",
         "blocks": [
           {
             "table": {
               "head": [
-                "Feature",
+                "Fonction",
                 "Standard",
                 "Medium",
                 "Premium"
               ],
               "rows": [
                 [
-                  "Members, seasons, inputs, distribution, loans, billing, repayments, cash management",
+                  "Membres, campagnes, intrants, distribution, crédits, facturation, remboursements, trésorerie",
                   "✓",
                   "✓",
                   "✓"
                 ],
                 [
-                  "Equipment",
+                  "Matériel",
                   "—",
                   "✓",
                   "✓"
                 ],
                 [
-                  "Reports & Statements",
+                  "Bilans & Relevés",
                   "—",
                   "—",
                   "✓"
@@ -1957,77 +1976,77 @@
             }
           },
           {
-            "p": "The subscription is annual and paid in the Subscription menu (Wave, Orange Money, Visa card, bank transfer, ...). To move to a higher plan, you only pay the difference."
+            "p": "L’abonnement est annuel et se paie dans le menu Abonnement (Wave, Orange Money, carte Visa, virement, ...). Pour passer à une formule supérieure, vous ne payez que la différence."
           }
         ]
       },
       {
         "id": "conseils",
-        "title": "Good habits and help",
+        "title": "Bons réflexes et aide",
         "blocks": [
           {
             "ul": [
               {
-                "x": "Create your cash accounts before recording a loan release or a cash repayment."
+                "x": "Créez vos comptes de trésorerie avant d’enregistrer un déblocage de crédit ou un remboursement en espèces."
               },
               {
-                "x": "Enroll the members in the season before distributing inputs to them."
+                "x": "Inscrivez les membres à la campagne avant de leur distribuer des intrants."
               },
               {
-                "x": "Enter the rate and duration of the validated loan: without them, the interest cannot be calculated."
+                "x": "Renseignez le taux et la durée du crédit validé : sans eux, les intérêts ne peuvent pas être calculés."
               },
               {
-                "x": "Generate the invoices once the distributions are finished, after calculating the interest."
+                "x": "Générez les factures une fois les distributions terminées, après avoir calculé les intérêts."
               },
               {
-                "x": "Record each repayment the same day, with the right account: this keeps your cash position accurate."
+                "x": "Enregistrez chaque remboursement le jour même, avec le bon compte : c’est ce qui garde votre trésorerie exacte."
               },
               {
-                "x": "If a menu does not appear for you, your profile does not have access to it: ask the GIE administrator."
+                "x": "Si un menu n’apparaît pas chez vous, votre profil n’y a pas accès : demandez à l’administrateur du GIE."
               }
             ]
           },
           {
             "callout": {
-              "l": "Need help?",
-              "x": "Open the Help & Support menu: you will find the support number (+221 70 848 42 98, Monday to Friday from 9am to 6pm) and a form to write to the team."
+              "l": "Besoin d’aide ?",
+              "x": "Ouvrez le menu Aide & Support : vous y trouvez le numéro d’assistance (+221 70 848 42 98, du lundi au vendredi de 9h à 18h) et un formulaire pour écrire à l’équipe."
             }
           }
         ]
       },
       {
         "id": "mots",
-        "title": "Short glossary",
+        "title": "Petit lexique",
         "blocks": [
           {
             "dl": [
               {
-                "t": "Season",
-                "x": "A farming season, with its members, its inputs, its loan and its repayments."
+                "t": "Campagne",
+                "x": "Une saison agricole, avec ses membres, ses intrants, son crédit et ses remboursements."
               },
               {
-                "t": "Inputs",
-                "x": "Everything used to produce: fertilizer, seeds, treatment products, but also services such as water or plowing."
+                "t": "Intrants",
+                "x": "Tout ce qui sert à produire : engrais, semences, produits de traitement, mais aussi des services comme l’eau ou le labour."
               },
               {
-                "t": "Release (disbursement)",
-                "x": "The moment when the bank makes the money of the granted loan available."
+                "t": "Déblocage (décaissement)",
+                "x": "Le moment où la banque met à disposition l’argent du crédit accordé."
               },
               {
-                "t": "Repayment in kind",
-                "x": "Paying back one’s debt with part of one’s harvest instead of money."
+                "t": "Remboursement en nature",
+                "x": "Rembourser sa dette avec une partie de sa récolte plutôt qu’avec de l’argent."
               },
               {
-                "t": "Rebate",
-                "x": "The part of a repayment that exceeds the invoice, given back to the member."
+                "t": "Ristourne",
+                "x": "La part d’un remboursement qui dépasse la facture, rendue au membre."
               },
               {
-                "t": "Reconciliation",
-                "x": "Comparing your figures with the bank’s to check that they are identical."
+                "t": "Rapprochement",
+                "x": "Comparer vos chiffres avec ceux de la banque pour vérifier qu’ils sont identiques."
               },
               {
-                "t": "Allocation",
-                "x": "Linking a money transaction to its reason (for example a season or a specific expense)."
+                "t": "Imputation",
+                "x": "Le rattachement d’une opération d’argent à sa raison (par exemple une campagne ou une dépense précise)."
               }
             ]
           }

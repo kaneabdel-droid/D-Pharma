@@ -1,1603 +1,1622 @@
 {
   "landing": {
     "nav": {
-      "products": "المنتجات",
-      "pricing": "الأسعار",
-      "tips": "نصائح",
-      "subscribe": "اشترك",
-      "login": "تسجيل الدخول",
-      "contact": "اتصل بنا"
+      "products": "Produits",
+      "pricing": "Tarifs",
+      "tips": "Astuces",
+      "subscribe": "S'abonner",
+      "login": "Connexion",
+      "contact": "Nous contacter"
     },
     "hero": {
-      "title_1": "بسّط إدارة",
-      "title_2": "شركتك",
-      "desc": "تقدم Demba Solution حلولاً تقنية حديثة وسهلة الاستخدام لأتمتة عملياتك، ومتابعة أموالك، وتعزيز إنتاجيتك."
+      "title_1": "Simplifiez la gestion de votre",
+      "title_2": "Entreprise",
+      "desc": "Demba Solution offre des solutions informatiques modernes et intuitives pour automatiser vos processus, suivre vos finances et booster votre productivité."
     },
     "features": {
-      "title": "التميز في خدمة نشاطك",
-      "desc": "أدوات مصممة للواقع المحلي والمعايير الدولية.",
-      "f1_title": "سريع وفعّال",
-      "f1_desc": "واجهات سلسة توفّر لك وقتًا ثمينًا كل يوم.",
-      "f2_title": "أمان قصوى",
-      "f2_desc": "بياناتك مشفّرة ومحفوظة ولا يمكن الوصول إليها إلا من طرفك.",
-      "f3_title": "متجاوب 100%",
-      "f3_desc": "أدر نشاطك من مكتبك أو من الميدان عبر هاتفك الذكي."
+      "title": "L'excellence au service de votre activité",
+      "desc": "Des outils pensés pour les réalités locales et les standards internationaux.",
+      "f1_title": "Rapide & Efficace",
+      "f1_desc": "Des interfaces fluides qui vous font gagner un temps précieux chaque jour.",
+      "f2_title": "Sécurité Maximale",
+      "f2_desc": "Vos données sont cryptées, sauvegardées et accessibles uniquement par vous.",
+      "f3_title": "100% Responsive",
+      "f3_desc": "Gérez votre activité depuis votre bureau ou sur le terrain avec votre smartphone."
     },
     "products": {
-      "title": "حلولنا الإلكترونية",
-      "desc": "اكتشف مجموعة تطبيقاتنا المصممة لتبسيط حياتك اليومية.",
-      "online_badge": "متاح الآن",
-      "coming_soon_badge": "قريبًا",
-      "siggie_desc": "النظام المتكامل لإدارة التعاونيات الاقتصادية والشركات المماثلة. أدر أعضاءك ومواسمك الزراعية ومدخلاتك وخزينتك بنقرة واحدة وأكثر من ذلك.",
-      "discover_link": "اكتشف SIGGIE",
-      "subscribe_link": "اشترك في SIGGIE",
-      "dquinca_desc": "حل الإدارة لمتاجر الخردوات في أفريقيا. تتبع مخزونك ومبيعاتك وأداء متاجرك بكل سهولة.",
-      "discover_link_dquinca": "اكتشف D-QUINCA",
-      "subscribe_link_dquinca": "اشترك في D-QUINCA",
-      "dintrants_desc": "حليفك لإدارة مبيعات المدخلات والمعدات الزراعية. قم بتحسين مخزونك وتتبع مبيعاتك في الوقت الفعلي.",
-      "discover_link_dintrants": "اكتشف D-INTRANTS",
-      "subscribe_link_dintrants": "اشترك في D-INTRANTS",
-      "dagrobusiness_desc": "إدارة متكاملة لسلسلة القيمة الزراعية: التمويل والإنتاج ومصنع التحويل والموارد البشرية والمحاسبة التحليلية للشركات الزراعية الصناعية.",
-      "discover_link_dagrobusiness": "اكتشف D-AGROBUSINESS",
-      "subscribe_link_dagrobusiness": "اشترك في D-AGROBUSINESS",
-      "dscholar_desc": "منصة إدارة المدارس: التسجيلات والأقسام والأساتذة وجداول الحصص والنقاط وكشوف النقاط والمواظبة والانتقال وفضاء الأولياء، من التعليم الأولي إلى الثانوي.",
-      "discover_link_dscholar": "اكتشف D-SCHOLAR",
-      "subscribe_link_dscholar": "اشترك في D-SCHOLAR",
-      "pcas_desc": "منصة تسويق المنتجات الزراعية في السنغال: عروض المنتجين، طلبيات تحت الإشراف، الدفع بسندات بنكية، التسليم، الفواتير ووثائق قابلة للتحقق عبر رمز QR.",
-      "discover_link_pcas": "اكتشف PCAS",
-      "access_link_pcas": "اطلب الانضمام إلى PCAS"
+      "title": "Nos Solutions Web",
+      "desc": "Découvrez notre écosystème d'applications conçues pour simplifier votre quotidien.",
+      "online_badge": "En ligne",
+      "coming_soon_badge": "Bientôt disponible",
+      "siggie_desc": "Le Système Intégré de Gestion de Groupement d'Intérêt Économique et entreprises assimilées. Gérez vos membres, campagnes agricoles, intrants et trésorerie en un clic et bien plus.",
+      "discover_link": "Découvrir SIGGIE",
+      "subscribe_link": "S'abonner à SIGGIE",
+      "dquinca_desc": "La solution de gestion pour quincailleries en Afrique. Suivez vos stocks, vos ventes et la performance de vos magasins en toute simplicité.",
+      "discover_link_dquinca": "Découvrir D-QUINCA",
+      "subscribe_link_dquinca": "S'abonner à D-QUINCA",
+      "dintrants_desc": "Votre allié pour la gestion de vos ventes d'intrants et matériels agricoles. Optimisez vos stocks et suivez vos ventes en temps réel.",
+      "discover_link_dintrants": "Découvrir D-INTRANTS",
+      "subscribe_link_dintrants": "S'abonner à D-INTRANTS",
+      "dagrobusiness_desc": "Gestion intégrée de la chaîne de valeur agricole : financement, production, usine de transformation, RH et comptabilité analytique pour les entreprises agro-industrielles.",
+      "discover_link_dagrobusiness": "Découvrir D-AGROBUSINESS",
+      "subscribe_link_dagrobusiness": "S'abonner à D-AGROBUSINESS",
+      "dscholar_desc": "La plateforme de gestion scolaire : inscriptions, classes, enseignants, emplois du temps, notes, bulletins, assiduité, passages et portail parents, de la maternelle au lycée.",
+      "discover_link_dscholar": "Découvrir D-SCHOLAR",
+      "subscribe_link_dscholar": "S'abonner à D-SCHOLAR",
+      "pcas_desc": "La plateforme de commercialisation agricole du Sénégal : offres des producteurs, commandes supervisées, paiement par bon bancaire, livraisons, factures et documents vérifiables par QR code.",
+      "discover_link_pcas": "Découvrir PCAS",
+      "access_link_pcas": "Demander un accès à PCAS"
     },
     "pricing": {
-      "title": "أسعار تناسب نمو شركتك",
-      "desc": "اختر الباقة التي تناسب احتياجات شركتك. دفع سنوي آمن عبر Wave أو Orange Money أو Visa أو تحويل بنكي.",
-      "per_year": "فرنك غرب أفريقي / سنويًا",
-      "popular_badge": "الأكثر رواجًا",
-      "feature_membres": "إدارة الأعضاء",
-      "feature_campagnes": "إدارة المواسم",
-      "feature_all_standard": "كل ما في الباقة الأساسية",
-      "feature_materiel": "إدارة كاملة للمعدات",
-      "feature_all_medium": "كل ما في باقة Medium",
-      "feature_etats": "تقارير متابعة ميزانية كاملة",
-      "choose_standard": "اختر Standard",
-      "choose_medium": "اختر Medium",
-      "choose_premium": "اختر Premium"
+      "title": "Des tarifs adaptés à votre croissance",
+      "desc": "Choisissez le plan qui correspond aux besoins de votre entreprise. Paiement annuel sécurisé via Wave, Orange Money, Visa ou Virement.",
+      "per_year": "FCFA / an",
+      "popular_badge": "Populaire",
+      "feature_membres": "Gestion des membres",
+      "feature_campagnes": "Gestion des campagnes",
+      "feature_all_standard": "Tout du plan Standard",
+      "feature_materiel": "Gestion complète du matériel",
+      "feature_all_medium": "Tout du plan Medium",
+      "feature_etats": "États de suivi budgétaire complets",
+      "choose_standard": "Choisir Standard",
+      "choose_medium": "Choisir Medium",
+      "choose_premium": "Choisir Premium"
     },
     "tips": {
-      "title": "نصائح للإدارة",
-      "tip1": "رقمِن عملياتك",
-      "tip2": "تابع الربحية حسب القطاع",
-      "tip3": "أشرك أعضاءك",
-      "tip3_desc": "احصل على مؤشراتك المالية واستفد من تحليلات دقيقة لبياناتك.",
-      "tip1_desc": "من خلال تطبيقاتنا متعددة المستخدمين، المتاحة في أي وقت ومن أي مكان.",
-      "tip2_desc": "لجميع أنشطتك، بفضل مقارباتنا التحليلية."
+      "title": "Astuces de Gestion",
+      "tip1": "Digitalisez vos processus",
+      "tip2": "Suivez la rentabilité par secteur",
+      "tip3": "Impliquez vos membres",
+      "tip3_desc": "Disposez de vos ratios et bénéficiez d’analyses pertinentes de vos données.",
+      "tip1_desc": "Avec nos applications multiutilisateurs, disponibles à tout moment, en tout lieu.",
+      "tip2_desc": "De toutes vos activités, grâce à nos approches analytiques."
     },
     "footer": {
-      "desc": "ادفع بإدارة مؤسستك نحو المستقبل بفضل حلولنا البرمجية السهلة والفعّالة."
+      "desc": "Propulsez la gestion de votre organisation vers l'avenir avec nos solutions logicielles intuitives et performantes."
     },
     "contact": {
-      "title": "اتصل بنا",
-      "desc": "سؤال حول حلولنا، عرض توضيحي، عرض سعر؟ راسلنا وسنرد عليك عبر البريد الإلكتروني خلال 24 ساعة عمل.",
-      "phone": "الهاتف / واتساب",
-      "email": "البريد الإلكتروني",
-      "name": "الاسم الكامل",
-      "name_placeholder": "مثال: عوا ديوب",
-      "email_label": "البريد الإلكتروني",
-      "email_placeholder": "you@example.com",
-      "phone_label": "الهاتف (اختياري)",
-      "product": "الحل الذي يهمك",
-      "product_any": "لا أعرف بعد",
-      "message": "رسالتك",
-      "message_placeholder": "عرّفنا بنشاطك واحتياجك...",
-      "send": "إرسال",
-      "sending": "جارٍ الإرسال...",
-      "sent_title": "تم إرسال الرسالة!",
-      "sent_desc": "شكرًا لك، سيرد عليك فريقنا عبر البريد الإلكتروني في أقرب وقت ممكن.",
-      "send_another": "إرسال رسالة أخرى",
+      "title": "Nous contacter",
+      "desc": "Une question sur nos solutions, une démo, un devis ? Écrivez-nous : nous vous répondons par email sous 24 h ouvrées.",
+      "phone": "Téléphone / WhatsApp",
+      "email": "Email",
+      "name": "Nom complet",
+      "name_placeholder": "Ex : Awa Diop",
+      "email_label": "Email",
+      "email_placeholder": "vous@exemple.com",
+      "phone_label": "Téléphone (facultatif)",
+      "product": "Solution qui vous intéresse",
+      "product_any": "Je ne sais pas encore",
+      "message": "Votre message",
+      "message_placeholder": "Présentez votre activité et votre besoin...",
+      "send": "Envoyer",
+      "sending": "Envoi en cours...",
+      "sent_title": "Message envoyé !",
+      "sent_desc": "Merci, notre équipe vous répondra par email dans les plus brefs délais.",
+      "send_another": "Envoyer un autre message",
       "errors": {
-        "required": "يرجى إدخال اسمك وبريدك الإلكتروني ورسالتك.",
-        "email": "عنوان البريد الإلكتروني غير صالح.",
-        "too_long": "أحد الحقول طويل جدًا.",
-        "failed": "تعذّر إرسال الرسالة. أعد المحاولة أو راسلنا على support@dembasolution.com."
+        "required": "Veuillez renseigner votre nom, votre email et votre message.",
+        "email": "Adresse email invalide.",
+        "too_long": "Un des champs est trop long.",
+        "failed": "Le message n'a pas pu être envoyé. Réessayez ou écrivez-nous à support@dembasolution.com."
       }
     }
   },
   "decouvrir": {
-    "meta_title": "اكتشف SIGGIE - كيف يعمل",
-    "back_home": "العودة إلى الصفحة الرئيسية",
-    "hero_title_prefix": "كيف يعمل",
-    "hero_desc": "من إنشاء حسابك إلى الإدارة اليومية لتعاونيتك: ما الذي تحصل عليه، وكيف يسير الأمر، وما الذي يتغير حسب باقتك.",
-    "steps_title": "مسارك في 3 خطوات",
-    "step1_title": "1. إنشاء حساب",
-    "step1_desc_before": "اختر باقة، وأدخل اسم تعاونيتك وبريدك الإلكتروني وكلمة مرور. يُنشأ حسابك فورًا مع",
-    "step1_desc_strong": "7 أيام تجربة مجانية",
-    "step1_desc_after": "على الباقة المختارة — لا حاجة لأي دفع للبدء.",
-    "step1_link": "إنشاء حسابي",
-    "step2_title": "2. تسجيل الدخول",
-    "step2_desc": "ادخل إلى لوحة قيادتك بواسطة بريدك الإلكتروني وكلمة المرور. نسيت كلمة المرور؟ يُرسل لك رابط إعادة التعيين عبر البريد الإلكتروني بنقرة واحدة.",
-    "step2_link": "تسجيل الدخول",
-    "step3_title": "3. الاشتراك",
-    "step3_desc": "قبل نهاية فترة التجربة، سدّد اشتراكك السنوي عبر Wave أو Orange Money أو بطاقة بنكية أو تحويل، مباشرة من فضاء «اشتراكي». يمكنك أيضًا تغيير الباقة في أي وقت بدفع الفرق فقط.",
-    "warning_before": "بدون تأكيد الدفع قبل نهاية الأيام السبعة للتجربة، يُعلَّق الوصول إلى فضائك تلقائيًا",
-    "warning_after": "إلى حين التسوية — تبقى بياناتك سليمة، لا شيء يُفقد.",
-    "modules_title": "الوحدات حسب باقتك",
-    "modules_desc": "كل باقة أعلى تتضمن كل ما سبق، بالإضافة إلى وحداتها الخاصة.",
-    "choose_prefix": "اختر",
-    "cta_text": "ابدأ تجربتي المجانية",
-    "demo_title": "جرّب SIGGIE مباشرة",
-    "demo_desc": "ادخل بنقرة واحدة إلى تعاونية العرض التوضيحي WaloAgro لاستكشاف جميع الميزات قبل إنشاء حسابك الخاص.",
-    "demo_login_btn": "جرّب العرض التوضيحي الآن",
-    "demo_note": "هذا الفضاء مشترك بين جميع الزوار: لا تُدخل فيه معلومات حساسة.",
-    "demo_error": "تعذّر الوصول إلى العرض التوضيحي حاليًا. حاول مرة أخرى بعد لحظة.",
+    "meta_title": "Découvrir SIGGIE - Comment ça marche",
+    "back_home": "Retour à l'accueil",
+    "hero_title_prefix": "Comment fonctionne",
+    "hero_desc": "De la création de votre compte à la gestion quotidienne de votre GIE : ce que vous obtenez, comment ça se passe, et ce qui change selon votre forfait.",
+    "steps_title": "Votre parcours en 3 étapes",
+    "step1_title": "1. Créer un compte",
+    "step1_desc_before": "Choisissez un forfait, renseignez le nom de votre GIE, votre email et un mot de passe. Votre compte est créé immédiatement, avec",
+    "step1_desc_strong": "7 jours d'essai gratuit",
+    "step1_desc_after": "sur le forfait choisi — aucun paiement requis pour démarrer.",
+    "step1_link": "Créer mon compte",
+    "step2_title": "2. Se connecter",
+    "step2_desc": "Retrouvez votre tableau de bord avec votre email et votre mot de passe. Mot de passe oublié ? Un lien de réinitialisation vous est envoyé par email en un clic.",
+    "step2_link": "Se connecter",
+    "step3_title": "3. S'abonner",
+    "step3_desc": "Avant la fin de l'essai, réglez votre abonnement annuel par Wave, Orange Money, carte bancaire ou virement, directement depuis votre espace « Mon Abonnement ». Vous pouvez aussi changer de forfait à tout moment en ne payant que la différence.",
+    "warning_before": "Sans paiement confirmé avant la fin des 7 jours d'essai, l'accès à votre espace est automatiquement suspendu",
+    "warning_after": "jusqu'au règlement — vos données restent intactes, rien n'est perdu.",
+    "modules_title": "Les modules selon votre forfait",
+    "modules_desc": "Chaque forfait supérieur inclut tout ce qui précède, plus ses propres modules.",
+    "choose_prefix": "Choisir",
+    "cta_text": "Démarrer mon essai gratuit",
+    "demo_title": "Essayez SIGGIE en direct",
+    "demo_desc": "Accédez en un clic au GIE de démonstration WaloAgro pour explorer toutes les fonctionnalités avant de créer votre propre compte.",
+    "demo_login_btn": "Essayer la démo maintenant",
+    "demo_note": "Cet espace est partagé entre tous les visiteurs : n'y saisissez pas d'informations sensibles.",
+    "demo_error": "Impossible d'accéder à la démo pour le moment. Réessayez dans un instant.",
     "modules": {
-      "dashboard": "لوحة القيادة",
-      "membres": "الأعضاء",
-      "campagnes": "المواسم الزراعية",
-      "intrants": "المدخلات والمخزون",
-      "distribution": "التوزيع",
-      "credits": "القروض البنكية",
-      "facturation": "الفوترة",
-      "remboursements": "التسديدات",
-      "tresorerie": "الخزينة",
-      "materiel": "إدارة المعدات (الجرد، الخدمات، الاستهلاكات، الربحية، الإهلاك)",
-      "bilans": "الميزانيات وتقارير المتابعة المالية المتقدمة"
+      "dashboard": "Tableau de bord",
+      "membres": "Membres",
+      "campagnes": "Campagnes agricoles",
+      "intrants": "Intrants & Stock",
+      "distribution": "Distribution",
+      "credits": "Crédits bancaires",
+      "facturation": "Facturation",
+      "remboursements": "Remboursements",
+      "tresorerie": "Trésorerie",
+      "materiel": "Gestion du matériel (inventaire, prestations, consommations, rentabilité, amortissements)",
+      "bilans": "Bilans & états de suivi budgétaire avancés"
     },
     "plans": {
-      "standard_resume": "الأساسيات لإدارة تعاونية: الأعضاء، المواسم، المخزون والخزينة.",
-      "medium_resume": "كل ما في Standard، بالإضافة إلى المتابعة الكاملة للمعدات الزراعية.",
-      "premium_resume": "كل ما في Medium، بالإضافة إلى الميزانيات وتقارير المتابعة المالية الكاملة للتعاونية."
+      "standard_resume": "L'essentiel pour gérer un GIE : membres, campagnes, stock et trésorerie.",
+      "medium_resume": "Tout Standard, plus le suivi complet du matériel agricole.",
+      "premium_resume": "Tout Medium, plus les bilans et états de suivi budgétaire complets du GIE."
     }
   },
   "auth": {
     "login": {
-      "title": "تسجيل الدخول إلى SIGGIE",
-      "desc": "النظام المتكامل لإدارة التعاونيات الزراعية",
-      "email": "البريد الإلكتروني",
-      "password": "كلمة المرور",
-      "forgot": "نسيت كلمة المرور؟",
-      "btn": "تسجيل الدخول",
-      "no_account": "تعاونيتك ليس لديها حساب بعد؟",
-      "signup": "سجّل تعاونيتك"
+      "title": "Connexion à SIGGIE",
+      "desc": "Système Intégré de Gestion des GIE Agricoles",
+      "email": "Adresse e-mail",
+      "password": "Mot de passe",
+      "forgot": "Mot de passe oublié ?",
+      "btn": "Se connecter",
+      "no_account": "Votre GIE n'a pas encore de compte ?",
+      "signup": "Inscrivez votre GIE"
     },
     "signup": {
-      "title": "إنشاء حساب SIGGIE",
-      "desc": "سجّل تعاونيتك لتبدأ في إدارة مواسمك.",
-      "gie_name": "اسم التعاونية",
-      "email": "البريد الإلكتروني",
-      "password": "كلمة المرور",
-      "btn": "التسجيل",
-      "has_account": "لديك حساب بالفعل؟",
-      "login": "سجّل الدخول",
-      "country": "البلد",
-      "other_country": "بلد آخر",
-      "other_country_name": "اسم بلدك",
-      "usd_note": "خارج البلدان المدرجة، يُدفع الاشتراك ببطاقة بنكية بالدولار الأمريكي وتُعرض المبالغ بدون عملة."
+      "title": "Créer un compte SIGGIE",
+      "desc": "Inscrivez votre GIE pour commencer à gérer vos campagnes.",
+      "gie_name": "Nom du GIE",
+      "email": "Adresse e-mail",
+      "password": "Mot de passe",
+      "btn": "S'inscrire",
+      "has_account": "Vous avez déjà un compte ?",
+      "login": "Connectez-vous",
+      "country": "Pays",
+      "other_country": "Autre pays",
+      "other_country_name": "Nom de votre pays",
+      "usd_note": "Hors des pays listés, l’abonnement se paie par carte bancaire en dollars US et les montants s’affichent sans unité."
     },
     "forgot_password": {
-      "title": "نسيت كلمة المرور",
-      "desc": "أدخل عنوان بريدك الإلكتروني وسنرسل لك رابطًا لإعادة تعيين كلمة المرور.",
-      "email": "البريد الإلكتروني",
-      "submit": "إرسال الرابط",
-      "back_to_login": "العودة إلى تسجيل الدخول"
+      "title": "Mot de passe oublié",
+      "desc": "Entrez votre adresse email et nous vous enverrons un lien pour réinitialiser votre mot de passe.",
+      "email": "Adresse e-mail",
+      "submit": "Envoyer le lien",
+      "back_to_login": "Retour à la connexion"
     }
   },
   "sidebar": {
-    "dashboard": "لوحة القيادة",
-    "membres": "الأعضاء",
-    "campagnes": "المواسم",
-    "intrants": "المدخلات والمخزون",
-    "distribution": "التوزيع",
-    "credits": "القروض البنكية",
-    "facturation": "الفوترة",
-    "remboursements": "التسديدات",
-    "tresorerie": "الخزينة",
-    "materiel": "المعدات",
-    "bilans": "الميزانيات والكشوفات",
-    "abonnement": "الاشتراك",
-    "parametres": "الإعدادات",
-    "support": "المساعدة والدعم",
-    "logout": "تسجيل الخروج"
+    "dashboard": "Tableau de bord",
+    "membres": "Membres",
+    "campagnes": "Campagnes",
+    "intrants": "Intrants & Stock",
+    "distribution": "Distribution",
+    "credits": "Crédits Bancaires",
+    "facturation": "Facturation",
+    "remboursements": "Remboursements",
+    "tresorerie": "Trésorerie",
+    "materiel": "Matériel",
+    "bilans": "Bilans & Relevés",
+    "abonnement": "Abonnement",
+    "parametres": "Paramètres",
+    "support": "Aide & Support",
+    "logout": "Déconnexion",
+    "pos_pharma": "Point de Vente",
+    "stock_pharma": "Stocks (Pharma)",
+    "commandes_pharma": "Commandes Labo"
   },
   "header": {
-    "admin": "المسؤول",
-    "open_sidebar": "فتح القائمة الجانبية",
-    "close_sidebar": "إغلاق القائمة الجانبية"
+    "admin": "Admin",
+    "open_sidebar": "Ouvrir la barre latérale",
+    "close_sidebar": "Fermer la barre latérale"
   },
   "dashboard": {
-    "title": "لوحة القيادة",
-    "welcome": "مرحبًا بك في SIGGIE. إليك ملخص نشاط تعاونيتك.",
+    "title": "Tableau de bord",
+    "welcome": "Bienvenue sur D-PHARMA. Voici un résumé de votre officine.",
     "stats": {
-      "members": "الأعضاء المسجّلون",
-      "members_desc": "في التعاونية",
-      "season": "الموسم الحالي",
-      "season_none": "لا يوجد",
-      "season_active": "جارٍ",
-      "season_done": "منتهٍ",
-      "repayment": "معدل السداد",
-      "repayment_desc": "في الموسم",
-      "equipment": "أسطول المعدات",
-      "equipment_link": "عرض المعدات"
+      "members": "Membres Inscrits",
+      "members_desc": "Dans la coopérative",
+      "season": "Campagne Actuelle",
+      "season_none": "Aucune",
+      "season_active": "En cours",
+      "season_done": "Terminée",
+      "repayment": "Taux de Remboursement",
+      "repayment_desc": "Sur la campagne",
+      "equipment": "Parc Matériel",
+      "equipment_link": "Voir les équipements"
     },
     "finance": {
-      "title": "نظرة مالية عامة",
-      "view_journal": "عرض السجل",
-      "balance": "رصيد الخزينة",
-      "inflows": "إجمالي المداخيل",
-      "outflows": "إجمالي المصاريف"
+      "title": "Aperçu Financier",
+      "view_journal": "Voir le journal",
+      "balance": "Solde de la Trésorerie",
+      "inflows": "Total Entrées",
+      "outflows": "Total Sorties"
     },
     "recent_members": {
-      "title": "الأعضاء الجدد",
-      "registered": "تسجيل",
-      "empty": "لا يوجد أعضاء جدد.",
-      "view_all": "عرض جميع الأعضاء"
+      "title": "Membres Récents",
+      "registered": "Inscription de",
+      "empty": "Aucun membre récent.",
+      "view_all": "Voir tous les membres"
+    },
+    "pharma_stats": {
+      "sales_today": "Ventes du jour",
+      "sales_today_desc": "Chiffre d'affaires",
+      "low_stock": "Stock Faible",
+      "low_stock_desc": "Médicaments à réapprovisionner",
+      "pending_orders": "Commandes Labo",
+      "pending_orders_desc": "En attente",
+      "expired": "Périmés ou proches",
+      "expired_desc": "À retirer des rayons"
+    },
+    "recent_sales": {
+      "title": "Dernières ventes",
+      "empty": "Aucune vente récente",
+      "pos_link": "Aller au Point de Vente",
+      "sale_of": "Ticket N°"
     }
   },
   "membres": {
-    "title": "الأعضاء",
-    "desc": "قائمة بجميع أعضاء التعاونية، تتضمن أسماءهم وقراهم وأرقام هواتفهم.",
+    "title": "Membres",
+    "desc": "Liste de tous les membres du GIE, incluant leur nom, village, et numéro de téléphone.",
     "table": {
-      "name": "الاسم الكامل",
-      "village": "القرية",
-      "phone": "الهاتف",
-      "superficie": "المساحة (هكتار)",
-      "status": "الحالة",
-      "actions": "إجراءات"
+      "name": "Nom complet",
+      "village": "Village",
+      "phone": "Téléphone",
+      "superficie": "Superficie (ha)",
+      "status": "Statut",
+      "actions": "Actions"
     },
     "status": {
-      "active": "نشط",
-      "inactive": "غير نشط"
+      "active": "Actif",
+      "inactive": "Inactif"
     },
-    "empty": "لم يُعثر على أي عضو. انقر على \"عضو جديد\" للبدء."
+    "empty": "Aucun membre trouvé. Cliquez sur \"Nouveau Membre\" pour commencer."
   },
   "campagnes": {
-    "title": "المواسم الزراعية",
-    "desc": "أدر مواسمك، واضبط طرق السداد، وأغلق الدورات المالية.",
+    "title": "Campagnes Agricoles",
+    "desc": "Gérez vos campagnes, configurez les modes de remboursement et clôturez les exercices.",
     "status": {
-      "active": "جارٍ",
-      "completed": "منتهٍ",
-      "cancelled": "ملغى"
+      "active": "En cours",
+      "completed": "Terminée",
+      "cancelled": "Annulée"
     },
     "card": {
-      "from": "من",
-      "to": "إلى",
-      "repayment": "السداد:",
-      "configure": "إعداد",
-      "report": "التقرير",
-      "repartition": "التوزيع"
+      "from": "Du",
+      "to": "au",
+      "repayment": "Remboursement:",
+      "configure": "Configurer",
+      "report": "Bilan",
+      "repartition": "Répartition"
     },
-    "empty": "لم يُعثر على أي موسم. انقر على \"موسم جديد\" للبدء."
+    "empty": "Aucune campagne trouvée. Cliquez sur \"Nouvelle Campagne\" pour commencer."
   },
   "intrants": {
-    "title": "المدخلات والمخزون",
-    "desc": "أدر كتالوج مدخلاتك، وتابع المشتريات والتوزيعات وحالة المخزون في الوقت الفعلي.",
+    "title": "Intrants & Stock",
+    "desc": "Gérez votre catalogue d'intrants, suivez les achats, les distributions et l'état des stocks en temps réel.",
     "kpis": {
-      "value": "القيمة الإجمالية للمخزون",
-      "distributions": "التوزيعات (الموسم الجاري)",
-      "repayments": "التسديدات العينية",
-      "units": "وحدات"
+      "value": "Valeur Totale du Stock",
+      "distributions": "Distributions (Campagne en cours)",
+      "repayments": "Remboursements en Nature",
+      "units": "Unités"
     },
     "table": {
-      "item": "المدخل",
-      "type": "النوع",
-      "details": "التفاصيل",
-      "supplier": "المورّد",
-      "price": "سعر الوحدة",
-      "stock": "المخزون",
-      "actions": "إجراءات"
+      "item": "Intrant",
+      "type": "Type",
+      "details": "Détails",
+      "supplier": "Fournisseur",
+      "price": "Prix Unitaire",
+      "stock": "En Stock",
+      "actions": "Actions"
     },
-    "empty": "لم يُعثر على أي مدخل. انقر على \"مدخل جديد\" لتزويد كتالوجك."
+    "empty": "Aucun intrant trouvé. Cliquez sur \"Nouvel Intrant\" pour alimenter votre catalogue."
   },
   "materiel": {
-    "title": "أسطول المعدات والمتابعة",
-    "desc": "أدر معداتك وخدماتك ونفقات صيانتك.",
+    "title": "Parc Matériel & Suivi",
+    "desc": "Gérez votre équipement, vos prestations et vos dépenses d'entretien.",
     "tabs": {
-      "inventaire": "الجرد",
-      "prestations": "الخدمات (الإيرادات)",
-      "consommations": "الاستهلاكات (النفقات)",
-      "rentabilite": "الربحية",
-      "amortissements": "الإهلاك"
+      "inventaire": "Inventaire",
+      "prestations": "Prestations (Recettes)",
+      "consommations": "Consommations (Dépenses)",
+      "rentabilite": "Rentabilité",
+      "amortissements": "Amortissements"
     },
     "inventaire_table": {
-      "name": "الاسم / المعدة",
-      "type": "النوع",
-      "supplier": "المورّد",
-      "value": "القيمة",
-      "lifespan": "العمر الافتراضي",
-      "acq_date": "تاريخ الاقتناء",
-      "status": "الحالة الحالية",
-      "actions": "إجراءات",
-      "years": "سنوات",
-      "status_good": "حالة جيدة",
-      "status_repair": "قيد الإصلاح",
-      "status_broken": "معطّل",
-      "action_delete": "حذف",
-      "empty": "لا توجد معدات مسجّلة.",
-      "confirm_delete": "هل أنت متأكد من رغبتك في حذف هذه المعدة؟"
+      "name": "Nom / Équipement",
+      "type": "Type",
+      "supplier": "Fournisseur",
+      "value": "Valeur",
+      "lifespan": "Durée de vie",
+      "acq_date": "Date Acq.",
+      "status": "État Actuel",
+      "actions": "Actions",
+      "years": "ans",
+      "status_good": "Bon état",
+      "status_repair": "En réparation",
+      "status_broken": "En panne",
+      "action_delete": "Supprimer",
+      "empty": "Aucun équipement enregistré.",
+      "confirm_delete": "Êtes-vous sûr de vouloir supprimer cet équipement ?"
     }
   },
   "distribution": {
-    "title": "التوزيع على الأعضاء",
-    "desc": "سلّم المدخلات للأعضاء المسجّلين في المواسم.",
+    "title": "Distribution aux Membres",
+    "desc": "Remettez des intrants aux membres inscrits dans les campagnes.",
     "kpis": {
-      "total": "الإجمالي الموزَّع",
-      "members": "الأعضاء المستفيدون",
-      "operations": "العمليات",
-      "units": "وحدات"
+      "total": "Total Distribué",
+      "members": "Membres Bénéficiaires",
+      "operations": "Opérations",
+      "units": "unités"
     },
     "table": {
-      "date": "التاريخ",
-      "beneficiary": "المستفيد",
-      "product": "المنتج المسلَّم",
-      "quantity": "الكمية",
-      "season": "الموسم",
-      "actions": "إجراءات",
-      "unknown_member": "عضو غير معروف",
-      "deleted_product": "منتج محذوف",
-      "empty": "لم يُسجَّل أي توزيع بعد."
+      "date": "Date",
+      "beneficiary": "Bénéficiaire",
+      "product": "Produit Remis",
+      "quantity": "Quantité",
+      "season": "Campagne",
+      "actions": "Actions",
+      "unknown_member": "Membre inconnu",
+      "deleted_product": "Produit supprimé",
+      "empty": "Aucune distribution n'a encore été enregistrée."
     }
   },
   "tresorerie": {
-    "title": "الخزينة والبنك",
-    "desc": "أدر حساباتك البنكية وصندوقك، وقم بمطابقة قروض المواسم.",
+    "title": "Trésorerie & Banque",
+    "desc": "Gérez vos comptes en banque, votre caisse, et rapprochez vos crédits de campagne.",
     "tabs": {
-      "comptes": "الحسابات (الأرصدة)",
-      "journaux": "السجلات",
-      "rapprochement": "المطابقة",
-      "imputations": "التصنيفات"
+      "comptes": "Comptes (Soldes)",
+      "journaux": "Journaux",
+      "rapprochement": "Rapprochement",
+      "imputations": "Imputations"
     },
     "balances": {
-      "title": "نظرة على الأرصدة",
-      "desc": "الرصيد الحالي للصندوق وحساباتك البنكية.",
-      "total": "الخزينة الإجمالية",
-      "empty": "لم يُنشأ أي حساب بعد."
+      "title": "Aperçu des Soldes",
+      "desc": "Solde actuel de la caisse et de vos comptes bancaires.",
+      "total": "Trésorerie Globale",
+      "empty": "Aucun compte créé pour le moment."
     }
   },
   "credits": {
-    "title": "القروض البنكية (التعاونية)",
-    "desc": "أدر طلبات تمويل التعاونية لدى البنوك الشريكة، ومتابعة الصرف والمطابقة.",
+    "title": "Crédits Bancaires (GIE)",
+    "desc": "Gérez les demandes de financement du GIE auprès des banques partenaires, le suivi des déblocages et le rapprochement.",
     "kpis": {
-      "demanded": "إجمالي المطلوب",
-      "granted": "إجمالي الممنوح",
-      "pending": "قيد الانتظار",
-      "dossiers": "ملف (ملفات)",
-      "available": "القرض المتاح"
+      "demanded": "Total Demandé",
+      "granted": "Total Accordé",
+      "pending": "En Attente",
+      "dossiers": "Dossier(s)",
+      "available": "Crédit Disponible"
     },
     "table": {
-      "season": "الموسم",
-      "bank": "البنك",
-      "demanded": "المطلوب",
-      "granted": "الممنوح",
-      "status": "الحالة",
-      "actions": "إجراءات",
-      "unspecified": "غير محدد",
-      "status_pending": "قيد الانتظار",
-      "status_valid": "مقبول",
-      "status_rejected": "مرفوض",
-      "empty": "لم يُعثر على أي طلب قرض."
+      "season": "Campagne",
+      "bank": "Banque",
+      "demanded": "Demandé",
+      "granted": "Accordé",
+      "status": "Statut",
+      "actions": "Actions",
+      "unspecified": "Non spécifiée",
+      "status_pending": "En attente",
+      "status_valid": "Validé",
+      "status_rejected": "Rejeté",
+      "empty": "Aucune demande de crédit trouvée."
     }
   },
   "facturation": {
-    "title": "الفوترة",
-    "desc": "أنشئ فواتير الموسم لكل عضو، واطّلع عليها واطبعها.",
-    "search": "البحث عن فاتورة (اسم العضو، الرقم)...",
+    "title": "Facturation",
+    "desc": "Générez, consultez et imprimez les factures de la campagne pour chaque membre.",
+    "search": "Rechercher une facture (Nom du membre, N°)...",
     "table": {
-      "member": "الرقم / العضو",
-      "season": "الموسم",
-      "total_due": "الإجمالي المستحق",
-      "paid": "المبلغ المدفوع",
-      "remaining": "المتبقي للدفع",
-      "status": "الحالة",
-      "actions": "إجراءات",
-      "status_unpaid": "غير مدفوعة",
-      "status_paid": "مدفوعة",
-      "status_partial": "جزئي",
-      "empty": "لم يُعثر على أي فاتورة."
+      "member": "N° / Membre",
+      "season": "Campagne",
+      "total_due": "Total Dû",
+      "paid": "Montant Payé",
+      "remaining": "Reste à Payer",
+      "status": "Statut",
+      "actions": "Actions",
+      "status_unpaid": "Impayée",
+      "status_paid": "Payée",
+      "status_partial": "Partiel",
+      "empty": "Aucune facture trouvée."
     }
   },
   "parametres": {
-    "title": "الإعدادات",
-    "subtitle": "معلومات التعاونية، تظهر على المستندات المطبوعة (الفواتير، الإيصالات).",
-    "logoTitle": "الشعار",
-    "changeLogo": "تغيير الشعار",
-    "addLogo": "إضافة شعار",
-    "uploading": "جارٍ الإرسال...",
-    "logoHint": "PNG أو JPG، بحد أقصى 2 ميغابايت.",
-    "generalInfo": "المعلومات العامة",
-    "companyName": "اسم التعاونية",
-    "address": "العنوان",
-    "phone": "الهاتف",
-    "email": "البريد الإلكتروني",
-    "identification": "الرقم الضريبي (NINEA أو RCCM أو ما يعادله)",
-    "identificationPlaceholder": "مثال: NINEA 0012345678",
-    "currency": "عملة العمل",
-    "currencyHint": "تُستخدم لجميع المبالغ المعروضة والمطبوعة في التطبيق.",
-    "saved": "تم الحفظ",
-    "logoSaved": "تم تحديث الشعار"
+    "title": "Paramètres",
+    "subtitle": "Informations du GIE, affichées sur les documents imprimés (factures, reçus).",
+    "logoTitle": "Logo",
+    "changeLogo": "Changer le logo",
+    "addLogo": "Ajouter un logo",
+    "uploading": "Envoi...",
+    "logoHint": "PNG ou JPG, 2 Mo maximum.",
+    "generalInfo": "Informations générales",
+    "companyName": "Dénomination",
+    "address": "Adresse",
+    "phone": "Téléphone",
+    "email": "E-mail",
+    "identification": "Identification fiscale (NINEA, RCCM ou équivalent)",
+    "identificationPlaceholder": "Ex : NINEA 0012345678",
+    "currency": "Devise de travail",
+    "currencyHint": "Utilisée pour tous les montants affichés et imprimés dans l'application.",
+    "saved": "Enregistré",
+    "logoSaved": "Logo mis à jour"
   },
   "common": {
-    "cancel": "إلغاء",
-    "close": "إغلاق",
-    "save": "حفظ",
-    "saving": "جارٍ الحفظ...",
-    "add": "إضافة",
-    "adding": "جارٍ الإضافة...",
-    "create": "إنشاء",
-    "creating": "جارٍ الإنشاء...",
-    "edit": "تعديل",
-    "delete": "حذف",
-    "deleting": "جارٍ الحذف...",
-    "actions": "إجراءات",
-    "date": "التاريخ",
-    "print": "طباعة",
-    "irreversible_warning": "⚠️ تنبيه: هذا الإجراء لا يمكن التراجع عنه."
+    "cancel": "Annuler",
+    "close": "Fermer",
+    "save": "Enregistrer",
+    "saving": "Enregistrement...",
+    "add": "Ajouter",
+    "adding": "Ajout...",
+    "create": "Créer",
+    "creating": "Création...",
+    "edit": "Modifier",
+    "delete": "Supprimer",
+    "deleting": "Suppression...",
+    "actions": "Actions",
+    "date": "Date",
+    "print": "Imprimer",
+    "irreversible_warning": "⚠️ Attention : Cette action est irréversible."
   },
   "campagnes_extra": {
-    "search_placeholder": "البحث بالاسم أو المنتج...",
-    "create_btn": "موسم جديد",
+    "search_placeholder": "Rechercher par nom ou produit...",
+    "create_btn": "Nouvelle Campagne",
     "modal": {
-      "create_title": "إنشاء موسم جديد",
-      "edit_title": "تعديل الموسم",
-      "name": "اسم الموسم",
-      "name_placeholder": "مثال: موسم الخريف 2024",
-      "start_date": "تاريخ البداية",
-      "end_date": "تاريخ النهاية",
-      "mode": "طريقة السداد",
-      "mode_espece": "نقدًا فقط",
-      "mode_nature": "عينيًا (منتجات) فقط",
-      "mode_mixte": "مختلط (نقدي + عيني)",
-      "product": "المنتج المُجمَّع",
-      "product_placeholder": "مثال: فول سوداني، دخن...",
-      "price": "السعر المُجمَّع (فرنك/كغ)",
-      "standard_weight": "الوزن القياسي (كغ)",
-      "status": "الحالة",
-      "create_submit": "إنشاء الموسم",
-      "delete_title": "حذف الموسم",
-      "delete_confirm": "هل أنت متأكد من رغبتك في حذف الموسم",
-      "delete_warning": "⚠️ تنبيه: سيؤدي هذا أيضًا إلى حذف جميع المدخلات والقروض المرتبطة بهذا الموسم!",
-      "configure_tooltip": "إعداد الموسم"
+      "create_title": "Créer une nouvelle campagne",
+      "edit_title": "Modifier la campagne",
+      "name": "Nom de la campagne",
+      "name_placeholder": "Ex: Hivernage 2024",
+      "start_date": "Date de début",
+      "end_date": "Date de fin",
+      "mode": "Mode de remboursement",
+      "mode_espece": "Espèces uniquement",
+      "mode_nature": "Nature (Produits) uniquement",
+      "mode_mixte": "Mixte (Espèces + Nature)",
+      "product": "Produit collecté",
+      "product_placeholder": "Ex: Arachide, Mil...",
+      "price": "Prix collecté (FCFA/Kg)",
+      "standard_weight": "Poids standard (Kg)",
+      "status": "Statut",
+      "create_submit": "Créer la campagne",
+      "delete_title": "Supprimer la campagne",
+      "delete_confirm": "Êtes-vous sûr de vouloir supprimer la campagne",
+      "delete_warning": "⚠️ Attention : Cela supprimera également tous les intrants et crédits liés à cette campagne !",
+      "configure_tooltip": "Configuration de la campagne"
     }
   },
   "credits_extra": {
-    "create_btn": "طلب جديد",
-    "reject_confirm": "هل أنت متأكد من رغبتك في رفض طلب القرض هذا؟",
-    "approve_tooltip": "منح القرض",
-    "reject_tooltip": "رفض الطلب",
-    "decaissement_tooltip": "تسجيل صرف",
-    "remboursement_tooltip": "سداد القرض",
-    "delete_tooltip": "حذف السجل",
+    "create_btn": "Nouvelle Demande",
+    "reject_confirm": "Êtes-vous sûr de vouloir rejeter cette demande de crédit ?",
+    "approve_tooltip": "Accorder le crédit",
+    "reject_tooltip": "Rejeter la demande",
+    "decaissement_tooltip": "Enregistrer un décaissement",
+    "remboursement_tooltip": "Rembourser crédit",
+    "delete_tooltip": "Supprimer l'enregistrement",
     "modal": {
-      "create_title": "تسجيل طلب قرض للتعاونية",
-      "linked_campaign": "الموسم المرتبط",
-      "select_campaign": "اختر موسمًا...",
-      "bank_optional": "البنك الشريك (اختياري)",
-      "amount_requested": "المبلغ المطلوب (فرنك)",
-      "reason": "سبب / غرض القرض",
-      "reason_placeholder": "مثال: شراء جماعي للمدخلات لموسم الأمطار",
-      "create_submit": "تسجيل الطلب",
-      "decaissement_title": "صرف جديد من القرض",
-      "credit_granted_label": "القرض الممنوح:",
-      "operation_type": "نوع العملية",
-      "op_supplier": "دفع للمورّد (تحويل)",
-      "op_withdrawal": "سحب نقدي",
-      "source_account": "الحساب المصدر (البنك)",
-      "select_account": "اختر حسابًا...",
-      "amount": "المبلغ (فرنك)",
-      "reason_ref": "السبب / المرجع",
-      "reason_ref_placeholder": "مثال: دفع فاتورة سماد رقم 123",
-      "decaissement_submit": "تسجيل الصرف",
-      "remboursement_title": "سداد جديد للقرض",
-      "remboursement_account": "الحساب المدين",
-      "remboursement_reason_placeholder": "مثال: سداد قسط مارس",
-      "remboursement_submit": "تسجيل السداد",
-      "approve_title_prefix": "التحقق من القرض",
-      "bank_unspecified": "بنك غير محدد",
-      "amount_requested_label": "المبلغ المطلوب أصلاً:",
-      "amount_granted": "المبلغ الممنوح فعليًا (فرنك)",
-      "amount_granted_note": "قد يختلف المبلغ الممنوح من البنك عن الطلب الأصلي.",
-      "interest_rate": "معدل الفائدة (%)",
-      "credit_duration": "مدة القرض (أشهر)",
-      "approve_submit": "تأكيد المبلغ",
-      "delete_title": "حذف السجل",
-      "delete_confirm": "هل أنت متأكد من رغبتك في حذف هذا السطر؟"
+      "create_title": "Enregistrer une demande de crédit pour le GIE",
+      "linked_campaign": "Campagne liée",
+      "select_campaign": "Sélectionnez une campagne...",
+      "bank_optional": "Banque partenaire (optionnel)",
+      "amount_requested": "Montant demandé (FCFA)",
+      "reason": "Motif / But du crédit",
+      "reason_placeholder": "Ex: Achat groupé d'intrants pour la saison des pluies",
+      "create_submit": "Enregistrer la demande",
+      "decaissement_title": "Nouveau décaissement sur le crédit",
+      "credit_granted_label": "Crédit Accordé :",
+      "operation_type": "Type d'opération",
+      "op_supplier": "Paiement Fournisseur (Virement)",
+      "op_withdrawal": "Retrait d'espèces",
+      "source_account": "Compte source (Banque)",
+      "select_account": "Sélectionnez un compte...",
+      "amount": "Montant (FCFA)",
+      "reason_ref": "Motif / Référence",
+      "reason_ref_placeholder": "Ex: Paiement facture engrais N°123",
+      "decaissement_submit": "Enregistrer le décaissement",
+      "remboursement_title": "Nouveau remboursement du crédit",
+      "remboursement_account": "Compte à débiter",
+      "remboursement_reason_placeholder": "Ex: Remboursement échéance Mars",
+      "remboursement_submit": "Enregistrer le remboursement",
+      "approve_title_prefix": "Validation du crédit",
+      "bank_unspecified": "Banque non spécifiée",
+      "amount_requested_label": "Montant initialement demandé :",
+      "amount_granted": "Montant réellement accordé (FCFA)",
+      "amount_granted_note": "Le montant accordé par la banque peut être différent de la demande initiale.",
+      "interest_rate": "Taux d'intérêt (%)",
+      "credit_duration": "Durée du crédit (mois)",
+      "approve_submit": "Confirmer le montant",
+      "delete_title": "Supprimer l'enregistrement",
+      "delete_confirm": "Êtes-vous sûr de vouloir supprimer cette ligne ?"
     }
   },
   "distribution_extra": {
-    "edit_tooltip": "تعديل الكمية",
-    "cancel_tooltip": "إلغاء التوزيع",
-    "invalid_quantity": "كمية غير صالحة",
-    "create_btn": "توزيع جديد",
+    "edit_tooltip": "Modifier la quantité",
+    "cancel_tooltip": "Annuler la distribution",
+    "invalid_quantity": "Quantité invalide",
+    "create_btn": "Nouvelle Distribution",
     "create_modal": {
-      "title": "توزيع جماعي",
-      "tab1": "الخيار 1: حسب المنتج (المدخل)",
-      "tab2": "الخيار 2: حسب العضو",
-      "campaign": "الموسم",
-      "select_campaign": "اختر موسمًا...",
-      "no_members_prefix": "⚠️ لا يوجد أي عضو مسجّل في هذا الموسم بعد.",
-      "no_members_link": "انقر هنا للانتقال إلى إعداد الموسم",
-      "no_members_suffix": "لتسجيل المشاركين.",
-      "no_products_prefix": "⚠️ لا يوجد أي منتج مُعدّ لهذا الموسم.",
-      "no_products_link": "انتقل إلى الإعداد",
-      "no_products_suffix": "لإضافة مدخلات.",
-      "product_to_distribute": "المنتج المراد توزيعه",
-      "select_product": "اختر منتجًا...",
-      "stock_label": "المخزون",
-      "quantities_by_member": "الكميات حسب العضو",
-      "amounts_by_member": "المبالغ حسب العضو (فرنك)",
-      "total_entered": "الإجمالي المُدخَل:",
-      "invalid_quantity_alert": "أدخل كمية واحدة على الأقل.",
-      "exceeds_stock_alert": "الإجمالي المُدخَل يتجاوز المخزون المتاح!",
-      "beneficiary": "المستفيد (عضو مسجّل)",
-      "select_member": "اختر عضوًا...",
-      "quantities_by_product": "الكميات حسب المنتج (المدخل)",
-      "no_intrants_configured": "لا يوجد أي مدخل مُعدّ لهذا الموسم.",
-      "stock_colon": "المخزون:",
-      "amount_unit": "فرنك",
-      "select_campaign_prompt": "الرجاء اختيار موسم للمتابعة.",
-      "validate_submit": "تأكيد التوزيع",
-      "validating": "جارٍ التأكيد...",
-      "prorata_hint": "القيم المقترحة: حصة كل عضو بالتناسب مع المساحة التي يستغلها (صفحة توزيع الحملة)، مطروحاً منها ما وُزّع عليه سابقاً.",
-      "prorata_short": "حصة تناسبية"
+      "title": "Distribution Groupée",
+      "tab1": "Option 1 : Par Produit (Intrant)",
+      "tab2": "Option 2 : Par Membre",
+      "campaign": "Campagne",
+      "select_campaign": "Sélectionnez une campagne...",
+      "no_members_prefix": "⚠️ Aucun membre n'est encore inscrit à cette campagne.",
+      "no_members_link": "Cliquez ici pour aller dans la Configuration de la campagne",
+      "no_members_suffix": "pour y inscrire les participants.",
+      "no_products_prefix": "⚠️ Aucun produit n'est configuré pour cette campagne.",
+      "no_products_link": "Allez dans la Configuration",
+      "no_products_suffix": "pour y ajouter des intrants.",
+      "product_to_distribute": "Produit à distribuer",
+      "select_product": "Sélectionnez un produit...",
+      "stock_label": "Stock",
+      "quantities_by_member": "Quantités par Membre",
+      "amounts_by_member": "Montants par Membre (FCFA)",
+      "total_entered": "Total saisi :",
+      "invalid_quantity_alert": "Saisissez au moins une quantité.",
+      "exceeds_stock_alert": "Le total saisi dépasse le stock disponible !",
+      "beneficiary": "Bénéficiaire (Membre inscrit)",
+      "select_member": "Sélectionnez un membre...",
+      "quantities_by_product": "Quantités par Produit (Intrant)",
+      "no_intrants_configured": "Aucun intrant n'est configuré pour cette campagne.",
+      "stock_colon": "Stock :",
+      "amount_unit": "FCFA",
+      "select_campaign_prompt": "Veuillez sélectionner une campagne pour continuer.",
+      "validate_submit": "Valider la distribution",
+      "validating": "Validation...",
+      "prorata_hint": "Valeurs proposées : part au prorata de la superficie de chaque membre (page Répartition de la campagne), moins ce qui lui a déjà été distribué.",
+      "prorata_short": "Part au prorata"
     },
     "modal": {
-      "edit_title": "تعديل الكمية الموزَّعة",
-      "product_label": "المنتج:",
-      "current_quantity_label": "الكمية الحالية:",
-      "new_quantity": "الكمية الجديدة",
-      "cancel_title": "إلغاء التوزيع",
-      "cancel_confirm_prefix": "هل أنت متأكد من رغبتك في إلغاء هذا التسليم البالغ",
-      "cancel_note": "✅ سيُعاد إضافة نفس الكمية إلى المخزون.",
-      "cancelling": "جارٍ الإلغاء...",
-      "cancel_submit": "إلغاء التوزيع"
+      "edit_title": "Modifier la quantité distribuée",
+      "product_label": "Produit :",
+      "current_quantity_label": "Quantité actuelle :",
+      "new_quantity": "Nouvelle quantité",
+      "cancel_title": "Annuler la distribution",
+      "cancel_confirm_prefix": "Êtes-vous sûr de vouloir annuler cette remise de",
+      "cancel_note": "✅ Le stock sera recrédité de la même quantité.",
+      "cancelling": "Annulation...",
+      "cancel_submit": "Annuler la distribution"
     }
   },
   "facturation_extra": {
-    "generate_btn": "فوترة جماعية",
-    "print_tooltip": "طباعة الفاتورة",
-    "download_tooltip": "تحميل PDF",
-    "interest_col": "الفائدة",
+    "generate_btn": "Facturation Groupée",
+    "print_tooltip": "Imprimer la facture",
+    "download_tooltip": "Télécharger PDF",
+    "interest_col": "Intérêt",
     "interet": {
-      "btn": "حساب الفائدة",
-      "title": "حساب وتوزيع فائدة القرض",
-      "desc": "يوزّع فائدة القرض المعتمد للموسم بين فواتير الأعضاء، وفق الطريقة المختارة.",
-      "campaign": "الموسم",
-      "select_campaign": "اختر موسمًا",
-      "method_label": "طريقة التوزيع",
-      "method_superficie": "بالتناسب مع المساحات المستغلة في الموسم",
-      "method_intrants": "بالتناسب مع إجمالي المدخلات المفوترة للعضو",
-      "calculating": "جارٍ الحساب...",
-      "submit": "حساب وتوزيع"
+      "btn": "Calcul de l'intérêt",
+      "title": "Calculer et répartir l'intérêt du crédit",
+      "desc": "Répartit l'intérêt du crédit validé de la campagne entre les factures des membres, selon la méthode choisie.",
+      "campaign": "Campagne",
+      "select_campaign": "Sélectionnez une campagne",
+      "method_label": "Méthode de répartition",
+      "method_superficie": "Au prorata des superficies exploitées pour la campagne",
+      "method_intrants": "Au prorata du total des intrants facturés au membre",
+      "calculating": "Calcul en cours...",
+      "submit": "Calculer et répartir"
     },
     "modal": {
-      "title": "إنشاء فواتير الموسم",
-      "desc": "سيقوم هذا الإجراء بجمع المدخلات المستلمة والقروض المعتمدة لكل عضو، وإنشاء أو تحديث الفواتير.",
-      "campaign": "الموسم",
-      "select_campaign": "اختر موسمًا",
-      "generating": "جارٍ الإنشاء...",
-      "submit": "إنشاء"
+      "title": "Générer les factures de la campagne",
+      "desc": "Cette action va additionner les intrants reçus et les crédits validés pour chaque membre, et générer ou mettre à jour les factures.",
+      "campaign": "Campagne",
+      "select_campaign": "Sélectionnez une campagne",
+      "generating": "Génération...",
+      "submit": "Générer"
     }
   },
   "intrants_extra": {
-    "search_placeholder": "البحث عن مدخل...",
-    "buy_btn": "شراء جديد",
-    "create_btn": "مدخل جديد",
+    "search_placeholder": "Rechercher un intrant...",
+    "buy_btn": "Nouvel Achat",
+    "create_btn": "Nouvel Intrant",
     "type_options": [
-      "سماد",
-      "بذور",
-      "مبيد حشري",
-      "مبيد فطري",
-      "مبيد أعشاب",
-      "معدات",
-      "إعادة فوترة",
-      "خدمة ري",
-      "عمليات فلاحية"
+      "Engrais",
+      "Semence",
+      "Pesticide",
+      "Fongicide",
+      "Herbicide",
+      "Matériel",
+      "Refacturation",
+      "Service Hydraulique",
+      "Façon culturale"
     ],
     "modal": {
-      "buy_title": "تسجيل شراء مدخل",
-      "buy_submit": "تأكيد الشراء",
-      "product_bought": "المنتج المشترى",
-      "select_product": "اختر منتجًا...",
-      "current_stock": "المخزون الحالي",
-      "quantity_bought": "الكمية المشتراة (تُضاف إلى المخزون)",
-      "purchase_price": "سعر الشراء للوحدة (فرنك)",
-      "purchase_date": "تاريخ الشراء",
-      "invoice_number": "رقم الفاتورة (اختياري)",
-      "invoice_number_placeholder": "مثال: FAC-2024-0123",
-      "create_title": "إضافة مدخل جديد",
-      "edit_title": "تعديل المدخل",
-      "product_name": "اسم المنتج",
-      "product_name_placeholder": "مثال: سماد NPK 15-15-15",
-      "type": "نوع المدخل",
-      "type_placeholder": "مثال: سماد، بذور...",
-      "supplier_optional": "المورّد (اختياري)",
-      "supplier_placeholder": "اسم المورّد أو الشركة",
-      "unit_price": "سعر الوحدة (فرنك)",
-      "initial_stock": "الكمية (المخزون الأولي)",
-      "stock": "الكمية (المخزون)",
-      "description_optional": "الوصف / الوحدة (اختياري)",
-      "description_placeholder": "مثال: كيس 50 كغ، لتر...",
-      "create_submit": "إضافة إلى الكتالوج",
-      "delete_title": "حذف المدخل",
-      "delete_confirm_prefix": "هل أنت متأكد من رغبتك في حذف المدخل",
-      "delete_confirm_suffix": "من الكتالوج؟"
+      "buy_title": "Enregistrer un achat d'intrant",
+      "buy_submit": "Valider l'achat",
+      "product_bought": "Produit acheté",
+      "select_product": "Sélectionnez un produit...",
+      "current_stock": "Stock actuel",
+      "quantity_bought": "Quantité achetée (à ajouter au stock)",
+      "purchase_price": "Prix d'achat unitaire (FCFA)",
+      "purchase_date": "Date d'achat",
+      "invoice_number": "N° Facture (optionnel)",
+      "invoice_number_placeholder": "Ex: FAC-2024-0123",
+      "create_title": "Ajouter un nouvel intrant",
+      "edit_title": "Modifier l'intrant",
+      "product_name": "Nom du produit",
+      "product_name_placeholder": "Ex: Engrais NPK 15-15-15",
+      "type": "Type d'intrant",
+      "type_placeholder": "Ex: Engrais, Semence...",
+      "supplier_optional": "Fournisseur (optionnel)",
+      "supplier_placeholder": "Nom du fournisseur ou de la société",
+      "unit_price": "Prix unitaire (FCFA)",
+      "initial_stock": "Quantité (Stock initial)",
+      "stock": "Quantité (Stock)",
+      "description_optional": "Description / Unité (optionnel)",
+      "description_placeholder": "Ex: Sac de 50kg, Litre...",
+      "create_submit": "Ajouter au catalogue",
+      "delete_title": "Supprimer l'intrant",
+      "delete_confirm_prefix": "Êtes-vous sûr de vouloir supprimer l'intrant",
+      "delete_confirm_suffix": "du catalogue ?"
     }
   },
   "materiel_extra": {
-    "add_btn": "إضافة معدة",
-    "edit_tooltip": "تعديل المعدة",
-    "etat_bon": "حالة جيدة",
-    "etat_reparation": "قيد الإصلاح",
-    "etat_panne": "معطّل",
+    "add_btn": "Ajouter un équipement",
+    "edit_tooltip": "Modifier l'équipement",
+    "etat_bon": "Bon état",
+    "etat_reparation": "En réparation",
+    "etat_panne": "En panne",
     "type_labels": {
-      "Bâtiment et installations": "المباني والمنشآت",
-      "Matériel agricole": "معدات زراعية",
-      "Matériel et mobilier": "معدات وأثاث",
-      "Matériel informatique": "معدات معلوماتية",
-      "Matériel de transport": "معدات نقل"
+      "Bâtiment et installations": "Bâtiment et installations",
+      "Matériel agricole": "Matériel agricole",
+      "Matériel et mobilier": "Matériel et mobilier",
+      "Matériel informatique": "Matériel informatique",
+      "Matériel de transport": "Matériel de transport"
     },
     "modal": {
-      "add_title": "إضافة معدة جديدة",
-      "edit_title": "تعديل المعدة",
-      "name": "الاسم (مثال: جرار John Deere)",
-      "type": "النوع",
-      "supplier": "المورّد",
-      "supplier_placeholder": "اسم المورّد",
-      "value": "القيمة (فرنك)",
-      "lifespan": "العمر الافتراضي (سنوات)",
-      "acq_date": "تاريخ الاقتناء",
-      "initial_state": "الحالة الأولية",
-      "current_state": "الحالة الحالية"
+      "add_title": "Ajouter un nouvel équipement",
+      "edit_title": "Modifier l'équipement",
+      "name": "Nom (ex: Tracteur John Deere)",
+      "type": "Type",
+      "supplier": "Fournisseur",
+      "supplier_placeholder": "Nom du fournisseur",
+      "value": "Valeur (FCFA)",
+      "lifespan": "Durée de vie (Années)",
+      "acq_date": "Date d'acquisition",
+      "initial_state": "État initial",
+      "current_state": "État actuel"
     }
   },
   "membres_extra": {
-    "search_placeholder": "البحث بالاسم أو اللقب أو القرية...",
-    "create_btn": "عضو جديد",
+    "search_placeholder": "Rechercher par nom, prénom ou village...",
+    "create_btn": "Nouveau Membre",
     "modal": {
-      "create_title": "إضافة عضو جديد",
-      "edit_title": "تعديل العضو",
-      "last_name": "اللقب",
-      "first_name": "الاسم",
-      "village": "القرية",
-      "phone": "الهاتف",
-      "superficie": "المساحة (هكتار)",
-      "status": "الحالة",
-      "status_active": "نشط",
-      "status_inactive": "غير نشط",
-      "delete_title": "حذف العضو",
-      "delete_confirm_prefix": "هل أنت متأكد من رغبتك في حذف",
-      "delete_confirm_suffix": "؟ هذا الإجراء لا يمكن التراجع عنه."
+      "create_title": "Ajouter un nouveau membre",
+      "edit_title": "Modifier le membre",
+      "last_name": "Nom",
+      "first_name": "Prénom",
+      "village": "Village",
+      "phone": "Téléphone",
+      "superficie": "Superficie (ha)",
+      "status": "Statut",
+      "status_active": "Actif",
+      "status_inactive": "Inactif",
+      "delete_title": "Supprimer le membre",
+      "delete_confirm_prefix": "Êtes-vous sûr de vouloir supprimer",
+      "delete_confirm_suffix": "? Cette action est irréversible."
     }
   },
   "remboursements_extra": {
     "modal": {
-      "title_cash": "تسجيل دفعة نقدية",
-      "title_nature": "تسجيل دفعة عينية",
-      "surplus_label": "فائض السداد:",
-      "remaining_label": "المتبقي للدفع:",
-      "amount_paid": "المبلغ المدفوع (فرنك)",
-      "amount_paid_note": "سيُضاف المبلغ إلى الخزينة.",
-      "nature_product": "نوع المنتج المستلَم",
-      "nature_product_placeholder": "مثال: أرز شعير، طماطم، فول سوداني...",
-      "weight_label": "الوزن أو الكمية المستلمة",
-      "calc_base": "أساس الحساب:",
-      "per_unit_suffix": "فرنك/وحدة",
-      "equivalent_label": "المعادل المالي المخصوم من الفاتورة:",
-      "missing_product_error": "الرجاء تحديد نوع المنتج المستلَم (مثال: أرز شعير، طماطم، فول سوداني...).",
-      "invalid_amount_error": "يجب أن يكون المبلغ أكبر من 0",
-      "validating": "جارٍ التأكيد...",
-      "validate_submit": "تأكيد الدفعة",
-      "account": "حساب الخزينة المراد إيداع المبلغ فيه",
-      "no_account": "لا يوجد حساب خزينة: أنشئ حسابًا في الخزينة قبل تسجيل دفعة نقدية."
+      "title_cash": "Enregistrer un paiement en numéraire",
+      "title_nature": "Enregistrer un paiement en nature",
+      "surplus_label": "Surplus de remboursement :",
+      "remaining_label": "Reste à payer :",
+      "amount_paid": "Montant versé (FCFA)",
+      "amount_paid_note": "Le montant sera crédité à la Trésorerie.",
+      "nature_product": "Nature du produit reçu",
+      "nature_product_placeholder": "Ex: Riz paddy, Tomate, Arachide...",
+      "weight_label": "Poids ou quantité récupérée",
+      "calc_base": "Base de calcul :",
+      "per_unit_suffix": "FCFA/unité",
+      "equivalent_label": "Équivalent financier déduit de la facture :",
+      "missing_product_error": "Veuillez préciser la nature du produit reçu (ex: Riz paddy, Tomate, Arachide...).",
+      "invalid_amount_error": "Le montant doit être supérieur à 0",
+      "validating": "Validation...",
+      "validate_submit": "Valider le paiement",
+      "account": "Compte de trésorerie à créditer",
+      "no_account": "Aucun compte de trésorerie : créez-en un dans Trésorerie avant d'enregistrer un paiement en espèces."
     }
   },
   "tresorerie_extra": {
-    "add_account_btn": "حساب جديد",
+    "add_account_btn": "Nouveau Compte",
     "modal": {
-      "title": "إنشاء حساب",
-      "name": "اسم الحساب",
-      "name_placeholder": "مثال: الصندوق الرئيسي، البنك الزراعي...",
-      "type": "نوع الحساب",
-      "type_caisse": "صندوق (نقدي)",
-      "type_banque": "حساب بنكي",
-      "initial_balance": "الرصيد الافتتاحي (فرنك)"
+      "title": "Créer un compte",
+      "name": "Nom du compte",
+      "name_placeholder": "Ex: Caisse Principale, Banque Agricole...",
+      "type": "Type de compte",
+      "type_caisse": "Caisse (Espèces)",
+      "type_banque": "Compte Bancaire",
+      "initial_balance": "Solde initial (FCFA)"
     }
   },
   "checkout_extra": {
-    "back_offers": "العودة إلى العروض",
-    "order_summary": "ملخص الطلب",
-    "subscription": "الاشتراك",
-    "total_ttc": "الإجمالي للدفع",
-    "payment_method": "طريقة الدفع",
+    "back_offers": "Retour aux offres",
+    "order_summary": "Résumé de la commande",
+    "subscription": "Abonnement",
+    "total_ttc": "Total à payer (TTC)",
+    "payment_method": "Moyen de paiement",
     "orange_money": "Orange Money",
-    "card": "بطاقة بنكية",
-    "mobile_money_chariow": "الدفع عبر الهاتف (Chariow)",
-    "transfer": "تحويل بنكي",
-    "transfer_instructions": "الرجاء إجراء التحويل إلى الحساب التالي:",
-    "transfer_note": "سيُفعَّل اشتراكك فور استلام وتأكيد الأموال.",
-    "phone_label": "رقم الهاتف",
+    "card": "Carte Bancaire",
+    "mobile_money_chariow": "Mobile Money (Chariow)",
+    "transfer": "Virement",
+    "transfer_instructions": "Veuillez effectuer le virement sur le compte suivant :",
+    "transfer_note": "Votre abonnement sera activé dès réception et confirmation des fonds.",
+    "phone_label": "Numéro de téléphone",
     "phone_placeholder": "77 123 45 67",
-    "phone_required_error": "الرجاء إدخال رقم هاتفك",
-    "redirect_notice_prefix": "سيتم توجيهك إلى صفحة الدفع الآمنة لإتمام",
-    "redirect_notice_card": "الدفع بالبطاقة",
-    "redirect_notice_mobile": "الدفع عبر الهاتف",
-    "processing": "جارٍ المعالجة...",
-    "create_account_btn": "إنشاء حسابي",
-    "pay_prefix": "دفع",
-    "virement_saved_title": "تم تسجيل التحويل",
-    "virement_saved_desc": "تم تسجيل طلبك. سيُفعَّل اشتراكك فور استلام وتأكيد تحويلك.",
-    "back_to_subscription": "العودة إلى اشتراكي",
+    "phone_required_error": "Veuillez saisir votre numéro de téléphone",
+    "redirect_notice_prefix": "Vous allez être redirigé(e) vers la page de paiement sécurisée pour finaliser votre",
+    "redirect_notice_card": "paiement par carte",
+    "redirect_notice_mobile": "paiement mobile money",
+    "processing": "Traitement en cours...",
+    "create_account_btn": "Créer mon compte",
+    "pay_prefix": "Payer",
+    "virement_saved_title": "Virement enregistré",
+    "virement_saved_desc": "Votre demande a été enregistrée. Votre abonnement sera activé dès réception et confirmation de votre virement.",
+    "back_to_subscription": "Retour à mon abonnement",
     "retour": {
-      "activated_title": "تم تفعيل الاشتراك!",
-      "activated_desc_prefix": "شكرًا، تم تأكيد دفعتك وباقتك",
-      "activated_desc_suffix": "نشطة الآن.",
-      "dashboard_link": "الانتقال إلى لوحة القيادة",
-      "failed_title": "لم يكتمل الدفع",
-      "failed_desc": "تعذّر تأكيد الدفع. يمكنك إعادة المحاولة من فضاء اشتراكك.",
-      "retry_link": "إعادة المحاولة",
-      "pending_title": "جارٍ التحقق من الدفع...",
-      "pending_desc": "قد يستغرق هذا بضع لحظات. حدّث هذه الصفحة أو عد لاحقًا إلى فضاء اشتراكك."
+      "activated_title": "Abonnement activé !",
+      "activated_desc_prefix": "Merci, votre paiement a été confirmé et votre forfait",
+      "activated_desc_suffix": "est actif.",
+      "dashboard_link": "Accéder au tableau de bord",
+      "failed_title": "Paiement non abouti",
+      "failed_desc": "Le paiement n'a pas pu être confirmé. Vous pouvez réessayer depuis votre espace abonnement.",
+      "retry_link": "Réessayer",
+      "pending_title": "Vérification du paiement...",
+      "pending_desc": "Cela peut prendre quelques instants. Actualisez cette page ou revenez plus tard sur votre espace abonnement."
     },
-    "usd_card_only": "بلدك لا يستخدم عملة مدعومة: يُدفع الاشتراك ببطاقة بنكية بالدولار الأمريكي.",
-    "card_unavailable": "الدفع بالبطاقة غير متاح بعد. تواصل مع الدعم للاشتراك."
+    "usd_card_only": "Votre pays n’utilise pas une devise gérée : l’abonnement se paie par carte bancaire en dollars US.",
+    "card_unavailable": "Le paiement par carte n’est pas encore disponible. Contactez le support pour souscrire."
   },
   "update_password": {
-    "title": "تحديث كلمة المرور",
-    "desc": "أدخل كلمة مرورك الجديدة.",
-    "label": "كلمة المرور الجديدة",
-    "submit": "حفظ"
+    "title": "Mettre à jour le mot de passe",
+    "desc": "Saisissez votre nouveau mot de passe.",
+    "label": "Nouveau mot de passe",
+    "submit": "Enregistrer"
   },
   "bilans": {
-    "title": "الميزانيات والكشوفات",
-    "desc": "لوحة تلخيصية للصحة المالية والتشغيلية للتعاونية.",
+    "title": "Bilans & Relevés",
+    "desc": "Tableau de bord récapitulatif de la santé financière et opérationnelle du GIE.",
     "tabs": {
-      "overview": "نظرة عامة",
-      "releve_membre": "كشف العضو",
-      "releve_client": "كشف العميل",
-      "suivi_budgetaire": "المتابعة المالية",
-      "bilan_annuel": "الميزانية السنوية"
+      "overview": "Vue d'ensemble",
+      "releve_membre": "Relevé Membre",
+      "releve_client": "Relevé Client",
+      "suivi_budgetaire": "Suivi Budgétaire",
+      "bilan_annuel": "Bilan annuel"
     },
-    "tresorerie_title": "الخزينة الإجمالية",
+    "tresorerie_title": "Trésorerie Globale",
     "tresorerie": {
-      "balance": "الرصيد الحالي",
-      "inflows": "إجمالي المداخيل",
-      "outflows": "إجمالي المصاريف"
+      "balance": "Solde Actuel",
+      "inflows": "Total Entrées",
+      "outflows": "Total Sorties"
     },
-    "creances_title": "الالتزامات والديون المستحقة",
+    "creances_title": "Engagements et Créances",
     "creances": {
-      "unpaid": "فواتير غير مدفوعة",
-      "credits": "قروض غير مسدَّدة"
+      "unpaid": "Factures Impayées",
+      "credits": "Crédits Non Remboursés"
     },
-    "materiel_title": "ملخص أسطول المعدات",
+    "materiel_title": "Synthèse Parc Matériel",
     "materiel": {
-      "net_profit": "الربحية الصافية للأسطول",
-      "net_profit_desc": "الإيرادات - النفقات - الإهلاك",
-      "revenue": "إجمالي الإيرادات",
-      "expenses": "إجمالي النفقات",
-      "depreciation": "الإهلاك"
+      "net_profit": "Rentabilité Nette du Parc",
+      "net_profit_desc": "Recettes - Dépenses - Amortissements",
+      "revenue": "Total Recettes",
+      "expenses": "Total Dépenses",
+      "depreciation": "Dépréciation (Amort.)"
     }
   },
   "suivi_budgetaire": {
-    "title": "المتابعة المالية",
-    "desc": "قارن التوقعات والإنجازات لكل موسم، حسب البند.",
-    "select_campaign": "اختر موسمًا",
-    "no_campaigns": "لم يُعثر على أي موسم.",
-    "loading": "جارٍ تحميل البيانات المالية...",
+    "title": "Suivi Budgétaire",
+    "desc": "Comparez les prévisions et les réalisations de chaque campagne, par rubrique.",
+    "select_campaign": "Choisir une campagne",
+    "no_campaigns": "Aucune campagne trouvée.",
+    "loading": "Chargement des données budgétaires...",
     "tabs": {
-      "exploitation": "التشغيل",
-      "materiel": "المعدات",
-      "consolide": "موحّد"
+      "exploitation": "Exploitation",
+      "materiel": "Matériel",
+      "consolide": "Consolidé"
     },
-    "recettes_title": "الإيرادات",
-    "depenses_title": "النفقات",
-    "solde_title": "الرصيد (الإيرادات - النفقات)",
+    "recettes_title": "Recettes",
+    "depenses_title": "Dépenses",
+    "solde_title": "Solde (Recettes - Dépenses)",
     "headers": {
-      "rubrique": "البند",
-      "sous_rubrique": "البند الفرعي",
-      "prevu": "المتوقع",
-      "realise": "المنجز",
-      "ecart": "الفارق",
-      "taux": "معدل الإنجاز"
+      "rubrique": "Rubrique",
+      "sous_rubrique": "Sous-Rubrique",
+      "prevu": "Prévu",
+      "realise": "Réalisé",
+      "ecart": "Écart",
+      "taux": "Taux de réalisation"
     },
-    "total": "الإجمالي",
-    "empty": "لا توجد بيانات مالية لهذا الموسم."
+    "total": "Total",
+    "empty": "Aucune donnée budgétaire pour cette campagne."
   },
   "support": {
-    "title": "المساعدة والدعم",
-    "desc": "بحاجة لمساعدة في استخدام SIGGIE؟ فريقنا في خدمتك لمرافقتك.",
-    "phone": "الهاتف",
-    "phone_hours": "من الإثنين إلى الجمعة، 9 صباحًا - 6 مساءً",
-    "email": "البريد الإلكتروني",
-    "email_desc": "الدعم التقني",
-    "form_title": "أرسل لنا رسالة",
-    "form_desc": "تواجه مشكلة تقنية أو لديك سؤال محدد؟ املأ هذا النموذج وسنجيبك مباشرة عبر البريد الإلكتروني.",
+    "title": "Aide & Support",
+    "desc": "Besoin d'aide pour utiliser SIGGIE ? Notre équipe est à votre disposition pour vous accompagner.",
+    "phone": "Téléphone",
+    "phone_hours": "Lun-Ven de 9h à 18h",
+    "email": "Email",
+    "email_desc": "Assistance technique",
+    "form_title": "Envoyez-nous un message",
+    "form_desc": "Vous rencontrez un bug ou avez une question spécifique ? Remplissez ce formulaire et nous vous répondrons directement par email.",
     "form": {
-      "subject": "موضوع طلبك",
-      "subject_placeholder": "مثال: مشكلة في موسم، سؤال حول الفوترة...",
-      "message": "رسالة مفصّلة",
-      "message_placeholder": "صف مشكلتك أو سؤالك بالتفصيل...",
-      "send": "إرسال الرسالة",
-      "sending": "جارٍ الإرسال...",
-      "sent_title": "تم إرسال الرسالة بنجاح!",
-      "sent_desc": "استلم فريق الدعم رسالتك وسيرد عليك في أقرب وقت ممكن.",
-      "send_another": "إرسال رسالة أخرى",
+      "subject": "Sujet de votre demande",
+      "subject_placeholder": "Ex: Problème avec une campagne, Question sur la facturation...",
+      "message": "Message détaillé",
+      "message_placeholder": "Décrivez votre problème ou votre question en détail...",
+      "send": "Envoyer le message",
+      "sending": "Envoi en cours...",
+      "sent_title": "Message envoyé avec succès !",
+      "sent_desc": "Notre équipe de support a bien reçu votre message et vous répondra dans les plus brefs délais.",
+      "send_another": "Envoyer un autre message",
       "errors": {
-        "required": "يرجى ملء جميع الحقول.",
-        "too_long": "الموضوع (200 حرف كحد أقصى) أو الرسالة (5000 حرف كحد أقصى) طويل جدًا.",
-        "not_authenticated": "انتهت صلاحية جلستك. يرجى تسجيل الدخول مجددًا.",
-        "failed": "تعذّر إرسال الرسالة. أعد المحاولة أو راسلنا على support@dembasolution.com."
+        "required": "Veuillez remplir tous les champs.",
+        "too_long": "Le sujet (200 caractères max) ou le message (5000 caractères max) est trop long.",
+        "not_authenticated": "Votre session a expiré. Veuillez vous reconnecter.",
+        "failed": "Le message n'a pas pu être envoyé. Réessayez ou écrivez-nous à support@dembasolution.com."
       }
     }
   },
   "materiel_pages": {
     "amortissements": {
-      "title": "جداول الإهلاك",
-      "desc": "اطّلع على خطة الإهلاك المحاسبي لكل معدة من أسطولك.",
-      "select_label": "اختر معدة لعرض جدول إهلاكها:",
-      "not_valued": "غير مُقيَّمة",
-      "table_title": "جدول الإهلاك (الخطي)",
-      "acq_date": "تاريخ الاقتناء",
-      "duration": "المدة",
-      "years": "سنوات",
-      "rate": "المعدل",
+      "title": "Tableaux d'Amortissement",
+      "desc": "Consultez le plan d'amortissement comptable de chaque équipement de votre parc.",
+      "select_label": "Sélectionner un équipement pour voir son tableau d'amortissement :",
+      "not_valued": "Non valorisé",
+      "table_title": "Tableau d'amortissement (Linéaire)",
+      "acq_date": "Date d'acquisition",
+      "duration": "Durée",
+      "years": "ans",
+      "rate": "Taux",
       "headers": {
-        "year": "السنة",
-        "base": "الأساس القابل للإهلاك",
-        "annuity": "القسط السنوي",
-        "cumulative": "الإهلاك التراكمي",
-        "vnc": "القيمة الصافية المحاسبية"
+        "year": "Année",
+        "base": "Base à amortir",
+        "annuity": "Annuité",
+        "cumulative": "Amort. Cumulé",
+        "vnc": "VNC (Valeur Nette)"
       },
-      "error": "تعذّر حساب الإهلاك لهذه المعدة. تحقق من إدخال قيمة الاقتناء والتاريخ والعمر الافتراضي بشكل صحيح."
+      "error": "Impossible de calculer l'amortissement pour cet équipement. Vérifiez que la valeur d'acquisition, la date et la durée de vie sont bien renseignées."
     },
     "consommations": {
-      "title": "النفقات والاستهلاكات",
-      "desc": "تابع مصاريف الصيانة والوقود وقطع الغيار لكل معدة.",
-      "add_btn": "تسجيل نفقة",
-      "total": "إجمالي النفقات (صيانة ووقود)",
+      "title": "Dépenses et Consommations",
+      "desc": "Suivez les frais d'entretien, de carburant et de pièces pour chaque équipement.",
+      "add_btn": "Saisir une dépense",
+      "total": "Total des Dépenses (Entretien & Carburant)",
       "headers": {
-        "equipment": "المعدة",
-        "type": "النوع (المورّد)",
-        "quantity": "الكمية",
-        "amount": "المبلغ (فرنك)"
+        "equipment": "Équipement",
+        "type": "Type (Fournisseur)",
+        "quantity": "Quantité",
+        "amount": "Montant (FCFA)"
       },
-      "at_supplier": "لدى",
-      "empty": "لا توجد نفقات مسجّلة.",
-      "delete_confirm": "هل أنت متأكد من رغبتك في حذف هذه النفقة؟",
-      "delete_title": "حذف النفقة",
-      "edit_title_btn": "تعديل النفقة",
+      "at_supplier": "chez",
+      "empty": "Aucune dépense enregistrée.",
+      "delete_confirm": "Êtes-vous sûr de vouloir supprimer cette dépense ?",
+      "delete_title": "Supprimer la dépense",
+      "edit_title_btn": "Modifier la dépense",
       "form": {
-        "add_title": "نفقة جديدة (استهلاك / صيانة)",
-        "edit_title": "تعديل النفقة",
-        "equipment_label": "المعدة المعنية",
-        "select_machine": "اختر آلة",
-        "type_label": "نوع النفقة",
-        "type_fuel": "وقود",
-        "type_oil": "زيت / مواد تشحيم",
-        "type_part": "قطعة غيار",
-        "type_repair": "إصلاح / يد عاملة",
-        "type_other": "أخرى",
-        "supplier_label": "المورّد / محطة الخدمة",
-        "quantity_label": "الكمية (لتر، وحدة...)",
-        "amount_label": "المبلغ الإجمالي (فرنك)",
-        "date_label": "التاريخ"
+        "add_title": "Nouvelle Dépense (Consommation / Entretien)",
+        "edit_title": "Modifier la Dépense",
+        "equipment_label": "Équipement concerné",
+        "select_machine": "Sélectionner une machine",
+        "type_label": "Type de dépense",
+        "type_fuel": "Carburant",
+        "type_oil": "Huile / Lubrifiant",
+        "type_part": "Pièce de rechange",
+        "type_repair": "Réparation / Main d'œuvre",
+        "type_other": "Autre",
+        "supplier_label": "Fournisseur / Station service",
+        "quantity_label": "Quantité (L, Unité...)",
+        "amount_label": "Montant total (FCFA)",
+        "date_label": "Date"
       }
     },
     "prestations": {
-      "title": "سجل الخدمات",
-      "desc": "أعمال أنجزتها معداتك وحقّقت إيرادات.",
-      "add_btn": "إضافة خدمة",
-      "total": "إجمالي الإيرادات (الخدمات)",
+      "title": "Historique des Prestations",
+      "desc": "Travaux réalisés par vos équipements générant des recettes.",
+      "add_btn": "Ajouter une prestation",
+      "total": "Total des Recettes (Prestations)",
       "headers": {
-        "equipment": "المعدة",
-        "type": "النوع (العميل)",
-        "area": "المساحة",
-        "amount": "المبلغ (فرنك)",
-        "quantity": "الكمية المسجلة",
-        "obtained": "المحصول",
-        "client": "العميل"
+        "equipment": "Équipement",
+        "type": "Type (Client)",
+        "area": "Superficie",
+        "amount": "Montant (FCFA)",
+        "quantity": "Quantité pointée",
+        "obtained": "Obtenu",
+        "client": "Client"
       },
-      "for_client": "لصالح",
-      "empty": "لا توجد خدمات مسجّلة.",
-      "delete_confirm": "هل أنت متأكد من رغبتك في حذف هذه الخدمة؟",
-      "delete_title": "حذف الخدمة",
-      "edit_title_btn": "تعديل الخدمة",
+      "for_client": "pour",
+      "empty": "Aucune prestation enregistrée.",
+      "delete_confirm": "Êtes-vous sûr de vouloir supprimer cette prestation ?",
+      "delete_title": "Supprimer la prestation",
+      "edit_title_btn": "Modifier la prestation",
       "form": {
-        "add_title": "خدمة جديدة (إيراد)",
-        "edit_title": "تعديل الخدمة",
-        "equipment_label": "المعدة المستخدَمة",
-        "select_machine": "اختر آلة",
-        "type_label": "نوع الخدمة",
-        "type_placeholder": "مثال: تسوية، حرث، حصاد...",
-        "client_label": "العميل / العضو",
-        "area_label": "المساحة (هكتار)",
-        "amount_label": "المبلغ الإجمالي (فرنك)",
-        "date_label": "تاريخ الإنجاز",
-        "section_client": "العميل",
-        "phone_label": "هاتف العميل",
-        "phone_placeholder": "مثال: 77 123 45 67",
-        "section_work": "العمل المنجز",
-        "unit_label": "وحدة التسجيل",
+        "add_title": "Nouvelle Prestation (Recette)",
+        "edit_title": "Modifier la Prestation",
+        "equipment_label": "Équipement utilisé",
+        "select_machine": "Sélectionner une machine",
+        "type_label": "Type de prestation",
+        "type_placeholder": "Ex: Offset, Labour, Moisson...",
+        "client_label": "Client / Membre",
+        "area_label": "Superficie (ha)",
+        "amount_label": "Montant total (FCFA)",
+        "date_label": "Date de réalisation",
+        "section_client": "Client",
+        "phone_label": "Téléphone du client",
+        "phone_placeholder": "Ex : 77 123 45 67",
+        "section_work": "Travail réalisé",
+        "unit_label": "Unité de pointage",
         "unit_options": {
-          "ha": "هكتارات (هكتار)",
-          "h": "ساعات",
-          "sac": "أكياس",
-          "autre": "وحدة أخرى"
+          "ha": "Hectares (ha)",
+          "h": "Heures (h)",
+          "sac": "Sacs",
+          "autre": "Autre unité"
         },
-        "unit_other_label": "الوحدة (حدد)",
-        "unit_other_placeholder": "مثال: كم، رحلات، أطنان",
+        "unit_other_label": "Unité (préciser)",
+        "unit_other_placeholder": "Ex : km, voyages, tonnes",
         "qty_labels": {
-          "ha": "المساحة المعالجة (هكتار)",
-          "h": "مدة العمل (ساعات)",
-          "sac": "عدد الأكياس المعالجة",
-          "autre": "الكمية المعالجة"
+          "ha": "Superficie traitée (ha)",
+          "h": "Durée de travail (heures)",
+          "sac": "Nombre de sacs traités",
+          "autre": "Quantité traitée"
         },
-        "section_output": "الكمية المحصلة (المحصول)",
-        "product_label": "المنتج",
-        "no_product": "بدون منتج",
-        "variety_label": "الصنف",
-        "variety_required_hint": "إلزامي لهذا المنتج",
-        "obtained_label": "الكمية المحصلة",
-        "obtained_unit_label": "الوحدة",
-        "section_payment": "الدفع",
-        "payment_cash": "نقدا (تعرفة أو مبلغ جزافي)",
-        "payment_share": "حصة من المحصول (%)",
-        "rate_label": "التعرفة للوحدة (فرنك)",
-        "share_rate_label": "الحصة المقتطعة (%)",
-        "share_qty": "الحصة العائدة للتجمع",
-        "share_price_label": "قيمة وحدة المحصول (فرنك)",
-        "amount_auto_hint": "محسوب تلقائيا، قابل للتعديل."
+        "section_output": "Quantité obtenue (récolte)",
+        "product_label": "Produit",
+        "no_product": "Aucun produit",
+        "variety_label": "Variété",
+        "variety_required_hint": "obligatoire pour ce produit",
+        "obtained_label": "Quantité obtenue",
+        "obtained_unit_label": "Unité",
+        "section_payment": "Paiement",
+        "payment_cash": "En argent (tarif ou forfait)",
+        "payment_share": "En part de la récolte (%)",
+        "rate_label": "Tarif par unité (FCFA)",
+        "share_rate_label": "Part prélevée (%)",
+        "share_qty": "Part revenant au GIE",
+        "share_price_label": "Valeur d’une unité de récolte (FCFA)",
+        "amount_auto_hint": "Calculé automatiquement, modifiable."
       },
-      "products_btn": "المنتجات والأصناف",
-      "share": "الحصة",
+      "products_btn": "Produits et variétés",
+      "share": "Part",
       "units": {
-        "ha": "هكتار",
-        "h": "ساعة",
-        "sac": "أكياس",
-        "autre": "أخرى"
+        "ha": "ha",
+        "h": "h",
+        "sac": "sacs",
+        "autre": "autre"
       },
       "products": {
-        "title": "المنتجات والأصناف",
-        "desc": "المنتجات التي تسجل كميتها المحصلة. ضع علامة على «الصنف إلزامي» للمنتجات التي يجب أن يحدد المسجل صنفها.",
-        "name": "المنتج",
-        "unit": "الوحدة",
-        "variety_required": "الصنف إلزامي",
-        "name_placeholder": "مثال: أرز غير مقشور",
-        "empty": "لا توجد منتجات. أضف مثلا: أرز غير مقشور، فول سوداني، ذرة.",
-        "delete_confirm": "حذف هذا المنتج؟ تبقى الخدمات المسجلة محفوظة بدون منتج."
+        "title": "Produits et variétés",
+        "desc": "Produits dont on pointe la quantité obtenue. Cochez « Variété obligatoire » pour ceux dont le pointeur doit préciser la variété.",
+        "name": "Produit",
+        "unit": "Unité",
+        "variety_required": "Variété obligatoire",
+        "name_placeholder": "Ex : Riz paddy",
+        "empty": "Aucun produit. Ajoutez par exemple Riz paddy, Arachide, Maïs.",
+        "delete_confirm": "Supprimer ce produit ? Les prestations déjà pointées restent enregistrées, sans produit."
       },
       "errors": {
-        "unit": "وحدة التسجيل غير صالحة.",
-        "unit_other": "حدد وحدة التسجيل.",
-        "quantity": "أدخل الكمية المعالجة (أكبر من 0).",
-        "phone": "أدخل هاتف العميل (7 أرقام على الأقل).",
-        "product": "المنتج غير موجود.",
-        "variety": "هذا المنتج يتطلب تحديد الصنف.",
-        "obtained": "الكمية المحصلة غير صالحة.",
-        "obtained_required": "أدخل الكمية المحصلة لحساب حصة المحصول.",
-        "rate": "أدخل الحصة المقتطعة بين 0 و100٪.",
-        "amount": "المبلغ أو التعرفة غير صالحة.",
-        "required": "يرجى ملء الحقول الإلزامية.",
-        "product_exists": "هذا المنتج موجود مسبقا."
+        "unit": "Unité de pointage invalide.",
+        "unit_other": "Précisez l’unité de pointage.",
+        "quantity": "Indiquez la quantité traitée (supérieure à 0).",
+        "phone": "Indiquez le téléphone du client (au moins 7 chiffres).",
+        "product": "Produit introuvable.",
+        "variety": "Ce produit exige de préciser la variété.",
+        "obtained": "Quantité obtenue invalide.",
+        "obtained_required": "Indiquez la quantité obtenue pour calculer la part de récolte.",
+        "rate": "Indiquez la part prélevée, entre 0 et 100 %.",
+        "amount": "Montant ou tarif invalide.",
+        "required": "Veuillez remplir les champs obligatoires.",
+        "product_exists": "Ce produit existe déjà."
       }
     },
     "rentabilite": {
-      "title": "ربحية أسطول المعدات",
-      "desc": "تحليل مالي (الإيرادات - النفقات - الإهلاك) حسب المعدة.",
-      "revenue": "إجمالي الإيرادات",
-      "expenses": "إجمالي النفقات",
-      "gross_balance": "الرصيد الإجمالي (الخزينة)",
-      "net_profit": "الربحية الصافية",
-      "net_profit_badge": "يشمل الإهلاك",
+      "title": "Rentabilité du Parc Matériel",
+      "desc": "Analyse financière (Recettes - Dépenses - Amortissement) par équipement.",
+      "revenue": "Total Recettes",
+      "expenses": "Total Dépenses",
+      "gross_balance": "Solde Brut (Tréso.)",
+      "net_profit": "Rentabilité Nette",
+      "net_profit_badge": "Inclut amort.",
       "headers": {
-        "equipment": "المعدة",
-        "revenue": "الإيرادات (الخدمات)",
-        "expenses": "النفقات (الاستهلاكات)",
-        "gross_balance": "الرصيد الإجمالي",
-        "depreciation": "الإهلاك التراكمي",
-        "net_result": "النتيجة الصافية"
+        "equipment": "Équipement",
+        "revenue": "Recettes (Prest.)",
+        "expenses": "Dépenses (Consom.)",
+        "gross_balance": "Solde Brut",
+        "depreciation": "Amortissement Cumulé",
+        "net_result": "Résultat Net"
       },
-      "acq_value": "قيمة الاقتناء",
-      "empty": "لا توجد معدات مسجّلة."
+      "acq_value": "Valeur acq",
+      "empty": "Aucun équipement enregistré."
     },
     "budget": {
-      "campaign_label": "الموسم (تنفيذ الميزانية)",
-      "no_campaign": "خارج الموسم",
-      "type_hint": "اختر يفضل نوعا مدرجا في الميزانية لهذه المعدات: سيحتسب المبلغ في المنجز ضمن متابعة ميزانية الموسم."
+      "campaign_label": "Campagne (exécution budgétaire)",
+      "no_campaign": "Hors campagne",
+      "type_hint": "Choisissez de préférence un type budgété pour cet équipement : le montant comptera dans le réalisé du suivi budgétaire de la campagne."
     }
   },
   "tresorerie_pages": {
     "journaux": {
-      "no_account": "لم يُعثر على أي حساب. الرجاء إنشاء حساب أولاً.",
-      "title": "سجلات الصندوق والبنك",
-      "desc": "اختر حسابًا لعرض جميع عملياته مع الرصيد التراكمي.",
-      "select_account": "اختر حسابًا",
-      "add_operation": "تسجيل عملية",
-      "loading": "جارٍ تحميل السجل...",
+      "no_account": "Aucun compte trouvé. Veuillez d'abord créer un compte.",
+      "title": "Journaux de Caisse et de Banque",
+      "desc": "Sélectionnez un compte pour voir toutes ses opérations avec le solde progressif.",
+      "select_account": "Choisir un compte",
+      "add_operation": "Saisir une opération",
+      "loading": "Chargement du journal...",
       "headers": {
-        "reason": "السبب",
-        "imputation": "التصنيف",
-        "in": "دخول",
-        "out": "خروج",
-        "balance": "الرصيد الجاري",
-        "actions": "إجراءات"
+        "reason": "Motif",
+        "imputation": "Imputation",
+        "in": "Entrée",
+        "out": "Sortie",
+        "balance": "Solde en cours",
+        "actions": "Actions"
       },
-      "initial_balance": "الرصيد الافتتاحي",
-      "edit_tooltip": "تعديل العملية",
-      "delete_tooltip": "حذف العملية",
-      "edit_title": "تعديل العملية",
-      "delete_title": "حذف العملية",
-      "delete_confirm_prefix": "هل أنت متأكد من رغبتك في حذف العملية",
-      "delete_confirm_suffix": "؟ سيُعاد حساب رصيد الحساب.",
+      "initial_balance": "Solde Initial",
+      "edit_tooltip": "Modifier l'opération",
+      "delete_tooltip": "Supprimer l'opération",
+      "edit_title": "Modifier l'opération",
+      "delete_title": "Supprimer l'opération",
+      "delete_confirm_prefix": "Êtes-vous sûr de vouloir supprimer l'opération",
+      "delete_confirm_suffix": "? Le solde du compte sera recalculé.",
       "form": {
-        "title": "تسجيل عملية جديدة",
-        "type_label": "نوع العملية",
-        "type_in": "دخول أموال (+)",
-        "type_out": "خروج أموال (-)",
-        "piece_label": "نوع المستند (اختياري)",
-        "piece_none": "-- بدون --",
-        "piece_supplier": "دفع فاتورة مورّد",
-        "piece_withdrawal": "سحب نقدي",
-        "piece_deposit": "إيداع",
-        "amount_label": "المبلغ (فرنك)",
-        "reason_label": "السبب (الوصف)",
-        "reason_placeholder": "مثال: شراء يوريا من المورّد X",
-        "imputation_label": "التصنيف (اختياري)",
-        "imputation_none": "-- بدون --",
-        "campagne_label": "الموسم (اختياري)",
-        "campagne_none": "-- بدون --"
+        "title": "Saisir une nouvelle opération",
+        "type_label": "Type d'opération",
+        "type_in": "Entrée d'argent (+)",
+        "type_out": "Sortie d'argent (-)",
+        "piece_label": "Type de pièce (Optionnel)",
+        "piece_none": "-- Aucun --",
+        "piece_supplier": "Paiement Facture Fournisseur",
+        "piece_withdrawal": "Retrait en espèces",
+        "piece_deposit": "Versement",
+        "amount_label": "Montant (FCFA)",
+        "reason_label": "Motif (Description)",
+        "reason_placeholder": "Ex: Achat Urée Fournisseur X",
+        "imputation_label": "Imputation (Optionnel)",
+        "imputation_none": "-- Aucune --",
+        "campagne_label": "Campagne (Optionnel)",
+        "campagne_none": "-- Aucune --"
       }
     },
     "imputations": {
-      "title": "قائمة التصنيفات",
-      "desc": "فئات تُستخدم لتصنيف عمليات الصندوق والبنك، ولبناء ميزانية المتابعة حسب الموسم.",
-      "add_btn": "تصنيف جديد",
-      "admin_only_notice": "يمكن فقط لمسؤول التعاونية إنشاء أو تعديل أو حذف تصنيف.",
+      "title": "Liste des Imputations",
+      "desc": "Catégories utilisées pour classer les opérations de caisse et de banque, et pour construire le budget de suivi par campagne.",
+      "add_btn": "Nouvelle Imputation",
+      "admin_only_notice": "Seul l'administrateur du GIE peut créer, modifier ou supprimer une imputation.",
       "table": {
-        "libelle": "البند",
-        "compte": "البند الفرعي / المنصب",
-        "categorie": "النوع",
-        "nature": "الطبيعة",
-        "actions": "إجراءات",
-        "empty": "لم يُنشأ أي تصنيف بعد."
+        "libelle": "Rubrique",
+        "compte": "Sous-Rubrique / Poste",
+        "categorie": "Type",
+        "nature": "Nature",
+        "actions": "Actions",
+        "empty": "Aucune imputation créée pour le moment."
       },
       "modal": {
-        "create_title": "إنشاء تصنيف",
-        "edit_title": "تعديل التصنيف",
-        "libelle": "البند",
-        "libelle_placeholder": "مثال: مدخلات زراعية",
-        "compte": "البند الفرعي / المنصب",
-        "compte_placeholder": "مثال: سماد NPK",
-        "categorie": "نوع الميزانية",
-        "categorie_exploitation": "التشغيل",
-        "categorie_materiel": "المعدات",
-        "nature": "الطبيعة",
-        "nature_recette": "إيراد",
-        "nature_depense": "نفقة",
-        "delete_title": "حذف التصنيف",
-        "delete_confirm_prefix": "هل أنت متأكد من رغبتك في حذف التصنيف",
-        "delete_confirm_suffix": "؟"
+        "create_title": "Créer une imputation",
+        "edit_title": "Modifier l'imputation",
+        "libelle": "Rubrique",
+        "libelle_placeholder": "Ex: Intrants agricoles",
+        "compte": "Sous-Rubrique / Poste",
+        "compte_placeholder": "Ex: Engrais NPK",
+        "categorie": "Type de budget",
+        "categorie_exploitation": "Exploitation",
+        "categorie_materiel": "Matériel",
+        "nature": "Nature",
+        "nature_recette": "Recette",
+        "nature_depense": "Dépense",
+        "delete_title": "Supprimer l'imputation",
+        "delete_confirm_prefix": "Êtes-vous sûr de vouloir supprimer l'imputation",
+        "delete_confirm_suffix": "?"
       }
     },
     "rapprochement": {
-      "no_campaigns": "لم يُعثر على أي موسم.",
-      "title": "المطابقة البنكية",
-      "desc": "حصيلة استخدام قرض البنك لموسم معيّن.",
-      "select_campaign": "اختر موسمًا",
-      "loading": "جارٍ تحميل الحصيلة...",
-      "credit_granted": "القرض الممنوح",
-      "supplier_payments": "مدفوعات الموردين",
-      "cash_withdrawals": "السحوبات النقدية",
-      "credit_balance": "رصيد القرض",
-      "supplier_payments_title": "مدفوعات الموردين",
-      "cash_withdrawals_title": "السحوبات النقدية",
-      "account_label": "الحساب",
-      "unknown_account": "غير معروف",
-      "no_payment": "لا توجد مدفوعات.",
-      "no_withdrawal": "لا توجد سحوبات."
+      "no_campaigns": "Aucune campagne trouvée.",
+      "title": "Rapprochement Bancaire",
+      "desc": "Bilan de l'utilisation du crédit de la banque pour une campagne donnée.",
+      "select_campaign": "Choisir une campagne",
+      "loading": "Chargement du bilan...",
+      "credit_granted": "Crédit Accordé",
+      "supplier_payments": "Paiements Frs",
+      "cash_withdrawals": "Retraits Espèces",
+      "credit_balance": "Solde du Crédit",
+      "supplier_payments_title": "Paiements Fournisseurs",
+      "cash_withdrawals_title": "Retraits en Espèces",
+      "account_label": "Compte",
+      "unknown_account": "Inconnu",
+      "no_payment": "Aucun paiement.",
+      "no_withdrawal": "Aucun retrait."
     }
   },
   "campagnes_detail": {
-    "back": "العودة إلى المواسم",
+    "back": "Retour aux campagnes",
     "config": {
-      "title": "الإعداد:",
-      "desc": "اختر الأعضاء المشاركين في هذا الموسم. الأعضاء المسجَّلون هنا فقط يمكنهم استلام المدخلات عند التوزيع.",
-      "enrollment_rate": "معدل التسجيل",
-      "members_unit": "أعضاء",
-      "intrants_title": "مدخلات الموسم",
-      "intrants_desc": "أضف المدخلات التي ستُوزَّع خلال هذا الموسم وحدّد سعر فوترتها للأعضاء.",
-      "select_intrant": "اختر مدخلاً",
-      "purchase_price": "الشراء",
-      "billing_price_placeholder": "سعر الفوترة (فرنك)",
-      "forfaitaire_price_locked": "مدخل بسعر ثابت: المبلغ المُدخَل عند التوزيع هو مباشرة المبلغ المفوتَر (السعر محدَّد بـ 1).",
-      "remove_confirm": "هل تريد فعلاً إزالة هذا المدخل من الموسم؟",
-      "edit_price_title": "تعديل السعر",
-      "remove_title": "إزالة المدخل",
-      "intrants_empty": "لم يُضَف أي مدخل إلى هذا الموسم.",
-      "enrolled_title": "الأعضاء المسجَّلون",
+      "title": "Configuration :",
+      "desc": "Sélectionnez les membres qui participent à cette campagne. Seuls les membres inscrits ici pourront recevoir des intrants lors de la distribution.",
+      "enrollment_rate": "Taux d'inscription",
+      "members_unit": "membres",
+      "intrants_title": "Intrants de la campagne",
+      "intrants_desc": "Ajoutez les intrants qui seront distribués lors de cette campagne et définissez leur prix de facturation aux membres.",
+      "select_intrant": "Sélectionner un intrant",
+      "purchase_price": "Achat",
+      "billing_price_placeholder": "Prix de facturation (FCFA)",
+      "forfaitaire_price_locked": "Intrant forfaitaire : le montant saisi à la distribution est directement le montant facturé (prix fixé à 1).",
+      "remove_confirm": "Voulez-vous vraiment retirer cet intrant de la campagne ?",
+      "edit_price_title": "Modifier le prix",
+      "remove_title": "Retirer l'intrant",
+      "intrants_empty": "Aucun intrant n'a été ajouté à cette campagne.",
+      "enrolled_title": "Membres inscrits",
       "headers": {
-        "member": "العضو",
-        "code": "الرمز",
-        "village": "القرية",
-        "superficie": "المساحة (هكتار)",
-        "enrolled": "مسجَّل في الموسم؟"
+        "member": "Membre",
+        "code": "Code",
+        "village": "Village",
+        "superficie": "Superficie (ha)",
+        "enrolled": "Inscrit à la campagne ?"
       },
-      "empty": "لم يُعثر على أي عضو في التعاونية.",
+      "empty": "Aucun membre trouvé dans le GIE.",
       "budget": {
-        "title": "التوقع المالي",
-        "desc": "حدّد الميزانية التوقعية لهذا الموسم حسب البند (إيراد أو نفقة)، لميزانية التشغيل وميزانية المعدات. بالنسبة للمعدات، البند هو المعدة والبند الفرعي هو نوع الخدمة أو الاستهلاك: يُستخرج الإنجاز تلقائيًا من الخدمات والاستهلاكات المسجَّلة لهذه المعدة.",
-        "exploitation_title": "ميزانية التشغيل",
-        "materiel_title": "ميزانية المعدات",
-        "recettes_title": "الإيرادات المتوقعة",
-        "depenses_title": "النفقات المتوقعة",
-        "solde": "الرصيد التوقعي",
-        "nature_recette": "إيراد",
-        "nature_depense": "نفقة",
-        "add_rubrique_placeholder_libelle": "البند",
-        "add_rubrique_placeholder_compte": "البند الفرعي / المنصب",
-        "add_rubrique_placeholder_type_prestation": "نوع الخدمة (مثال: حرث، حصاد...)",
-        "select_equipement": "اختر معدة",
-        "select_type": "اختر نوعًا",
-        "amount_placeholder": "المبلغ المتوقع (فرنك)",
-        "total": "الإجمالي",
-        "grand_total": "الرصيد الموحّد",
-        "empty": "لم يُنشأ أي بند لهذه الميزانية.",
-        "premium_required": "التوقع المالي مخصص لباقة Premium.",
-        "premium_upgrade_link": "عرض الباقات"
+        "title": "Prévision budgétaire",
+        "desc": "Définissez le budget prévisionnel de cette campagne par rubrique (recette ou dépense), pour le budget Exploitation et le budget Matériel. Pour le Matériel, la rubrique est l'équipement et la sous-rubrique son type de prestation ou de consommation : la réalisation sera automatiquement tirée des prestations et consommations enregistrées pour cet équipement.",
+        "exploitation_title": "Budget Exploitation",
+        "materiel_title": "Budget Matériel",
+        "recettes_title": "Recettes prévues",
+        "depenses_title": "Dépenses prévues",
+        "solde": "Solde prévisionnel",
+        "nature_recette": "Recette",
+        "nature_depense": "Dépense",
+        "add_rubrique_placeholder_libelle": "Rubrique",
+        "add_rubrique_placeholder_compte": "Sous-rubrique / Poste",
+        "add_rubrique_placeholder_type_prestation": "Type de prestation (Ex: Labour, Moisson...)",
+        "select_equipement": "Sélectionner un équipement",
+        "select_type": "Sélectionner un type",
+        "amount_placeholder": "Montant prévu (FCFA)",
+        "total": "Total",
+        "grand_total": "Solde consolidé",
+        "empty": "Aucune rubrique créée pour ce budget.",
+        "premium_required": "La prévision budgétaire est réservée au forfait Premium.",
+        "premium_upgrade_link": "Voir les forfaits"
       }
     },
     "bilan": {
-      "title": "التقرير:",
-      "desc": "إحصائيات التوزيعات، التقييم المالي، حالة الهوامش والديون النظرية.",
-      "not_found": "الموسم غير موجود.",
-      "print": "طباعة",
+      "title": "Bilan :",
+      "desc": "Statistiques des distributions, valorisation financière, état des marges et dettes théoriques.",
+      "not_found": "Campagne introuvable.",
+      "print": "Imprimer",
       "kpis": {
-        "enrolled": "الأعضاء المسجَّلون",
-        "served": "المخدومون",
-        "served_unit": "أعضاء",
-        "total_billed": "الإجمالي المفوتَر",
-        "net_margin": "الهامش الصافي",
-        "operations": "العمليات",
-        "operations_unit": "مسجَّلة"
+        "enrolled": "Membres Inscrits",
+        "served": "Servis",
+        "served_unit": "membres",
+        "total_billed": "Total Facturé",
+        "net_margin": "Marge Nette",
+        "operations": "Opérations",
+        "operations_unit": "saisies"
       },
       "margin_section": {
-        "title": "حالة الهامش حسب المدخل",
-        "desc": "مقارنة بين أسعار الشراء وأسعار الفوترة.",
+        "title": "État de Marge par Intrant",
+        "desc": "Comparaison entre les prix d'achat et les prix de facturation.",
         "headers": {
-          "product": "المنتج",
-          "buy_price": "سعر الشراء",
-          "billed_price": "السعر المفوتَر",
-          "unit_margin": "الهامش/وحدة",
-          "total_qty": "إجمالي الكمية",
-          "global_margin": "الهامش الإجمالي"
+          "product": "Produit",
+          "buy_price": "Prix Achat",
+          "billed_price": "Prix Facturé",
+          "unit_margin": "Marge/U",
+          "total_qty": "Total Qté",
+          "global_margin": "Marge Globale"
         },
-        "grand_total": "المجموع العام",
-        "empty": "لا توجد توزيعات مسجَّلة لهذا الموسم."
+        "grand_total": "TOTAL GÉNÉRAL",
+        "empty": "Aucune distribution enregistrée pour cette campagne."
       },
       "debts_section": {
-        "title": "الديون والتسديدات حسب العضو",
-        "desc": "متابعة الديون المفوتَرة والتسديدات المنجزة.",
+        "title": "Dettes et Remboursements par Membre",
+        "desc": "Suivi des dettes facturées et des remboursements effectués.",
         "headers": {
-          "beneficiary": "المستفيد",
-          "debt": "الدين (فرنك)",
-          "repayment": "السداد",
-          "balance": "الرصيد"
+          "beneficiary": "Bénéficiaire",
+          "debt": "Dette (FCFA)",
+          "repayment": "Remboursement",
+          "balance": "Solde"
         },
-        "settled": "مسدَّد",
-        "empty": "لم يستلم أي عضو مدخلات بعد.",
-        "grand_total": "المجموع العام"
+        "settled": "Soldé",
+        "empty": "Aucun membre n'a encore reçu d'intrants.",
+        "grand_total": "TOTAL GÉNÉRAL"
       },
       "deliveries_section": {
-        "title": "حالة التسليمات حسب العضو",
-        "desc": "ملخص مفصّل للكميات والمبالغ المسلَّمة لكل عضو ولكل مدخل.",
-        "beneficiary": "المستفيد",
-        "quantity": "الكمية",
-        "amount": "المبلغ",
-        "interest": "الفائدة (فرنك)",
-        "total_global": "الإجمالي العام (فرنك)",
-        "grand_total": "المجموع العام",
-        "empty": "لا توجد تسليمات مسجَّلة لهذا الموسم."
+        "title": "État des Livraisons par Membre",
+        "desc": "Récapitulatif détaillé des quantités et montants livrés à chaque membre pour chaque intrant.",
+        "beneficiary": "Bénéficiaire",
+        "quantity": "Qté",
+        "amount": "Montant",
+        "interest": "Intérêt (FCFA)",
+        "total_global": "Total Global (FCFA)",
+        "grand_total": "TOTAL GÉNÉRAL",
+        "empty": "Aucune livraison enregistrée pour cette campagne."
       }
     },
     "repartition": {
-      "title": "توزيع المدخلات:",
-      "desc": "حدّد الكمية الإجمالية لكل مدخل يجب توزيعها: تُحسب حصة كل عضو مسجّل بالتناسب مع المساحة التي يستغلها في الحملة، وتُقترح كقيمة افتراضية عند التوزيع.",
-      "enrolled_members": "الأعضاء المسجّلون",
-      "total_area": "إجمالي المساحة المستغلة",
-      "no_members": "لا يوجد أي عضو مسجّل في هذه الحملة.",
-      "no_area": "لم تُدخل أي مساحة للأعضاء المسجّلين.",
-      "no_intrants": "لا يوجد أي مدخل للتوزيع في هذه الحملة (الأعمال الزراعية والخدمة الهيدروليكية تُوزّع أصلاً حسب الهكتار).",
-      "config_link": "الانتقال إلى إعدادات الحملة",
-      "quantities_title": "الكميات المراد توزيعها",
-      "quantities_desc": "الكمية الإجمالية لكل مدخل تُقسم بين الأعضاء المسجّلين.",
-      "use_stock": "استخدام المخزون",
-      "shares_title": "حصة كل عضو",
-      "shares_desc": "الحصة = الكمية المراد توزيعها × مساحة العضو ÷ المساحة الإجمالية. تُقترح هذه القيم افتراضياً عند التوزيع.",
-      "already_distributed": "وُزّع سابقاً:",
-      "total": "المجموع",
+      "title": "Répartition des intrants :",
+      "desc": "Définissez la quantité totale de chaque intrant à répartir : la part de chaque membre inscrit est calculée au prorata de la superficie qu'il exploite pour la campagne, et proposée par défaut lors de la distribution.",
+      "enrolled_members": "Membres inscrits",
+      "total_area": "Superficie totale exploitée",
+      "no_members": "Aucun membre n'est inscrit à cette campagne.",
+      "no_area": "Aucune superficie n'est renseignée pour les membres inscrits.",
+      "no_intrants": "Aucun intrant à répartir n'est configuré pour cette campagne (Façon culturale et Service Hydraulique sont déjà distribués à l'hectare).",
+      "config_link": "Aller à la configuration de la campagne",
+      "quantities_title": "Quantités à répartir",
+      "quantities_desc": "Quantité totale de chaque intrant à partager entre les membres inscrits.",
+      "use_stock": "Utiliser le stock",
+      "shares_title": "Part de chaque membre",
+      "shares_desc": "Part = quantité à répartir × superficie du membre ÷ superficie totale. Ces valeurs sont proposées par défaut lors de la distribution.",
+      "already_distributed": "Déjà distribué :",
+      "total": "Total",
       "headers": {
-        "intrant": "المدخل",
-        "stock": "المخزون",
-        "quantity_to_split": "الكمية المراد توزيعها",
-        "dose_per_ha": "الجرعة / هكتار",
-        "member": "العضو",
-        "area": "المساحة (هكتار)",
-        "percent": "الحصة (%)"
+        "intrant": "Intrant",
+        "stock": "Stock",
+        "quantity_to_split": "Quantité à répartir",
+        "dose_per_ha": "Dose / ha",
+        "member": "Membre",
+        "area": "Superficie (ha)",
+        "percent": "Part (%)"
       }
     }
   },
   "abonnement": {
-    "title": "اشتراكي",
-    "manage_desc": "أدر باقة تعاونيتك:",
-    "trial_locked": "انتهت فترة تجربتك وتم قفل الوصول إلى فضائك. اختر وسيلة دفع أدناه لمواصلة استخدام SIGGIE.",
-    "trial_remaining_prefix": "تبقّى لك",
-    "trial_remaining_day": "يوم",
-    "trial_remaining_days": "أيام",
-    "trial_remaining_suffix": "من التجربة المجانية. ادفع قبل نهاية التجربة لتجنّب قفل فضائك.",
-    "current_plan": "الباقة الحالية:",
-    "renewal": "تجديد سنوي -",
-    "upgrade_title": "الترقية",
-    "upgrade_desc": "انتقل إلى المستوى الأعلى بدفع الفرق فقط بين باقتك الحالية والباقة الجديدة.",
-    "current_badge": "الحالية",
-    "current_plan_btn": "الباقة الحالية",
-    "lower_tier": "مستوى أقل",
-    "pay_prefix": "دفع",
+    "title": "Mon Abonnement",
+    "manage_desc": "Gérez le forfait de votre GIE :",
+    "trial_locked": "Votre période d'essai est terminée et l'accès à votre espace a été verrouillé. Choisissez un moyen de paiement ci-dessous pour continuer à utiliser SIGGIE.",
+    "trial_remaining_prefix": "Il vous reste",
+    "trial_remaining_day": "jour",
+    "trial_remaining_days": "jours",
+    "trial_remaining_suffix": "d'essai gratuit. Payez avant la fin de l'essai pour éviter le verrouillage de votre espace.",
+    "current_plan": "Forfait actuel :",
+    "renewal": "Renouvellement annuel -",
+    "upgrade_title": "Mettre à niveau (Upgrade)",
+    "upgrade_desc": "Passez au niveau supérieur en ne payant que la différence entre votre forfait actuel et le nouveau forfait.",
+    "current_badge": "Actuel",
+    "current_plan_btn": "Forfait Actuel",
+    "lower_tier": "Niveau inférieur",
+    "pay_prefix": "Payer",
     "plans": {
       "standard": {
         "name": "Standard",
         "features": [
-          "لوحة القيادة",
-          "إدارة الأعضاء",
-          "الاشتراكات",
-          "القروض"
+          "Tableau de bord",
+          "Gestion des membres",
+          "Cotisations",
+          "Emprunts"
         ]
       },
       "medium": {
         "name": "Medium",
         "features": [
-          "لوحة القيادة",
-          "إدارة الأعضاء",
-          "الاشتراكات",
-          "القروض",
-          "إدارة المعدات والمخزون"
+          "Tableau de bord",
+          "Gestion des membres",
+          "Cotisations",
+          "Emprunts",
+          "Gestion du matériel & stocks"
         ]
       },
       "premium": {
         "name": "Premium",
         "features": [
-          "لوحة القيادة",
-          "إدارة الأعضاء",
-          "الاشتراكات",
-          "القروض",
-          "إدارة المعدات والمخزون",
-          "تقارير متابعة مالية متقدمة"
+          "Tableau de bord",
+          "Gestion des membres",
+          "Cotisations",
+          "Emprunts",
+          "Gestion du matériel & stocks",
+          "États de suivi budgétaire avancés"
         ]
       }
     }
   },
   "remboursements": {
-    "title": "متابعة التسديدات",
-    "desc": "سجّل المدفوعات النقدية وعمليات الوزن الخاصة بالتسديدات العينية.",
+    "title": "Suivi des Remboursements",
+    "desc": "Enregistrez les paiements en numéraire et les pesées pour les remboursements en nature.",
     "tabs": {
-      "factures": "الفواتير",
-      "stock_nature": "المخزون العيني",
-      "ristournes": "الحسومات"
+      "factures": "Factures",
+      "stock_nature": "Stock en Nature",
+      "ristournes": "Ristournes"
     },
-    "search": "البحث عن عضو...",
+    "search": "Rechercher un membre...",
     "list": {
-      "surplus": "فائض السداد: ",
-      "reste": "المتبقي: ",
-      "empty": "لم يُعثر على أي فاتورة."
+      "surplus": "Surplus de remboursement : ",
+      "reste": "Reste : ",
+      "empty": "Aucune facture trouvée."
     },
     "details": {
-      "title": "فاتورة",
-      "total_due": "الإجمالي المستحق",
-      "surplus": "فائض السداد",
-      "remaining": "المتبقي للدفع",
-      "record_payment": "تسجيل دفعة",
-      "cash": "نقدًا",
-      "nature": "عينيًا (وزن)",
-      "empty": "اختر عضوًا لعرض تسديداته"
+      "title": "Facture de",
+      "total_due": "Total Dû",
+      "surplus": "Surplus de Remboursement",
+      "remaining": "Reste à Payer",
+      "record_payment": "Enregistrer un paiement",
+      "cash": "En Numéraire (Espèces)",
+      "nature": "En Nature (Pesée)",
+      "empty": "Sélectionnez un membre pour voir ses remboursements"
     }
   },
   "remboursements_pages": {
     "stock_nature": {
-      "no_campaigns": "لم يُعثر على أي موسم.",
-      "title": "مخزون التسديد العيني",
-      "desc": "متابعة المدخلات (التسديدات المستلمة) والمبيعات والحسومات العينية، مع الرصيد الجاري للمخزون، حسب الموسم.",
-      "select_campaign": "اختر موسمًا",
-      "add_sortie": "تسجيل خروج",
-      "loading": "جارٍ تحميل المخزون...",
-      "current_stock": "المخزون الحالي",
+      "no_campaigns": "Aucune campagne trouvée.",
+      "title": "Stock de Remboursement en Nature",
+      "desc": "Suivi des entrées (remboursements reçus), des ventes et des ristournes physiques, avec le solde en cours du stock, par campagne.",
+      "select_campaign": "Choisir une campagne",
+      "add_sortie": "Enregistrer une sortie",
+      "loading": "Chargement du stock...",
+      "current_stock": "Stock actuel",
       "headers": {
-        "date": "التاريخ",
-        "type": "النوع",
-        "tiers": "الطرف",
-        "unit_price": "سعر الوحدة",
-        "quantity": "الكمية",
-        "balance": "الرصيد الجاري"
+        "date": "Date",
+        "type": "Type",
+        "tiers": "Tiers",
+        "unit_price": "Prix unitaire",
+        "quantity": "Quantité",
+        "balance": "Solde en cours"
       },
-      "type_entree": "دخول (تسديد)",
-      "type_vente": "بيع",
-      "type_ristourne": "حسم",
-      "empty": "لا توجد حركة مسجَّلة لهذا الموسم.",
+      "type_entree": "Entrée (Remboursement)",
+      "type_vente": "Vente",
+      "type_ristourne": "Ristourne",
+      "empty": "Aucun mouvement enregistré pour cette campagne.",
       "form": {
-        "title": "تسجيل خروج من المخزون",
-        "type_label": "نوع الخروج",
-        "tiers_type_label": "الطرف",
-        "tiers_type_membre": "عضو في التعاونية",
-        "tiers_type_client": "عميل خارجي",
-        "membre_label": "العضو",
-        "select_membre": "اختر عضوًا...",
-        "client_label": "العميل",
-        "select_client": "اختر عميلاً...",
-        "new_client_option": "+ عميل جديد...",
-        "client_placeholder": "اسم العميل الجديد",
-        "quantity_label": "الكمية (كغ)",
-        "price_label_vente": "سعر البيع للوحدة (فرنك/كغ)",
-        "price_label_ristourne": "القيمة التقديرية للوحدة (فرنك/كغ)",
-        "date_label": "التاريخ",
-        "motif_label": "السبب (اختياري)",
-        "motif_placeholder": "مثال: بيع في السوق الأسبوعي"
+        "title": "Enregistrer une sortie de stock",
+        "type_label": "Type de sortie",
+        "tiers_type_label": "Tiers",
+        "tiers_type_membre": "Un membre du GIE",
+        "tiers_type_client": "Un client externe",
+        "membre_label": "Membre",
+        "select_membre": "Sélectionnez un membre...",
+        "client_label": "Client",
+        "select_client": "Sélectionnez un client...",
+        "new_client_option": "+ Nouveau client...",
+        "client_placeholder": "Nom du nouveau client",
+        "quantity_label": "Quantité (kg)",
+        "price_label_vente": "Prix de vente unitaire (FCFA/kg)",
+        "price_label_ristourne": "Valeur estimée unitaire (FCFA/kg)",
+        "date_label": "Date",
+        "motif_label": "Motif (Optionnel)",
+        "motif_placeholder": "Ex: Vente au marché hebdomadaire"
       }
     }
   },
   "bilans_pages": {
     "releve_membre": {
-      "no_members": "لم يُعثر على أي عضو.",
-      "title": "كشف العضو",
-      "desc": "المبلغ المفوتَر والمبلغ المدفوع والرصيد التراكمي لكل عضو، موسمًا بموسم.",
-      "select_member": "اختر عضوًا",
-      "loading": "جارٍ تحميل الكشف...",
-      "current_balance": "الرصيد الحالي",
+      "no_members": "Aucun membre trouvé.",
+      "title": "Relevé Membre",
+      "desc": "Montant facturé, montant payé et solde progressif de chaque membre, campagne par campagne.",
+      "select_member": "Choisir un membre",
+      "loading": "Chargement du relevé...",
+      "current_balance": "Solde actuel",
       "headers": {
-        "season": "الموسم",
-        "date": "التاريخ",
-        "billed": "المبلغ المفوتَر",
-        "paid": "المبلغ المدفوع",
-        "balance": "الرصيد التراكمي"
+        "season": "Campagne",
+        "date": "Date",
+        "billed": "Montant Facturé",
+        "paid": "Montant Payé",
+        "balance": "Solde Progressif"
       },
-      "empty": "لا توجد فاتورة لهذا العضو."
+      "empty": "Aucune facture pour ce membre."
     },
     "releve_client": {
-      "no_clients": "لا يوجد عميل مسجّل.",
-      "title": "كشف العميل",
-      "desc": "المبيعات والمدفوعات المستلمة من عميل خارجي، مع الرصيد التراكمي.",
-      "select_client": "اختر عميلاً",
-      "add_client": "عميل جديد",
-      "add_payment": "تسجيل دفعة",
-      "loading": "جارٍ تحميل الكشف...",
-      "current_balance": "الرصيد الحالي (دين مستحق)",
+      "no_clients": "Aucun client enregistré.",
+      "title": "Relevé Client",
+      "desc": "Ventes et paiements reçus d'un client externe, avec solde progressif.",
+      "select_client": "Choisir un client",
+      "add_client": "Nouveau Client",
+      "add_payment": "Enregistrer un paiement",
+      "loading": "Chargement du relevé...",
+      "current_balance": "Solde actuel (créance)",
       "headers": {
-        "date": "التاريخ",
-        "type": "النوع",
-        "quantity": "الكمية",
-        "unit_price": "سعر الوحدة",
-        "amount": "المبلغ",
-        "balance": "الرصيد التراكمي"
+        "date": "Date",
+        "type": "Type",
+        "quantity": "Quantité",
+        "unit_price": "Prix unitaire",
+        "amount": "Montant",
+        "balance": "Solde Progressif"
       },
-      "type_sale": "بيع",
-      "type_payment": "دفعة مستلمة",
-      "empty": "لا توجد حركة لهذا العميل.",
+      "type_sale": "Vente",
+      "type_payment": "Paiement reçu",
+      "empty": "Aucun mouvement pour ce client.",
       "new_client_form": {
-        "title": "عميل جديد",
-        "name": "اسم العميل",
-        "name_placeholder": "مثال: متجر Ndiaganiao",
-        "phone": "الهاتف (اختياري)",
-        "submit": "إنشاء العميل"
+        "title": "Nouveau client",
+        "name": "Nom du client",
+        "name_placeholder": "Ex: Boutique Ndiaganiao",
+        "phone": "Téléphone (optionnel)",
+        "submit": "Créer le client"
       },
       "payment_form": {
-        "title": "تسجيل دفعة عميل",
-        "amount": "المبلغ المستلَم (فرنك)",
-        "date": "التاريخ",
-        "motif": "السبب (اختياري)",
-        "motif_placeholder": "مثال: تسديد جزئي",
-        "submit": "تسجيل الدفعة"
+        "title": "Enregistrer un paiement client",
+        "amount": "Montant reçu (FCFA)",
+        "date": "Date",
+        "motif": "Motif (Optionnel)",
+        "motif_placeholder": "Ex: Règlement partiel",
+        "submit": "Enregistrer le paiement"
       }
     }
   },
   "bilan_annuel": {
-    "title": "الميزانية السنوية وحساب النتائج",
-    "desc": "الوضع المالي في 31 ديسمبر ونتيجة السنة، محسوبان انطلاقًا من بيانات تسيير التعاونية.",
-    "year": "السنة المالية",
-    "saving": "جارٍ الحفظ...",
-    "actif_title": "الميزانية - الأصول",
-    "passif_title": "الميزانية - الخصوم",
-    "resultat_title": "حساب نتائج السنة",
+    "title": "Bilan annuel & compte de résultat",
+    "desc": "Situation patrimoniale au 31 décembre et résultat de l'exercice, calculés à partir des données de gestion du GIE.",
+    "year": "Exercice",
+    "saving": "Enregistrement...",
+    "actif_title": "Bilan - Actif",
+    "passif_title": "Bilan - Passif",
+    "resultat_title": "Compte de résultat de l'année",
     "cols": {
-      "rubrique": "البنود",
-      "brut": "المبلغ الإجمالي",
-      "amo": "الاهتلاك/المؤونات",
-      "net": "المبلغ الصافي",
-      "net_n1": "الصافي ن-1",
-      "montant": "المبلغ",
-      "montant_n1": "المبلغ ن-1",
-      "calculs": "طريقة الحساب"
+      "rubrique": "Rubriques",
+      "brut": "Montant brut",
+      "amo": "Amo/Prov",
+      "net": "Montant net",
+      "net_n1": "Net N-1",
+      "montant": "Montant",
+      "montant_n1": "Montant N-1",
+      "calculs": "Calculs"
     },
     "rows": {
-      "immobilisations": "الأصول الثابتة",
-      "stocks": "المخزونات",
-      "creances": "الديون المستحقة",
-      "disponibilites": "السيولة",
-      "total_actif": "مجموع الأصول",
-      "capital": "رأس المال",
-      "resultat": "نتيجة السنة",
-      "subventions": "الإعانات",
-      "emprunts": "القروض",
-      "dettes": "الديون",
-      "credits_tresorerie": "اعتمادات الخزينة",
-      "total_passif": "مجموع الخصوم",
-      "ventes": "مبيعات المدخلات والخدمات",
-      "gain_remboursement": "ربح مبيعات السداد",
-      "prestations": "خدمات المعدات",
-      "autres_produits": "إيرادات أخرى",
-      "total_produits": "مجموع الإيرادات",
-      "achats": "مشتريات المدخلات والخدمات",
-      "variation_stock": "تغيّر المخزون",
-      "perte_remboursement": "خسارة مبيعات السداد",
-      "charges_materiel": "أعباء المعدات",
-      "interets": "الفوائد البنكية",
-      "autres_charges": "أعباء أخرى",
-      "total_charges": "مجموع الأعباء"
+      "immobilisations": "Immobilisations",
+      "stocks": "Stocks",
+      "creances": "Créances",
+      "disponibilites": "Disponibilités",
+      "total_actif": "Total Actif",
+      "capital": "Capital",
+      "resultat": "Résultat de l'année",
+      "subventions": "Subventions",
+      "emprunts": "Emprunts",
+      "dettes": "Dettes",
+      "credits_tresorerie": "Crédits de trésorerie",
+      "total_passif": "Total Passif",
+      "ventes": "Ventes d'intrants et services",
+      "gain_remboursement": "Gain/vente de remboursement",
+      "prestations": "Prestations du matériel",
+      "autres_produits": "Autres produits",
+      "total_produits": "Total Produits",
+      "achats": "Achats d'intrants et services",
+      "variation_stock": "Variation de stock",
+      "perte_remboursement": "Perte/vente de remboursement",
+      "charges_materiel": "Charges du matériel",
+      "interets": "Intérêts bancaires",
+      "autres_charges": "Autres charges",
+      "total_charges": "Total charges"
     },
     "notes": {
-      "immobilisations": "المعدات: قيمة الاقتناء والاهتلاك الخطي المتراكم",
-      "stocks": "مخزون المدخلات (آخر سعر) + المخزون العيني (سعر الجمع)",
-      "creances": "رصيد حسابات الزبائن: لكل عضو، الفواتير - المسددات + الحسومات (إذا كان موجبًا)، زائد الزبائن الخارجيين",
-      "disponibilites": "رصيد حسابات الخزينة",
-      "capital": "رصيد الميزانية (توازن الأصول والخصوم)",
-      "resultat_passif": "انظر حساب النتائج",
-      "a_saisir": "يُدخل يدويًا",
-      "dettes": "رصيد حسابات الموردين (المشتريات غير المسددة) + فائض السداد المستحق للأعضاء (الرصيد السالب للعضو)",
-      "credits_tresorerie": "المتبقي من قروض الموسم المعتمدة",
-      "ventes": "مجموع فواتير الأعضاء (بما فيها الفوائد المعاد فوترتها)",
-      "gain_remboursement": "مبيعات المنتوج المتحصَّل عليه من السداد: (سعر البيع - سعر الجمع) × الكمية",
-      "prestations": "مجموع خدمات المعدات",
-      "achats": "مشتريات السنة",
-      "perte_remboursement": "نفس الحساب عندما يكون سعر البيع أقل من سعر الجمع",
-      "charges_materiel": "الاستهلاكات + مخصص اهتلاك السنة",
-      "interets": "فوائد القروض المعتمدة (النسبة × المدة)",
-      "resultat": "مجموع الإيرادات - مجموع الأعباء",
-      "variation_stock": "المخزون الأولي (نهاية ن-1) - المخزون النهائي (نهاية ن)؛ سالب إذا ارتفع المخزون"
+      "immobilisations": "Matériel : valeur d'acquisition, amortissement linéaire cumulé",
+      "stocks": "Stock d'intrants (dernier prix) + stock en nature (prix de collecte)",
+      "creances": "Solde des comptes clients : par membre, factures - remboursements + ristournes (si positif), plus clients externes",
+      "disponibilites": "Solde des comptes de trésorerie",
+      "capital": "Solde du bilan (équilibre actif / passif)",
+      "resultat_passif": "Voir compte de résultat",
+      "a_saisir": "À saisir",
+      "dettes": "Solde des comptes fournisseurs (achats non réglés) + surplus de remboursement dû aux membres (solde négatif d'un membre)",
+      "credits_tresorerie": "Restant dû des crédits de campagne validés",
+      "ventes": "Total des factures membres (intérêts refacturés inclus)",
+      "gain_remboursement": "Ventes du produit issu des remboursements : (prix de vente - prix de collecte) × quantité",
+      "prestations": "Total des prestations du matériel",
+      "achats": "Achats de l'année",
+      "perte_remboursement": "Idem, lorsque le prix de vente est inférieur au prix de collecte",
+      "charges_materiel": "Consommations + dotation aux amortissements de l'année",
+      "interets": "Intérêts des crédits validés (taux × durée)",
+      "resultat": "Total produits - total charges",
+      "variation_stock": "Stock initial (fin N-1) - stock final (fin N) ; négatif si le stock augmente"
     },
-    "footnote": "تُدخل المبالغ اليدوية لكل سنة مالية؛ غيّر السنة لإدخال مبالغ السنة السابقة. تُعاد تركيبة المخزون والأرصدة والاهتلاك للسنوات السابقة من السجل (المخزون بآخر سعر معروف).",
-    "read_only": "ليست لديك صلاحية تعديل المبالغ المُدخلة.",
-    "export_pdf": "تحميل PDF"
+    "footnote": "Les montants « à saisir » se renseignent par exercice ; changez d'exercice pour saisir ceux de l'année précédente. Le stock, les soldes et l'amortissement des exercices passés sont reconstitués à partir de l'historique (au dernier prix connu pour les stocks).",
+    "read_only": "Vous n'avez pas le droit de modifier les montants saisis.",
+    "export_pdf": "Télécharger PDF"
   },
   "ristournes": {
-    "title": "حسومات الأعضاء",
-    "desc": "فائض السداد المُعاد إلى العضو: تخرج الحسومة من الخزينة وتخفّض ما سدّده العضو.",
-    "surplus_title": "فائض السداد الواجب إرجاعه",
-    "surplus_desc": "الفائض = المسدَّد - المفوتَر - الحسومات المُعادة (نقدًا أو عينًا).",
-    "no_surplus": "لا يوجد عضو لديه فائض يجب استرجاعه.",
+    "title": "Ristournes aux membres",
+    "desc": "Surplus de remboursement rendu à un membre : la ristourne sort de la trésorerie et vient en réduction de ce qu'il a remboursé.",
+    "surplus_title": "Surplus de remboursement à rendre",
+    "surplus_desc": "Surplus = remboursé - facturé - ristournes déjà rendues (en numéraire ou en nature).",
+    "no_surplus": "Aucun membre n'a de surplus à récupérer.",
     "cols": {
-      "membre": "العضو",
-      "facture": "المفوتَر",
-      "rembourse": "المسدَّد",
-      "ristournes": "الحسومات المُعادة",
-      "surplus": "الفائض الواجب إرجاعه"
+      "membre": "Membre",
+      "facture": "Facturé",
+      "rembourse": "Remboursé",
+      "ristournes": "Ristournes rendues",
+      "surplus": "Surplus à rendre"
     },
-    "give_back": "إرجاع",
-    "form_title": "حسومة نقدية جديدة",
-    "select_member": "اختر عضوًا",
-    "amount": "المبلغ",
-    "account": "حساب الخزينة",
-    "date": "التاريخ",
-    "motif": "السبب (اختياري)",
-    "form_hint": "تُنشئ عملية إخراج من الخزينة على الحساب المختار.",
-    "submit": "تسجيل الحسومة",
-    "saving": "جارٍ الحفظ...",
-    "history_title": "سجل الحسومات النقدية",
-    "no_history": "لا توجد حسومة مسجلة.",
-    "delete": "حذف",
-    "confirm_delete": "حذف هذه الحسومة وعملية الإخراج من الخزينة؟",
-    "nature_hint": "تُسجَّل الحسومات العينية في «المخزون العيني» (إخراج من نوع حسومة) وهي محتسبة في الفائض أعلاه."
+    "give_back": "Rendre",
+    "form_title": "Nouvelle ristourne en numéraire",
+    "select_member": "Choisir un membre",
+    "amount": "Montant",
+    "account": "Compte de trésorerie",
+    "date": "Date",
+    "motif": "Motif (optionnel)",
+    "form_hint": "Crée une sortie de trésorerie sur le compte choisi.",
+    "submit": "Enregistrer la ristourne",
+    "saving": "Enregistrement...",
+    "history_title": "Historique des ristournes en numéraire",
+    "no_history": "Aucune ristourne enregistrée.",
+    "delete": "Supprimer",
+    "confirm_delete": "Supprimer cette ristourne et sa sortie de trésorerie ?",
+    "nature_hint": "Les ristournes en nature s'enregistrent dans « Stock en nature » (sortie de type Ristourne) ; elles sont prises en compte dans le surplus ci-dessus."
   },
   "guide": {
     "meta": {
-      "back": "العودة إلى الصفحة الرئيسية",
-      "pageTitle": "دليل الانطلاق",
-      "toc": "الفهرس",
-      "menu": "القائمة",
-      "important": "هام",
-      "edition": "الطباعة المرتبطة:",
-      "editionLink": "انظروا الجزء 3",
-      "needHelp": "هل تحتاجون مساعدة للبدء؟",
-      "needHelpText": "يشرح دليل الانطلاق بكلمات بسيطة كيفية إعداد SIGGIE ثم استخدامه على امتداد الموسم.",
-      "readGuide": "الاطلاع على الدليل",
-      "guideNav": "الدليل"
+      "back": "Retour à l’accueil",
+      "pageTitle": "Guide de prise en main",
+      "toc": "Sommaire",
+      "menu": "Menu",
+      "important": "Important",
+      "edition": "Édition liée :",
+      "editionLink": "Voir la partie 3",
+      "needHelp": "Besoin d’aide pour démarrer ?",
+      "needHelpText": "Notre guide de prise en main explique, avec des mots simples, comment configurer SIGGIE puis l’utiliser au fil d’une campagne.",
+      "readGuide": "Consulter le guide",
+      "guideNav": "Guide"
     },
     "hero": {
-      "eyebrow": "دليل الانطلاق",
+      "eyebrow": "Guide de prise en main",
       "title": "SIGGIE",
-      "subtitle": "منصة تسيير منظمتكم الفلاحية القاعدية (مجموعة ذات نفع اقتصادي، تعاونية، مؤسسة صغيرة ومتوسطة): الأعضاء، المواسم، المدخلات، القروض، الفوترة، التسديدات والخزينة.",
-      "intro": "يشرح هذا الدليل بكلمات بسيطة كيفية استخدام SIGGIE. ويُقرأ على ثلاث مراحل: أولًا الإعداد، ويتم مرة واحدة لتهيئة مجموعتكم؛ ثم العمليات التي تكررونها على امتداد كل موسم؛ وأخيرًا الطباعة والكشوفات والتقارير."
+      "subtitle": "La plateforme de gestion de votre organisation agricole de base (GIE, coopérative, PME) : membres, campagnes, intrants, crédits, facturation, remboursements et trésorerie.",
+      "intro": "Ce guide explique, avec des mots simples, comment utiliser SIGGIE. Il se lit en trois temps : d’abord la configuration, à faire une seule fois pour préparer votre GIE ; puis les opérations, que vous répétez au fil de chaque campagne ; enfin les éditions, états et rapports."
     },
     "overview": {
       "id": "apercu",
-      "title": "SIGGIE في دقيقة واحدة",
-      "lead": "يتابع SIGGIE سير موسم فلاحي كامل لمجموعتكم، من المال المقترض من البنك إلى آخر تسديد يقوم به الأعضاء.",
+      "title": "SIGGIE en une minute",
+      "lead": "SIGGIE suit le déroulement complet d’une campagne agricole de votre GIE, de l’argent emprunté à la banque jusqu’au dernier remboursement des membres.",
       "cards": [
         {
-          "t": "القرض",
-          "x": "تطلب المجموعة تمويلًا من البنك وتتابع الأموال المفرج عنها."
+          "t": "Le crédit",
+          "x": "Le GIE demande un financement à la banque et suit l’argent débloqué."
         },
         {
-          "t": "المدخلات",
-          "x": "تشتري المجموعة الأسمدة والبذور ومنتجات أخرى وتضعها في المخزون."
+          "t": "Les intrants",
+          "x": "Le GIE achète engrais, semences et autres produits, et les met en stock."
         },
         {
-          "t": "التوزيع",
-          "x": "تُسلَّم المدخلات للأعضاء المسجلين في الموسم."
+          "t": "La distribution",
+          "x": "Les intrants sont remis aux membres inscrits à la campagne."
         },
         {
-          "t": "الفوترة",
-          "x": "يتلقى كل عضو فاتورة: ما استلمه، حصته من الفوائد، ومبالغه غير المسددة إن وُجدت."
+          "t": "La facturation",
+          "x": "Chaque membre reçoit une facture : ce qu’il a reçu, sa part des intérêts, et ses impayés éventuels."
         },
         {
-          "t": "التسديد",
-          "x": "يسدد العضو نقدًا أو عينًا (بإحضار محصوله)."
+          "t": "Le remboursement",
+          "x": "Le membre rembourse en espèces ou en nature (en apportant sa récolte)."
         },
         {
-          "t": "الحصيلة",
-          "x": "تقارن المجموعة توقعاتها بالواقع وتحتفظ بأثر لكل شيء."
+          "t": "Le bilan",
+          "x": "Le GIE compare ses prévisions à la réalité et garde une trace de tout."
         }
       ]
     },
     "parts": [
       {
         "id": "partie-config",
-        "label": "الجزء 1",
-        "title": "الإعداد",
-        "text": "يتم مرة واحدة، قبل موسمكم الأول. ويمكنكم استكماله في أي وقت بعد ذلك.",
+        "label": "Partie 1",
+        "title": "La configuration",
+        "text": "À faire une seule fois, avant votre première campagne. Vous pourrez ensuite la compléter à tout moment.",
         "sections": [
           {
             "id": "c-gie",
-            "title": "معلومات المجموعة",
-            "menu": "الإعدادات",
+            "title": "Les informations du GIE",
+            "menu": "Paramètres",
             "blocks": [
               {
-                "p": "أدخلوا اسم المجموعة وعنوانها وهاتفها وبريدها الإلكتروني وتعريفها الجبائي (NINEA أو RCCM أو ما يعادلهما). أضيفوا شعاركم (PNG أو JPG، بحد أقصى 2 ميغابايت) واختاروا عملة العمل. تظهر هذه المعلومات على جميع وثائقكم المطبوعة: الفواتير والإيصالات."
+                "p": "Renseignez le nom du GIE, son adresse, son téléphone, son e-mail et son identification fiscale (NINEA, RCCM ou équivalent). Ajoutez votre logo (PNG ou JPG, 2 Mo maximum) et choisissez la devise de travail. Ces informations apparaissent sur tous vos documents imprimés : factures et reçus."
               }
             ]
           },
           {
             "id": "c-membres",
-            "title": "الأعضاء",
-            "menu": "الأعضاء",
+            "title": "Les membres",
+            "menu": "Membres",
             "blocks": [
               {
-                "p": "انقروا على «عضو جديد» واملؤوا: اللقب، الاسم، القرية، الهاتف، المساحة المستغلة والحالة (نشط أو غير نشط). يمكنكم بعد ذلك البحث عن عضو بلقبه أو اسمه أو قريته."
+                "p": "Cliquez sur « Nouveau Membre » et remplissez : nom, prénom, village, téléphone, superficie exploitée et statut (actif ou inactif). Vous pouvez ensuite rechercher un membre par son nom, son prénom ou son village."
               }
             ]
           },
           {
             "id": "c-comptes",
-            "title": "حسابات الأموال",
-            "menu": "الخزينة",
+            "title": "Les comptes d’argent",
+            "menu": "Trésorerie",
             "blocks": [
               {
-                "p": "أنشئوا حسابًا لكل مكان تحتفظ فيه المجموعة بالمال: مثلًا حساب بنكي وصندوق. أدخلوا الرصيد الافتتاحي لكل منها: هكذا تتابعون جيدًا عمليات دخول وخروج الأموال، مع الأرصدة الحقيقية لكل حساب."
+                "p": "Créez un compte pour chaque endroit où le GIE garde de l’argent : par exemple un compte en banque et une caisse. Indiquez le solde de départ de chacun : vous pourrez ainsi bien suivre vos opérations d’entrée et de sortie d’argent, avec les soldes réels de chaque compte."
               }
             ]
           },
           {
             "id": "c-intrants",
-            "title": "كتالوج المدخلات",
-            "menu": "المدخلات والمخزون",
+            "title": "Le catalogue d’intrants",
+            "menu": "Intrants & Stock",
             "blocks": [
               {
-                "p": "باستخدام «مدخل جديد»، أنشئوا قائمة ما توزعه المجموعة: أدخلوا النوع (سماد، بذور…) والاسم والمورد وسعر الوحدة وكمية المخزون الافتتاحية. هناك ثلاثة أنواع من المدخلات:"
+                "p": "Avec « Nouvel Intrant », créez la liste de ce que le GIE distribue : indiquez le type (engrais, semence…), le nom, le fournisseur, le prix unitaire et la quantité en stock de départ. Il existe trois sortes d’intrants :"
               },
               {
                 "cards": [
                   {
-                    "t": "مدخلات في المخزون",
-                    "x": "أسمدة، بذور، منتجات… تنخفض كميتها في المخزون مع كل توزيع."
+                    "t": "Intrants en stock",
+                    "x": "Engrais, semences, produits… Leur quantité en stock baisse à chaque distribution."
                   },
                   {
-                    "t": "الأشغال الزراعية والخدمة المائية",
-                    "x": "هي خدمات وليست أكياسًا: لا مخزون لمتابعته. وتُفوتر حسب المساحة (للهكتار)."
+                    "t": "Façon culturale et service hydraulique",
+                    "x": "Ce sont des services, pas des sacs : pas de stock à suivre. Ils sont facturés à la superficie (à l’hectare)."
                   },
                   {
-                    "t": "إعادة الفوترة",
-                    "x": "رسم ثابت تعيد المجموعة فوترته للأعضاء: يُدخل المبلغ مباشرة بالفرنك."
+                    "t": "Refacturation",
+                    "x": "Un frais fixe que le GIE refacture aux membres : on saisit directement le montant en FCFA."
                   }
                 ]
               }
@@ -1605,39 +1624,39 @@
           },
           {
             "id": "c-materiel",
-            "title": "المعدات",
-            "menu": "المعدات",
-            "note": "باقتا Medium وPremium",
+            "title": "Le matériel",
+            "menu": "Matériel",
+            "note": "formules Medium et Premium",
             "blocks": [
               {
-                "p": "إذا كانت باقتكم تسمح بذلك، سجلوا في الجرد معدات المجموعة (جرارات، مضخات…) وحالتها."
+                "p": "Si votre formule le permet, enregistrez dans l’inventaire l’équipement du GIE (tracteurs, motopompes…) avec son état."
               }
             ]
           },
           {
             "id": "c-campagne",
-            "title": "الموسم",
-            "menu": "المواسم",
+            "title": "La campagne",
+            "menu": "Campagnes",
             "blocks": [
               {
-                "p": "الموسم هو موسم فلاحي. وكل ما عداه (التوزيعات، الفواتير، التسديدات) مرتبط به."
+                "p": "Une campagne est une saison agricole. Tout le reste (distributions, factures, remboursements) se rattache à elle."
               },
               {
                 "ol": [
                   {
-                    "t": "أنشئوا الموسم",
-                    "x": "عبر «موسم جديد»: الاسم، تاريخا البداية والنهاية، طريقة التسديد (نقدًا أو عينًا أو مختلطة)، المنتج المُجمَّع، سعر التجميع، الوزن القياسي، والحالة (جارٍ، منتهٍ أو ملغى)."
+                    "t": "Créez la campagne",
+                    "x": "avec « Nouvelle Campagne » : nom, dates de début et de fin, mode de remboursement (en espèces, en nature ou mixte), produit collecté, prix de collecte, poids standard, et statut (en cours, terminée ou annulée)."
                   },
                   {
-                    "t": "أعدّوه",
-                    "x": "بفتح الموسم: سجلوا الأعضاء المشاركين (مع مساحة كل منهم)، واختاروا المدخلات المعروضة في هذا الموسم، وحضّروا ميزانيتكم التقديرية حسب البنود."
+                    "t": "Configurez-la",
+                    "x": "en ouvrant la campagne : inscrivez les membres qui y participent (avec la superficie de chacun), choisissez les intrants proposés cette saison, et préparez votre budget prévisionnel par rubrique."
                   }
                 ]
               },
               {
                 "callout": {
-                  "l": "هام",
-                  "x": "الأعضاء المسجلون في الموسم وحدهم يمكنهم استلام المدخلات. سجلوهم قبل بدء التوزيعات."
+                  "l": "Important",
+                  "x": "Seuls les membres inscrits à la campagne peuvent recevoir des intrants. Inscrivez-les avant de commencer les distributions."
                 }
               }
             ]
@@ -1646,164 +1665,164 @@
       },
       {
         "id": "partie-operations",
-        "label": "الجزء 2",
-        "title": "العمليات",
-        "text": "ما تقومون به على امتداد الموسم، بحسب ترتيب حدوث الأمور.",
+        "label": "Partie 2",
+        "title": "Les opérations",
+        "text": "Ce que vous faites au fil de la campagne, dans l’ordre où les choses arrivent.",
         "sections": [
           {
             "id": "o-credit",
-            "title": "القرض البنكي",
-            "menu": "القروض البنكية",
+            "title": "Le crédit bancaire",
+            "menu": "Crédits Bancaires",
             "blocks": [
               {
                 "ul": [
                   {
-                    "t": "تقديم الطلب.",
-                    "x": "أدخلوا الموسم والبنك (مثلًا LB أو CMS) والمبلغ المطلوب والغرض من القرض. تكون الحالة في البداية «قيد الانتظار»."
+                    "t": "Faire la demande.",
+                    "x": "Indiquez la campagne, la banque (par exemple LB ou CMS), le montant demandé et le but du crédit. Le statut est d’abord « En attente »."
                   },
                   {
-                    "t": "تسجيل رد البنك.",
-                    "x": "يصبح القرض «مقبولًا» أو «مرفوضًا». إذا قُبل، سجلوا المبلغ الممنوح ونسبة الفائدة والمدة: فهي تُستعمل بعد ذلك لاحتساب فوائد كل عضو."
+                    "t": "Enregistrer la réponse de la banque.",
+                    "x": "Le crédit devient « Validé » ou « Rejeté ». S’il est validé, notez le montant accordé, le taux d’intérêt et la durée : ils servent ensuite à calculer les intérêts de chaque membre."
                   },
                   {
-                    "t": "متابعة عمليات الإفراج.",
-                    "x": "في كل مرة يفرج فيها البنك عن مبلغ، سجلوا الحساب المعني ونوع المستند (دفع فاتورة مورد أو سحب نقدي) والمبلغ والسبب."
+                    "t": "Suivre les déblocages.",
+                    "x": "Chaque fois que la banque débloque de l’argent, enregistrez le compte concerné, le type de pièce (paiement d’une facture fournisseur ou retrait d’espèces), le montant et le motif."
                   },
                   {
-                    "t": "سجلوا تسديداتكم للبنك،",
-                    "x": "مع الحساب المستعمل والمبلغ."
+                    "t": "Enregistrer vos remboursements à la banque,",
+                    "x": "avec le compte utilisé et le montant."
                   }
                 ]
               },
               {
-                "edition": "المبلغ المطلوب الإجمالي والممنوح الإجمالي والملفات قيد الانتظار والقرض المتاح، في أعلى الصفحة."
+                "edition": "le total demandé, le total accordé, les dossiers en attente et le crédit disponible, en haut de la page."
               }
             ]
           },
           {
             "id": "o-achats",
-            "title": "شراء المدخلات",
-            "menu": "المدخلات والمخزون",
+            "title": "Les achats d’intrants",
+            "menu": "Intrants & Stock",
             "blocks": [
               {
-                "p": "عندما تشتري المجموعة مدخلات، سجلوا المدخل والكمية والسعر والمورد والتاريخ ورقم الفاتورة: يزداد المخزون تلقائيًا، وتظهر قيمته الإجمالية في أعلى الصفحة."
+                "p": "Quand le GIE achète des intrants, notez l’intrant, la quantité, le prix, le fournisseur, la date et le numéro de facture : le stock augmente tout seul, et sa valeur totale s’affiche en haut de la page."
               },
               {
-                "edition": "القيمة الإجمالية للمخزون والكميات المتبقية من كل مدخل."
+                "edition": "la valeur totale du stock et les quantités restantes de chaque intrant."
               }
             ]
           },
           {
             "id": "o-distribution",
-            "title": "التوزيع على الأعضاء",
-            "menu": "التوزيع",
+            "title": "La distribution aux membres",
+            "menu": "Distribution",
             "blocks": [
               {
-                "p": "سلّموا المدخلات للأعضاء المسجلين في الموسم. يمكنكم إجراء توزيع واحد في كل مرة، أو تسليم المدخل نفسه لعدة أعضاء، أو عدة مدخلات لعضو واحد. ينخفض المخزون تلقائيًا. وبالنسبة للأشغال الزراعية والخدمة المائية، تطابق الكمية المقترحة مساحة العضو."
+                "p": "Remettez des intrants aux membres inscrits à la campagne. Vous pouvez faire une distribution à la fois, remettre un même intrant à plusieurs membres, ou plusieurs intrants à un même membre. Le stock diminue automatiquement. Pour la façon culturale et le service hydraulique, la quantité proposée correspond à la superficie du membre."
               },
               {
-                "edition": "تلخص حصيلة الموسم ما وُزّع على كل عضو."
+                "edition": "le bilan de campagne récapitule ce qui a été distribué à chaque membre."
               }
             ]
           },
           {
             "id": "o-facturation",
-            "title": "الفوترة",
-            "menu": "الفوترة",
+            "title": "La facturation",
+            "menu": "Facturation",
             "blocks": [
               {
                 "ol": [
                   {
-                    "t": "أنشئوا فواتير الموسم.",
-                    "x": "يتلقى كل عضو فاتورة تجمع المدخلات المستلمة وحصته من فوائد القرض، وعند الاقتضاء مبالغه غير المسددة من المواسم السابقة."
+                    "t": "Générez les factures de la campagne.",
+                    "x": "Chaque membre reçoit une facture qui additionne les intrants reçus, sa part des intérêts du crédit et, s’il y en a, ses impayés des campagnes précédentes."
                   },
                   {
-                    "t": "احسبوا الفوائد.",
-                    "x": "يوزع SIGGIE فوائد القروض المقبولة على الفواتير. ولذلك يجب أن تكون نسبة القرض ومدته قد أُدخلتا."
+                    "t": "Calculez les intérêts.",
+                    "x": "SIGGIE répartit l’intérêt des crédits validés entre les factures. Pour cela, le taux et la durée du crédit doivent avoir été renseignés."
                   },
                   {
-                    "t": "اطلعوا واطبعوا",
-                    "x": "الفواتير، عضوًا بعد عضو."
+                    "t": "Consultez et imprimez",
+                    "x": "les factures, membre par membre."
                   }
                 ]
               },
               {
-                "edition": "يمكن طباعة فاتورة كل عضو أو تنزيلها بصيغة PDF."
+                "edition": "la facture de chaque membre s’imprime ou se télécharge en PDF."
               }
             ]
           },
           {
             "id": "o-remboursements",
-            "title": "التسديدات",
-            "menu": "التسديدات",
+            "title": "Les remboursements",
+            "menu": "Remboursements",
             "blocks": [
               {
                 "ul": [
                   {
-                    "t": "نقدًا.",
-                    "x": "اختاروا العضو وفاتورته والحساب الذي يستقبل المال والمبلغ: يدخل المال في خزينتكم."
+                    "t": "En espèces.",
+                    "x": "Choisissez le membre et sa facture, le compte qui reçoit l’argent et le montant : l’argent entre dans votre trésorerie."
                   },
                   {
-                    "t": "عينًا.",
-                    "x": "يحضر العضو محصوله: يُوزن ويُسجل المنتج والكمية. يدخل في «المخزون العيني» دون المساس بالخزينة."
+                    "t": "En nature.",
+                    "x": "Le membre apporte sa récolte : on la pèse et on note le produit et la quantité. Elle entre dans le « Stock en nature », sans toucher à la trésorerie."
                   },
                   {
-                    "t": "الفائض (الاسترداد).",
-                    "x": "إذا سدد عضو أكثر من فاتورته، يُرد له الفارق: نقدًا (خروج من الخزينة) أو عينًا (خروج من المخزون العيني)."
+                    "t": "Le surplus (ristourne).",
+                    "x": "Si un membre a remboursé plus que sa facture, la différence lui est rendue : en argent (une sortie de trésorerie) ou en nature (une sortie du stock en nature)."
                   }
                 ]
               },
               {
-                "edition": "سجل الاستردادات والمخزون العيني وكشف كل عضو."
+                "edition": "l’historique des ristournes, le stock en nature et le relevé de chaque membre."
               }
             ]
           },
           {
             "id": "o-tresorerie",
-            "title": "الخزينة",
-            "menu": "الخزينة",
+            "title": "La trésorerie",
+            "menu": "Trésorerie",
             "blocks": [
               {
                 "ul": [
                   {
-                    "t": "الحسابات.",
-                    "x": "قائمة حساباتكم مع أرصدتها."
+                    "t": "Comptes.",
+                    "x": "La liste de vos comptes avec leurs soldes."
                   },
                   {
-                    "t": "اليوميات.",
-                    "x": "اختاروا حسابًا لمشاهدة جميع عملياته، مع الرصيد المتغير سطرًا بعد سطر. يمكنكم إدخال عملية أو تصحيحها أو حذفها."
+                    "t": "Journaux.",
+                    "x": "Choisissez un compte pour voir toutes ses opérations, avec le solde qui évolue ligne après ligne. Vous pouvez saisir, corriger ou supprimer une opération."
                   },
                   {
-                    "t": "المطابقة.",
-                    "x": "تحققوا من أن قروض الموسم وحركاتكم تطابق واقع البنك."
+                    "t": "Rapprochement.",
+                    "x": "Vérifiez que vos crédits de campagne et vos mouvements correspondent bien à la réalité de la banque."
                   }
                 ]
               },
               {
-                "edition": "يومية كل حساب، مع الرصيد المتراكم."
+                "edition": "le journal de chaque compte, avec le solde progressif."
               }
             ]
           },
           {
             "id": "o-materiel",
-            "title": "المعدات يوميًا",
-            "menu": "المعدات",
-            "note": "باقتا Medium وPremium",
+            "title": "Le matériel au quotidien",
+            "menu": "Matériel",
+            "note": "formules Medium et Premium",
             "blocks": [
               {
                 "ul": [
                   {
-                    "t": "الخدمات.",
-                    "x": "الأعمال المنجزة بالمعدات، تسجل في الميدان: الكمية المعالجة بوحدتها (هكتارات للجرار أو الحصادة، ساعات للممهدة أو الحفارة، أكياس، أو وحدة أخرى)، هاتف العميل (إلزامي)، الكمية المحصلة مع المنتج، وصنفه إذا تطلب المنتج ذلك. عندما تدفع الخدمة حصة من المحصول، أدخل النسبة المئوية: يحسب SIGGIE الأكياس العائدة للتجمع وقيمتها. يحدد زر «المنتجات والأصناف» المنتجات المسجلة وتلك التي يكون صنفها إلزاميا. اختر الموسم ونوعا مدرجا في الميزانية: يحتسب المبلغ في المنجز ضمن متابعة ميزانية الموسم (وكذلك الاستهلاكات)."
+                    "t": "Prestations.",
+                    "x": "Les travaux réalisés avec le matériel, pointés sur le terrain : quantité traitée dans son unité (hectares pour le tracteur ou la moissonneuse, heures pour la niveleuse ou la pelle, sacs, ou une autre unité), téléphone du client (obligatoire), quantité obtenue avec le produit et, si le produit l’exige, sa variété. Quand la prestation est payée en part de récolte, indiquez le pourcentage : SIGGIE calcule les sacs revenant au GIE et leur valeur. Le bouton « Produits et variétés » définit les produits pointés et ceux dont la variété est obligatoire. Choisissez la campagne et un type budgété : le montant compte dans le réalisé du suivi budgétaire de la campagne (les consommations aussi)."
                   },
                   {
-                    "t": "الاستهلاكات.",
-                    "x": "الوقود والصيانة ونفقات المعدات الأخرى."
+                    "t": "Consommations.",
+                    "x": "Le carburant, l’entretien et les autres dépenses du matériel."
                   }
                 ]
               },
               {
-                "edition": "يمكن طباعة الجرد والخدمات والاستهلاكات والاهتلاكات والمردودية."
+                "edition": "l’inventaire, les prestations, les consommations, les amortissements et la rentabilité peuvent s’imprimer."
               }
             ]
           }
@@ -1811,28 +1830,28 @@
       },
       {
         "id": "partie-etats",
-        "label": "الجزء 3",
-        "title": "الطباعة والكشوفات والتقارير",
-        "text": "بعد تسجيل عملياتكم، يجمعها SIGGIE لكم في وثائق للطباعة وكشوفات للمتابعة.",
+        "label": "Partie 3",
+        "title": "Les éditions, états et rapports",
+        "text": "Une fois vos opérations enregistrées, SIGGIE les rassemble pour vous dans des documents à imprimer et des états de suivi.",
         "sections": [
           {
             "id": "e-imprimer",
-            "title": "الوثائق المطبوعة",
-            "lead": "تحمل الاسم والعنوان والتعريف الجبائي والشعار المدخلة في الإعدادات.",
+            "title": "Les documents à imprimer",
+            "lead": "Ils portent le nom, l’adresse, l’identification fiscale et le logo renseignés dans les Paramètres.",
             "blocks": [
               {
                 "ul": [
                   {
-                    "t": "فواتير الأعضاء.",
-                    "x": "قائمة الفوترة: اطلعوا على فاتورة كل عضو، واطبعوها أو نزّلوها بصيغة PDF."
+                    "t": "Les factures des membres.",
+                    "x": "Menu Facturation : consultez la facture de chaque membre, imprimez-la ou téléchargez-la en PDF."
                   },
                   {
-                    "t": "يوميات الصندوق والبنك.",
-                    "x": "قائمة الخزينة: جميع عمليات حساب مع الرصيد المتراكم."
+                    "t": "Les journaux de caisse et de banque.",
+                    "x": "Menu Trésorerie : toutes les opérations d’un compte avec le solde progressif."
                   },
                   {
-                    "t": "الكشوفات والقوائم.",
-                    "x": "لمعظم صفحات الكشوفات (الميزانيات، الكشوفات، المتابعة الميزانية، جرد المعدات وخدماتها) زر لطباعتها."
+                    "t": "Les états et les listes.",
+                    "x": "La plupart des pages d’états (bilans, relevés, suivi budgétaire, inventaire et prestations du matériel) ont un bouton pour les imprimer."
                   }
                 ]
               }
@@ -1840,19 +1859,19 @@
           },
           {
             "id": "e-membres",
-            "title": "الكشوفات",
-            "menu": "الميزانيات والكشوفات",
-            "note": "باقة Premium",
+            "title": "Les relevés",
+            "menu": "Bilans & Relevés",
+            "note": "formule Premium",
             "blocks": [
               {
                 "ul": [
                   {
-                    "t": "كشف عضو.",
-                    "x": "كل ما استلمه العضو وما يدين به وما سدده بالفعل."
+                    "t": "Le relevé d’un membre.",
+                    "x": "Tout ce qu’un membre a reçu, ce qu’il doit et ce qu’il a déjà remboursé."
                   },
                   {
-                    "t": "كشف زبون خارجي.",
-                    "x": "المتابعة نفسها لشخص ليس عضوًا في المجموعة."
+                    "t": "Le relevé d’un client extérieur.",
+                    "x": "Le même suivi pour une personne qui n’est pas membre du GIE."
                   }
                 ]
               }
@@ -1860,21 +1879,21 @@
           },
           {
             "id": "e-campagne",
-            "title": "متابعة الموسم",
+            "title": "Le suivi de la campagne",
             "blocks": [
               {
                 "ul": [
                   {
-                    "t": "حصيلة الموسم.",
-                    "x": "من صفحة الموسم: ملخص لما وُزّع وفُوتر وسُدد، عضوًا بعد عضو."
+                    "t": "Le bilan de campagne.",
+                    "x": "Depuis la page d’une campagne : un récapitulatif de ce qui a été distribué, facturé et remboursé, membre par membre."
                   },
                   {
-                    "t": "المتابعة الميزانية",
-                    "x": "(قائمة الميزانيات والكشوفات، باقة Premium). توقعاتكم مقارنة بما جرى فعلًا، بندًا بندًا، مع رصيد الإيرادات ناقص النفقات."
+                    "t": "Le suivi budgétaire",
+                    "x": "(menu Bilans & Relevés, formule Premium). Vos prévisions comparées à ce qui s’est réellement passé, rubrique par rubrique, avec le solde recettes moins dépenses."
                   },
                   {
-                    "t": "الاستردادات والمخزون العيني",
-                    "x": "(قائمة التسديدات). سجل ما رُد للأعضاء وحالة مخزون المحصول المستلم كتسديد."
+                    "t": "Les ristournes et le stock en nature",
+                    "x": "(menu Remboursements). L’historique de ce qui a été rendu aux membres et l’état du stock de récolte reçue en remboursement."
                   }
                 ]
               }
@@ -1882,36 +1901,36 @@
           },
           {
             "id": "e-annuel",
-            "title": "الميزانية السنوية",
-            "menu": "الميزانيات والكشوفات",
-            "note": "باقة Premium",
+            "title": "Le bilan annuel",
+            "menu": "Bilans & Relevés",
+            "note": "formule Premium",
             "blocks": [
               {
-                "p": "يعرض SIGGIE وضعية المجموعة في 31 ديسمبر ونتيجة السنة (الإيرادات ناقص النفقات)، محسوبة انطلاقًا من كل ما سجلتموه. بعض المبالغ لا يمكن تخمينها وتُدخل مرة في السنة: الإعانات والقروض والإيرادات الأخرى والنفقات الأخرى. للاطلاع على سنة سابقة، غيّروا السنة المالية."
+                "p": "SIGGIE présente la situation du GIE au 31 décembre et le résultat de l’année (recettes moins dépenses), calculés à partir de tout ce que vous avez enregistré. Quelques montants ne peuvent pas être devinés et se saisissent une fois par an : subventions, emprunts, autres produits et autres charges. Pour consulter une année passée, changez d’exercice."
               }
             ]
           },
           {
             "id": "e-autres",
-            "title": "كشوفات أخرى",
+            "title": "Les autres états",
             "blocks": [
               {
                 "ul": [
                   {
-                    "t": "لوحة القيادة.",
-                    "x": "الصفحة الرئيسية: أهم أرقام المجموعة بنظرة واحدة."
+                    "t": "Le tableau de bord.",
+                    "x": "La page d’accueil : les chiffres importants du GIE en un coup d’œil."
                   },
                   {
-                    "t": "حالة المخزون.",
-                    "x": "قائمة المدخلات والمخزون: القيمة الإجمالية للمخزون والكميات المتبقية من كل مدخل."
+                    "t": "L’état des stocks.",
+                    "x": "Menu Intrants & Stock : la valeur totale du stock et les quantités restantes de chaque intrant."
                   },
                   {
-                    "t": "القروض.",
-                    "x": "قائمة القروض البنكية: المجموع المطلوب والمجموع الممنوح والملفات قيد الانتظار والقرض المتاح."
+                    "t": "Les crédits.",
+                    "x": "Menu Crédits Bancaires : le total demandé, le total accordé, les dossiers en attente et le crédit encore disponible."
                   },
                   {
-                    "t": "المعدات",
-                    "x": "(باقتا Medium وPremium). الاهتلاكات، أي فقدان قيمة كل آلة مع الزمن، والمردودية، أي ما تدره كل آلة فعلًا على المجموعة."
+                    "t": "Le matériel",
+                    "x": "(formules Medium et Premium). Les amortissements, c’est-à-dire la perte de valeur de chaque machine avec le temps, et la rentabilité, c’est-à-dire ce que chaque machine rapporte réellement au GIE."
                   }
                 ]
               }
@@ -1923,32 +1942,32 @@
     "closing": [
       {
         "id": "formules",
-        "title": "الباقات والاشتراك",
-        "lead": "تبدؤون بفترة تجريبية مجانية. وفي نهايتها يُغلق الوصول ما لم يُسدَّد الاشتراك: سددوا قبل الأجل حتى لا ينقطع شيء.",
+        "title": "Les formules et l’abonnement",
+        "lead": "Vous démarrez par une période d’essai gratuite. À la fin, l’accès est bloqué tant que l’abonnement n’est pas payé : payez avant l’échéance pour ne rien interrompre.",
         "blocks": [
           {
             "table": {
               "head": [
-                "الميزة",
+                "Fonction",
                 "Standard",
                 "Medium",
                 "Premium"
               ],
               "rows": [
                 [
-                  "الأعضاء، المواسم، المدخلات، التوزيع، القروض، الفوترة، التسديدات، الخزينة",
+                  "Membres, campagnes, intrants, distribution, crédits, facturation, remboursements, trésorerie",
                   "✓",
                   "✓",
                   "✓"
                 ],
                 [
-                  "المعدات",
+                  "Matériel",
                   "—",
                   "✓",
                   "✓"
                 ],
                 [
-                  "الميزانيات والكشوفات",
+                  "Bilans & Relevés",
                   "—",
                   "—",
                   "✓"
@@ -1957,77 +1976,77 @@
             }
           },
           {
-            "p": "الاشتراك سنوي ويُدفع من قائمة الاشتراك (Wave، Orange Money، بطاقة Visa، تحويل بنكي، ...). وللانتقال إلى باقة أعلى، لا تدفعون سوى الفارق."
+            "p": "L’abonnement est annuel et se paie dans le menu Abonnement (Wave, Orange Money, carte Visa, virement, ...). Pour passer à une formule supérieure, vous ne payez que la différence."
           }
         ]
       },
       {
         "id": "conseils",
-        "title": "عادات جيدة ومساعدة",
+        "title": "Bons réflexes et aide",
         "blocks": [
           {
             "ul": [
               {
-                "x": "أنشئوا حسابات الخزينة قبل تسجيل إفراج عن قرض أو تسديد نقدي."
+                "x": "Créez vos comptes de trésorerie avant d’enregistrer un déblocage de crédit ou un remboursement en espèces."
               },
               {
-                "x": "سجلوا الأعضاء في الموسم قبل توزيع المدخلات عليهم."
+                "x": "Inscrivez les membres à la campagne avant de leur distribuer des intrants."
               },
               {
-                "x": "أدخلوا نسبة ومدة القرض المقبول: فبدونهما لا يمكن احتساب الفوائد."
+                "x": "Renseignez le taux et la durée du crédit validé : sans eux, les intérêts ne peuvent pas être calculés."
               },
               {
-                "x": "أنشئوا الفواتير بعد انتهاء التوزيعات، وبعد احتساب الفوائد."
+                "x": "Générez les factures une fois les distributions terminées, après avoir calculé les intérêts."
               },
               {
-                "x": "سجلوا كل تسديد في يومه، بالحساب الصحيح: هذا ما يبقي خزينتكم دقيقة."
+                "x": "Enregistrez chaque remboursement le jour même, avec le bon compte : c’est ce qui garde votre trésorerie exacte."
               },
               {
-                "x": "إذا لم تظهر قائمة عندكم، فمعنى ذلك أن ملفكم لا يملك حق الوصول إليها: اطلبوا من مسؤول المجموعة."
+                "x": "Si un menu n’apparaît pas chez vous, votre profil n’y a pas accès : demandez à l’administrateur du GIE."
               }
             ]
           },
           {
             "callout": {
-              "l": "هل تحتاجون مساعدة؟",
-              "x": "افتحوا قائمة المساعدة والدعم: ستجدون رقم الدعم (+221 70 848 42 98، من الإثنين إلى الجمعة من 9 صباحًا إلى 6 مساءً) ونموذجًا للكتابة إلى الفريق."
+              "l": "Besoin d’aide ?",
+              "x": "Ouvrez le menu Aide & Support : vous y trouvez le numéro d’assistance (+221 70 848 42 98, du lundi au vendredi de 9h à 18h) et un formulaire pour écrire à l’équipe."
             }
           }
         ]
       },
       {
         "id": "mots",
-        "title": "معجم صغير",
+        "title": "Petit lexique",
         "blocks": [
           {
             "dl": [
               {
-                "t": "الموسم",
-                "x": "موسم فلاحي، بأعضائه ومدخلاته وقرضه وتسديداته."
+                "t": "Campagne",
+                "x": "Une saison agricole, avec ses membres, ses intrants, son crédit et ses remboursements."
               },
               {
-                "t": "المدخلات",
-                "x": "كل ما يُستعمل في الإنتاج: أسمدة وبذور ومنتجات معالجة، وأيضًا خدمات كالماء أو الحرث."
+                "t": "Intrants",
+                "x": "Tout ce qui sert à produire : engrais, semences, produits de traitement, mais aussi des services comme l’eau ou le labour."
               },
               {
-                "t": "الإفراج (الصرف)",
-                "x": "اللحظة التي يضع فيها البنك مال القرض الممنوح رهن الإشارة."
+                "t": "Déblocage (décaissement)",
+                "x": "Le moment où la banque met à disposition l’argent du crédit accordé."
               },
               {
-                "t": "التسديد العيني",
-                "x": "سداد الدين بجزء من المحصول بدل المال."
+                "t": "Remboursement en nature",
+                "x": "Rembourser sa dette avec une partie de sa récolte plutôt qu’avec de l’argent."
               },
               {
-                "t": "الاسترداد",
-                "x": "الجزء من التسديد الذي يتجاوز الفاتورة ويُرد للعضو."
+                "t": "Ristourne",
+                "x": "La part d’un remboursement qui dépasse la facture, rendue au membre."
               },
               {
-                "t": "المطابقة",
-                "x": "مقارنة أرقامكم بأرقام البنك للتأكد من تطابقها."
+                "t": "Rapprochement",
+                "x": "Comparer vos chiffres avec ceux de la banque pour vérifier qu’ils sont identiques."
               },
               {
-                "t": "التخصيص",
-                "x": "ربط عملية مالية بسببها (مثلًا موسم أو نفقة محددة)."
+                "t": "Imputation",
+                "x": "Le rattachement d’une opération d’argent à sa raison (par exemple une campagne ou une dépense précise)."
               }
             ]
           }

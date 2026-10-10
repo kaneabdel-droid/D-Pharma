@@ -54,16 +54,7 @@ export default function ClientLayout({
     { key: 'pos_pharma', href: '/pharmacie/pos', icon: Activity },
     { key: 'stock_pharma', href: '/pharmacie/stocks', icon: PackageOpen },
     { key: 'commandes_pharma', href: '/pharmacie/commandes', icon: Truck },
-    { key: 'membres', href: '/membres', icon: Users },
-    { key: 'campagnes', href: '/campagnes', icon: Leaf },
-    { key: 'intrants', href: '/intrants', icon: Tractor },
-    { key: 'distribution', href: '/distribution', icon: PackageOpen },
-    { key: 'credits', href: '/credits', icon: Landmark },
-    { key: 'facturation', href: '/facturation', icon: ReceiptText },
-    { key: 'remboursements', href: '/remboursements', icon: Banknote },
     { key: 'tresorerie', href: '/tresorerie', icon: Landmark },
-    { key: 'materiel', href: '/materiel', icon: Tractor },
-    { key: 'bilans', href: '/bilans', icon: FileSpreadsheet },
     { key: 'abonnement', href: '/abonnement', icon: Shield },
     { key: 'parametres', href: '/parametres', icon: Settings },
     { key: 'support', href: '/support', icon: LifeBuoy },
@@ -74,12 +65,6 @@ export default function ClientLayout({
   }, [pathname])
 
   const filteredNavigation = navigation.filter(item => {
-    if (subscriptionTier === 'standard') {
-      if (item.href === '/materiel' || item.href === '/bilans') return false
-    }
-    if (subscriptionTier === 'medium') {
-      if (item.href === '/bilans') return false
-    }
     const moduleKey = moduleForPath(item.href)
     if (moduleKey && !hasPermission(role, permissions, moduleKey, 'read')) return false
     return true
@@ -103,7 +88,7 @@ export default function ClientLayout({
             {/* Sidebar component */}
             <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-[var(--sidebar)] px-6 pb-4">
               <div className="flex h-16 shrink-0 items-center">
-                <h1 className="text-2xl font-bold text-primary font-heading">SIGGIE</h1>
+                <h1 className="text-2xl font-bold text-primary font-heading">D-PHARMA</h1>
               </div>
               <nav className="flex flex-1 flex-col">
                 <ul role="list" className="flex flex-1 flex-col gap-y-7">
@@ -144,7 +129,7 @@ export default function ClientLayout({
         {/* Sidebar component */}
         <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-[var(--sidebar)] border-r border-surface-border px-4 pb-4">
           <div className="flex h-16 shrink-0 items-center">
-            <h1 className="text-3xl font-bold text-primary font-heading tracking-wide">SIGGIE</h1>
+            <h1 className="text-3xl font-bold text-primary font-heading tracking-wide">D-PHARMA</h1>
           </div>
           <nav className="flex flex-1 flex-col">
             <ul role="list" className="flex flex-1 flex-col gap-y-7">

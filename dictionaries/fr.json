@@ -207,7 +207,7 @@
   },
   "dashboard": {
     "title": "Tableau de bord",
-    "welcome": "Bienvenue sur SIGGIE. Voici un résumé de l'activité de votre GIE.",
+    "welcome": "Bienvenue sur D-PHARMA. Voici un résumé de votre officine.",
     "stats": {
       "members": "Membres Inscrits",
       "members_desc": "Dans la coopérative",
@@ -232,6 +232,22 @@
       "registered": "Inscription de",
       "empty": "Aucun membre récent.",
       "view_all": "Voir tous les membres"
+    },
+    "pharma_stats": {
+      "sales_today": "Ventes du jour",
+      "sales_today_desc": "Chiffre d'affaires",
+      "low_stock": "Stock Faible",
+      "low_stock_desc": "Médicaments à réapprovisionner",
+      "pending_orders": "Commandes Labo",
+      "pending_orders_desc": "En attente",
+      "expired": "Périmés ou proches",
+      "expired_desc": "À retirer des rayons"
+    },
+    "recent_sales": {
+      "title": "Dernières ventes",
+      "empty": "Aucune vente récente",
+      "pos_link": "Aller au Point de Vente",
+      "sale_of": "Ticket N°"
     }
   },
   "membres": {

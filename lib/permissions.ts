@@ -28,25 +28,12 @@ export type PermissionModule = {
 
 export const PERMISSION_MODULES: PermissionModule[] = [
   { key: 'dashboard', label: 'Tableau de bord', group: 'Général', paths: ['/dashboard'], actions: ['read'] },
-  { key: 'membres', label: 'Membres', group: 'Gestion', paths: ['/membres'], actions: CRUD },
-  { key: 'campagnes', label: 'Campagnes', group: 'Gestion', paths: ['/campagnes'], actions: CRUD, hint: 'Modification : inclut la configuration (membres, intrants, budget)' },
-  { key: 'intrants', label: 'Intrants & Stock', group: 'Gestion', paths: ['/intrants'], actions: CRUD, hint: 'Création : inclut les achats de stock' },
-  { key: 'distribution', label: 'Distribution', group: 'Gestion', paths: ['/distribution'], actions: CRUD },
-  { key: 'credits', label: 'Crédits bancaires', group: 'Finance', paths: ['/credits'], actions: CRUD, hint: 'Modification : statut, décaissements, remboursements' },
-  { key: 'facturation', label: 'Facturation', group: 'Finance', paths: ['/facturation'], actions: ['read', 'create', 'update'], hint: 'Création : générer les factures · Modification : calcul des intérêts' },
-  { key: 'remboursements', label: 'Remboursements', group: 'Finance', paths: ['/remboursements'], actions: ['read', 'create'], hint: 'Création : enregistrer un paiement' },
-  { key: 'ristournes', label: 'Ristournes (surplus rendu aux membres)', group: 'Finance', paths: ['/remboursements/ristournes'], actions: ['read', 'create', 'delete'], hint: 'Création : sortie de trésorerie au profit du membre' },
-  { key: 'stock_nature', label: 'Stock en nature', group: 'Finance', paths: ['/remboursements/stock-nature'], actions: ['read', 'create'] },
+  { key: 'pos_pharma', label: 'Point de Vente (POS)', group: 'Pharmacie', paths: ['/pharmacie/pos'], actions: CRUD },
+  { key: 'stock_pharma', label: 'Gestion des Stocks', group: 'Pharmacie', paths: ['/pharmacie/stocks'], actions: CRUD },
+  { key: 'commandes_pharma', label: 'Commandes Labo', group: 'Pharmacie', paths: ['/pharmacie/commandes'], actions: CRUD },
   { key: 'tresorerie', label: 'Trésorerie (comptes, journaux, rapprochement)', group: 'Finance', paths: ['/tresorerie'], actions: CRUD },
   { key: 'imputations', label: 'Imputations', group: 'Finance', paths: ['/tresorerie/imputations'], actions: CRUD },
-  { key: 'materiel', label: 'Matériel (inventaire)', group: 'Matériel', paths: ['/materiel'], actions: CRUD },
-  { key: 'materiel_prestations', label: 'Prestations matériel', group: 'Matériel', paths: ['/materiel/prestations'], actions: CRUD },
-  { key: 'materiel_consommations', label: 'Consommations matériel', group: 'Matériel', paths: ['/materiel/consommations'], actions: CRUD },
-  { key: 'materiel_analyses', label: 'Amortissements & rentabilité', group: 'Matériel', paths: ['/materiel/amortissements', '/materiel/rentabilite'], actions: ['read'] },
-  { key: 'bilans', label: 'Bilans, relevés membres & suivi budgétaire', group: 'Bilans', paths: ['/bilans'], actions: ['read'] },
-  { key: 'bilan_annuel', label: 'Bilan annuel & compte de résultat', group: 'Bilans', paths: ['/bilans/bilan-annuel'], actions: ['read', 'update'], hint: 'Modification : saisie des montants manuels (subventions, emprunts, autres produits/charges)' },
-  { key: 'bilans_clients', label: 'Relevés clients externes', group: 'Bilans', paths: ['/bilans/releve-client'], actions: ['read', 'create'] },
-  { key: 'parametres', label: 'Paramètres du GIE', group: 'Administration', paths: ['/parametres'], actions: ['read', 'update'] },
+  { key: 'parametres', label: 'Paramètres', group: 'Administration', paths: ['/parametres'], actions: ['read', 'update'] },
 ]
 
 // Route -> module (préfixe le plus long). null = page non soumise aux droits
@@ -99,11 +86,8 @@ export function readOnlyPermissions(): PermissionMap {
 
 // Première page accessible : destination de repli quand l'accès est refusé.
 const FIRST_PAGE_ORDER: [string, string][] = [
-  ['dashboard', '/dashboard'], ['membres', '/membres'], ['campagnes', '/campagnes'],
-  ['intrants', '/intrants'], ['distribution', '/distribution'], ['credits', '/credits'],
-  ['facturation', '/facturation'], ['remboursements', '/remboursements'],
-  ['tresorerie', '/tresorerie'], ['materiel', '/materiel'], ['bilans', '/bilans'],
-  ['parametres', '/parametres'],
+  ['dashboard', '/dashboard'], ['pos_pharma', '/pharmacie/pos'], ['stock_pharma', '/pharmacie/stocks'],
+  ['commandes_pharma', '/pharmacie/commandes'], ['tresorerie', '/tresorerie'], ['parametres', '/parametres'],
 ]
 
 export function firstAllowedPath(role: string | null | undefined, permissions: PermissionMap | null | undefined): string {
