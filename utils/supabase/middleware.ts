@@ -161,11 +161,18 @@ export async function updateSession(request: NextRequest) {
     pathname.startsWith('/auth')
 
   if (user && !exemptFromTrialLock) {
-    const { data: userData } = await supabase
+    const { data: userData, error } = await supabase
       .from('utilisateurs')
       .select('role, permissions, gies(essai_expire_le, compte_verrouille)')
       .eq('id', user.id)
-      .single()
+      .maybeSingle()
+
+    if (error || !userData) {
+      const url = request.nextUrl.clone()
+      url.pathname = '/login'
+      url.searchParams.set('message', 'Erreur de profil ou compte inexistant.')
+      return NextResponse.redirect(url)
+    }
 
     const gie = Array.isArray(userData?.gies) ? userData.gies[0] : userData?.gies
     const essaiExpireLe = gie?.essai_expire_le as string | null | undefined
