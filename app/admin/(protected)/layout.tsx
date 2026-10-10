@@ -19,8 +19,8 @@ export default async function AdminLayout({ children }: { children: React.ReactN
 
   const navItems = [
     { href: '/admin', label: 'Accueil', icon: LayoutGrid },
-    { href: '/admin/siggie', label: 'Tableau de bord SIGGIE', icon: LayoutDashboard },
-    { href: '/admin/gies', label: 'GIE', icon: Building2 },
+    { href: '/admin/pharmacie', label: 'Tableau de bord D-PHARMA', icon: LayoutDashboard },
+    { href: '/admin/gies', label: 'Pharmacies (GIE)', icon: Building2 },
     { href: '/admin/paiements', label: 'Paiements', icon: Wallet },
     { href: '/admin/config', label: 'Configuration', icon: Settings },
   ]

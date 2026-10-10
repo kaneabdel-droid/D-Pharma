@@ -9,10 +9,18 @@ import { Building2, Wrench, Package, Wheat, GraduationCap, Handshake, ArrowUpRig
 // admin (même email possible, session distincte).
 const produits = [
   {
+    nom: 'D-PHARMA',
+    description: 'Gestion des pharmacies — ventes (POS), stocks, commandes, assurances.',
+    href: '/admin/pharmacie',
+    externe: false,
+    icon: Package,
+    statut: 'en_ligne' as const,
+  },
+  {
     nom: 'SIGGIE',
     description: 'Gestion des GIE agricoles — membres, campagnes, intrants, trésorerie.',
-    href: '/admin/siggie',
-    externe: false,
+    href: 'https://siggie.dembasolution.com/admin',
+    externe: true,
     icon: Building2,
     statut: 'en_ligne' as const,
   },
