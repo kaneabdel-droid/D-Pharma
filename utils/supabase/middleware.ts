@@ -43,9 +43,12 @@ export async function updateSession(request: NextRequest) {
     request,
   })
 
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://tgnqcqfynkvmocxqdxyc.supabase.co'
+  const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'sb_publishable_SCG2vuL7_fCWqG1C7yJ58Q_LYyCnDkM'
+
   const supabase = createServerClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    supabaseUrl,
+    supabaseAnonKey,
     {
       cookies: {
         getAll() {
@@ -129,6 +132,8 @@ export async function updateSession(request: NextRequest) {
     !pathname.startsWith('/signup') &&
     !pathname.startsWith('/forgot-password') &&
     !pathname.startsWith('/update-password') &&
+    !pathname.startsWith('/auth') &&
+    !pathname.startsWith('/api') &&
     !pathname.startsWith('/decouvrir-dpharma') &&
     !pathname.startsWith('/demo') &&
     !pathname.startsWith('/decouvrir-siggie') &&
@@ -162,43 +167,47 @@ export async function updateSession(request: NextRequest) {
     pathname.startsWith('/auth')
 
   if (user && !exemptFromTrialLock) {
-    const { data: userData, error } = await supabase
-      .from('utilisateurs')
-      .select('role, permissions, gies(essai_expire_le, compte_verrouille)')
-      .eq('id', user.id)
-      .maybeSingle()
+    try {
+      const { data: userData, error } = await supabase
+        .from('utilisateurs')
+        .select('role, permissions, gies(essai_expire_le, compte_verrouille)')
+        .eq('id', user.id)
+        .maybeSingle()
 
-    if (error || !userData) {
-      const url = request.nextUrl.clone()
-      url.pathname = '/login'
-      url.searchParams.set('message', 'Erreur de profil ou compte inexistant.')
-      return NextResponse.redirect(url)
-    }
-
-    const gie = Array.isArray(userData?.gies) ? userData.gies[0] : userData?.gies
-    const essaiExpireLe = gie?.essai_expire_le as string | null | undefined
-    const essaiExpire = essaiExpireLe ? new Date(essaiExpireLe) < new Date() : false
-
-    if (gie?.compte_verrouille || essaiExpire) {
-      const url = request.nextUrl.clone()
-      url.pathname = '/abonnement'
-      url.searchParams.set('essai_expire', '1')
-      return NextResponse.redirect(url)
-    }
-
-    // Droits par page : un utilisateur sans "lecture" sur le module de cette URL
-    // est renvoyé vers la première page qui lui est ouverte. Les server actions
-    // d'écriture revérifient chacune leur droit (requirePermission).
-    const moduleKey = moduleForPath(pathname)
-    if (moduleKey) {
-      const role = userData?.role as string | undefined
-      const permissions = (userData?.permissions as PermissionMap | null) ?? null
-      if (!hasPermission(role, permissions, moduleKey, 'read')) {
+      if (error || !userData) {
         const url = request.nextUrl.clone()
-        url.pathname = firstAllowedPath(role, permissions)
-        url.search = ''
-        if (url.pathname !== pathname) return NextResponse.redirect(url)
+        url.pathname = '/login'
+        url.searchParams.set('message', 'Erreur de profil ou compte inexistant.')
+        return NextResponse.redirect(url)
       }
+
+      const gie = Array.isArray(userData?.gies) ? userData.gies[0] : userData?.gies
+      const essaiExpireLe = gie?.essai_expire_le as string | null | undefined
+      const essaiExpire = essaiExpireLe ? new Date(essaiExpireLe) < new Date() : false
+
+      if (gie?.compte_verrouille || essaiExpire) {
+        const url = request.nextUrl.clone()
+        url.pathname = '/abonnement'
+        url.searchParams.set('essai_expire', '1')
+        return NextResponse.redirect(url)
+      }
+
+      // Droits par page : un utilisateur sans "lecture" sur le module de cette URL
+      // est renvoyé vers la première page qui lui est ouverte. Les server actions
+      // d'écriture revérifient chacune leur droit (requirePermission).
+      const moduleKey = moduleForPath(pathname)
+      if (moduleKey) {
+        const role = userData?.role as string | undefined
+        const permissions = (userData?.permissions as PermissionMap | null) ?? null
+        if (!hasPermission(role, permissions, moduleKey, 'read')) {
+          const url = request.nextUrl.clone()
+          url.pathname = firstAllowedPath(role, permissions)
+          url.search = ''
+          if (url.pathname !== pathname) return NextResponse.redirect(url)
+        }
+      }
+    } catch (e) {
+      console.error('Erreur vérification profil/droits middleware:', e)
     }
   }
 
