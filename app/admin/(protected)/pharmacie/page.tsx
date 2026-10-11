@@ -48,7 +48,7 @@ export default async function AdminDPharmaDashboardPage() {
 
   const revenuMaketouDuMois = (paiementsMaketouMois ?? []).reduce((sum, p) => sum + equivalentFcfa(Number(p.montant), p.devise), 0)
 
-  const parForfait = ['standard', 'medium', 'premium'].map((niveau) => ({
+  const parForfait = ['pharmacie', 'fournisseur', 'standard', 'medium', 'premium'].map((niveau) => ({
     niveau,
     count: (gies ?? []).filter((g) => g.subscription_tier === niveau).length,
   }))

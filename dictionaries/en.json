@@ -460,34 +460,50 @@
     "lower_tier": "Niveau inférieur",
     "pay_prefix": "Payer",
     "plans": {
-      "standard": {
-        "name": "Standard",
+      "pharmacie": {
+        "name": "Pharmacy",
         "features": [
-          "Point de Vente (POS) & scan code-barres",
-          "Gestion des stocks & catalogue médicaments",
-          "Alertes péremptions & ruptures",
-          "Journal de caisse & clôture journalière",
-          "Portail public citoyen (sans prix)"
+          "Point of Sale (POS) & barcode scan",
+          "Stock & medicines catalog management",
+          "Batch expiry & shortage alerts",
+          "Cash register & daily closing",
+          "Direct orders to wholesalers & labs"
+        ]
+      },
+      "fournisseur": {
+        "name": "Supplier / Lab",
+        "features": [
+          "Online medicines & molecules catalog",
+          "Receiving & processing pharmacy orders",
+          "Shipment tracking & delivery receipts",
+          "Order history & distribution metrics",
+          "Dedicated technical support"
+        ]
+      },
+      "standard": {
+        "name": "Pharmacy",
+        "features": [
+          "Point of Sale (POS) & barcode scan",
+          "Stock & medicines catalog management",
+          "Batch expiry & shortage alerts",
+          "Cash register & daily closing"
         ]
       },
       "medium": {
-        "name": "Medium",
+        "name": "Pharmacy",
         "features": [
-          "Toutes les fonctionnalités Standard",
-          "Commandes grossistes & labos",
-          "Pointage réceptions & entrées de lots",
-          "Gestion multi-utilisateurs & permissions",
-          "Support prioritaire par email & WhatsApp"
+          "Point of Sale (POS) & barcode scan",
+          "Stock & medicines catalog management",
+          "Wholesale & lab orders",
+          "Goods receipt & batch entry"
         ]
       },
       "premium": {
-        "name": "Premium",
+        "name": "Pharmacy",
         "features": [
-          "Toutes les fonctionnalités Medium",
-          "Comptabilité de trésorerie & imputations avancées",
-          "Rapports financiers & marge officinale",
-          "Export comptable & sauvegarde automatique",
-          "Assistance dédiée & formation de l'équipe"
+          "All Pharmacy features",
+          "Advanced treasury & cost center tracking",
+          "Financial reports & pharmacy gross margin"
         ]
       }
     }

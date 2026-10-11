@@ -15,7 +15,7 @@ export default async function CheckoutPage({
   const locale = await getLocale()
   const dict = await getDictionary(locale)
   
-  const plan = params.plan || 'standard'
+  const plan = params.plan || 'pharmacie'
   const isUpgrade = params.upgrade === 'true'
 
   if (isUpgrade && !user) {

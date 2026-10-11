@@ -22,47 +22,38 @@ export default async function DecouvrirDpharmaPage({
   const params = await searchParams
   const demoError = params?.demo_error === '1'
 
-  const modulesStandard = [
+  const modulesPharmacie = [
     { icon: Activity, label: 'Point de Vente (POS) avec scanner code-barres' },
     { icon: PackageOpen, label: 'Catalogue Médicaments & Gestion des Stocks' },
     { icon: Clock, label: 'Contrôle automatique des dates de péremption' },
     { icon: Wallet, label: 'Caisse & Journal des encaissements' },
+    { icon: Truck, label: 'Commandes directes vers les laboratoires' },
+  ]
+
+  const modulesFournisseur = [
+    { icon: PackageOpen, label: 'Catalogue en ligne des médicaments & molécules' },
+    { icon: Truck, label: 'Réception & traitement des commandes officines' },
+    { icon: Receipt, label: 'Gestion des livraisons & accusés de réception' },
+    { icon: Activity, label: 'Historique des commandes et statistiques' },
   ]
 
   const plans = [
     {
-      id: 'standard',
-      nom: 'Standard',
-      prix: '50 000 FCFA / an',
-      resume: 'L’essentiel pour informatiser son officine : caisse rapide, stocks et péremptions.',
-      inclus: modulesStandard,
-      color: 'border-surface-border',
-    },
-    {
-      id: 'medium',
-      nom: 'Medium',
+      id: 'pharmacie',
+      nom: 'Pharmacie (Officine)',
       prix: '75 000 FCFA / an',
-      resume: 'Tout Standard, plus la gestion intégrée des commandes auprès des grossistes et laboratoires.',
-      inclus: [
-        ...modulesStandard,
-        { icon: Truck, label: 'Commandes Fournisseurs & Laboratoires' },
-        { icon: Receipt, label: 'Gestion des réceptions & bons de livraison' },
-      ],
+      resume: 'La suite logicielle complète pour gérer votre officine de pharmacie au quotidien.',
+      inclus: modulesPharmacie,
       color: 'border-primary',
       populaire: true,
     },
     {
-      id: 'premium',
-      nom: 'Premium',
-      prix: '100 000 FCFA / an',
-      resume: 'La suite complète : tout Medium avec la comptabilité analytique et le suivi budgétaire avancé.',
-      inclus: [
-        ...modulesStandard,
-        { icon: Truck, label: 'Commandes Fournisseurs & Laboratoires' },
-        { icon: Receipt, label: 'Gestion des réceptions & bons de livraison' },
-        { icon: Landmark, label: 'Suivi budgétaire avancé & Imputations' },
-      ],
-      color: 'border-success',
+      id: 'fournisseur',
+      nom: 'Fournisseur / Laboratoire',
+      prix: '50 000 FCFA / an',
+      resume: 'L’interface dédiée aux laboratoires et distributeurs pour recevoir et traiter les commandes.',
+      inclus: modulesFournisseur,
+      color: 'border-surface-border',
     },
   ]
 
@@ -198,7 +189,7 @@ export default async function DecouvrirDpharmaPage({
               </p>
             </div>
 
-            <div className="grid md:grid-cols-3 gap-6">
+            <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
               {plans.map((p) => (
                 <div
                   key={p.id}

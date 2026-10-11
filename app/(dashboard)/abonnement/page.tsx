@@ -44,33 +44,37 @@ export default async function AbonnementPage({
 
   const plans = [
     {
-      id: 'standard',
-      name: t.plans.standard.name,
-      price: `${prix(50000)} / an`,
-      value: 50000,
-      features: t.plans.standard.features,
-      color: 'border-surface-border'
-    },
-    {
-      id: 'medium',
-      name: t.plans.medium.name,
+      id: 'pharmacie',
+      name: t.plans.pharmacie?.name || 'Pharmacie (Officine)',
       price: `${prix(75000)} / an`,
       value: 75000,
-      features: t.plans.medium.features,
+      features: t.plans.pharmacie?.features || [
+        'Point de Vente (POS) & scan code-barres',
+        'Gestion des stocks & catalogue médicaments',
+        'Alertes péremptions & ruptures par lots',
+        'Journal de caisse & clôture journalière',
+        'Commandes directes auprès des grossistes & labos'
+      ],
       color: 'border-primary'
     },
     {
-      id: 'premium',
-      name: t.plans.premium.name,
-      price: `${prix(100000)} / an`,
-      value: 100000,
-      features: t.plans.premium.features,
-      color: 'border-success'
+      id: 'fournisseur',
+      name: t.plans.fournisseur?.name || 'Fournisseur / Laboratoire',
+      price: `${prix(50000)} / an`,
+      value: 50000,
+      features: t.plans.fournisseur?.features || [
+        'Catalogue médicaments & molécules en ligne',
+        'Réception & traitement des bons de commandes officines',
+        'Suivi des expéditions & accusés de réception',
+        'Historique des livraisons & statistiques de distribution',
+        'Support technique & assistance dédiée'
+      ],
+      color: 'border-surface-border'
     }
   ]
 
-  const currentPlanIndex = plans.findIndex(p => p.id === currentTier)
-  const currentPlan = plans[currentPlanIndex]
+  const currentPlanIndex = Math.max(0, plans.findIndex(p => p.id === currentTier || (p.id === 'pharmacie' && ['standard', 'medium', 'premium'].includes(currentTier))))
+  const currentPlan = plans[currentPlanIndex] || plans[0]
 
   return (
     <div className="py-8">
@@ -114,7 +118,7 @@ export default async function AbonnementPage({
         {t.upgrade_desc}
       </p>
 
-      <div className="grid md:grid-cols-3 gap-6">
+      <div className="grid md:grid-cols-2 gap-6 max-w-4xl">
         {plans.map((plan, index) => {
           const isCurrent = plan.id === currentTier
           const isDowngrade = index < currentPlanIndex

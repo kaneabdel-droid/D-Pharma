@@ -239,55 +239,41 @@ export default async function HomePage({
               </p>
             </div>
 
-            <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-              <div className="rounded-2xl border border-surface-border bg-surface p-8 flex flex-col justify-between">
-                <div>
-                  <h3 className="text-xl font-bold mb-1">Standard</h3>
-                  <p className="text-3xl font-extrabold text-foreground my-4">50.000 <span className="text-sm font-normal text-foreground-muted">FCFA / an</span></p>
-                  <p className="text-xs text-foreground-muted mb-6">Parfait pour informatiser sa caisse et ses stocks.</p>
-                  <ul className="space-y-3 mb-8 text-sm">
-                    <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-success" /> Vente POS & scan code-barres</li>
-                    <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-success" /> Suivi des stocks & péremptions</li>
-                    <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-success" /> Caisse quotidienne & reçus</li>
-                  </ul>
-                </div>
-                <Link href="/checkout?plan=standard" className="w-full text-center py-2.5 rounded-lg border border-primary text-primary font-semibold hover:bg-primary hover:text-white transition-colors">
-                  Choisir Standard
-                </Link>
-              </div>
-
+            <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
               <div className="rounded-2xl border-2 border-primary bg-primary/5 p-8 flex flex-col justify-between relative shadow-xl">
                 <div className="absolute top-0 right-6 -translate-y-1/2 bg-primary text-white text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full">
-                  Populaire
+                  Officines & Pharmacies
                 </div>
                 <div>
-                  <h3 className="text-xl font-bold text-primary mb-1">Medium</h3>
+                  <h3 className="text-xl font-bold text-primary mb-1">Pharmacie</h3>
                   <p className="text-3xl font-extrabold text-primary my-4">75.000 <span className="text-sm font-normal text-foreground-muted">FCFA / an</span></p>
-                  <p className="text-xs text-foreground-muted mb-6">Tout Standard avec approvisionnement labos complet.</p>
+                  <p className="text-xs text-foreground-muted mb-6">Tout le système pour informatiser et gérer l&apos;officine.</p>
                   <ul className="space-y-3 mb-8 text-sm">
-                    <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-primary" /> Tout du forfait Standard</li>
-                    <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-primary" /> <strong>Commandes grossistes / labos</strong></li>
-                    <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-primary" /> <strong>Bons de réception & livraisons</strong></li>
+                    <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-primary" /> Vente POS & scan rapide code-barres</li>
+                    <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-primary" /> Suivi des stocks & alertes de péremption</li>
+                    <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-primary" /> Caisse quotidienne & contrôle des écarts</li>
+                    <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-primary" /> Commandes directes fournisseurs & labos</li>
                   </ul>
                 </div>
-                <Link href="/checkout?plan=medium" className="w-full text-center py-2.5 rounded-lg bg-primary text-white font-semibold hover:bg-primary-hover transition-colors shadow-md">
-                  Choisir Medium
+                <Link href="/checkout?plan=pharmacie" className="w-full text-center py-2.5 rounded-lg bg-primary text-white font-semibold hover:bg-primary-hover transition-colors shadow-md">
+                  Souscrire Pharmacie
                 </Link>
               </div>
 
               <div className="rounded-2xl border border-surface-border bg-surface p-8 flex flex-col justify-between">
                 <div>
-                  <h3 className="text-xl font-bold mb-1">Premium</h3>
-                  <p className="text-3xl font-extrabold text-foreground my-4">100.000 <span className="text-sm font-normal text-foreground-muted">FCFA / an</span></p>
-                  <p className="text-xs text-foreground-muted mb-6">Gestion avancée et comptabilité analytique.</p>
+                  <h3 className="text-xl font-bold mb-1">Fournisseur / Labo</h3>
+                  <p className="text-3xl font-extrabold text-foreground my-4">50.000 <span className="text-sm font-normal text-foreground-muted">FCFA / an</span></p>
+                  <p className="text-xs text-foreground-muted mb-6">Pour les grossistes, répartiteurs et laboratoires.</p>
                   <ul className="space-y-3 mb-8 text-sm">
-                    <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-success" /> Tout du forfait Medium</li>
-                    <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-success" /> <strong>Imputations & suivi budgétaire</strong></li>
-                    <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-success" /> <strong>Multi-caisses & support prioritaire</strong></li>
+                    <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-success" /> Catalogue médicaments & molécules</li>
+                    <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-success" /> Réception des commandes officines</li>
+                    <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-success" /> Suivi livraisons & accusés de réception</li>
+                    <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-success" /> Support technique & accompagnement</li>
                   </ul>
                 </div>
-                <Link href="/checkout?plan=premium" className="w-full text-center py-2.5 rounded-lg border border-primary text-primary font-semibold hover:bg-primary hover:text-white transition-colors">
-                  Choisir Premium
+                <Link href="/checkout?plan=fournisseur" className="w-full text-center py-2.5 rounded-lg border border-primary text-primary font-semibold hover:bg-primary hover:text-white transition-colors">
+                  Souscrire Fournisseur / Labo
                 </Link>
               </div>
             </div>

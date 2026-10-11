@@ -40,9 +40,11 @@ export default function GieActions({
           <label className="block text-xs text-foreground-muted mb-1">Changer le forfait</label>
           <div className="flex gap-2">
             <select value={forfait} onChange={(e) => setForfait(e.target.value)} className="rounded-md border border-surface-border bg-surface px-3 py-2 text-sm">
-              <option value="standard">Standard</option>
-              <option value="medium">Medium</option>
-              <option value="premium">Premium</option>
+              <option value="pharmacie">Pharmacie (75 000 FCFA/an)</option>
+              <option value="fournisseur">Fournisseur / Labo (50 000 FCFA/an)</option>
+              <option value="standard">Standard (75 000 FCFA/an)</option>
+              <option value="medium">Medium (75 000 FCFA/an)</option>
+              <option value="premium">Premium (75 000 FCFA/an)</option>
             </select>
             <button
               disabled={isPending}

@@ -460,34 +460,50 @@
     "lower_tier": "Niveau inférieur",
     "pay_prefix": "Payer",
     "plans": {
+      "pharmacie": {
+        "name": "Pharmacie (Officine)",
+        "features": [
+          "Point de Vente (POS) & scan code-barres",
+          "Gestion des stocks & catalogue médicaments",
+          "Alertes péremptions & ruptures par lots",
+          "Journal de caisse & clôture journalière",
+          "Commandes directes auprès des grossistes & labos"
+        ]
+      },
+      "fournisseur": {
+        "name": "Fournisseur / Laboratoire",
+        "features": [
+          "Catalogue médicaments & molécules en ligne",
+          "Réception & traitement des bons de commandes officines",
+          "Suivi des expéditions & accusés de réception",
+          "Historique des livraisons & statistiques de distribution",
+          "Support technique & assistance dédiée"
+        ]
+      },
       "standard": {
-        "name": "Standard",
+        "name": "Pharmacie (Officine)",
         "features": [
           "Point de Vente (POS) & scan code-barres",
           "Gestion des stocks & catalogue médicaments",
           "Alertes péremptions & ruptures",
-          "Journal de caisse & clôture journalière",
-          "Portail public citoyen (sans prix)"
+          "Journal de caisse & clôture journalière"
         ]
       },
       "medium": {
-        "name": "Medium",
+        "name": "Pharmacie (Officine)",
         "features": [
-          "Toutes les fonctionnalités Standard",
+          "Point de Vente (POS) & scan code-barres",
+          "Gestion des stocks & catalogue médicaments",
           "Commandes grossistes & labos",
-          "Pointage réceptions & entrées de lots",
-          "Gestion multi-utilisateurs & permissions",
-          "Support prioritaire par email & WhatsApp"
+          "Pointage réceptions & entrées de lots"
         ]
       },
       "premium": {
-        "name": "Premium",
+        "name": "Pharmacie (Officine)",
         "features": [
-          "Toutes les fonctionnalités Medium",
+          "Toutes les fonctionnalités Pharmacie",
           "Comptabilité de trésorerie & imputations avancées",
-          "Rapports financiers & marge officinale",
-          "Export comptable & sauvegarde automatique",
-          "Assistance dédiée & formation de l'équipe"
+          "Rapports financiers & marge officinale"
         ]
       }
     }

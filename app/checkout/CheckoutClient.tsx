@@ -54,14 +54,17 @@ export default function CheckoutClient({
   const [error, setError] = useState<string | null>(null)
   const [virementPending, setVirementPending] = useState(false)
 
-  const plans = {
-    standard: { name: 'Standard', price: '50.000 FCFA / an', value: 50000 },
-    medium: { name: 'Medium', price: '75.000 FCFA / an', value: 75000 },
-    premium: { name: 'Premium', price: '100.000 FCFA / an', value: 100000 }
+  const plans: Record<string, { name: string; price: string; value: number }> = {
+    pharmacie: { name: 'Pharmacie (Officine)', price: '75.000 FCFA / an', value: 75000 },
+    fournisseur: { name: 'Fournisseur / Laboratoire', price: '50.000 FCFA / an', value: 50000 },
+    // Alias de rétrocompatibilité
+    standard: { name: 'Pharmacie (Officine)', price: '75.000 FCFA / an', value: 75000 },
+    medium: { name: 'Pharmacie (Officine)', price: '75.000 FCFA / an', value: 75000 },
+    premium: { name: 'Pharmacie (Officine)', price: '75.000 FCFA / an', value: 75000 },
   }
 
-  const selectedPlan = plans[initialPlan as keyof typeof plans] || plans.standard
-  const currentPlan = plans[currentTier as keyof typeof plans] || plans.standard
+  const selectedPlan = plans[initialPlan] || plans.pharmacie
+  const currentPlan = plans[currentTier] || plans.pharmacie
 
   let priceToPay = selectedPlan.price
   let numericPrice = selectedPlan.value
