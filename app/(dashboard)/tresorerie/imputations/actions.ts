@@ -39,7 +39,7 @@ export async function addImputation(libelle: string, compte: string, categorie?:
     .single()
 
   if (!userData) return { error: "Utilisateur introuvable" }
-  if (userData.role !== 'admin') return { error: "Réservé à l'administrateur du GIE" }
+  if (userData.role !== 'admin') return { error: "Réservé à l'administrateur de l'officine" }
   if (!libelle.trim() || !compte.trim()) return { error: "Libellé et compte requis" }
 
   const { error } = await supabase.from('imputations').insert({
@@ -71,7 +71,7 @@ export async function updateImputation(id: string, libelle: string, compte: stri
     .single()
 
   if (!userData) return { error: "Utilisateur introuvable" }
-  if (userData.role !== 'admin') return { error: "Réservé à l'administrateur du GIE" }
+  if (userData.role !== 'admin') return { error: "Réservé à l'administrateur de l'officine" }
   if (!libelle.trim() || !compte.trim()) return { error: "Libellé et compte requis" }
 
   const { error } = await supabase
@@ -100,7 +100,7 @@ export async function deleteImputation(id: string) {
     .single()
 
   if (!userData) return { error: "Utilisateur introuvable" }
-  if (userData.role !== 'admin') return { error: "Réservé à l'administrateur du GIE" }
+  if (userData.role !== 'admin') return { error: "Réservé à l'administrateur de l'officine" }
 
   const { error } = await supabase.from('imputations').delete().eq('id', id)
 

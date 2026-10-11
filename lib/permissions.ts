@@ -1,4 +1,4 @@
-// Catalogue des pages/modules SIGGIE et des actions qu'on peut autoriser sur chacun.
+// Catalogue des pages/modules D-PHARMA et des actions qu'on peut autoriser sur chacun.
 // Partagé entre l'UI de gestion des droits (admin), le middleware (accès aux pages),
 // la barre latérale et les server actions.
 
@@ -31,7 +31,7 @@ export const PERMISSION_MODULES: PermissionModule[] = [
   { key: 'pos_pharma', label: 'Point de Vente (POS)', group: 'Pharmacie', paths: ['/pharmacie/pos'], actions: CRUD },
   { key: 'stock_pharma', label: 'Gestion des Stocks', group: 'Pharmacie', paths: ['/pharmacie/stocks'], actions: CRUD },
   { key: 'commandes_pharma', label: 'Commandes Labo', group: 'Pharmacie', paths: ['/pharmacie/commandes'], actions: CRUD },
-  { key: 'tresorerie', label: 'Trésorerie (comptes, journaux, rapprochement)', group: 'Finance', paths: ['/tresorerie'], actions: CRUD },
+  { key: 'tresorerie', label: 'Trésorerie (comptes, journaux)', group: 'Finance', paths: ['/tresorerie'], actions: CRUD },
   { key: 'imputations', label: 'Imputations', group: 'Finance', paths: ['/tresorerie/imputations'], actions: CRUD },
   { key: 'parametres', label: 'Paramètres', group: 'Administration', paths: ['/parametres'], actions: ['read', 'update'] },
 ]
@@ -49,7 +49,7 @@ export function moduleForPath(pathname: string): string | null {
   return null
 }
 
-// Valeur stockée : null/absent = accès complet. Un compte "admin" du GIE a toujours tout.
+// Valeur stockée : null/absent = accès complet. Un compte "admin" de l'officine a toujours tout.
 export function hasPermission(
   role: string | null | undefined,
   permissions: PermissionMap | null | undefined,

@@ -9,7 +9,7 @@ export async function submitVente(formData: FormData) {
   const tenant = await getTenantContext()
 
   if (!tenant) {
-    return { error: 'Erreur: Contexte GIE introuvable.' }
+    return { error: 'Erreur : Contexte officine introuvable.' }
   }
 
   const cartStr = formData.get('cart') as string

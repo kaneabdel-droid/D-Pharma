@@ -2,7 +2,7 @@ import { createAdminClient } from '@/utils/supabase/admin'
 import { Building2, Clock, Wallet, TrendingUp } from 'lucide-react'
 import { equivalentFcfa } from '@/lib/payments/dollars'
 
-export default async function AdminSiggieDashboardPage() {
+export default async function AdminDPharmaDashboardPage() {
   const supabase = createAdminClient()
 
   const { data: gies } = await supabase.from('gies').select('subscription_tier, essai_expire_le, compte_verrouille')
@@ -27,7 +27,7 @@ export default async function AdminSiggieDashboardPage() {
     .eq('doublon', false) // un doublon encaissé est à rembourser : ce n'est pas une vente
     .gte('updated_at', debutMois.toISOString())
 
-  // Paiements en dollars (GIE d'autres pays) ramenés en FCFA au taux de lib/payments/dollars.ts
+  // Paiements en dollars (Pharmacies d'autres pays) ramenés en FCFA au taux de lib/payments/dollars.ts
   const revenuDuMois = (paiementsDuMois ?? []).reduce((sum, p) => sum + equivalentFcfa(Number(p.montant), p.devise), 0)
 
   const maintenant = new Date()

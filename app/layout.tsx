@@ -14,8 +14,8 @@ const outfit = Outfit({
 });
 
 export const metadata: Metadata = {
-  title: "SIGGIE - Gestion des GIE Agricoles",
-  description: "SaaS de gestion des GIE agricoles au Sénégal",
+  title: "D-PHARMA - Gestion Intelligente d'Officine Pharmaceutique",
+  description: "Logiciel SaaS complet pour pharmacies : point de vente, gestion des stocks et péremptions, commandes grossistes et trésorerie.",
 };
 
 export default async function RootLayout({

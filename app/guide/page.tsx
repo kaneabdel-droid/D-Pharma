@@ -26,7 +26,7 @@ type Guide = {
 export async function generateMetadata() {
   const dict = await getDictionary(await getLocale())
   const g = dict.guide as unknown as Guide
-  return { title: `${g.meta.pageTitle} — SIGGIE` }
+  return { title: `${g.meta.pageTitle} — D-PHARMA` }
 }
 
 function Texte({ i }: { i: Item }) {
@@ -146,7 +146,7 @@ export default async function GuidePage() {
       <main>
         <section className="py-14 lg:py-20 bg-gradient-to-br from-surface to-background border-b border-surface-border">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-3xl text-center">
-            <Link href="/decouvrir-siggie" className="text-sm font-medium text-foreground-muted hover:text-primary inline-flex items-center gap-2 mb-6">
+            <Link href="/decouvrir-dpharma" className="text-sm font-medium text-foreground-muted hover:text-primary inline-flex items-center gap-2 mb-6">
               <ArrowLeft className="w-4 h-4 rtl:rotate-180" /> {g.meta.back}
             </Link>
             <p className="text-xs font-bold uppercase tracking-widest text-primary">{g.hero.eyebrow}</p>
@@ -200,7 +200,7 @@ export default async function GuidePage() {
           {g.closing.map((s) => <SectionGuide key={s.id} s={s} g={g} />)}
 
           <div className="mt-16 text-center">
-            <Link href="/decouvrir-siggie" className="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 font-semibold text-white hover:bg-primary-hover">
+            <Link href="/decouvrir-dpharma" className="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 font-semibold text-white hover:bg-primary-hover">
               {g.meta.back} <ArrowRight className="w-4 h-4 rtl:rotate-180" />
             </Link>
           </div>

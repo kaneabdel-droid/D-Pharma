@@ -12,8 +12,8 @@ export default async function TresorerieLayout({
   const dict = await getDictionary(locale)
 
   // Les rubriques budgétaires (imputations) sont réservées au forfait Premium :
-  // l'onglet n'est proposé que si le GIE y a accès (la page elle-même
-  // redirige en plus les accès directs par URL, comme pour /bilans).
+  // l'onglet n'est proposé que si l'officine y a accès (la page elle-même
+  // redirige en plus les accès directs par URL).
   const tenant = await getTenantContext()
   const isPremium = tenant?.subscriptionTier === 'premium'
 

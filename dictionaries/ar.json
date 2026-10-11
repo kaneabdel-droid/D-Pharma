@@ -102,13 +102,13 @@
     }
   },
   "decouvrir": {
-    "meta_title": "Découvrir SIGGIE - Comment ça marche",
+    "meta_title": "Découvrir D-PHARMA - Comment ça marche",
     "back_home": "Retour à l'accueil",
     "hero_title_prefix": "Comment fonctionne",
-    "hero_desc": "De la création de votre compte à la gestion quotidienne de votre GIE : ce que vous obtenez, comment ça se passe, et ce qui change selon votre forfait.",
+    "hero_desc": "De la création de votre compte à la gestion quotidienne de votre officine : ce que vous obtenez, comment ça se passe, et ce qui change selon votre forfait.",
     "steps_title": "Votre parcours en 3 étapes",
     "step1_title": "1. Créer un compte",
-    "step1_desc_before": "Choisissez un forfait, renseignez le nom de votre GIE, votre email et un mot de passe. Votre compte est créé immédiatement, avec",
+    "step1_desc_before": "Choisissez un forfait, renseignez le nom de votre pharmacie, votre email et un mot de passe. Votre compte est créé immédiatement, avec",
     "step1_desc_strong": "7 jours d'essai gratuit",
     "step1_desc_after": "sur le forfait choisi — aucun paiement requis pour démarrer.",
     "step1_link": "Créer mon compte",
@@ -123,45 +123,40 @@
     "modules_desc": "Chaque forfait supérieur inclut tout ce qui précède, plus ses propres modules.",
     "choose_prefix": "Choisir",
     "cta_text": "Démarrer mon essai gratuit",
-    "demo_title": "Essayez SIGGIE en direct",
-    "demo_desc": "Accédez en un clic au GIE de démonstration WaloAgro pour explorer toutes les fonctionnalités avant de créer votre propre compte.",
+    "demo_title": "Essayez D-PHARMA en direct",
+    "demo_desc": "Accédez en un clic à l'officine de démonstration pour explorer toutes les fonctionnalités avant de créer votre propre compte.",
     "demo_login_btn": "Essayer la démo maintenant",
     "demo_note": "Cet espace est partagé entre tous les visiteurs : n'y saisissez pas d'informations sensibles.",
     "demo_error": "Impossible d'accéder à la démo pour le moment. Réessayez dans un instant.",
     "modules": {
       "dashboard": "Tableau de bord",
-      "membres": "Membres",
-      "campagnes": "Campagnes agricoles",
-      "intrants": "Intrants & Stock",
-      "distribution": "Distribution",
-      "credits": "Crédits bancaires",
-      "facturation": "Facturation",
-      "remboursements": "Remboursements",
-      "tresorerie": "Trésorerie",
-      "materiel": "Gestion du matériel (inventaire, prestations, consommations, rentabilité, amortissements)",
-      "bilans": "Bilans & états de suivi budgétaire avancés"
+      "pos_pharma": "Point de Vente (POS)",
+      "stock_pharma": "Gestion des stocks & péremptions",
+      "commandes_pharma": "Commandes grossistes & labos",
+      "tresorerie": "Trésorerie & Caisse",
+      "imputations": "Imputations budgétaires"
     },
     "plans": {
-      "standard_resume": "L'essentiel pour gérer un GIE : membres, campagnes, stock et trésorerie.",
-      "medium_resume": "Tout Standard, plus le suivi complet du matériel agricole.",
-      "premium_resume": "Tout Medium, plus les bilans et états de suivi budgétaire complets du GIE."
+      "standard_resume": "L'essentiel pour informatiser son officine : point de vente, stocks et péremptions.",
+      "medium_resume": "Tout Standard, plus les commandes grossistes et réceptions.",
+      "premium_resume": "Tout Medium, plus la trésorerie analytique et les imputations avancées."
     }
   },
   "auth": {
     "login": {
-      "title": "Connexion à SIGGIE",
-      "desc": "Système Intégré de Gestion des GIE Agricoles",
+      "title": "Connexion à D-PHARMA",
+      "desc": "Système Intégré de Gestion d'Officine Pharmaceutique",
       "email": "Adresse e-mail",
       "password": "Mot de passe",
       "forgot": "Mot de passe oublié ?",
       "btn": "Se connecter",
-      "no_account": "Votre GIE n'a pas encore de compte ?",
-      "signup": "Inscrivez votre GIE"
+      "no_account": "Votre pharmacie n'a pas encore de compte ?",
+      "signup": "Inscrivez votre pharmacie"
     },
     "signup": {
-      "title": "Créer un compte SIGGIE",
-      "desc": "Inscrivez votre GIE pour commencer à gérer vos campagnes.",
-      "gie_name": "Nom du GIE",
+      "title": "Créer un compte D-PHARMA",
+      "desc": "Inscrivez votre pharmacie pour commencer à gérer vos ventes et stocks.",
+      "gie_name": "Nom de la pharmacie",
       "email": "Adresse e-mail",
       "password": "Mot de passe",
       "btn": "S'inscrire",
@@ -182,23 +177,14 @@
   },
   "sidebar": {
     "dashboard": "Tableau de bord",
-    "membres": "Membres",
-    "campagnes": "Campagnes",
-    "intrants": "Intrants & Stock",
-    "distribution": "Distribution",
-    "credits": "Crédits Bancaires",
-    "facturation": "Facturation",
-    "remboursements": "Remboursements",
+    "pos_pharma": "Point de Vente",
+    "stock_pharma": "Stocks (Pharma)",
+    "commandes_pharma": "Commandes Labo",
     "tresorerie": "Trésorerie",
-    "materiel": "Matériel",
-    "bilans": "Bilans & Relevés",
     "abonnement": "Abonnement",
     "parametres": "Paramètres",
     "support": "Aide & Support",
-    "logout": "Déconnexion",
-    "pos_pharma": "Point de Vente",
-    "stock_pharma": "Stocks (Pharma)",
-    "commandes_pharma": "Commandes Labo"
+    "logout": "Déconnexion"
   },
   "header": {
     "admin": "Admin",
@@ -250,117 +236,12 @@
       "sale_of": "Ticket N°"
     }
   },
-  "membres": {
-    "title": "Membres",
-    "desc": "Liste de tous les membres du GIE, incluant leur nom, village, et numéro de téléphone.",
-    "table": {
-      "name": "Nom complet",
-      "village": "Village",
-      "phone": "Téléphone",
-      "superficie": "Superficie (ha)",
-      "status": "Statut",
-      "actions": "Actions"
-    },
-    "status": {
-      "active": "Actif",
-      "inactive": "Inactif"
-    },
-    "empty": "Aucun membre trouvé. Cliquez sur \"Nouveau Membre\" pour commencer."
-  },
-  "campagnes": {
-    "title": "Campagnes Agricoles",
-    "desc": "Gérez vos campagnes, configurez les modes de remboursement et clôturez les exercices.",
-    "status": {
-      "active": "En cours",
-      "completed": "Terminée",
-      "cancelled": "Annulée"
-    },
-    "card": {
-      "from": "Du",
-      "to": "au",
-      "repayment": "Remboursement:",
-      "configure": "Configurer",
-      "report": "Bilan",
-      "repartition": "Répartition"
-    },
-    "empty": "Aucune campagne trouvée. Cliquez sur \"Nouvelle Campagne\" pour commencer."
-  },
-  "intrants": {
-    "title": "Intrants & Stock",
-    "desc": "Gérez votre catalogue d'intrants, suivez les achats, les distributions et l'état des stocks en temps réel.",
-    "kpis": {
-      "value": "Valeur Totale du Stock",
-      "distributions": "Distributions (Campagne en cours)",
-      "repayments": "Remboursements en Nature",
-      "units": "Unités"
-    },
-    "table": {
-      "item": "Intrant",
-      "type": "Type",
-      "details": "Détails",
-      "supplier": "Fournisseur",
-      "price": "Prix Unitaire",
-      "stock": "En Stock",
-      "actions": "Actions"
-    },
-    "empty": "Aucun intrant trouvé. Cliquez sur \"Nouvel Intrant\" pour alimenter votre catalogue."
-  },
-  "materiel": {
-    "title": "Parc Matériel & Suivi",
-    "desc": "Gérez votre équipement, vos prestations et vos dépenses d'entretien.",
-    "tabs": {
-      "inventaire": "Inventaire",
-      "prestations": "Prestations (Recettes)",
-      "consommations": "Consommations (Dépenses)",
-      "rentabilite": "Rentabilité",
-      "amortissements": "Amortissements"
-    },
-    "inventaire_table": {
-      "name": "Nom / Équipement",
-      "type": "Type",
-      "supplier": "Fournisseur",
-      "value": "Valeur",
-      "lifespan": "Durée de vie",
-      "acq_date": "Date Acq.",
-      "status": "État Actuel",
-      "actions": "Actions",
-      "years": "ans",
-      "status_good": "Bon état",
-      "status_repair": "En réparation",
-      "status_broken": "En panne",
-      "action_delete": "Supprimer",
-      "empty": "Aucun équipement enregistré.",
-      "confirm_delete": "Êtes-vous sûr de vouloir supprimer cet équipement ?"
-    }
-  },
-  "distribution": {
-    "title": "Distribution aux Membres",
-    "desc": "Remettez des intrants aux membres inscrits dans les campagnes.",
-    "kpis": {
-      "total": "Total Distribué",
-      "members": "Membres Bénéficiaires",
-      "operations": "Opérations",
-      "units": "unités"
-    },
-    "table": {
-      "date": "Date",
-      "beneficiary": "Bénéficiaire",
-      "product": "Produit Remis",
-      "quantity": "Quantité",
-      "season": "Campagne",
-      "actions": "Actions",
-      "unknown_member": "Membre inconnu",
-      "deleted_product": "Produit supprimé",
-      "empty": "Aucune distribution n'a encore été enregistrée."
-    }
-  },
   "tresorerie": {
     "title": "Trésorerie & Banque",
-    "desc": "Gérez vos comptes en banque, votre caisse, et rapprochez vos crédits de campagne.",
+    "desc": "Gérez vos comptes bancaires, votre caisse comptoir et vos flux financiers d'officine.",
     "tabs": {
       "comptes": "Comptes (Soldes)",
       "journaux": "Journaux",
-      "rapprochement": "Rapprochement",
       "imputations": "Imputations"
     },
     "balances": {
@@ -370,51 +251,9 @@
       "empty": "Aucun compte créé pour le moment."
     }
   },
-  "credits": {
-    "title": "Crédits Bancaires (GIE)",
-    "desc": "Gérez les demandes de financement du GIE auprès des banques partenaires, le suivi des déblocages et le rapprochement.",
-    "kpis": {
-      "demanded": "Total Demandé",
-      "granted": "Total Accordé",
-      "pending": "En Attente",
-      "dossiers": "Dossier(s)",
-      "available": "Crédit Disponible"
-    },
-    "table": {
-      "season": "Campagne",
-      "bank": "Banque",
-      "demanded": "Demandé",
-      "granted": "Accordé",
-      "status": "Statut",
-      "actions": "Actions",
-      "unspecified": "Non spécifiée",
-      "status_pending": "En attente",
-      "status_valid": "Validé",
-      "status_rejected": "Rejeté",
-      "empty": "Aucune demande de crédit trouvée."
-    }
-  },
-  "facturation": {
-    "title": "Facturation",
-    "desc": "Générez, consultez et imprimez les factures de la campagne pour chaque membre.",
-    "search": "Rechercher une facture (Nom du membre, N°)...",
-    "table": {
-      "member": "N° / Membre",
-      "season": "Campagne",
-      "total_due": "Total Dû",
-      "paid": "Montant Payé",
-      "remaining": "Reste à Payer",
-      "status": "Statut",
-      "actions": "Actions",
-      "status_unpaid": "Impayée",
-      "status_paid": "Payée",
-      "status_partial": "Partiel",
-      "empty": "Aucune facture trouvée."
-    }
-  },
   "parametres": {
     "title": "Paramètres",
-    "subtitle": "Informations du GIE, affichées sur les documents imprimés (factures, reçus).",
+    "subtitle": "Informations de l'officine, affichées sur les tickets de caisse et reçus.",
     "logoTitle": "Logo",
     "changeLogo": "Changer le logo",
     "addLogo": "Ajouter un logo",
@@ -449,270 +288,12 @@
     "print": "Imprimer",
     "irreversible_warning": "⚠️ Attention : Cette action est irréversible."
   },
-  "campagnes_extra": {
-    "search_placeholder": "Rechercher par nom ou produit...",
-    "create_btn": "Nouvelle Campagne",
-    "modal": {
-      "create_title": "Créer une nouvelle campagne",
-      "edit_title": "Modifier la campagne",
-      "name": "Nom de la campagne",
-      "name_placeholder": "Ex: Hivernage 2024",
-      "start_date": "Date de début",
-      "end_date": "Date de fin",
-      "mode": "Mode de remboursement",
-      "mode_espece": "Espèces uniquement",
-      "mode_nature": "Nature (Produits) uniquement",
-      "mode_mixte": "Mixte (Espèces + Nature)",
-      "product": "Produit collecté",
-      "product_placeholder": "Ex: Arachide, Mil...",
-      "price": "Prix collecté (FCFA/Kg)",
-      "standard_weight": "Poids standard (Kg)",
-      "status": "Statut",
-      "create_submit": "Créer la campagne",
-      "delete_title": "Supprimer la campagne",
-      "delete_confirm": "Êtes-vous sûr de vouloir supprimer la campagne",
-      "delete_warning": "⚠️ Attention : Cela supprimera également tous les intrants et crédits liés à cette campagne !",
-      "configure_tooltip": "Configuration de la campagne"
-    }
-  },
-  "credits_extra": {
-    "create_btn": "Nouvelle Demande",
-    "reject_confirm": "Êtes-vous sûr de vouloir rejeter cette demande de crédit ?",
-    "approve_tooltip": "Accorder le crédit",
-    "reject_tooltip": "Rejeter la demande",
-    "decaissement_tooltip": "Enregistrer un décaissement",
-    "remboursement_tooltip": "Rembourser crédit",
-    "delete_tooltip": "Supprimer l'enregistrement",
-    "modal": {
-      "create_title": "Enregistrer une demande de crédit pour le GIE",
-      "linked_campaign": "Campagne liée",
-      "select_campaign": "Sélectionnez une campagne...",
-      "bank_optional": "Banque partenaire (optionnel)",
-      "amount_requested": "Montant demandé (FCFA)",
-      "reason": "Motif / But du crédit",
-      "reason_placeholder": "Ex: Achat groupé d'intrants pour la saison des pluies",
-      "create_submit": "Enregistrer la demande",
-      "decaissement_title": "Nouveau décaissement sur le crédit",
-      "credit_granted_label": "Crédit Accordé :",
-      "operation_type": "Type d'opération",
-      "op_supplier": "Paiement Fournisseur (Virement)",
-      "op_withdrawal": "Retrait d'espèces",
-      "source_account": "Compte source (Banque)",
-      "select_account": "Sélectionnez un compte...",
-      "amount": "Montant (FCFA)",
-      "reason_ref": "Motif / Référence",
-      "reason_ref_placeholder": "Ex: Paiement facture engrais N°123",
-      "decaissement_submit": "Enregistrer le décaissement",
-      "remboursement_title": "Nouveau remboursement du crédit",
-      "remboursement_account": "Compte à débiter",
-      "remboursement_reason_placeholder": "Ex: Remboursement échéance Mars",
-      "remboursement_submit": "Enregistrer le remboursement",
-      "approve_title_prefix": "Validation du crédit",
-      "bank_unspecified": "Banque non spécifiée",
-      "amount_requested_label": "Montant initialement demandé :",
-      "amount_granted": "Montant réellement accordé (FCFA)",
-      "amount_granted_note": "Le montant accordé par la banque peut être différent de la demande initiale.",
-      "interest_rate": "Taux d'intérêt (%)",
-      "credit_duration": "Durée du crédit (mois)",
-      "approve_submit": "Confirmer le montant",
-      "delete_title": "Supprimer l'enregistrement",
-      "delete_confirm": "Êtes-vous sûr de vouloir supprimer cette ligne ?"
-    }
-  },
-  "distribution_extra": {
-    "edit_tooltip": "Modifier la quantité",
-    "cancel_tooltip": "Annuler la distribution",
-    "invalid_quantity": "Quantité invalide",
-    "create_btn": "Nouvelle Distribution",
-    "create_modal": {
-      "title": "Distribution Groupée",
-      "tab1": "Option 1 : Par Produit (Intrant)",
-      "tab2": "Option 2 : Par Membre",
-      "campaign": "Campagne",
-      "select_campaign": "Sélectionnez une campagne...",
-      "no_members_prefix": "⚠️ Aucun membre n'est encore inscrit à cette campagne.",
-      "no_members_link": "Cliquez ici pour aller dans la Configuration de la campagne",
-      "no_members_suffix": "pour y inscrire les participants.",
-      "no_products_prefix": "⚠️ Aucun produit n'est configuré pour cette campagne.",
-      "no_products_link": "Allez dans la Configuration",
-      "no_products_suffix": "pour y ajouter des intrants.",
-      "product_to_distribute": "Produit à distribuer",
-      "select_product": "Sélectionnez un produit...",
-      "stock_label": "Stock",
-      "quantities_by_member": "Quantités par Membre",
-      "amounts_by_member": "Montants par Membre (FCFA)",
-      "total_entered": "Total saisi :",
-      "invalid_quantity_alert": "Saisissez au moins une quantité.",
-      "exceeds_stock_alert": "Le total saisi dépasse le stock disponible !",
-      "beneficiary": "Bénéficiaire (Membre inscrit)",
-      "select_member": "Sélectionnez un membre...",
-      "quantities_by_product": "Quantités par Produit (Intrant)",
-      "no_intrants_configured": "Aucun intrant n'est configuré pour cette campagne.",
-      "stock_colon": "Stock :",
-      "amount_unit": "FCFA",
-      "select_campaign_prompt": "Veuillez sélectionner une campagne pour continuer.",
-      "validate_submit": "Valider la distribution",
-      "validating": "Validation...",
-      "prorata_hint": "Valeurs proposées : part au prorata de la superficie de chaque membre (page Répartition de la campagne), moins ce qui lui a déjà été distribué.",
-      "prorata_short": "Part au prorata"
-    },
-    "modal": {
-      "edit_title": "Modifier la quantité distribuée",
-      "product_label": "Produit :",
-      "current_quantity_label": "Quantité actuelle :",
-      "new_quantity": "Nouvelle quantité",
-      "cancel_title": "Annuler la distribution",
-      "cancel_confirm_prefix": "Êtes-vous sûr de vouloir annuler cette remise de",
-      "cancel_note": "✅ Le stock sera recrédité de la même quantité.",
-      "cancelling": "Annulation...",
-      "cancel_submit": "Annuler la distribution"
-    }
-  },
-  "facturation_extra": {
-    "generate_btn": "Facturation Groupée",
-    "print_tooltip": "Imprimer la facture",
-    "download_tooltip": "Télécharger PDF",
-    "interest_col": "Intérêt",
-    "interet": {
-      "btn": "Calcul de l'intérêt",
-      "title": "Calculer et répartir l'intérêt du crédit",
-      "desc": "Répartit l'intérêt du crédit validé de la campagne entre les factures des membres, selon la méthode choisie.",
-      "campaign": "Campagne",
-      "select_campaign": "Sélectionnez une campagne",
-      "method_label": "Méthode de répartition",
-      "method_superficie": "Au prorata des superficies exploitées pour la campagne",
-      "method_intrants": "Au prorata du total des intrants facturés au membre",
-      "calculating": "Calcul en cours...",
-      "submit": "Calculer et répartir"
-    },
-    "modal": {
-      "title": "Générer les factures de la campagne",
-      "desc": "Cette action va additionner les intrants reçus et les crédits validés pour chaque membre, et générer ou mettre à jour les factures.",
-      "campaign": "Campagne",
-      "select_campaign": "Sélectionnez une campagne",
-      "generating": "Génération...",
-      "submit": "Générer"
-    }
-  },
-  "intrants_extra": {
-    "search_placeholder": "Rechercher un intrant...",
-    "buy_btn": "Nouvel Achat",
-    "create_btn": "Nouvel Intrant",
-    "type_options": [
-      "Engrais",
-      "Semence",
-      "Pesticide",
-      "Fongicide",
-      "Herbicide",
-      "Matériel",
-      "Refacturation",
-      "Service Hydraulique",
-      "Façon culturale"
-    ],
-    "modal": {
-      "buy_title": "Enregistrer un achat d'intrant",
-      "buy_submit": "Valider l'achat",
-      "product_bought": "Produit acheté",
-      "select_product": "Sélectionnez un produit...",
-      "current_stock": "Stock actuel",
-      "quantity_bought": "Quantité achetée (à ajouter au stock)",
-      "purchase_price": "Prix d'achat unitaire (FCFA)",
-      "purchase_date": "Date d'achat",
-      "invoice_number": "N° Facture (optionnel)",
-      "invoice_number_placeholder": "Ex: FAC-2024-0123",
-      "create_title": "Ajouter un nouvel intrant",
-      "edit_title": "Modifier l'intrant",
-      "product_name": "Nom du produit",
-      "product_name_placeholder": "Ex: Engrais NPK 15-15-15",
-      "type": "Type d'intrant",
-      "type_placeholder": "Ex: Engrais, Semence...",
-      "supplier_optional": "Fournisseur (optionnel)",
-      "supplier_placeholder": "Nom du fournisseur ou de la société",
-      "unit_price": "Prix unitaire (FCFA)",
-      "initial_stock": "Quantité (Stock initial)",
-      "stock": "Quantité (Stock)",
-      "description_optional": "Description / Unité (optionnel)",
-      "description_placeholder": "Ex: Sac de 50kg, Litre...",
-      "create_submit": "Ajouter au catalogue",
-      "delete_title": "Supprimer l'intrant",
-      "delete_confirm_prefix": "Êtes-vous sûr de vouloir supprimer l'intrant",
-      "delete_confirm_suffix": "du catalogue ?"
-    }
-  },
-  "materiel_extra": {
-    "add_btn": "Ajouter un équipement",
-    "edit_tooltip": "Modifier l'équipement",
-    "etat_bon": "Bon état",
-    "etat_reparation": "En réparation",
-    "etat_panne": "En panne",
-    "type_labels": {
-      "Bâtiment et installations": "Bâtiment et installations",
-      "Matériel agricole": "Matériel agricole",
-      "Matériel et mobilier": "Matériel et mobilier",
-      "Matériel informatique": "Matériel informatique",
-      "Matériel de transport": "Matériel de transport"
-    },
-    "modal": {
-      "add_title": "Ajouter un nouvel équipement",
-      "edit_title": "Modifier l'équipement",
-      "name": "Nom (ex: Tracteur John Deere)",
-      "type": "Type",
-      "supplier": "Fournisseur",
-      "supplier_placeholder": "Nom du fournisseur",
-      "value": "Valeur (FCFA)",
-      "lifespan": "Durée de vie (Années)",
-      "acq_date": "Date d'acquisition",
-      "initial_state": "État initial",
-      "current_state": "État actuel"
-    }
-  },
-  "membres_extra": {
-    "search_placeholder": "Rechercher par nom, prénom ou village...",
-    "create_btn": "Nouveau Membre",
-    "modal": {
-      "create_title": "Ajouter un nouveau membre",
-      "edit_title": "Modifier le membre",
-      "last_name": "Nom",
-      "first_name": "Prénom",
-      "village": "Village",
-      "phone": "Téléphone",
-      "superficie": "Superficie (ha)",
-      "status": "Statut",
-      "status_active": "Actif",
-      "status_inactive": "Inactif",
-      "delete_title": "Supprimer le membre",
-      "delete_confirm_prefix": "Êtes-vous sûr de vouloir supprimer",
-      "delete_confirm_suffix": "? Cette action est irréversible."
-    }
-  },
-  "remboursements_extra": {
-    "modal": {
-      "title_cash": "Enregistrer un paiement en numéraire",
-      "title_nature": "Enregistrer un paiement en nature",
-      "surplus_label": "Surplus de remboursement :",
-      "remaining_label": "Reste à payer :",
-      "amount_paid": "Montant versé (FCFA)",
-      "amount_paid_note": "Le montant sera crédité à la Trésorerie.",
-      "nature_product": "Nature du produit reçu",
-      "nature_product_placeholder": "Ex: Riz paddy, Tomate, Arachide...",
-      "weight_label": "Poids ou quantité récupérée",
-      "calc_base": "Base de calcul :",
-      "per_unit_suffix": "FCFA/unité",
-      "equivalent_label": "Équivalent financier déduit de la facture :",
-      "missing_product_error": "Veuillez préciser la nature du produit reçu (ex: Riz paddy, Tomate, Arachide...).",
-      "invalid_amount_error": "Le montant doit être supérieur à 0",
-      "validating": "Validation...",
-      "validate_submit": "Valider le paiement",
-      "account": "Compte de trésorerie à créditer",
-      "no_account": "Aucun compte de trésorerie : créez-en un dans Trésorerie avant d'enregistrer un paiement en espèces."
-    }
-  },
   "tresorerie_extra": {
     "add_account_btn": "Nouveau Compte",
     "modal": {
       "title": "Créer un compte",
       "name": "Nom du compte",
-      "name_placeholder": "Ex: Caisse Principale, Banque Agricole...",
+      "name_placeholder": "Ex: Caisse Comptoir, Compte BOA, Compte Wave...",
       "type": "Type de compte",
       "type_caisse": "Caisse (Espèces)",
       "type_banque": "Compte Bancaire",
@@ -763,64 +344,9 @@
     "label": "Nouveau mot de passe",
     "submit": "Enregistrer"
   },
-  "bilans": {
-    "title": "Bilans & Relevés",
-    "desc": "Tableau de bord récapitulatif de la santé financière et opérationnelle du GIE.",
-    "tabs": {
-      "overview": "Vue d'ensemble",
-      "releve_membre": "Relevé Membre",
-      "releve_client": "Relevé Client",
-      "suivi_budgetaire": "Suivi Budgétaire",
-      "bilan_annuel": "Bilan annuel"
-    },
-    "tresorerie_title": "Trésorerie Globale",
-    "tresorerie": {
-      "balance": "Solde Actuel",
-      "inflows": "Total Entrées",
-      "outflows": "Total Sorties"
-    },
-    "creances_title": "Engagements et Créances",
-    "creances": {
-      "unpaid": "Factures Impayées",
-      "credits": "Crédits Non Remboursés"
-    },
-    "materiel_title": "Synthèse Parc Matériel",
-    "materiel": {
-      "net_profit": "Rentabilité Nette du Parc",
-      "net_profit_desc": "Recettes - Dépenses - Amortissements",
-      "revenue": "Total Recettes",
-      "expenses": "Total Dépenses",
-      "depreciation": "Dépréciation (Amort.)"
-    }
-  },
-  "suivi_budgetaire": {
-    "title": "Suivi Budgétaire",
-    "desc": "Comparez les prévisions et les réalisations de chaque campagne, par rubrique.",
-    "select_campaign": "Choisir une campagne",
-    "no_campaigns": "Aucune campagne trouvée.",
-    "loading": "Chargement des données budgétaires...",
-    "tabs": {
-      "exploitation": "Exploitation",
-      "materiel": "Matériel",
-      "consolide": "Consolidé"
-    },
-    "recettes_title": "Recettes",
-    "depenses_title": "Dépenses",
-    "solde_title": "Solde (Recettes - Dépenses)",
-    "headers": {
-      "rubrique": "Rubrique",
-      "sous_rubrique": "Sous-Rubrique",
-      "prevu": "Prévu",
-      "realise": "Réalisé",
-      "ecart": "Écart",
-      "taux": "Taux de réalisation"
-    },
-    "total": "Total",
-    "empty": "Aucune donnée budgétaire pour cette campagne."
-  },
   "support": {
     "title": "Aide & Support",
-    "desc": "Besoin d'aide pour utiliser SIGGIE ? Notre équipe est à votre disposition pour vous accompagner.",
+    "desc": "Besoin d'aide pour utiliser D-PHARMA ? Notre équipe est à votre disposition pour vous accompagner.",
     "phone": "Téléphone",
     "phone_hours": "Lun-Ven de 9h à 18h",
     "email": "Email",
@@ -829,7 +355,7 @@
     "form_desc": "Vous rencontrez un bug ou avez une question spécifique ? Remplissez ce formulaire et nous vous répondrons directement par email.",
     "form": {
       "subject": "Sujet de votre demande",
-      "subject_placeholder": "Ex: Problème avec une campagne, Question sur la facturation...",
+      "subject_placeholder": "Ex: Question sur le scanner code-barres, Gestion des lots...",
       "message": "Message détaillé",
       "message_placeholder": "Décrivez votre problème ou votre question en détail...",
       "send": "Envoyer le message",
@@ -843,182 +369,6 @@
         "not_authenticated": "Votre session a expiré. Veuillez vous reconnecter.",
         "failed": "Le message n'a pas pu être envoyé. Réessayez ou écrivez-nous à support@dembasolution.com."
       }
-    }
-  },
-  "materiel_pages": {
-    "amortissements": {
-      "title": "Tableaux d'Amortissement",
-      "desc": "Consultez le plan d'amortissement comptable de chaque équipement de votre parc.",
-      "select_label": "Sélectionner un équipement pour voir son tableau d'amortissement :",
-      "not_valued": "Non valorisé",
-      "table_title": "Tableau d'amortissement (Linéaire)",
-      "acq_date": "Date d'acquisition",
-      "duration": "Durée",
-      "years": "ans",
-      "rate": "Taux",
-      "headers": {
-        "year": "Année",
-        "base": "Base à amortir",
-        "annuity": "Annuité",
-        "cumulative": "Amort. Cumulé",
-        "vnc": "VNC (Valeur Nette)"
-      },
-      "error": "Impossible de calculer l'amortissement pour cet équipement. Vérifiez que la valeur d'acquisition, la date et la durée de vie sont bien renseignées."
-    },
-    "consommations": {
-      "title": "Dépenses et Consommations",
-      "desc": "Suivez les frais d'entretien, de carburant et de pièces pour chaque équipement.",
-      "add_btn": "Saisir une dépense",
-      "total": "Total des Dépenses (Entretien & Carburant)",
-      "headers": {
-        "equipment": "Équipement",
-        "type": "Type (Fournisseur)",
-        "quantity": "Quantité",
-        "amount": "Montant (FCFA)"
-      },
-      "at_supplier": "chez",
-      "empty": "Aucune dépense enregistrée.",
-      "delete_confirm": "Êtes-vous sûr de vouloir supprimer cette dépense ?",
-      "delete_title": "Supprimer la dépense",
-      "edit_title_btn": "Modifier la dépense",
-      "form": {
-        "add_title": "Nouvelle Dépense (Consommation / Entretien)",
-        "edit_title": "Modifier la Dépense",
-        "equipment_label": "Équipement concerné",
-        "select_machine": "Sélectionner une machine",
-        "type_label": "Type de dépense",
-        "type_fuel": "Carburant",
-        "type_oil": "Huile / Lubrifiant",
-        "type_part": "Pièce de rechange",
-        "type_repair": "Réparation / Main d'œuvre",
-        "type_other": "Autre",
-        "supplier_label": "Fournisseur / Station service",
-        "quantity_label": "Quantité (L, Unité...)",
-        "amount_label": "Montant total (FCFA)",
-        "date_label": "Date"
-      }
-    },
-    "prestations": {
-      "title": "Historique des Prestations",
-      "desc": "Travaux réalisés par vos équipements générant des recettes.",
-      "add_btn": "Ajouter une prestation",
-      "total": "Total des Recettes (Prestations)",
-      "headers": {
-        "equipment": "Équipement",
-        "type": "Type (Client)",
-        "area": "Superficie",
-        "amount": "Montant (FCFA)",
-        "quantity": "Quantité pointée",
-        "obtained": "Obtenu",
-        "client": "Client"
-      },
-      "for_client": "pour",
-      "empty": "Aucune prestation enregistrée.",
-      "delete_confirm": "Êtes-vous sûr de vouloir supprimer cette prestation ?",
-      "delete_title": "Supprimer la prestation",
-      "edit_title_btn": "Modifier la prestation",
-      "form": {
-        "add_title": "Nouvelle Prestation (Recette)",
-        "edit_title": "Modifier la Prestation",
-        "equipment_label": "Équipement utilisé",
-        "select_machine": "Sélectionner une machine",
-        "type_label": "Type de prestation",
-        "type_placeholder": "Ex: Offset, Labour, Moisson...",
-        "client_label": "Client / Membre",
-        "area_label": "Superficie (ha)",
-        "amount_label": "Montant total (FCFA)",
-        "date_label": "Date de réalisation",
-        "section_client": "Client",
-        "phone_label": "Téléphone du client",
-        "phone_placeholder": "Ex : 77 123 45 67",
-        "section_work": "Travail réalisé",
-        "unit_label": "Unité de pointage",
-        "unit_options": {
-          "ha": "Hectares (ha)",
-          "h": "Heures (h)",
-          "sac": "Sacs",
-          "autre": "Autre unité"
-        },
-        "unit_other_label": "Unité (préciser)",
-        "unit_other_placeholder": "Ex : km, voyages, tonnes",
-        "qty_labels": {
-          "ha": "Superficie traitée (ha)",
-          "h": "Durée de travail (heures)",
-          "sac": "Nombre de sacs traités",
-          "autre": "Quantité traitée"
-        },
-        "section_output": "Quantité obtenue (récolte)",
-        "product_label": "Produit",
-        "no_product": "Aucun produit",
-        "variety_label": "Variété",
-        "variety_required_hint": "obligatoire pour ce produit",
-        "obtained_label": "Quantité obtenue",
-        "obtained_unit_label": "Unité",
-        "section_payment": "Paiement",
-        "payment_cash": "En argent (tarif ou forfait)",
-        "payment_share": "En part de la récolte (%)",
-        "rate_label": "Tarif par unité (FCFA)",
-        "share_rate_label": "Part prélevée (%)",
-        "share_qty": "Part revenant au GIE",
-        "share_price_label": "Valeur d’une unité de récolte (FCFA)",
-        "amount_auto_hint": "Calculé automatiquement, modifiable."
-      },
-      "products_btn": "Produits et variétés",
-      "share": "Part",
-      "units": {
-        "ha": "ha",
-        "h": "h",
-        "sac": "sacs",
-        "autre": "autre"
-      },
-      "products": {
-        "title": "Produits et variétés",
-        "desc": "Produits dont on pointe la quantité obtenue. Cochez « Variété obligatoire » pour ceux dont le pointeur doit préciser la variété.",
-        "name": "Produit",
-        "unit": "Unité",
-        "variety_required": "Variété obligatoire",
-        "name_placeholder": "Ex : Riz paddy",
-        "empty": "Aucun produit. Ajoutez par exemple Riz paddy, Arachide, Maïs.",
-        "delete_confirm": "Supprimer ce produit ? Les prestations déjà pointées restent enregistrées, sans produit."
-      },
-      "errors": {
-        "unit": "Unité de pointage invalide.",
-        "unit_other": "Précisez l’unité de pointage.",
-        "quantity": "Indiquez la quantité traitée (supérieure à 0).",
-        "phone": "Indiquez le téléphone du client (au moins 7 chiffres).",
-        "product": "Produit introuvable.",
-        "variety": "Ce produit exige de préciser la variété.",
-        "obtained": "Quantité obtenue invalide.",
-        "obtained_required": "Indiquez la quantité obtenue pour calculer la part de récolte.",
-        "rate": "Indiquez la part prélevée, entre 0 et 100 %.",
-        "amount": "Montant ou tarif invalide.",
-        "required": "Veuillez remplir les champs obligatoires.",
-        "product_exists": "Ce produit existe déjà."
-      }
-    },
-    "rentabilite": {
-      "title": "Rentabilité du Parc Matériel",
-      "desc": "Analyse financière (Recettes - Dépenses - Amortissement) par équipement.",
-      "revenue": "Total Recettes",
-      "expenses": "Total Dépenses",
-      "gross_balance": "Solde Brut (Tréso.)",
-      "net_profit": "Rentabilité Nette",
-      "net_profit_badge": "Inclut amort.",
-      "headers": {
-        "equipment": "Équipement",
-        "revenue": "Recettes (Prest.)",
-        "expenses": "Dépenses (Consom.)",
-        "gross_balance": "Solde Brut",
-        "depreciation": "Amortissement Cumulé",
-        "net_result": "Résultat Net"
-      },
-      "acq_value": "Valeur acq",
-      "empty": "Aucun équipement enregistré."
-    },
-    "budget": {
-      "campaign_label": "Campagne (exécution budgétaire)",
-      "no_campaign": "Hors campagne",
-      "type_hint": "Choisissez de préférence un type budgété pour cet équipement : le montant comptera dans le réalisé du suivi budgétaire de la campagne."
     }
   },
   "tresorerie_pages": {
@@ -1056,18 +406,16 @@
         "piece_deposit": "Versement",
         "amount_label": "Montant (FCFA)",
         "reason_label": "Motif (Description)",
-        "reason_placeholder": "Ex: Achat Urée Fournisseur X",
+        "reason_placeholder": "Ex: Réception commande grossiste, Fournitures d'officine...",
         "imputation_label": "Imputation (Optionnel)",
-        "imputation_none": "-- Aucune --",
-        "campagne_label": "Campagne (Optionnel)",
-        "campagne_none": "-- Aucune --"
+        "imputation_none": "-- Aucune --"
       }
     },
     "imputations": {
       "title": "Liste des Imputations",
-      "desc": "Catégories utilisées pour classer les opérations de caisse et de banque, et pour construire le budget de suivi par campagne.",
+      "desc": "Catégories utilisées pour classer les opérations de caisse et de banque de l'officine.",
       "add_btn": "Nouvelle Imputation",
-      "admin_only_notice": "Seul l'administrateur du GIE peut créer, modifier ou supprimer une imputation.",
+      "admin_only_notice": "Seul l'administrateur de l'officine peut créer, modifier ou supprimer une imputation.",
       "table": {
         "libelle": "Rubrique",
         "compte": "Sous-Rubrique / Poste",
@@ -1080,12 +428,12 @@
         "create_title": "Créer une imputation",
         "edit_title": "Modifier l'imputation",
         "libelle": "Rubrique",
-        "libelle_placeholder": "Ex: Intrants agricoles",
+        "libelle_placeholder": "Ex: Achats médicaments & parapharmacie",
         "compte": "Sous-Rubrique / Poste",
-        "compte_placeholder": "Ex: Engrais NPK",
+        "compte_placeholder": "Ex: Grossiste Laborex",
         "categorie": "Type de budget",
         "categorie_exploitation": "Exploitation",
-        "categorie_materiel": "Matériel",
+        "categorie_materiel": "Officine",
         "nature": "Nature",
         "nature_recette": "Recette",
         "nature_depense": "Dépense",
@@ -1093,158 +441,12 @@
         "delete_confirm_prefix": "Êtes-vous sûr de vouloir supprimer l'imputation",
         "delete_confirm_suffix": "?"
       }
-    },
-    "rapprochement": {
-      "no_campaigns": "Aucune campagne trouvée.",
-      "title": "Rapprochement Bancaire",
-      "desc": "Bilan de l'utilisation du crédit de la banque pour une campagne donnée.",
-      "select_campaign": "Choisir une campagne",
-      "loading": "Chargement du bilan...",
-      "credit_granted": "Crédit Accordé",
-      "supplier_payments": "Paiements Frs",
-      "cash_withdrawals": "Retraits Espèces",
-      "credit_balance": "Solde du Crédit",
-      "supplier_payments_title": "Paiements Fournisseurs",
-      "cash_withdrawals_title": "Retraits en Espèces",
-      "account_label": "Compte",
-      "unknown_account": "Inconnu",
-      "no_payment": "Aucun paiement.",
-      "no_withdrawal": "Aucun retrait."
-    }
-  },
-  "campagnes_detail": {
-    "back": "Retour aux campagnes",
-    "config": {
-      "title": "Configuration :",
-      "desc": "Sélectionnez les membres qui participent à cette campagne. Seuls les membres inscrits ici pourront recevoir des intrants lors de la distribution.",
-      "enrollment_rate": "Taux d'inscription",
-      "members_unit": "membres",
-      "intrants_title": "Intrants de la campagne",
-      "intrants_desc": "Ajoutez les intrants qui seront distribués lors de cette campagne et définissez leur prix de facturation aux membres.",
-      "select_intrant": "Sélectionner un intrant",
-      "purchase_price": "Achat",
-      "billing_price_placeholder": "Prix de facturation (FCFA)",
-      "forfaitaire_price_locked": "Intrant forfaitaire : le montant saisi à la distribution est directement le montant facturé (prix fixé à 1).",
-      "remove_confirm": "Voulez-vous vraiment retirer cet intrant de la campagne ?",
-      "edit_price_title": "Modifier le prix",
-      "remove_title": "Retirer l'intrant",
-      "intrants_empty": "Aucun intrant n'a été ajouté à cette campagne.",
-      "enrolled_title": "Membres inscrits",
-      "headers": {
-        "member": "Membre",
-        "code": "Code",
-        "village": "Village",
-        "superficie": "Superficie (ha)",
-        "enrolled": "Inscrit à la campagne ?"
-      },
-      "empty": "Aucun membre trouvé dans le GIE.",
-      "budget": {
-        "title": "Prévision budgétaire",
-        "desc": "Définissez le budget prévisionnel de cette campagne par rubrique (recette ou dépense), pour le budget Exploitation et le budget Matériel. Pour le Matériel, la rubrique est l'équipement et la sous-rubrique son type de prestation ou de consommation : la réalisation sera automatiquement tirée des prestations et consommations enregistrées pour cet équipement.",
-        "exploitation_title": "Budget Exploitation",
-        "materiel_title": "Budget Matériel",
-        "recettes_title": "Recettes prévues",
-        "depenses_title": "Dépenses prévues",
-        "solde": "Solde prévisionnel",
-        "nature_recette": "Recette",
-        "nature_depense": "Dépense",
-        "add_rubrique_placeholder_libelle": "Rubrique",
-        "add_rubrique_placeholder_compte": "Sous-rubrique / Poste",
-        "add_rubrique_placeholder_type_prestation": "Type de prestation (Ex: Labour, Moisson...)",
-        "select_equipement": "Sélectionner un équipement",
-        "select_type": "Sélectionner un type",
-        "amount_placeholder": "Montant prévu (FCFA)",
-        "total": "Total",
-        "grand_total": "Solde consolidé",
-        "empty": "Aucune rubrique créée pour ce budget.",
-        "premium_required": "La prévision budgétaire est réservée au forfait Premium.",
-        "premium_upgrade_link": "Voir les forfaits"
-      }
-    },
-    "bilan": {
-      "title": "Bilan :",
-      "desc": "Statistiques des distributions, valorisation financière, état des marges et dettes théoriques.",
-      "not_found": "Campagne introuvable.",
-      "print": "Imprimer",
-      "kpis": {
-        "enrolled": "Membres Inscrits",
-        "served": "Servis",
-        "served_unit": "membres",
-        "total_billed": "Total Facturé",
-        "net_margin": "Marge Nette",
-        "operations": "Opérations",
-        "operations_unit": "saisies"
-      },
-      "margin_section": {
-        "title": "État de Marge par Intrant",
-        "desc": "Comparaison entre les prix d'achat et les prix de facturation.",
-        "headers": {
-          "product": "Produit",
-          "buy_price": "Prix Achat",
-          "billed_price": "Prix Facturé",
-          "unit_margin": "Marge/U",
-          "total_qty": "Total Qté",
-          "global_margin": "Marge Globale"
-        },
-        "grand_total": "TOTAL GÉNÉRAL",
-        "empty": "Aucune distribution enregistrée pour cette campagne."
-      },
-      "debts_section": {
-        "title": "Dettes et Remboursements par Membre",
-        "desc": "Suivi des dettes facturées et des remboursements effectués.",
-        "headers": {
-          "beneficiary": "Bénéficiaire",
-          "debt": "Dette (FCFA)",
-          "repayment": "Remboursement",
-          "balance": "Solde"
-        },
-        "settled": "Soldé",
-        "empty": "Aucun membre n'a encore reçu d'intrants.",
-        "grand_total": "TOTAL GÉNÉRAL"
-      },
-      "deliveries_section": {
-        "title": "État des Livraisons par Membre",
-        "desc": "Récapitulatif détaillé des quantités et montants livrés à chaque membre pour chaque intrant.",
-        "beneficiary": "Bénéficiaire",
-        "quantity": "Qté",
-        "amount": "Montant",
-        "interest": "Intérêt (FCFA)",
-        "total_global": "Total Global (FCFA)",
-        "grand_total": "TOTAL GÉNÉRAL",
-        "empty": "Aucune livraison enregistrée pour cette campagne."
-      }
-    },
-    "repartition": {
-      "title": "Répartition des intrants :",
-      "desc": "Définissez la quantité totale de chaque intrant à répartir : la part de chaque membre inscrit est calculée au prorata de la superficie qu'il exploite pour la campagne, et proposée par défaut lors de la distribution.",
-      "enrolled_members": "Membres inscrits",
-      "total_area": "Superficie totale exploitée",
-      "no_members": "Aucun membre n'est inscrit à cette campagne.",
-      "no_area": "Aucune superficie n'est renseignée pour les membres inscrits.",
-      "no_intrants": "Aucun intrant à répartir n'est configuré pour cette campagne (Façon culturale et Service Hydraulique sont déjà distribués à l'hectare).",
-      "config_link": "Aller à la configuration de la campagne",
-      "quantities_title": "Quantités à répartir",
-      "quantities_desc": "Quantité totale de chaque intrant à partager entre les membres inscrits.",
-      "use_stock": "Utiliser le stock",
-      "shares_title": "Part de chaque membre",
-      "shares_desc": "Part = quantité à répartir × superficie du membre ÷ superficie totale. Ces valeurs sont proposées par défaut lors de la distribution.",
-      "already_distributed": "Déjà distribué :",
-      "total": "Total",
-      "headers": {
-        "intrant": "Intrant",
-        "stock": "Stock",
-        "quantity_to_split": "Quantité à répartir",
-        "dose_per_ha": "Dose / ha",
-        "member": "Membre",
-        "area": "Superficie (ha)",
-        "percent": "Part (%)"
-      }
     }
   },
   "abonnement": {
     "title": "Mon Abonnement",
-    "manage_desc": "Gérez le forfait de votre GIE :",
-    "trial_locked": "Votre période d'essai est terminée et l'accès à votre espace a été verrouillé. Choisissez un moyen de paiement ci-dessous pour continuer à utiliser SIGGIE.",
+    "manage_desc": "Gérez le forfait de votre officine :",
+    "trial_locked": "Votre période d'essai est terminée et l'accès à votre espace a été verrouillé. Choisissez un moyen de paiement ci-dessous pour continuer à utiliser D-PHARMA.",
     "trial_remaining_prefix": "Il vous reste",
     "trial_remaining_day": "jour",
     "trial_remaining_days": "jours",
@@ -1261,301 +463,83 @@
       "standard": {
         "name": "Standard",
         "features": [
-          "Tableau de bord",
-          "Gestion des membres",
-          "Cotisations",
-          "Emprunts"
+          "Point de Vente (POS) & scan code-barres",
+          "Gestion des stocks & catalogue médicaments",
+          "Alertes péremptions & ruptures",
+          "Journal de caisse & clôture journalière",
+          "Portail public citoyen (sans prix)"
         ]
       },
       "medium": {
         "name": "Medium",
         "features": [
-          "Tableau de bord",
-          "Gestion des membres",
-          "Cotisations",
-          "Emprunts",
-          "Gestion du matériel & stocks"
+          "Toutes les fonctionnalités Standard",
+          "Commandes grossistes & labos",
+          "Pointage réceptions & entrées de lots",
+          "Gestion multi-utilisateurs & permissions",
+          "Support prioritaire par email & WhatsApp"
         ]
       },
       "premium": {
         "name": "Premium",
         "features": [
-          "Tableau de bord",
-          "Gestion des membres",
-          "Cotisations",
-          "Emprunts",
-          "Gestion du matériel & stocks",
-          "États de suivi budgétaire avancés"
+          "Toutes les fonctionnalités Medium",
+          "Comptabilité de trésorerie & imputations avancées",
+          "Rapports financiers & marge officinale",
+          "Export comptable & sauvegarde automatique",
+          "Assistance dédiée & formation de l'équipe"
         ]
       }
     }
   },
-  "remboursements": {
-    "title": "Suivi des Remboursements",
-    "desc": "Enregistrez les paiements en numéraire et les pesées pour les remboursements en nature.",
-    "tabs": {
-      "factures": "Factures",
-      "stock_nature": "Stock en Nature",
-      "ristournes": "Ristournes"
-    },
-    "search": "Rechercher un membre...",
-    "list": {
-      "surplus": "Surplus de remboursement : ",
-      "reste": "Reste : ",
-      "empty": "Aucune facture trouvée."
-    },
-    "details": {
-      "title": "Facture de",
-      "total_due": "Total Dû",
-      "surplus": "Surplus de Remboursement",
-      "remaining": "Reste à Payer",
-      "record_payment": "Enregistrer un paiement",
-      "cash": "En Numéraire (Espèces)",
-      "nature": "En Nature (Pesée)",
-      "empty": "Sélectionnez un membre pour voir ses remboursements"
-    }
-  },
-  "remboursements_pages": {
-    "stock_nature": {
-      "no_campaigns": "Aucune campagne trouvée.",
-      "title": "Stock de Remboursement en Nature",
-      "desc": "Suivi des entrées (remboursements reçus), des ventes et des ristournes physiques, avec le solde en cours du stock, par campagne.",
-      "select_campaign": "Choisir une campagne",
-      "add_sortie": "Enregistrer une sortie",
-      "loading": "Chargement du stock...",
-      "current_stock": "Stock actuel",
-      "headers": {
-        "date": "Date",
-        "type": "Type",
-        "tiers": "Tiers",
-        "unit_price": "Prix unitaire",
-        "quantity": "Quantité",
-        "balance": "Solde en cours"
-      },
-      "type_entree": "Entrée (Remboursement)",
-      "type_vente": "Vente",
-      "type_ristourne": "Ristourne",
-      "empty": "Aucun mouvement enregistré pour cette campagne.",
-      "form": {
-        "title": "Enregistrer une sortie de stock",
-        "type_label": "Type de sortie",
-        "tiers_type_label": "Tiers",
-        "tiers_type_membre": "Un membre du GIE",
-        "tiers_type_client": "Un client externe",
-        "membre_label": "Membre",
-        "select_membre": "Sélectionnez un membre...",
-        "client_label": "Client",
-        "select_client": "Sélectionnez un client...",
-        "new_client_option": "+ Nouveau client...",
-        "client_placeholder": "Nom du nouveau client",
-        "quantity_label": "Quantité (kg)",
-        "price_label_vente": "Prix de vente unitaire (FCFA/kg)",
-        "price_label_ristourne": "Valeur estimée unitaire (FCFA/kg)",
-        "date_label": "Date",
-        "motif_label": "Motif (Optionnel)",
-        "motif_placeholder": "Ex: Vente au marché hebdomadaire"
-      }
-    }
-  },
-  "bilans_pages": {
-    "releve_membre": {
-      "no_members": "Aucun membre trouvé.",
-      "title": "Relevé Membre",
-      "desc": "Montant facturé, montant payé et solde progressif de chaque membre, campagne par campagne.",
-      "select_member": "Choisir un membre",
-      "loading": "Chargement du relevé...",
-      "current_balance": "Solde actuel",
-      "headers": {
-        "season": "Campagne",
-        "date": "Date",
-        "billed": "Montant Facturé",
-        "paid": "Montant Payé",
-        "balance": "Solde Progressif"
-      },
-      "empty": "Aucune facture pour ce membre."
-    },
-    "releve_client": {
-      "no_clients": "Aucun client enregistré.",
-      "title": "Relevé Client",
-      "desc": "Ventes et paiements reçus d'un client externe, avec solde progressif.",
-      "select_client": "Choisir un client",
-      "add_client": "Nouveau Client",
-      "add_payment": "Enregistrer un paiement",
-      "loading": "Chargement du relevé...",
-      "current_balance": "Solde actuel (créance)",
-      "headers": {
-        "date": "Date",
-        "type": "Type",
-        "quantity": "Quantité",
-        "unit_price": "Prix unitaire",
-        "amount": "Montant",
-        "balance": "Solde Progressif"
-      },
-      "type_sale": "Vente",
-      "type_payment": "Paiement reçu",
-      "empty": "Aucun mouvement pour ce client.",
-      "new_client_form": {
-        "title": "Nouveau client",
-        "name": "Nom du client",
-        "name_placeholder": "Ex: Boutique Ndiaganiao",
-        "phone": "Téléphone (optionnel)",
-        "submit": "Créer le client"
-      },
-      "payment_form": {
-        "title": "Enregistrer un paiement client",
-        "amount": "Montant reçu (FCFA)",
-        "date": "Date",
-        "motif": "Motif (Optionnel)",
-        "motif_placeholder": "Ex: Règlement partiel",
-        "submit": "Enregistrer le paiement"
-      }
-    }
-  },
-  "bilan_annuel": {
-    "title": "Bilan annuel & compte de résultat",
-    "desc": "Situation patrimoniale au 31 décembre et résultat de l'exercice, calculés à partir des données de gestion du GIE.",
-    "year": "Exercice",
-    "saving": "Enregistrement...",
-    "actif_title": "Bilan - Actif",
-    "passif_title": "Bilan - Passif",
-    "resultat_title": "Compte de résultat de l'année",
-    "cols": {
-      "rubrique": "Rubriques",
-      "brut": "Montant brut",
-      "amo": "Amo/Prov",
-      "net": "Montant net",
-      "net_n1": "Net N-1",
-      "montant": "Montant",
-      "montant_n1": "Montant N-1",
-      "calculs": "Calculs"
-    },
-    "rows": {
-      "immobilisations": "Immobilisations",
-      "stocks": "Stocks",
-      "creances": "Créances",
-      "disponibilites": "Disponibilités",
-      "total_actif": "Total Actif",
-      "capital": "Capital",
-      "resultat": "Résultat de l'année",
-      "subventions": "Subventions",
-      "emprunts": "Emprunts",
-      "dettes": "Dettes",
-      "credits_tresorerie": "Crédits de trésorerie",
-      "total_passif": "Total Passif",
-      "ventes": "Ventes d'intrants et services",
-      "gain_remboursement": "Gain/vente de remboursement",
-      "prestations": "Prestations du matériel",
-      "autres_produits": "Autres produits",
-      "total_produits": "Total Produits",
-      "achats": "Achats d'intrants et services",
-      "variation_stock": "Variation de stock",
-      "perte_remboursement": "Perte/vente de remboursement",
-      "charges_materiel": "Charges du matériel",
-      "interets": "Intérêts bancaires",
-      "autres_charges": "Autres charges",
-      "total_charges": "Total charges"
-    },
-    "notes": {
-      "immobilisations": "Matériel : valeur d'acquisition, amortissement linéaire cumulé",
-      "stocks": "Stock d'intrants (dernier prix) + stock en nature (prix de collecte)",
-      "creances": "Solde des comptes clients : par membre, factures - remboursements + ristournes (si positif), plus clients externes",
-      "disponibilites": "Solde des comptes de trésorerie",
-      "capital": "Solde du bilan (équilibre actif / passif)",
-      "resultat_passif": "Voir compte de résultat",
-      "a_saisir": "À saisir",
-      "dettes": "Solde des comptes fournisseurs (achats non réglés) + surplus de remboursement dû aux membres (solde négatif d'un membre)",
-      "credits_tresorerie": "Restant dû des crédits de campagne validés",
-      "ventes": "Total des factures membres (intérêts refacturés inclus)",
-      "gain_remboursement": "Ventes du produit issu des remboursements : (prix de vente - prix de collecte) × quantité",
-      "prestations": "Total des prestations du matériel",
-      "achats": "Achats de l'année",
-      "perte_remboursement": "Idem, lorsque le prix de vente est inférieur au prix de collecte",
-      "charges_materiel": "Consommations + dotation aux amortissements de l'année",
-      "interets": "Intérêts des crédits validés (taux × durée)",
-      "resultat": "Total produits - total charges",
-      "variation_stock": "Stock initial (fin N-1) - stock final (fin N) ; négatif si le stock augmente"
-    },
-    "footnote": "Les montants « à saisir » se renseignent par exercice ; changez d'exercice pour saisir ceux de l'année précédente. Le stock, les soldes et l'amortissement des exercices passés sont reconstitués à partir de l'historique (au dernier prix connu pour les stocks).",
-    "read_only": "Vous n'avez pas le droit de modifier les montants saisis.",
-    "export_pdf": "Télécharger PDF"
-  },
-  "ristournes": {
-    "title": "Ristournes aux membres",
-    "desc": "Surplus de remboursement rendu à un membre : la ristourne sort de la trésorerie et vient en réduction de ce qu'il a remboursé.",
-    "surplus_title": "Surplus de remboursement à rendre",
-    "surplus_desc": "Surplus = remboursé - facturé - ristournes déjà rendues (en numéraire ou en nature).",
-    "no_surplus": "Aucun membre n'a de surplus à récupérer.",
-    "cols": {
-      "membre": "Membre",
-      "facture": "Facturé",
-      "rembourse": "Remboursé",
-      "ristournes": "Ristournes rendues",
-      "surplus": "Surplus à rendre"
-    },
-    "give_back": "Rendre",
-    "form_title": "Nouvelle ristourne en numéraire",
-    "select_member": "Choisir un membre",
-    "amount": "Montant",
-    "account": "Compte de trésorerie",
-    "date": "Date",
-    "motif": "Motif (optionnel)",
-    "form_hint": "Crée une sortie de trésorerie sur le compte choisi.",
-    "submit": "Enregistrer la ristourne",
-    "saving": "Enregistrement...",
-    "history_title": "Historique des ristournes en numéraire",
-    "no_history": "Aucune ristourne enregistrée.",
-    "delete": "Supprimer",
-    "confirm_delete": "Supprimer cette ristourne et sa sortie de trésorerie ?",
-    "nature_hint": "Les ristournes en nature s'enregistrent dans « Stock en nature » (sortie de type Ristourne) ; elles sont prises en compte dans le surplus ci-dessus."
-  },
   "guide": {
     "meta": {
       "back": "Retour à l’accueil",
-      "pageTitle": "Guide de prise en main",
-      "toc": "Sommaire",
+      "pageTitle": "Guide d’utilisation D-PHARMA",
+      "toc": "Sommaire du guide",
       "menu": "Menu",
       "important": "Important",
-      "edition": "Édition liée :",
-      "editionLink": "Voir la partie 3",
-      "needHelp": "Besoin d’aide pour démarrer ?",
-      "needHelpText": "Notre guide de prise en main explique, avec des mots simples, comment configurer SIGGIE puis l’utiliser au fil d’une campagne.",
-      "readGuide": "Consulter le guide",
+      "edition": "Fonctionnalité avancée :",
+      "editionLink": "Voir les formules d’abonnement",
+      "needHelp": "Besoin d’aide pour démarrer votre officine ?",
+      "needHelpText": "Ce guide complet vous accompagne pas à pas dans l’utilisation de D-PHARMA : configuration de votre officine, ventes comptoir (POS), gestion stricte des stocks et dates de péremption, commandes aux répartiteurs et réconciliation de caisse.",
+      "readGuide": "Consulter le guide complet",
       "guideNav": "Guide"
     },
     "hero": {
-      "eyebrow": "Guide de prise en main",
-      "title": "SIGGIE",
-      "subtitle": "La plateforme de gestion de votre organisation agricole de base (GIE, coopérative, PME) : membres, campagnes, intrants, crédits, facturation, remboursements et trésorerie.",
-      "intro": "Ce guide explique, avec des mots simples, comment utiliser SIGGIE. Il se lit en trois temps : d’abord la configuration, à faire une seule fois pour préparer votre GIE ; puis les opérations, que vous répétez au fil de chaque campagne ; enfin les éditions, états et rapports."
+      "eyebrow": "Guide d’utilisation & Prise en main",
+      "title": "D-PHARMA",
+      "subtitle": "Le logiciel tout-en-un pour pharmacies d’officine : Point de vente (POS) ultra-rapide, traçabilité des lots et péremptions, approvisionnements grossistes, trésorerie et recherche publique pour vos patients.",
+      "intro": "Ce guide pratique explique avec simplicité comment piloter votre officine au quotidien avec D-PHARMA. Il s’articule en trois parties claires : d’abord la configuration de l’officine ; puis les opérations courantes au comptoir et en réserve (ventes, commandes, péremptions) ; enfin le suivi financier et l’espace public patients."
     },
     "overview": {
-      "id": "apercu",
-      "title": "SIGGIE en une minute",
-      "lead": "SIGGIE suit le déroulement complet d’une campagne agricole de votre GIE, de l’argent emprunté à la banque jusqu’au dernier remboursement des membres.",
+      "id": "dpharma-en-bref",
+      "title": "D-PHARMA en quelques minutes",
+      "lead": "Six piliers essentiels conçus sur mesure pour le pharmacien titulaire, ses adjoints et son équipe au comptoir :",
       "cards": [
         {
-          "t": "Le crédit",
-          "x": "Le GIE demande un financement à la banque et suit l’argent débloqué."
+          "t": "Point de vente au comptoir (POS)",
+          "x": "Bipez les boîtes au scanner code-barres, encaissez par Espèces, Wave, Orange Money ou Carte, et remettez un ticket clair avec calcul automatique du rendu de monnaie."
         },
         {
-          "t": "Les intrants",
-          "x": "Le GIE achète engrais, semences et autres produits, et les met en stock."
+          "t": "Gestion des stocks & Lots",
+          "x": "Suivi permanent des quantités disponibles par médicament. Chaque entrée est associée à un numéro de lot et une date d’expiration pour une traçabilité sans faille."
         },
         {
-          "t": "La distribution",
-          "x": "Les intrants sont remis aux membres inscrits à la campagne."
+          "t": "Contrôle des péremptions",
+          "x": "Alertes visuelles immédiates : statut Rouge pour les articles périmés à retirer d’urgence des rayons, statut Orange pour les dates approchant à moins de 90 jours."
         },
         {
-          "t": "La facturation",
-          "x": "Chaque membre reçoit une facture : ce qu’il a reçu, sa part des intérêts, et ses impayés éventuels."
+          "t": "Commandes aux répartiteurs",
+          "x": "Générez des bons de commande pour vos grossistes (Laborex, COPHASE, SODIPHARM...), pointez les réceptions à la livraison et alimentez les stocks sans ressaisie."
         },
         {
-          "t": "Le remboursement",
-          "x": "Le membre rembourse en espèces ou en nature (en apportant sa récolte)."
+          "t": "Caisse & Trésorerie officinale",
+          "x": "Bilan d’encaissement quotidien, contrôle des écarts de caisse, suivi des comptes bancaires et imputation comptable des dépenses de fonctionnement."
         },
         {
-          "t": "Le bilan",
-          "x": "Le GIE compare ses prévisions à la réalité et garde une trace de tout."
+          "t": "Espace Public Médicaments & Gardes",
+          "x": "Offrez aux usagers la possibilité de vérifier la disponibilité d’un traitement sans divulguer les prix, dans le respect scrupuleux de la déontologie pharmaceutique."
         }
       ]
     },
@@ -1563,266 +547,239 @@
       {
         "id": "partie-config",
         "label": "Partie 1",
-        "title": "La configuration",
-        "text": "À faire une seule fois, avant votre première campagne. Vous pourrez ensuite la compléter à tout moment.",
+        "title": "Configuration de l’officine",
+        "text": "À réaliser lors de la mise en service pour adapter D-PHARMA à votre pharmacie et préparer votre catalogue de vente.",
         "sections": [
           {
-            "id": "c-gie",
-            "title": "Les informations du GIE",
+            "id": "config-officine",
+            "title": "1. Informations légales et profil de l’officine",
             "menu": "Paramètres",
+            "lead": "Renseignez les données administratives qui figureront sur les tickets de caisse et reçus de dispensation.",
             "blocks": [
               {
-                "p": "Renseignez le nom du GIE, son adresse, son téléphone, son e-mail et son identification fiscale (NINEA, RCCM ou équivalent). Ajoutez votre logo (PNG ou JPG, 2 Mo maximum) et choisissez la devise de travail. Ces informations apparaissent sur tous vos documents imprimés : factures et reçus."
-              }
-            ]
-          },
-          {
-            "id": "c-membres",
-            "title": "Les membres",
-            "menu": "Membres",
-            "blocks": [
-              {
-                "p": "Cliquez sur « Nouveau Membre » et remplissez : nom, prénom, village, téléphone, superficie exploitée et statut (actif ou inactif). Vous pouvez ensuite rechercher un membre par son nom, son prénom ou son village."
-              }
-            ]
-          },
-          {
-            "id": "c-comptes",
-            "title": "Les comptes d’argent",
-            "menu": "Trésorerie",
-            "blocks": [
-              {
-                "p": "Créez un compte pour chaque endroit où le GIE garde de l’argent : par exemple un compte en banque et une caisse. Indiquez le solde de départ de chacun : vous pourrez ainsi bien suivre vos opérations d’entrée et de sortie d’argent, avec les soldes réels de chaque compte."
-              }
-            ]
-          },
-          {
-            "id": "c-intrants",
-            "title": "Le catalogue d’intrants",
-            "menu": "Intrants & Stock",
-            "blocks": [
-              {
-                "p": "Avec « Nouvel Intrant », créez la liste de ce que le GIE distribue : indiquez le type (engrais, semence…), le nom, le fournisseur, le prix unitaire et la quantité en stock de départ. Il existe trois sortes d’intrants :"
+                "p": "Accédez au menu Paramètres pour configurer le profil de votre officine :"
               },
               {
-                "cards": [
+                "ul": [
                   {
-                    "t": "Intrants en stock",
-                    "x": "Engrais, semences, produits… Leur quantité en stock baisse à chaque distribution."
+                    "t": "Dénomination de la pharmacie :",
+                    "x": "Nom officiel de votre officine tel qu’il doit apparaître sur les en-têtes (ex. Pharmacie de la Corniche)."
                   },
                   {
-                    "t": "Façon culturale et service hydraulique",
-                    "x": "Ce sont des services, pas des sacs : pas de stock à suivre. Ils sont facturés à la superficie (à l’hectare)."
+                    "t": "NINEA & Numéro d’ordre :",
+                    "x": "Identifiants fiscaux et professionnels obligatoires sur les justificatifs de vente."
                   },
                   {
-                    "t": "Refacturation",
-                    "x": "Un frais fixe que le GIE refacture aux membres : on saisit directement le montant en FCFA."
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "id": "c-materiel",
-            "title": "Le matériel",
-            "menu": "Matériel",
-            "note": "formules Medium et Premium",
-            "blocks": [
-              {
-                "p": "Si votre formule le permet, enregistrez dans l’inventaire l’équipement du GIE (tracteurs, motopompes…) avec son état."
-              }
-            ]
-          },
-          {
-            "id": "c-campagne",
-            "title": "La campagne",
-            "menu": "Campagnes",
-            "blocks": [
-              {
-                "p": "Une campagne est une saison agricole. Tout le reste (distributions, factures, remboursements) se rattache à elle."
-              },
-              {
-                "ol": [
-                  {
-                    "t": "Créez la campagne",
-                    "x": "avec « Nouvelle Campagne » : nom, dates de début et de fin, mode de remboursement (en espèces, en nature ou mixte), produit collecté, prix de collecte, poids standard, et statut (en cours, terminée ou annulée)."
+                    "t": "Téléphone & Email :",
+                    "x": "Coordonnées directes pour la relation avec vos patients et grossistes."
                   },
                   {
-                    "t": "Configurez-la",
-                    "x": "en ouvrant la campagne : inscrivez les membres qui y participent (avec la superficie de chacun), choisissez les intrants proposés cette saison, et préparez votre budget prévisionnel par rubrique."
+                    "t": "Devise de travail :",
+                    "x": "Sélectionnez FCFA, GNF ou USD. Tous les montants et le rendu de monnaie s’ajusteront automatiquement."
                   }
                 ]
               },
               {
                 "callout": {
-                  "l": "Important",
-                  "x": "Seuls les membres inscrits à la campagne peuvent recevoir des intrants. Inscrivez-les avant de commencer les distributions."
+                  "l": "Personnalisation des tickets",
+                  "x": "Téléversez le logo de votre pharmacie dans l’onglet Paramètres pour l’imprimer directement sur vos tickets de caisse."
                 }
+              }
+            ]
+          },
+          {
+            "id": "config-comptes",
+            "title": "2. Organisation des comptes et de la caisse",
+            "menu": "Trésorerie > Comptes",
+            "lead": "Séparez vos différents réceptacles de paiement pour un contrôle financier rigoureux.",
+            "blocks": [
+              {
+                "p": "D-PHARMA permet de distinguer précisément la caisse physique des comptes numériques :"
+              },
+              {
+                "dl": [
+                  {
+                    "t": "Caisse Principale (Comptoir) :",
+                    "x": "Compte par défaut recevant les encaissements en espèces au guichet."
+                  },
+                  {
+                    "t": "Comptes Mobile Money (Wave, Orange Money) :",
+                    "x": "Comptes marchands utilisés pour recevoir les paiements dématérialisés des patients."
+                  },
+                  {
+                    "t": "Comptes Bancaires :",
+                    "x": "Comptes professionnels d’officine dédiés au règlement des factures fournisseurs et charges locatives."
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "config-catalogue",
+            "title": "3. Catalogue de médicaments et produits",
+            "menu": "Pharmacie > Stocks",
+            "lead": "Enregistrez votre référentiel de spécialités pharmaceutiques, génériques et parapharmacie.",
+            "blocks": [
+              {
+                "p": "Chaque produit dispose d’une fiche détaillée garantissant la sécurité de la dispensation :"
+              },
+              {
+                "ul": [
+                  {
+                    "t": "Dénomination commerciale & DCI :",
+                    "x": "Nom de spécialité et molécule active correspondante (ex. Doliprane 1000mg / Paracétamol)."
+                  },
+                  {
+                    "t": "Forme & Dosage :",
+                    "x": "Comprimé sécable, gélule, sirop pédiatrique, solution injectable, etc."
+                  },
+                  {
+                    "t": "Code-barres (CIP / EAN) :",
+                    "x": "Code scannable directement à la douchette pour une saisie instantanée lors de la vente."
+                  },
+                  {
+                    "t": "Prix public unitaire :",
+                    "x": "Tarif officiel de délivrance au patient."
+                  },
+                  {
+                    "t": "Seuil d’alerte de réapprovisionnement :",
+                    "x": "Niveau minimal en deçà duquel le système notifie un risque de rupture."
+                  }
+                ]
               }
             ]
           }
         ]
       },
       {
-        "id": "partie-operations",
+        "id": "partie-comptoir",
         "label": "Partie 2",
-        "title": "Les opérations",
-        "text": "Ce que vous faites au fil de la campagne, dans l’ordre où les choses arrivent.",
+        "title": "Opérations au comptoir et gestion des stocks",
+        "text": "Le quotidien du pharmacien et des préparateurs : servir les ordonnances, surveiller les péremptions et réapprovisionner les rayons.",
         "sections": [
           {
-            "id": "o-credit",
-            "title": "Le crédit bancaire",
-            "menu": "Crédits Bancaires",
+            "id": "vente-pos",
+            "title": "1. Vente au comptoir & Point de Vente (POS)",
+            "menu": "Pharmacie > Point de Vente",
+            "lead": "Une interface pensée pour la rapidité du service et la réduction maximale de l’attente des patients.",
             "blocks": [
               {
-                "ul": [
-                  {
-                    "t": "Faire la demande.",
-                    "x": "Indiquez la campagne, la banque (par exemple LB ou CMS), le montant demandé et le but du crédit. Le statut est d’abord « En attente »."
-                  },
-                  {
-                    "t": "Enregistrer la réponse de la banque.",
-                    "x": "Le crédit devient « Validé » ou « Rejeté ». S’il est validé, notez le montant accordé, le taux d’intérêt et la durée : ils servent ensuite à calculer les intérêts de chaque membre."
-                  },
-                  {
-                    "t": "Suivre les déblocages.",
-                    "x": "Chaque fois que la banque débloque de l’argent, enregistrez le compte concerné, le type de pièce (paiement d’une facture fournisseur ou retrait d’espèces), le montant et le motif."
-                  },
-                  {
-                    "t": "Enregistrer vos remboursements à la banque,",
-                    "x": "avec le compte utilisé et le montant."
-                  }
-                ]
+                "p": "Le terminal de vente est optimisé pour les écrans tactiles et les douchettes code-barres :"
               },
-              {
-                "edition": "le total demandé, le total accordé, les dossiers en attente et le crédit disponible, en haut de la page."
-              }
-            ]
-          },
-          {
-            "id": "o-achats",
-            "title": "Les achats d’intrants",
-            "menu": "Intrants & Stock",
-            "blocks": [
-              {
-                "p": "Quand le GIE achète des intrants, notez l’intrant, la quantité, le prix, le fournisseur, la date et le numéro de facture : le stock augmente tout seul, et sa valeur totale s’affiche en haut de la page."
-              },
-              {
-                "edition": "la valeur totale du stock et les quantités restantes de chaque intrant."
-              }
-            ]
-          },
-          {
-            "id": "o-distribution",
-            "title": "La distribution aux membres",
-            "menu": "Distribution",
-            "blocks": [
-              {
-                "p": "Remettez des intrants aux membres inscrits à la campagne. Vous pouvez faire une distribution à la fois, remettre un même intrant à plusieurs membres, ou plusieurs intrants à un même membre. Le stock diminue automatiquement. Pour la façon culturale et le service hydraulique, la quantité proposée correspond à la superficie du membre."
-              },
-              {
-                "edition": "le bilan de campagne récapitule ce qui a été distribué à chaque membre."
-              }
-            ]
-          },
-          {
-            "id": "o-facturation",
-            "title": "La facturation",
-            "menu": "Facturation",
-            "blocks": [
               {
                 "ol": [
                   {
-                    "t": "Générez les factures de la campagne.",
-                    "x": "Chaque membre reçoit une facture qui additionne les intrants reçus, sa part des intérêts du crédit et, s’il y en a, ses impayés des campagnes précédentes."
+                    "t": "Scannez le médicament :",
+                    "x": "Passez le code-barres sous la douchette ou cherchez par les premières lettres du nom commercial ou de la DCI."
                   },
                   {
-                    "t": "Calculez les intérêts.",
-                    "x": "SIGGIE répartit l’intérêt des crédits validés entre les factures. Pour cela, le taux et la durée du crédit doivent avoir été renseignés."
+                    "t": "Ajustez le conditionnement :",
+                    "x": "Indiquez le nombre de boîtes demandées. Le panier calcule instantanément le sous-total."
                   },
                   {
-                    "t": "Consultez et imprimez",
-                    "x": "les factures, membre par membre."
+                    "t": "Choisissez le mode de paiement :",
+                    "x": "Sélectionnez Espèces, Wave, Orange Money ou Carte. En espèces, saisissez la somme remise : D-PHARMA indique la monnaie exacte à rendre."
+                  },
+                  {
+                    "t": "Validez l’encaissement :",
+                    "x": "Le stock est décrémenté immédiatement, l’opération est consignée en caisse et le ticket est généré."
                   }
                 ]
               },
               {
-                "edition": "la facture de chaque membre s’imprime ou se télécharge en PDF."
+                "callout": {
+                  "l": "Gain de temps",
+                  "x": "La touche Entrée valide directement le panier. Vos préparateurs peuvent ainsi enchaîner les ordonnances sans toucher la souris."
+                }
               }
             ]
           },
           {
-            "id": "o-remboursements",
-            "title": "Les remboursements",
-            "menu": "Remboursements",
+            "id": "stocks-peremptions",
+            "title": "2. Suivi des stocks et alertes de péremption",
+            "menu": "Pharmacie > Stocks",
+            "lead": "Sécurité sanitaire irréprochable et prévention active des pertes financières.",
             "blocks": [
               {
-                "ul": [
-                  {
-                    "t": "En espèces.",
-                    "x": "Choisissez le membre et sa facture, le compte qui reçoit l’argent et le montant : l’argent entre dans votre trésorerie."
-                  },
-                  {
-                    "t": "En nature.",
-                    "x": "Le membre apporte sa récolte : on la pèse et on note le produit et la quantité. Elle entre dans le « Stock en nature », sans toucher à la trésorerie."
-                  },
-                  {
-                    "t": "Le surplus (ristourne).",
-                    "x": "Si un membre a remboursé plus que sa facture, la différence lui est rendue : en argent (une sortie de trésorerie) ou en nature (une sortie du stock en nature)."
-                  }
-                ]
+                "p": "La réglementation impose une traçabilité rigoureuse des dates limites. D-PHARMA classe les médicaments par niveau d’urgence :"
               },
               {
-                "edition": "l’historique des ristournes, le stock en nature et le relevé de chaque membre."
+                "cards": [
+                  {
+                    "t": "Alerte Rouge : Médicament périmé",
+                    "x": "Produits ayant dépassé la date limite. À retirer sur-le-champ des rayons pour destruction ou retour laboratoire."
+                  },
+                  {
+                    "t": "Alerte Orange : Échéance sous 90 jours",
+                    "x": "Lots arrivant à expiration dans les trois mois. À dispenser en priorité en respectant le principe FEFO (First Expired, First Out)."
+                  },
+                  {
+                    "t": "Alerte Jaune : Rupture imminente",
+                    "x": "Quantité disponible égale ou inférieure au seuil de sécurité configuré."
+                  },
+                  {
+                    "t": "Historique des mouvements",
+                    "x": "Journal complet de chaque entrée, vente, inventaire ou ajustement de stock."
+                  }
+                ]
               }
             ]
           },
           {
-            "id": "o-tresorerie",
-            "title": "La trésorerie",
-            "menu": "Trésorerie",
+            "id": "commandes-repartiteurs",
+            "title": "3. Commandes aux grossistes et répartiteurs",
+            "menu": "Pharmacie > Commandes Labo",
+            "lead": "Passez vos commandes d’approvisionnement et réceptionnez vos colis sans ressaisie.",
             "blocks": [
               {
-                "ul": [
-                  {
-                    "t": "Comptes.",
-                    "x": "La liste de vos comptes avec leurs soldes."
-                  },
-                  {
-                    "t": "Journaux.",
-                    "x": "Choisissez un compte pour voir toutes ses opérations, avec le solde qui évolue ligne après ligne. Vous pouvez saisir, corriger ou supprimer une opération."
-                  },
-                  {
-                    "t": "Rapprochement.",
-                    "x": "Vérifiez que vos crédits de campagne et vos mouvements correspondent bien à la réalité de la banque."
-                  }
-                ]
+                "p": "Simplifiez la chaîne logistique entre votre officine et vos grossistes :"
               },
               {
-                "edition": "le journal de chaque compte, avec le solde progressif."
+                "ol": [
+                  {
+                    "t": "Génération du bon de commande :",
+                    "x": "Sélectionnez le grossiste (Laborex, COPHASE, SODIPHARM...) et ajoutez les spécialités à commander avec les quantités requises."
+                  },
+                  {
+                    "t": "Transmission au fournisseur :",
+                    "x": "Exportez le bon de commande pour le transmettre directement à votre répartiteur."
+                  },
+                  {
+                    "t": "Pointage à la livraison :",
+                    "x": "À la réception des cartons, vérifiez les quantités livrées, renseignez les numéros de lot et dates de péremption figurant sur les emballages."
+                  },
+                  {
+                    "t": "Validation en stock :",
+                    "x": "En validant la réception, les articles sont instantanément ajoutés au stock vendable de votre officine."
+                  }
+                ]
               }
             ]
           },
           {
-            "id": "o-materiel",
-            "title": "Le matériel au quotidien",
-            "menu": "Matériel",
-            "note": "formules Medium et Premium",
+            "id": "cloture-caisse",
+            "title": "4. Clôture de caisse & Contrôle journalier",
+            "menu": "Trésorerie > Journaux",
+            "lead": "Sécurisez vos recettes quotidiennes et détectez immédiatement les écarts de caisse.",
             "blocks": [
+              {
+                "p": "À la fermeture de l’officine ou au changement d’équipe, procédez au contrôle financier :"
+              },
               {
                 "ul": [
                   {
-                    "t": "Prestations.",
-                    "x": "Les travaux réalisés avec le matériel, pointés sur le terrain : quantité traitée dans son unité (hectares pour le tracteur ou la moissonneuse, heures pour la niveleuse ou la pelle, sacs, ou une autre unité), téléphone du client (obligatoire), quantité obtenue avec le produit et, si le produit l’exige, sa variété. Quand la prestation est payée en part de récolte, indiquez le pourcentage : SIGGIE calcule les sacs revenant au GIE et leur valeur. Le bouton « Produits et variétés » définit les produits pointés et ceux dont la variété est obligatoire. Choisissez la campagne et un type budgété : le montant compte dans le réalisé du suivi budgétaire de la campagne (les consommations aussi)."
+                    "t": "Comptage physique des espèces :",
+                    "x": "Vérifiez les billets et pièces dans le tiroir-caisse et comparez avec le solde théorique D-PHARMA."
                   },
                   {
-                    "t": "Consommations.",
-                    "x": "Le carburant, l’entretien et les autres dépenses du matériel."
+                    "t": "Contrôle des flux électroniques :",
+                    "x": "Pointez les totaux encaissés par Wave, Orange Money et terminal bancaire avec les relevés des opérateurs."
+                  },
+                  {
+                    "t": "Dépenses courantes (Imputations) :",
+                    "x": "Saisissez les décaissements de fonctionnement (frais de livraison, ménage, petit matériel) pour garder un solde net exact."
                   }
                 ]
-              },
-              {
-                "edition": "l’inventaire, les prestations, les consommations, les amortissements et la rentabilité peuvent s’imprimer."
               }
             ]
           }
@@ -1831,106 +788,51 @@
       {
         "id": "partie-etats",
         "label": "Partie 3",
-        "title": "Les éditions, états et rapports",
-        "text": "Une fois vos opérations enregistrées, SIGGIE les rassemble pour vous dans des documents à imprimer et des états de suivi.",
+        "title": "Services patients & Gestion avancée",
+        "text": "Améliorez l’accès aux soins de vos usagers et analysez les performances de votre officine.",
         "sections": [
           {
-            "id": "e-imprimer",
-            "title": "Les documents à imprimer",
-            "lead": "Ils portent le nom, l’adresse, l’identification fiscale et le logo renseignés dans les Paramètres.",
+            "id": "espace-patients",
+            "title": "1. Espace Public Médicaments & Gardes",
+            "menu": "Espace Patients",
+            "lead": "Un service citoyen innovant pour orienter les patients tout en respectant la déontologie ordinale.",
             "blocks": [
+              {
+                "p": "D-PHARMA met à la disposition des patients un portail de recherche sécurisé :"
+              },
               {
                 "ul": [
                   {
-                    "t": "Les factures des membres.",
-                    "x": "Menu Facturation : consultez la facture de chaque membre, imprimez-la ou téléchargez-la en PDF."
+                    "t": "Disponibilité en rayon :",
+                    "x": "Le patient consulte si le médicament prescrit est disponible dans votre officine."
                   },
                   {
-                    "t": "Les journaux de caisse et de banque.",
-                    "x": "Menu Trésorerie : toutes les opérations d’un compte avec le solde progressif."
+                    "t": "Respect déontologique strict (aucun prix affiché) :",
+                    "x": "Conformément au code de déontologie des pharmaciens, les tarifs ne sont pas diffusés publiquement. Seul le statut Disponible / En rupture est communiqué."
                   },
                   {
-                    "t": "Les états et les listes.",
-                    "x": "La plupart des pages d’états (bilans, relevés, suivi budgétaire, inventaire et prestations du matériel) ont un bouton pour les imprimer."
+                    "t": "Permanences de garde :",
+                    "x": "Renseignez vos périodes de garde de nuit et week-end pour guider les patients en urgence."
                   }
                 ]
               }
             ]
           },
           {
-            "id": "e-membres",
-            "title": "Les relevés",
-            "menu": "Bilans & Relevés",
-            "note": "formule Premium",
+            "id": "droits-utilisateurs",
+            "title": "2. Rôles et habilitations du personnel",
+            "menu": "Paramètres",
+            "lead": "Protégez vos données sensibles tout en responsabilisant votre équipe.",
             "blocks": [
               {
-                "ul": [
+                "dl": [
                   {
-                    "t": "Le relevé d’un membre.",
-                    "x": "Tout ce qu’un membre a reçu, ce qu’il doit et ce qu’il a déjà remboursé."
+                    "t": "Pharmacien Titulaire (Admin) :",
+                    "x": "Accès complet : configuration de l’officine, comptes bancaires, marges, imputations et gestion du personnel."
                   },
                   {
-                    "t": "Le relevé d’un client extérieur.",
-                    "x": "Le même suivi pour une personne qui n’est pas membre du GIE."
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "id": "e-campagne",
-            "title": "Le suivi de la campagne",
-            "blocks": [
-              {
-                "ul": [
-                  {
-                    "t": "Le bilan de campagne.",
-                    "x": "Depuis la page d’une campagne : un récapitulatif de ce qui a été distribué, facturé et remboursé, membre par membre."
-                  },
-                  {
-                    "t": "Le suivi budgétaire",
-                    "x": "(menu Bilans & Relevés, formule Premium). Vos prévisions comparées à ce qui s’est réellement passé, rubrique par rubrique, avec le solde recettes moins dépenses."
-                  },
-                  {
-                    "t": "Les ristournes et le stock en nature",
-                    "x": "(menu Remboursements). L’historique de ce qui a été rendu aux membres et l’état du stock de récolte reçue en remboursement."
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "id": "e-annuel",
-            "title": "Le bilan annuel",
-            "menu": "Bilans & Relevés",
-            "note": "formule Premium",
-            "blocks": [
-              {
-                "p": "SIGGIE présente la situation du GIE au 31 décembre et le résultat de l’année (recettes moins dépenses), calculés à partir de tout ce que vous avez enregistré. Quelques montants ne peuvent pas être devinés et se saisissent une fois par an : subventions, emprunts, autres produits et autres charges. Pour consulter une année passée, changez d’exercice."
-              }
-            ]
-          },
-          {
-            "id": "e-autres",
-            "title": "Les autres états",
-            "blocks": [
-              {
-                "ul": [
-                  {
-                    "t": "Le tableau de bord.",
-                    "x": "La page d’accueil : les chiffres importants du GIE en un coup d’œil."
-                  },
-                  {
-                    "t": "L’état des stocks.",
-                    "x": "Menu Intrants & Stock : la valeur totale du stock et les quantités restantes de chaque intrant."
-                  },
-                  {
-                    "t": "Les crédits.",
-                    "x": "Menu Crédits Bancaires : le total demandé, le total accordé, les dossiers en attente et le crédit encore disponible."
-                  },
-                  {
-                    "t": "Le matériel",
-                    "x": "(formules Medium et Premium). Les amortissements, c’est-à-dire la perte de valeur de chaque machine avec le temps, et la rentabilité, c’est-à-dire ce que chaque machine rapporte réellement au GIE."
+                    "t": "Adjoints & Préparateurs :",
+                    "x": "Accès restreint au Point de Vente (POS), à la consultation des stocks, à la saisie des ventes et aux réceptions sans accès aux résultats financiers globaux."
                   }
                 ]
               }
@@ -1941,112 +843,127 @@
     ],
     "closing": [
       {
-        "id": "formules",
-        "title": "Les formules et l’abonnement",
-        "lead": "Vous démarrez par une période d’essai gratuite. À la fin, l’accès est bloqué tant que l’abonnement n’est pas payé : payez avant l’échéance pour ne rien interrompre.",
+        "id": "closing-abonnements",
+        "title": "Formules d’abonnement D-PHARMA",
         "blocks": [
+          {
+            "p": "Trois forfaits évolutifs selon la taille de votre officine :"
+          },
           {
             "table": {
               "head": [
-                "Fonction",
+                "Fonctionnalité",
                 "Standard",
                 "Medium",
                 "Premium"
               ],
               "rows": [
                 [
-                  "Membres, campagnes, intrants, distribution, crédits, facturation, remboursements, trésorerie",
+                  "Point de Vente (POS) & Scanner",
                   "✓",
                   "✓",
                   "✓"
                 ],
                 [
-                  "Matériel",
+                  "Gestion des stocks & Lots",
+                  "✓",
+                  "✓",
+                  "✓"
+                ],
+                [
+                  "Surveillance des péremptions (90j)",
+                  "✓",
+                  "✓",
+                  "✓"
+                ],
+                [
+                  "Journal de caisse & Soldes",
+                  "✓",
+                  "✓",
+                  "✓"
+                ],
+                [
+                  "Portail citoyen sans prix",
+                  "✓",
+                  "✓",
+                  "✓"
+                ],
+                [
+                  "Commandes grossistes & labos",
                   "—",
                   "✓",
                   "✓"
                 ],
                 [
-                  "Bilans & Relevés",
+                  "Pointage des réceptions",
+                  "—",
+                  "✓",
+                  "✓"
+                ],
+                [
+                  "Trésorerie analytique & Imputations",
+                  "—",
+                  "—",
+                  "✓"
+                ],
+                [
+                  "Rapports de marge avancés",
                   "—",
                   "—",
                   "✓"
                 ]
               ]
             }
-          },
-          {
-            "p": "L’abonnement est annuel et se paie dans le menu Abonnement (Wave, Orange Money, carte Visa, virement, ...). Pour passer à une formule supérieure, vous ne payez que la différence."
           }
         ]
       },
       {
-        "id": "conseils",
-        "title": "Bons réflexes et aide",
+        "id": "closing-conseils",
+        "title": "Bonnes pratiques officinales",
         "blocks": [
           {
             "ul": [
               {
-                "x": "Créez vos comptes de trésorerie avant d’enregistrer un déblocage de crédit ou un remboursement en espèces."
+                "t": "Règle FEFO systématique :",
+                "x": "Rangez toujours les nouveaux lots derrière les anciens en rayon pour écouler en priorité les dates les plus proches."
               },
               {
-                "x": "Inscrivez les membres à la campagne avant de leur distribuer des intrants."
+                "t": "Clôture journalière obligatoire :",
+                "x": "Ne laissez jamais une journée sans clôturer la caisse afin de détecter les écarts de caisse le jour même."
               },
               {
-                "x": "Renseignez le taux et la durée du crédit validé : sans eux, les intérêts ne peuvent pas être calculés."
-              },
-              {
-                "x": "Générez les factures une fois les distributions terminées, après avoir calculé les intérêts."
-              },
-              {
-                "x": "Enregistrez chaque remboursement le jour même, avec le bon compte : c’est ce qui garde votre trésorerie exacte."
-              },
-              {
-                "x": "Si un menu n’apparaît pas chez vous, votre profil n’y a pas accès : demandez à l’administrateur du GIE."
+                "t": "Inventaire tournant :",
+                "x": "Contrôlez chaque semaine une ou deux familles de médicaments plutôt qu’un inventaire lourd annuel."
               }
             ]
-          },
-          {
-            "callout": {
-              "l": "Besoin d’aide ?",
-              "x": "Ouvrez le menu Aide & Support : vous y trouvez le numéro d’assistance (+221 70 848 42 98, du lundi au vendredi de 9h à 18h) et un formulaire pour écrire à l’équipe."
-            }
           }
         ]
       },
       {
-        "id": "mots",
-        "title": "Petit lexique",
+        "id": "closing-lexique",
+        "title": "Lexique officinal",
         "blocks": [
           {
             "dl": [
               {
-                "t": "Campagne",
-                "x": "Une saison agricole, avec ses membres, ses intrants, son crédit et ses remboursements."
+                "t": "DCI (Dénomination Commune Internationale) :",
+                "x": "Nom scientifique de la molécule active d’un médicament, permettant de proposer un générique équivalent."
               },
               {
-                "t": "Intrants",
-                "x": "Tout ce qui sert à produire : engrais, semences, produits de traitement, mais aussi des services comme l’eau ou le labour."
+                "t": "CIP / EAN :",
+                "x": "Code Identifiant de Présentation ou code-barres universel identifiant de manière unique la boîte de médicament."
               },
               {
-                "t": "Déblocage (décaissement)",
-                "x": "Le moment où la banque met à disposition l’argent du crédit accordé."
+                "t": "FEFO (First Expired, First Out) :",
+                "x": "Méthode de gestion logistique consistant à sortir et délivrer en premier le lot dont la date de péremption est la plus proche."
               },
               {
-                "t": "Remboursement en nature",
-                "x": "Rembourser sa dette avec une partie de sa récolte plutôt qu’avec de l’argent."
+                "t": "Grossiste-Répartiteur :",
+                "x": "Établissement pharmaceutique assurant l’approvisionnement quotidien des officines à partir des stocks des laboratoires fabricants."
               },
               {
-                "t": "Ristourne",
-                "x": "La part d’un remboursement qui dépasse la facture, rendue au membre."
-              },
-              {
-                "t": "Rapprochement",
-                "x": "Comparer vos chiffres avec ceux de la banque pour vérifier qu’ils sont identiques."
-              },
-              {
-                "t": "Imputation",
-                "x": "Le rattachement d’une opération d’argent à sa raison (par exemple une campagne ou une dépense précise)."
+                "t": "Imputation :",
+                "x": "Catégorisation comptable d’une dépense ou d’une recette permettant d’analyser les postes de coûts de la pharmacie."
               }
             ]
           }

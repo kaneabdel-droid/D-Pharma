@@ -42,12 +42,12 @@ export async function initiateSubscriptionPayment(
     .single()
 
   if (!userData?.gie_id) {
-    return { ok: false, error: 'GIE introuvable' }
+    return { ok: false, error: 'Pharmacie introuvable' }
   }
 
   const gie = Array.isArray(userData.gies) ? userData.gies[0] : userData.gies
   const currentTier = gie?.subscription_tier || 'standard'
-  // GIE d'un autre pays (devise « sans unité ») : abonnement payé par carte, en dollars US.
+  // Pharmacie d'un autre pays (devise « sans unité ») : abonnement payé par carte, en dollars US.
   const enDollars = gie?.devise === 'AUCUNE'
   if (enDollars && moyenPaiement !== 'carte') {
     return { ok: false, error: 'Depuis votre pays, l’abonnement se paie par carte bancaire en dollars US' }
@@ -103,7 +103,7 @@ export async function initiateSubscriptionPayment(
   }
 
   // Anti double paiement (1/2) : un forfait déjà réglé ne se paie pas une seconde fois
-  // (SIGGIE n'a pas d'échéance : un paiement vaut pour le forfait tant qu'il est actif).
+  // (D-PHARMA n'a pas d'échéance : un paiement vaut pour le forfait tant qu'il est actif).
   if (planId === currentTier) {
     const { count } = await supabase
       .from('abonnement_paiements')
@@ -113,7 +113,7 @@ export async function initiateSubscriptionPayment(
       .eq('statut', 'completed')
       .eq('doublon', false)
     if (count) {
-      return { ok: false, error: `Votre GIE est déjà abonné au forfait ${planId} : aucun nouveau paiement n'est nécessaire.` }
+      return { ok: false, error: `Votre pharmacie est déjà abonnée au forfait ${planId} : aucun nouveau paiement n'est nécessaire.` }
     }
   }
 
@@ -137,12 +137,12 @@ export async function initiateSubscriptionPayment(
     .single()
 
   if (insertError || !payment) {
-    // 23505 = index unique « un paiement en cours par GIE » : une requête concurrente
+    // 23505 = index unique « un paiement en cours par pharmacie » : une requête concurrente
     // (double clic) vient d'en créer un — on renvoie celui-là.
     if (insertError?.code === '23505') {
       const concurrent = await paiementEnCoursReutilisable(supabase, userData.gie_id, planId, moyenPaiement, montant)
       if (concurrent) return concurrent
-      return { ok: false, error: 'Un paiement est déjà en cours pour votre GIE. Patientez quelques secondes puis réessayez.' }
+      return { ok: false, error: 'Un paiement est déjà en cours pour votre pharmacie. Patientez quelques secondes puis réessayez.' }
     }
     console.error('Erreur création paiement abonnement', insertError)
     return { ok: false, error: "Impossible d'initier le paiement" }
@@ -154,7 +154,7 @@ export async function initiateSubscriptionPayment(
   }
 
   const returnUrl = `${siteUrl}/checkout/retour?ref=${payment.id}`
-  const description = `Abonnement SIGGIE — forfait ${planId}`
+  const description = `Abonnement D-PHARMA — forfait ${planId}`
 
   const result =
     provider === 'moneroo'

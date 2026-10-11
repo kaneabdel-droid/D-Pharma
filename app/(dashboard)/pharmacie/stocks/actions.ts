@@ -8,7 +8,7 @@ export async function addStock(formData: FormData) {
   const supabase = await createClient()
   const tenant = await getTenantContext()
 
-  if (!tenant) return { error: 'GIE non trouvé.' }
+  if (!tenant) return { error: 'Officine non trouvée.' }
 
   const nom = formData.get('nom') as string
   const code_barres = formData.get('code_barres') as string

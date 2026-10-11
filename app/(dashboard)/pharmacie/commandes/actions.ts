@@ -8,7 +8,7 @@ export async function createCommande(formData: FormData) {
   const supabase = await createClient()
   const tenant = await getTenantContext()
 
-  if (!tenant) return { error: 'GIE non trouvé.' }
+  if (!tenant) return { error: 'Officine non trouvée.' }
 
   const fournisseur_id = formData.get('fournisseur_id') as string
   const medicament_id = formData.get('medicament_id') as string
@@ -56,7 +56,7 @@ export async function accuserReception(commandeId: string) {
   const supabase = await createClient()
   const tenant = await getTenantContext()
 
-  if (!tenant) return { error: 'GIE non trouvé.' }
+  if (!tenant) return { error: 'Officine non trouvée.' }
 
   try {
     // Marquer la commande comme complète
