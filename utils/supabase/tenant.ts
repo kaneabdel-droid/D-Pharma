@@ -11,6 +11,8 @@ export type TenantContext = {
   subscriptionTier: string
   /** Devise du GIE (lib/currency.ts) ; AUCUNE = GIE d'un autre pays, montants affichés sans unité. */
   devise: string
+  compteVerrouille?: boolean
+  essaiExpire?: boolean
 }
 
 // Le rôle, le gie_id et l'abonnement du GIE de l'utilisateur connecté sont
@@ -28,21 +30,25 @@ export const getTenantContext = cache(async (): Promise<TenantContext | null> =>
 
   const { data } = await supabase
     .from('utilisateurs')
-    .select('gie_id, role, permissions, gies(nom, subscription_tier, devise)')
+    .select('gie_id, role, permissions, gies(nom, subscription_tier, devise, essai_expire_le, compte_verrouille)')
     .eq('id', user.id)
-    .single()
+    .maybeSingle()
 
   if (!data) return null
 
   const gie = Array.isArray(data.gies) ? data.gies[0] : data.gies
+  const essaiExpireLe = gie?.essai_expire_le as string | null | undefined
+  const essaiExpire = essaiExpireLe ? new Date(essaiExpireLe) < new Date() : false
 
   return {
     userId: user.id,
     gieId: data.gie_id,
     role: data.role,
     permissions: (data.permissions as PermissionMap | null) ?? null,
-    gieName: gie?.nom || 'Mon GIE',
+    gieName: gie?.nom || 'Ma Pharmacie',
     subscriptionTier: gie?.subscription_tier || 'standard',
     devise: gie?.devise || 'XOF',
+    compteVerrouille: !!gie?.compte_verrouille,
+    essaiExpire,
   }
 })

@@ -14,6 +14,10 @@ export default async function DashboardLayout({
     redirect('/login')
   }
 
+  if (tenant.compteVerrouille || tenant.essaiExpire) {
+    redirect('/abonnement?essai_expire=1')
+  }
+
   const locale = await getLocale()
   const dict = await getDictionary(locale)
 
