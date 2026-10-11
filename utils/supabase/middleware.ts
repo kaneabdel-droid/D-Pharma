@@ -129,7 +129,8 @@ export async function updateSession(request: NextRequest) {
     !pathname.startsWith('/signup') &&
     !pathname.startsWith('/forgot-password') &&
     !pathname.startsWith('/update-password') &&
-    !pathname.startsWith('/auth') &&
+    !pathname.startsWith('/decouvrir-dpharma') &&
+    !pathname.startsWith('/demo') &&
     !pathname.startsWith('/decouvrir-siggie') &&
     !pathname.startsWith('/guide') &&
     !pathname.startsWith('/tarifs') &&

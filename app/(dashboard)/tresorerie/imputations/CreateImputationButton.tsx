@@ -57,7 +57,7 @@ export default function CreateImputationButton({ dict }: { dict: any }) {
                       className="mt-1 block w-full rounded-md border border-surface-border bg-background px-3 py-2 text-foreground shadow-sm focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary sm:text-sm"
                     >
                       <option value="exploitation">{t.modal.categorie_exploitation}</option>
-                      <option value="materiel">{t.modal.categorie_materiel}</option>
+                      <option value="officine">{t.modal.categorie_officine}</option>
                     </select>
                   </div>
                   <div>

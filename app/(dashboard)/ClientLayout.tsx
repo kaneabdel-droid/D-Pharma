@@ -8,13 +8,7 @@ import LanguageSelector from '@/components/LanguageSelector'
 import { hasPermission, moduleForPath, type PermissionMap } from '@/lib/permissions'
 import { 
   LayoutDashboard, 
-  Users, 
-  Leaf, 
   Landmark, 
-  Tractor,
-  Banknote,
-  ReceiptText,
-  FileSpreadsheet,
   Menu,
   X,
   LogOut,

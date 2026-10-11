@@ -5,11 +5,8 @@ import { createClient } from '@/utils/supabase/server'
 import { withRetry } from '@/utils/supabase/retry'
 import { redirect } from 'next/navigation'
 
-// Compte de démonstration public (GIE WaloAgro), toujours déverrouillé. Chaque
-// clic génère une connexion à usage unique côté serveur via l'API admin —
-// aucun mot de passe n'est jamais stocké en clair ni transmis au visiteur,
-// et chaque visiteur obtient sa propre session sans affecter les autres.
-const DEMO_EMAIL = 'kaneabdou@yahoo.fr'
+// Compte de démonstration public pour D-PHARMA.
+const DEMO_EMAIL = process.env.DEMO_PHARMA_EMAIL || 'kaneabdou@yahoo.fr'
 
 export async function loginDemo() {
   const admin = createAdminClient()
@@ -20,7 +17,7 @@ export async function loginDemo() {
 
   if (error || !data?.properties?.hashed_token) {
     console.error('Erreur génération lien démo:', error)
-    redirect('/decouvrir-siggie?demo_error=1')
+    redirect('/decouvrir-dpharma?demo_error=1')
   }
 
   const supabase = await createClient()
@@ -33,7 +30,7 @@ export async function loginDemo() {
 
   if (verifyError) {
     console.error('Erreur connexion démo:', verifyError)
-    redirect('/decouvrir-siggie?demo_error=1')
+    redirect('/decouvrir-dpharma?demo_error=1')
   }
 
   redirect('/dashboard')

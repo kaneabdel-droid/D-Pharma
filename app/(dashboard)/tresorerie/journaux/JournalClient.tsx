@@ -6,9 +6,7 @@ import AddTransactionModal from './AddTransactionModal'
 import TransactionRowActions from './TransactionRowActions'
 import PrintSectionButton from '@/components/PrintSectionButton'
 
-type Campagne = { id: string; nom: string; statut: string }
-
-export default function JournalClient({ comptes, imputations, campagnes, dict, locale, gieName }: { comptes: any[], imputations: any[], campagnes: Campagne[], dict: any, locale: string, gieName: string }) {
+export default function JournalClient({ comptes, imputations, dict, locale, gieName }: { comptes: any[], imputations: any[], dict: any, locale: string, gieName: string }) {
   const [selectedCompte, setSelectedCompte] = useState(comptes[0]?.id || '')
   const [journal, setJournal] = useState<any[]>([])
   const [soldeInitial, setSoldeInitial] = useState(0)
@@ -54,7 +52,7 @@ export default function JournalClient({ comptes, imputations, campagnes, dict, l
         </div>
         <div className="mt-4 sm:mt-0 sm:flex-none flex items-center gap-2">
           <PrintSectionButton sectionId="journal-print" label={dict.common.print} />
-          <AddTransactionModal compteId={selectedCompte} imputations={imputations} campagnes={campagnes} onSuccess={fetchJournal} dict={dict} />
+          <AddTransactionModal compteId={selectedCompte} imputations={imputations} onSuccess={fetchJournal} dict={dict} />
         </div>
       </div>
 
@@ -104,7 +102,7 @@ export default function JournalClient({ comptes, imputations, campagnes, dict, l
                     {ligne.solde.toLocaleString(dateLocale, { maximumFractionDigits: 0 })}
                   </td>
                   <td className="relative whitespace-nowrap px-6 py-4 text-right text-sm font-medium">
-                    <TransactionRowActions transaction={ligne} imputations={imputations} campagnes={campagnes} onSuccess={fetchJournal} dict={dict} />
+                    <TransactionRowActions transaction={ligne} imputations={imputations} onSuccess={fetchJournal} dict={dict} />
                   </td>
                 </tr>
               ))}

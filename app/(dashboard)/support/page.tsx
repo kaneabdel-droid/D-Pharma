@@ -3,7 +3,7 @@ import ContactForm from './ContactForm'
 import { getDictionary, getLocale } from '@/dictionaries'
 
 export const metadata = {
-  title: 'Aide & Support - SIGGIE',
+  title: 'Aide & Support - D-PHARMA',
 }
 
 export default async function SupportPage() {

@@ -11,21 +11,16 @@ type Transaction = {
   motif: string
   type_piece: string | null
   imputation_id: string | null
-  campagne_id: string | null
 }
-
-type Campagne = { id: string; nom: string; statut: string }
 
 export default function TransactionRowActions({
   transaction,
   imputations,
-  campagnes,
   onSuccess,
   dict,
 }: {
   transaction: Transaction
   imputations: any[]
-  campagnes: Campagne[]
   onSuccess: () => void
   dict: any
 }) {
@@ -45,7 +40,6 @@ export default function TransactionRowActions({
       motif: formData.get('motif') as string,
       type_piece: (formData.get('type_piece') as string) || undefined,
       imputation_id: (formData.get('imputation_id') as string) || undefined,
-      campagne_id: (formData.get('campagne_id') as string) || undefined,
     })
     setLoading(false)
     if (res?.error) {
@@ -120,15 +114,7 @@ export default function TransactionRowActions({
                       ))}
                     </select>
                   </div>
-                  <div>
-                    <label className="block text-sm font-medium text-foreground">{t.form.campagne_label}</label>
-                    <select name="campagne_id" defaultValue={transaction.campagne_id || ''} className="mt-1 block w-full rounded-md bg-background border border-surface-border text-foreground px-3 py-2">
-                      <option value="">{t.form.campagne_none}</option>
-                      {campagnes.map((c) => (
-                        <option key={c.id} value={c.id}>{c.nom}</option>
-                      ))}
-                    </select>
-                  </div>
+
                   <div>
                     <label className="block text-sm font-medium text-foreground">{t.form.reason_label}</label>
                     <input type="text" name="motif" defaultValue={transaction.motif} required placeholder={t.form.reason_placeholder} className="mt-1 block w-full rounded-md bg-background border border-surface-border text-foreground px-3 py-2" />

@@ -43,13 +43,7 @@ export default async function TresorerieLayout({
           <BookText className="w-4 h-4" />
           {dict.tresorerie.tabs.journaux}
         </Link>
-        <Link
-          href="/tresorerie/rapprochement"
-          className="bg-surface text-foreground-muted hover:text-foreground rounded-md px-3 py-2 text-sm font-medium flex items-center gap-2 border border-surface-border"
-        >
-          <ArrowLeftRight className="w-4 h-4" />
-          {dict.tresorerie.tabs.rapprochement}
-        </Link>
+
         {isPremium && (
           <Link
             href="/tresorerie/imputations"

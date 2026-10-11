@@ -6,13 +6,8 @@ import { getDictionary, getLocale } from '@/dictionaries'
 import { getTenantContext } from '@/utils/supabase/tenant'
 
 export default async function JournauxPage() {
-  const supabase = await createClient()
   const { comptes, error } = await getComptes()
   const { imputations } = await getImputations()
-  const { data: campagnes } = await supabase
-    .from('campagnes')
-    .select('id, nom, statut')
-    .order('date_debut', { ascending: false })
   const locale = await getLocale()
   const dict = await getDictionary(locale)
   const tenant = await getTenantContext()
@@ -39,7 +34,7 @@ export default async function JournauxPage() {
         </p>
       </div>
 
-      <JournalClient comptes={comptes} imputations={imputations || []} campagnes={campagnes || []} dict={dict} locale={locale} gieName={tenant?.gieName || 'Mon GIE'} />
+      <JournalClient comptes={comptes} imputations={imputations || []} dict={dict} locale={locale} gieName={tenant?.gieName || 'Mon Officine'} />
     </div>
   )
 }

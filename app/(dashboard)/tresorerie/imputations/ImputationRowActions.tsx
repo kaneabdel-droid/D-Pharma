@@ -74,7 +74,7 @@ export default function ImputationRowActions({ imputation, dict }: { imputation:
                     <label className="block text-sm font-medium text-foreground">{t.modal.categorie}</label>
                     <select name="categorie" defaultValue={imputation.categorie} className="mt-1 block w-full rounded-md bg-background border border-surface-border text-foreground px-3 py-2">
                       <option value="exploitation">{t.modal.categorie_exploitation}</option>
-                      <option value="materiel">{t.modal.categorie_materiel}</option>
+                      <option value="officine">{t.modal.categorie_officine}</option>
                     </select>
                   </div>
                   <div>

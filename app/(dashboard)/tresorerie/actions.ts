@@ -71,7 +71,7 @@ export async function addCompte(nom: string, type_compte: string, solde_initial:
   return { success: true }
 }
 
-export async function addTransaction(data: { compte_id: string, type_transaction: string, montant: number, motif: string, credit_id?: string, type_piece?: string, imputation_id?: string, campagne_id?: string }) {
+export async function addTransaction(data: { compte_id: string, type_transaction: string, montant: number, motif: string, type_piece?: string, imputation_id?: string }) {
   const denied = await requirePermission('tresorerie', 'create')
   if (denied) return denied as never
   const supabase = await createClient()
@@ -95,10 +95,8 @@ export async function addTransaction(data: { compte_id: string, type_transaction
       type_transaction: data.type_transaction,
       montant: data.montant,
       motif: data.motif,
-      credit_id: data.credit_id || null,
       type_piece: data.type_piece || null,
       imputation_id: data.imputation_id || null,
-      campagne_id: data.campagne_id || null
     })
 
   if (error) return { error: error.message }
@@ -107,7 +105,7 @@ export async function addTransaction(data: { compte_id: string, type_transaction
   return { success: true }
 }
 
-export async function updateTransaction(id: string, data: { type_transaction: string, montant: number, motif: string, type_piece?: string, imputation_id?: string, campagne_id?: string }) {
+export async function updateTransaction(id: string, data: { type_transaction: string, montant: number, motif: string, type_piece?: string, imputation_id?: string }) {
   const denied = await requirePermission('tresorerie', 'update')
   if (denied) return denied as never
   const supabase = await createClient()
@@ -123,14 +121,12 @@ export async function updateTransaction(id: string, data: { type_transaction: st
       motif: data.motif,
       type_piece: data.type_piece || null,
       imputation_id: data.imputation_id || null,
-      campagne_id: data.campagne_id || null
     })
     .eq('id', id)
 
   if (error) return { error: error.message }
 
   revalidatePath('/tresorerie')
-  revalidatePath('/credits')
   return { success: true }
 }
 
@@ -150,7 +146,6 @@ export async function deleteTransaction(id: string) {
   if (error) return { error: error.message }
 
   revalidatePath('/tresorerie')
-  revalidatePath('/credits')
   return { success: true }
 }
 
@@ -200,56 +195,5 @@ export async function getJournal(compteId: string) {
   }
 }
 
-export async function getRapprochement(campagneId: string) {
-  const supabase = await createClient()
 
-  // 1. Récupérer le crédit lié à la campagne
-  const { data: credit } = await supabase
-    .from('credits')
-    .select('*')
-    .eq('campagne_id', campagneId)
-    .single()
-
-  if (!credit) return { error: "Aucun crédit trouvé pour cette campagne." }
-
-  // 2. Récupérer les transactions liées à ce crédit
-  const { data: transactions } = await supabase
-    .from('transactions')
-    .select('*, comptes(nom)')
-    .eq('credit_id', credit.id)
-
-  const montantAccorde = Number(credit.montant_accorde || 0)
-  
-  let totalPaiementsFournisseurs = 0
-  let totalRetraits = 0
-
-  const paiementsFournisseurs = []
-  const retraits = []
-
-  if (transactions) {
-    for (const t of transactions) {
-      if (t.type_piece === 'facture_fournisseur') {
-        totalPaiementsFournisseurs += Number(t.montant)
-        paiementsFournisseurs.push(t)
-      } else if (t.type_piece === 'retrait_espece') {
-        totalRetraits += Number(t.montant)
-        retraits.push(t)
-      }
-    }
-  }
-
-  const soldeCredit = montantAccorde - (totalPaiementsFournisseurs + totalRetraits)
-
-  return {
-    credit,
-    paiementsFournisseurs,
-    retraits,
-    bilan: {
-      montantAccorde,
-      totalPaiementsFournisseurs,
-      totalRetraits,
-      soldeCredit
-    }
-  }
-}
 
