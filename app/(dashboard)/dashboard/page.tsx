@@ -34,14 +34,14 @@ export default async function Dashboard() {
     // Activités récentes (Dernières ventes)
     supabase.from('ventes_pharmacie').select('id, montant_total, moyen_paiement, date_vente').order('date_vente', { ascending: false }).limit(4),
     // Aperçu financier (Trésorerie globale, partagée avec la logique existante)
-    supabase.from('comptes').select('solde_initial'),
+    supabase.from('comptes').select('solde'),
     supabase.from('transactions').select('type_transaction, montant'),
   ])
 
   // Calcul du CA du jour
   const caJour = ventesJourData?.reduce((acc, v) => acc + (Number(v.montant_total) || 0), 0) || 0
 
-  const soldeInitialTotal = comptes?.reduce((acc, c) => acc + (Number(c.solde_initial) || 0), 0) || 0
+  const soldeInitialTotal = comptes?.reduce((acc: number, c: any) => acc + (Number(c.solde || c.solde_initial) || 0), 0) || 0
   let totalEntrees = 0
   let totalSorties = 0
   

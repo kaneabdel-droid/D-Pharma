@@ -1,52 +1,56 @@
 @import "tailwindcss";
 
-:root {
-  /* Thème clair - Agriculture Ouest-Africaine */
-  --background: #ECEFEF;
+:root,
+.theme-officine,
+.theme-agriculture {
+  /* Thème Officine - Vert Médical & Croix Verte de Pharmacie */
+  --background: #F4F7F5;
   --surface: #FFFFFF;
   --foreground: #09090b;
   --foreground-muted: #334155;
-  --sidebar: #F4F6F5;
+  --sidebar: #EDF2EE;
 
-  --primary: #1E5631;
-  --primary-hover: #2F855A;
-  --secondary: #D97706;
+  --primary: #059669; /* Vert Officine Médical */
+  --primary-hover: #047857;
+  --secondary: #0284C7;
   --danger: #E74C3C;
   --success: #16A34A;
   --warning: #F59E0B;
   --info: #0284C7;
 }
 
+.theme-clinique,
 .theme-ocean {
-  /* Thème Océan - Couleurs marines et côtières */
+  /* Thème Clinique - Bleu Médical, Soins & Laboratoire */
   --background: #F0F4F8;
   --surface: #FFFFFF;
   --foreground: #0F172A;
   --foreground-muted: #334155;
   --sidebar: #EBF3FA;
 
-  --primary: #1E3A8A; /* Deep Navy Blue */
-  --primary-hover: #1D4ED8;
-  --secondary: #B45309; /* Sand / Amber */
+  --primary: #0284C7; /* Bleu Clinique / Sérum */
+  --primary-hover: #0369A1;
+  --secondary: #4F46E5;
   --danger: #E11D48;
   --success: #059669;
   --warning: #F59E0B;
   --info: #0EA5E9;
 }
 
+.theme-apothicaire,
 .theme-savane {
-  /* Thème Savane - Couleurs de la terre et du soleil */
+  /* Thème Apothicaire - Ambre Flacon & Pharmacopée */
   --background: #FCFBF8;
   --surface: #FFFFFF;
   --foreground: #271C19;
   --foreground-muted: #574640;
   --sidebar: #F5F2EC;
 
-  --primary: #9A3412; /* Terracotta / Rust */
-  --primary-hover: #C2410C;
-  --secondary: #854D0E; /* Dark Ochre / Yellow-Brown */
+  --primary: #B45309; /* Ambre Apothicaire / Caducée */
+  --primary-hover: #92400E;
+  --secondary: #854D0E;
   --danger: #DC2626;
-  --success: #65A30D;
+  --success: #16A34A;
   --warning: #CA8A04;
   --info: #0891B2;
 }

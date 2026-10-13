@@ -25,8 +25,8 @@ export async function getComptes() {
     .from('transactions')
     .select('compte_id, type_transaction, montant')
 
-  const comptesAvecSolde = comptes.map(compte => {
-    let solde = Number(compte.solde_initial || 0)
+  const comptesAvecSolde = comptes.map((compte: any) => {
+    let solde = Number(compte.solde || compte.solde_initial || 0)
     if (transactions) {
       const txs = transactions.filter(t => t.compte_id === compte.id)
       for (const t of txs) {
@@ -34,7 +34,7 @@ export async function getComptes() {
         else if (t.type_transaction === 'sortie') solde -= Number(t.montant)
       }
     }
-    return { ...compte, solde_courant: solde }
+    return { ...compte, type_compte: compte.type_compte || compte.type, solde_courant: solde }
   })
 
   return { comptes: comptesAvecSolde }
@@ -61,8 +61,8 @@ export async function addCompte(nom: string, type_compte: string, solde_initial:
     .insert({
       gie_id: userData.gie_id,
       nom,
-      type_compte,
-      solde_initial
+      type: type_compte,
+      solde: solde_initial
     })
 
   if (error) return { error: error.message }
@@ -154,7 +154,7 @@ export async function getJournal(compteId: string) {
 
   const { data: compte } = await supabase
     .from('comptes')
-    .select('solde_initial, nom')
+    .select('solde, nom')
     .eq('id', compteId)
     .single()
 
@@ -168,7 +168,7 @@ export async function getJournal(compteId: string) {
 
   if (error) return { error: error.message }
 
-  let soldeCourant = Number(compte.solde_initial || 0)
+  let soldeCourant = Number((compte as any).solde || (compte as any).solde_initial || 0)
   
   const journal = (transactions || []).map(tx => {
     let entree = null
@@ -190,7 +190,7 @@ export async function getJournal(compteId: string) {
 
   return { 
     journal: journal.reverse(), 
-    soldeInitial: compte.solde_initial, 
+    soldeInitial: (compte as any).solde || (compte as any).solde_initial || 0, 
     compteNom: compte.nom 
   }
 }

@@ -42,7 +42,7 @@ export default async function TresoreriePage() {
         {comptes?.map((compte) => (
           <div key={compte.id} className="overflow-hidden rounded-lg bg-surface px-4 py-5 shadow sm:p-6 border border-surface-border flex items-center gap-4">
             <div className="p-3 bg-secondary/10 text-secondary rounded-lg">
-              {compte.type_compte === 'caisse' ? <Wallet className="h-6 w-6" /> : <Landmark className="h-6 w-6" />}
+              {(compte.type_compte === 'caisse' || (compte as any).type === 'caisse') ? <Wallet className="h-6 w-6" /> : <Landmark className="h-6 w-6" />}
             </div>
           <div className="min-w-0">
             <dt className="truncate text-sm font-medium text-foreground-muted">{compte.nom}</dt>
