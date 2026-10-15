@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { ThemeSwitcher } from '../components/ThemeSwitcher'
@@ -43,6 +43,8 @@ export default function ClientLayout({
   menuLayout?: 'sidebar' | 'horizontal'
 }) {
   const [sidebarOpen, setSidebarOpen] = useState(false)
+  const [menuOuvert, setMenuOuvert] = useState<string | null>(null)
+  const navHorizontalRef = useRef<HTMLDivElement>(null)
   const pathname = usePathname()
 
   const navigation = [
@@ -56,15 +58,83 @@ export default function ClientLayout({
     { key: 'support', href: '/support', icon: LifeBuoy },
   ]
 
+  // Définition structurée par catégories pour le menu horizontal
+  const menuSections = [
+    {
+      titre: 'Pilotage',
+      items: [
+        { key: 'dashboard', href: '/dashboard', icon: LayoutDashboard },
+      ],
+    },
+    {
+      titre: 'Pharmacie',
+      items: [
+        { key: 'pos_pharma', href: '/pharmacie/pos', icon: Activity },
+        { key: 'stock_pharma', href: '/pharmacie/stocks', icon: PackageOpen },
+        { key: 'commandes_pharma', href: '/pharmacie/commandes', icon: Truck },
+      ],
+    },
+    {
+      titre: 'Trésorerie',
+      items: [
+        { key: 'tresorerie', href: '/tresorerie', icon: Landmark },
+      ],
+    },
+    {
+      titre: 'Administration',
+      items: [
+        { key: 'parametres', href: '/parametres', icon: Settings },
+        { key: 'abonnement', href: '/abonnement', icon: Shield },
+      ],
+    },
+    {
+      titre: 'Assistance',
+      items: [
+        { key: 'support', href: '/support', icon: LifeBuoy },
+      ],
+    },
+  ]
+
   useEffect(() => {
     setSidebarOpen(false)
+    setMenuOuvert(null)
   }, [pathname])
+
+  useEffect(() => {
+    function handleClickDehors(event: MouseEvent) {
+      if (navHorizontalRef.current && !navHorizontalRef.current.contains(event.target as Node)) {
+        setMenuOuvert(null)
+      }
+    }
+    function handleToucheClavier(event: KeyboardEvent) {
+      if (event.key === 'Escape') {
+        setMenuOuvert(null)
+      }
+    }
+    document.addEventListener('mousedown', handleClickDehors)
+    document.addEventListener('keydown', handleToucheClavier)
+    return () => {
+      document.removeEventListener('mousedown', handleClickDehors)
+      document.removeEventListener('keydown', handleToucheClavier)
+    }
+  }, [])
 
   const filteredNavigation = navigation.filter(item => {
     const moduleKey = moduleForPath(item.href)
     if (moduleKey && !hasPermission(role, permissions, moduleKey, 'read')) return false
     return true
   })
+
+  const filteredSections = menuSections
+    .map((section) => ({
+      ...section,
+      items: section.items.filter((item) => {
+        const moduleKey = moduleForPath(item.href)
+        if (moduleKey && !hasPermission(role, permissions, moduleKey, 'read')) return false
+        return true
+      }),
+    }))
+    .filter((section) => section.items.length > 0)
 
   return (
     <div>
@@ -142,25 +212,60 @@ export default function ClientLayout({
               </a>
             </div>
           </div>
-          {/* Horizontal navigation links */}
-          <nav className="flex items-center gap-1.5 px-6 py-2 overflow-x-auto text-sm">
-            {filteredNavigation.map((item) => {
-              const actif = pathname === item.href
+          {/* Navigation horizontale par catégories avec dropdowns */}
+          <nav ref={navHorizontalRef} className="flex items-center gap-1.5 px-6 py-2 flex-wrap text-xs relative">
+            {filteredSections.map((section) => {
+              const aUnItemActif = section.items.some((item) => pathname === item.href || (item.href !== '/dashboard' && pathname.startsWith(item.href)))
+              const estOuvert = menuOuvert === section.titre
+
               return (
-                <Link
-                  key={item.key}
-                  href={item.href}
-                  className={`
-                    flex items-center gap-2 rounded-lg px-3 py-1.5 text-xs font-semibold transition-colors whitespace-nowrap
-                    ${actif
-                      ? 'bg-primary text-white shadow-xs'
-                      : 'text-foreground-muted hover:text-foreground hover:bg-surface'
-                    }
-                  `}
+                <div
+                  key={section.titre}
+                  className="relative group"
+                  onMouseEnter={() => setMenuOuvert(section.titre)}
+                  onMouseLeave={() => setMenuOuvert((actuel) => (actuel === section.titre ? null : actuel))}
                 >
-                  <item.icon className="h-4 w-4 shrink-0" />
-                  <span>{dict.sidebar[item.key]}</span>
-                </Link>
+                  <button
+                    type="button"
+                    onClick={() => setMenuOuvert((actuel) => (actuel === section.titre ? null : section.titre))}
+                    aria-expanded={estOuvert}
+                    className={`flex items-center gap-1.5 rounded-md px-3 py-1.5 text-xs font-semibold transition-colors whitespace-nowrap cursor-pointer ${
+                      aUnItemActif || estOuvert
+                        ? 'bg-primary text-white shadow-xs'
+                        : 'text-foreground-muted hover:text-foreground hover:bg-surface'
+                    }`}
+                  >
+                    <span>{section.titre}</span>
+                    <span className={`text-[9px] opacity-70 transition-transform duration-150 ${estOuvert ? 'rotate-180' : ''}`}>▼</span>
+                  </button>
+
+                  <div
+                    className={`absolute left-0 top-full pt-1 z-50 transition-all duration-150 ${
+                      estOuvert ? 'block opacity-100 scale-100 pointer-events-auto' : 'hidden group-hover:block'
+                    }`}
+                  >
+                    <div className="min-w-56 rounded-xl border border-surface-border bg-sidebar p-1.5 shadow-xl">
+                      {section.items.map((item) => {
+                        const actif = pathname === item.href || (item.href !== '/dashboard' && pathname.startsWith(item.href))
+                        return (
+                          <Link
+                            key={item.key}
+                            href={item.href}
+                            onClick={() => setMenuOuvert(null)}
+                            className={`flex items-center gap-2.5 rounded-lg px-3 py-2 text-xs font-medium transition-colors ${
+                              actif
+                                ? 'bg-primary text-white'
+                                : 'text-foreground-muted hover:text-foreground hover:bg-surface'
+                            }`}
+                          >
+                            <item.icon className="h-4 w-4 shrink-0" />
+                            <span>{dict.sidebar?.[item.key] || item.key}</span>
+                          </Link>
+                        )
+                      })}
+                    </div>
+                  </div>
+                </div>
               )
             })}
           </nav>
