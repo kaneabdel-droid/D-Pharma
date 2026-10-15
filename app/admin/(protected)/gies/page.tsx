@@ -25,13 +25,13 @@ export default async function AdminGiesPage() {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold font-heading mb-6">GIE ({gies?.length ?? 0})</h1>
+      <h1 className="text-2xl font-bold font-heading mb-6">Pharmacies ({gies?.length ?? 0})</h1>
 
       <div className="bg-background rounded-xl border border-surface-border overflow-hidden overflow-x-auto">
         <table className="w-full text-sm">
           <thead className="bg-surface text-foreground-muted text-left">
             <tr>
-              <th className="px-4 py-3 font-medium">Nom</th>
+              <th className="px-4 py-3 font-medium">Officine / Établissement</th>
               <th className="px-4 py-3 font-medium">Email</th>
               <th className="px-4 py-3 font-medium">Forfait</th>
               <th className="px-4 py-3 font-medium">Statut</th>

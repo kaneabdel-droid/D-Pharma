@@ -36,7 +36,7 @@ export default async function AdminGieDetailPage({ params }: { params: Promise<{
   return (
     <div>
       <Link href="/admin/gies" className="text-foreground-muted hover:text-primary flex items-center gap-2 w-fit mb-6 text-sm">
-        <ArrowLeft className="w-4 h-4" /> Retour aux GIE
+        <ArrowLeft className="w-4 h-4" /> Retour aux pharmacies
       </Link>
 
       <h1 className="text-2xl font-bold font-heading mb-6 break-words">{gie.nom}</h1>

@@ -51,7 +51,7 @@ export default async function AdminPaiementsPage({
           <thead className="bg-surface text-foreground-muted text-left">
             <tr>
               <th className="px-4 py-3 font-medium">Date</th>
-              <th className="px-4 py-3 font-medium">GIE</th>
+              <th className="px-4 py-3 font-medium">Officine / Établissement</th>
               <th className="px-4 py-3 font-medium">Forfait</th>
               <th className="px-4 py-3 font-medium">Montant</th>
               <th className="px-4 py-3 font-medium">Prestataire</th>
