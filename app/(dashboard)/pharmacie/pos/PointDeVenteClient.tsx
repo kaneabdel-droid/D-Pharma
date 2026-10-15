@@ -151,73 +151,153 @@ export default function PointDeVenteClient({
       </div>
 
       {/* Colonne de Droite : Panier / Ticket de caisse */}
-      <div className="bg-surface border border-surface-border rounded-2xl shadow-sm flex flex-col h-[calc(100vh-8rem)] sticky top-6">
-        <div className="p-6 border-b border-surface-border">
-          <h2 className="text-xl font-bold font-heading text-foreground flex items-center gap-2">
-            <ShoppingCart className="w-6 h-6 text-primary" />
-            Panier en cours
-          </h2>
-        </div>
-
-        <div className="flex-1 overflow-y-auto p-6 space-y-4">
-          {cart.length === 0 ? (
-            <div className="text-center text-foreground-muted py-12">
-              Le panier est vide. Scanner un article pour commencer.
+      <div className="bg-surface border-2 border-surface-border rounded-2xl shadow-md flex flex-col h-[calc(100vh-8rem)] sticky top-6">
+        <div className="p-5 border-b border-surface-border bg-background/60 flex items-center justify-between">
+          <div className="flex items-center gap-2.5">
+            <div className="p-2 bg-primary/10 text-primary rounded-xl">
+              <ShoppingCart className="w-5 h-5" />
             </div>
-          ) : (
-            cart.map(item => (
-              <div key={item.medicament_id} className="flex items-center justify-between bg-background p-3 rounded-xl border border-surface-border">
-                <div className="min-w-0 flex-1">
-                  <div className="font-bold text-foreground truncate">{item.nom}</div>
-                  <div className="text-sm text-foreground-muted">{item.prix_unitaire.toLocaleString('fr-FR')} FCFA / u</div>
-                </div>
-                <div className="flex items-center gap-3 ml-4">
-                  <div className="flex items-center bg-surface border border-surface-border rounded-lg">
-                    <button onClick={() => updateQuantity(item.medicament_id, -1)} className="p-1 hover:text-primary"><Minus className="w-4 h-4" /></button>
-                    <span className="w-8 text-center font-medium">{item.quantite}</span>
-                    <button onClick={() => updateQuantity(item.medicament_id, 1)} className="p-1 hover:text-primary"><Plus className="w-4 h-4" /></button>
-                  </div>
-                  <button onClick={() => removeFromCart(item.medicament_id)} className="text-danger hover:text-danger/80 p-1">
-                    <Trash2 className="w-5 h-5" />
-                  </button>
-                </div>
-              </div>
-            ))
+            <div>
+              <h2 className="text-lg font-bold font-heading text-foreground">Panier en cours</h2>
+              <p className="text-xs text-foreground-muted">
+                {cart.reduce((s, i) => s + i.quantite, 0)} article(s) sélectionné(s)
+              </p>
+            </div>
+          </div>
+          {cart.length > 0 && (
+            <button
+              onClick={() => setCart([])}
+              className="text-xs text-danger hover:underline font-medium px-2 py-1"
+            >
+              Vider le panier
+            </button>
           )}
         </div>
 
-        <div className="p-6 border-t border-surface-border bg-background/50 rounded-b-2xl">
-          <div className="flex justify-between items-center mb-6">
-            <span className="text-foreground-muted font-medium">Total à payer</span>
-            <span className="text-3xl font-bold text-primary">{totalAmount.toLocaleString('fr-FR')} FCFA</span>
+        <div className="flex-1 overflow-y-auto p-4 sm:p-5 space-y-3">
+          {cart.length === 0 ? (
+            <div className="text-center text-foreground-muted py-16 flex flex-col items-center justify-center">
+              <div className="w-16 h-16 rounded-full bg-surface-border/40 flex items-center justify-center mb-3 text-foreground-muted">
+                <ShoppingCart className="w-8 h-8 opacity-40" />
+              </div>
+              <p className="font-semibold text-foreground">Le panier est vide</p>
+              <p className="text-sm mt-1 max-w-xs">Sélectionnez un médicament ou scannez son code-barres pour commencer la vente.</p>
+            </div>
+          ) : (
+            cart.map(item => {
+              const ligneTotal = item.prix_unitaire * item.quantite
+              return (
+                <div
+                  key={item.medicament_id}
+                  className="bg-background p-4 rounded-xl border-2 border-surface-border hover:border-primary/40 transition-all shadow-sm"
+                >
+                  <div className="flex items-start justify-between gap-2 mb-2">
+                    <div className="min-w-0 flex-1">
+                      <div className="text-base font-bold text-foreground leading-snug line-clamp-2">
+                        {item.nom}
+                      </div>
+                      <div className="text-xs font-semibold text-primary mt-0.5">
+                        {item.prix_unitaire.toLocaleString('fr-FR')} FCFA <span className="text-foreground-muted font-normal">/ unité</span>
+                      </div>
+                    </div>
+                    <div className="text-right shrink-0">
+                      <div className="text-base font-extrabold text-foreground">
+                        {ligneTotal.toLocaleString('fr-FR')} FCFA
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center justify-between pt-2 border-t border-surface-border/60">
+                    <div className="flex items-center gap-1.5 bg-surface border-2 border-surface-border rounded-xl p-0.5 shadow-inner">
+                      <button
+                        onClick={() => updateQuantity(item.medicament_id, -1)}
+                        className="w-8 h-8 rounded-lg flex items-center justify-center text-foreground hover:bg-background hover:text-primary transition-colors active:scale-95"
+                        aria-label="Diminuer la quantité"
+                      >
+                        <Minus className="w-4 h-4" />
+                      </button>
+                      <span className="w-10 text-center font-bold text-base text-foreground">
+                        {item.quantite}
+                      </span>
+                      <button
+                        onClick={() => updateQuantity(item.medicament_id, 1)}
+                        className="w-8 h-8 rounded-lg flex items-center justify-center text-foreground hover:bg-background hover:text-primary transition-colors active:scale-95"
+                        aria-label="Augmenter la quantité"
+                      >
+                        <Plus className="w-4 h-4" />
+                      </button>
+                    </div>
+
+                    <button
+                      onClick={() => removeFromCart(item.medicament_id)}
+                      className="text-danger/80 hover:text-danger p-2 rounded-lg hover:bg-danger/10 transition-colors"
+                      title="Supprimer la ligne"
+                    >
+                      <Trash2 className="w-4 h-4" />
+                    </button>
+                  </div>
+                </div>
+              )
+            })
+          )}
+        </div>
+
+        <div className="p-5 border-t-2 border-surface-border bg-background/80 rounded-b-2xl backdrop-blur-sm">
+          {/* Card Total à Payer Haute Visibilité */}
+          <div className="bg-gradient-to-br from-primary/15 via-primary/5 to-surface border-2 border-primary/30 rounded-xl p-4 mb-5 shadow-sm">
+            <div className="flex justify-between items-baseline mb-1">
+              <span className="text-xs uppercase tracking-wider font-bold text-foreground-muted">Total à payer</span>
+              <span className="text-xs font-semibold text-primary">{cart.length} référence(s)</span>
+            </div>
+            <div className="text-3xl sm:text-4xl font-extrabold text-primary tracking-tight">
+              {totalAmount.toLocaleString('fr-FR')} <span className="text-xl sm:text-2xl font-bold">FCFA</span>
+            </div>
           </div>
 
-          <div className="grid grid-cols-3 gap-2 mb-6">
-            <button 
+          {/* Sélecteur Mode de Règlement */}
+          <div className="grid grid-cols-3 gap-2.5 mb-4">
+            <button
+              type="button"
               onClick={() => setMoyenPaiement('especes')}
-              className={`flex flex-col items-center gap-1 p-2 rounded-lg border ${moyenPaiement === 'especes' ? 'bg-primary/10 border-primary text-primary' : 'bg-surface border-surface-border hover:bg-surface-border'}`}
+              className={`flex flex-col items-center justify-center gap-1.5 py-3 px-2 rounded-xl border-2 transition-all font-semibold text-xs ${
+                moyenPaiement === 'especes'
+                  ? 'bg-primary text-white border-primary shadow-sm scale-[1.02]'
+                  : 'bg-surface border-surface-border text-foreground hover:bg-surface-hover'
+              }`}
             >
               <Banknote className="w-5 h-5" />
-              <span className="text-xs font-medium">Espèces</span>
+              <span>Espèces</span>
             </button>
-            <button 
+            <button
+              type="button"
               onClick={() => setMoyenPaiement('mobile_money')}
-              className={`flex flex-col items-center gap-1 p-2 rounded-lg border ${moyenPaiement === 'mobile_money' ? 'bg-primary/10 border-primary text-primary' : 'bg-surface border-surface-border hover:bg-surface-border'}`}
+              className={`flex flex-col items-center justify-center gap-1.5 py-3 px-2 rounded-xl border-2 transition-all font-semibold text-xs ${
+                moyenPaiement === 'mobile_money'
+                  ? 'bg-primary text-white border-primary shadow-sm scale-[1.02]'
+                  : 'bg-surface border-surface-border text-foreground hover:bg-surface-hover'
+              }`}
             >
               <Smartphone className="w-5 h-5" />
-              <span className="text-xs font-medium">Mobile</span>
+              <span>Mobile</span>
             </button>
-            <button 
+            <button
+              type="button"
               onClick={() => setMoyenPaiement('carte')}
-              className={`flex flex-col items-center gap-1 p-2 rounded-lg border ${moyenPaiement === 'carte' ? 'bg-primary/10 border-primary text-primary' : 'bg-surface border-surface-border hover:bg-surface-border'}`}
+              className={`flex flex-col items-center justify-center gap-1.5 py-3 px-2 rounded-xl border-2 transition-all font-semibold text-xs ${
+                moyenPaiement === 'carte'
+                  ? 'bg-primary text-white border-primary shadow-sm scale-[1.02]'
+                  : 'bg-surface border-surface-border text-foreground hover:bg-surface-hover'
+              }`}
             >
               <CreditCard className="w-5 h-5" />
-              <span className="text-xs font-medium">Carte</span>
+              <span>Carte</span>
             </button>
           </div>
 
           {message && (
-            <div className={`mb-4 p-3 rounded-lg text-sm font-medium ${message.type === 'success' ? 'bg-success/10 text-success' : 'bg-danger/10 text-danger'}`}>
+            <div className={`mb-4 p-3 rounded-xl text-sm font-semibold flex items-center gap-2 ${
+              message.type === 'success' ? 'bg-success/15 text-success border border-success/30' : 'bg-danger/15 text-danger border border-danger/30'
+            }`}>
               {message.text}
             </div>
           )}
@@ -225,9 +305,9 @@ export default function PointDeVenteClient({
           <button
             onClick={handleCheckout}
             disabled={cart.length === 0 || isSubmitting}
-            className="w-full bg-primary text-white py-4 rounded-xl font-bold text-lg hover:bg-primary-hover disabled:opacity-50 disabled:cursor-not-allowed transition-colors shadow-sm"
+            className="w-full bg-primary text-white py-3.5 rounded-xl font-extrabold text-base sm:text-lg hover:bg-primary-hover disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-md active:scale-[0.99] flex items-center justify-center gap-2"
           >
-            {isSubmitting ? 'Enregistrement...' : 'Valider l\'encaissement'}
+            {isSubmitting ? 'Validation en cours...' : "Valider l'encaissement"}
           </button>
         </div>
       </div>

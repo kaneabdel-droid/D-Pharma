@@ -29,7 +29,8 @@ export default function ClientLayout({
   gieName,
   devise = 'XOF',
   dict,
-  locale
+  locale,
+  menuLayout = 'sidebar',
 }: {
   children: React.ReactNode
   subscriptionTier: string
@@ -39,6 +40,7 @@ export default function ClientLayout({
   devise?: string
   dict: any
   locale: string
+  menuLayout?: 'sidebar' | 'horizontal'
 }) {
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const pathname = usePathname()
@@ -118,56 +120,103 @@ export default function ClientLayout({
         </div>
       </div>
 
-      {/* Static sidebar for desktop */}
-      <div className="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-60 lg:flex-col">
-        {/* Sidebar component */}
-        <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-[var(--sidebar)] border-r border-surface-border px-4 pb-4">
-          <div className="flex h-16 shrink-0 items-center">
-            <h1 className="text-3xl font-bold text-primary font-heading tracking-wide">D-PHARMA</h1>
+      {/* Desktop Navigation */}
+      {menuLayout === 'horizontal' ? (
+        <header className="sticky top-0 z-40 hidden w-full border-b border-surface-border bg-background lg:block">
+          <div className="flex h-16 items-center justify-between px-6 border-b border-surface-border">
+            <div className="flex items-center gap-3">
+              <h1 className="text-2xl font-bold text-primary font-heading tracking-wide">D-PHARMA</h1>
+              <span className="text-surface-border">|</span>
+              <span className="text-sm font-semibold text-foreground truncate max-w-xs">{gieName}</span>
+            </div>
+            <div className="flex items-center gap-4">
+              <LanguageSelector currentLang={locale} />
+              <ThemeSwitcher />
+              <a
+                href="/logout"
+                className="flex items-center gap-1.5 text-xs font-semibold text-foreground-muted hover:text-danger transition-colors p-2 rounded-md hover:bg-black/5"
+                title={dict.sidebar.logout}
+              >
+                <LogOut className="h-4 w-4" />
+                <span>{dict.sidebar.logout}</span>
+              </a>
+            </div>
           </div>
-          <nav className="flex flex-1 flex-col">
-            <ul role="list" className="flex flex-1 flex-col gap-y-7">
-              <li>
-                <ul role="list" className="-mx-2 space-y-1">
-                  {filteredNavigation.map((item) => (
-                    <li key={item.key}>
-                      <Link
-                        href={item.href}
-                        className={`
-                          group flex items-center gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold transition-colors
-                          ${pathname === item.href
-                            ? 'bg-primary text-white'
-                            : 'text-foreground-muted hover:text-foreground hover:bg-black/5'
-                          }
-                        `}
-                      >
-                        <item.icon
-                          className={`h-6 w-6 shrink-0 ${pathname === item.href ? 'text-white' : 'text-foreground-muted group-hover:text-foreground'}`}
-                          aria-hidden="true"
-                        />
-                        <span className="truncate">{dict.sidebar[item.key]}</span>
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </li>
-              
-              <li className="mt-auto">
-                <a
-                  href="/logout"
-                  className="group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-foreground-muted hover:bg-black/5 hover:text-danger transition-colors"
+          {/* Horizontal navigation links */}
+          <nav className="flex items-center gap-1.5 px-6 py-2 overflow-x-auto text-sm">
+            {filteredNavigation.map((item) => {
+              const actif = pathname === item.href
+              return (
+                <Link
+                  key={item.key}
+                  href={item.href}
+                  className={`
+                    flex items-center gap-2 rounded-lg px-3 py-1.5 text-xs font-semibold transition-colors whitespace-nowrap
+                    ${actif
+                      ? 'bg-primary text-white shadow-xs'
+                      : 'text-foreground-muted hover:text-foreground hover:bg-surface'
+                    }
+                  `}
                 >
-                  <LogOut className="h-6 w-6 shrink-0 text-foreground-muted group-hover:text-danger" aria-hidden="true" />
-                  {dict.sidebar.logout}
-                </a>
-              </li>
-            </ul>
+                  <item.icon className="h-4 w-4 shrink-0" />
+                  <span>{dict.sidebar[item.key]}</span>
+                </Link>
+              )
+            })}
           </nav>
+        </header>
+      ) : (
+        /* Static sidebar for desktop */
+        <div className="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-60 lg:flex-col">
+          {/* Sidebar component */}
+          <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-[var(--sidebar)] border-r border-surface-border px-4 pb-4">
+            <div className="flex h-16 shrink-0 items-center">
+              <h1 className="text-3xl font-bold text-primary font-heading tracking-wide">D-PHARMA</h1>
+            </div>
+            <nav className="flex flex-1 flex-col">
+              <ul role="list" className="flex flex-1 flex-col gap-y-7">
+                <li>
+                  <ul role="list" className="-mx-2 space-y-1">
+                    {filteredNavigation.map((item) => (
+                      <li key={item.key}>
+                        <Link
+                          href={item.href}
+                          className={`
+                            group flex items-center gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold transition-colors
+                            ${pathname === item.href
+                              ? 'bg-primary text-white'
+                              : 'text-foreground-muted hover:text-foreground hover:bg-black/5'
+                            }
+                          `}
+                        >
+                          <item.icon
+                            className={`h-6 w-6 shrink-0 ${pathname === item.href ? 'text-white' : 'text-foreground-muted group-hover:text-foreground'}`}
+                            aria-hidden="true"
+                          />
+                          <span className="truncate">{dict.sidebar[item.key]}</span>
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </li>
+                
+                <li className="mt-auto">
+                  <a
+                    href="/logout"
+                    className="group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-foreground-muted hover:bg-black/5 hover:text-danger transition-colors"
+                  >
+                    <LogOut className="h-6 w-6 shrink-0 text-foreground-muted group-hover:text-danger" aria-hidden="true" />
+                    {dict.sidebar.logout}
+                  </a>
+                </li>
+              </ul>
+            </nav>
+          </div>
         </div>
-      </div>
+      )}
 
-      <div className="lg:pl-60">
-        <div className="sticky top-0 z-40 flex h-16 shrink-0 items-center gap-x-4 border-b border-surface-border bg-background px-4 shadow-sm sm:gap-x-6 sm:px-6 lg:px-8">
+      <div className={menuLayout === 'horizontal' ? 'w-full' : 'lg:pl-60'}>
+        <div className={`sticky top-0 z-40 flex h-16 shrink-0 items-center gap-x-4 border-b border-surface-border bg-background px-4 shadow-sm sm:gap-x-6 sm:px-6 lg:px-8 ${menuLayout === 'horizontal' ? 'lg:hidden' : ''}`}>
           <button type="button" className="-m-2.5 p-2.5 text-foreground-muted lg:hidden" onClick={() => setSidebarOpen(true)}>
             <span className="sr-only">{dict.header.open_sidebar}</span>
             <Menu className="h-6 w-6" aria-hidden="true" />

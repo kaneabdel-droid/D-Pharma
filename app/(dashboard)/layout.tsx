@@ -18,6 +18,10 @@ export default async function DashboardLayout({
     redirect('/abonnement?essai_expire=1')
   }
 
+  const { cookies } = await import('next/headers')
+  const cookieStore = await cookies()
+  const menuLayout = (cookieStore.get('menu_layout')?.value === 'horizontal' ? 'horizontal' : 'sidebar') as 'sidebar' | 'horizontal'
+
   const locale = await getLocale()
   const dict = await getDictionary(locale)
 
@@ -30,6 +34,7 @@ export default async function DashboardLayout({
       devise={tenant.devise}
       dict={dict}
       locale={locale}
+      menuLayout={menuLayout}
     >
       {children}
     </ClientLayout>

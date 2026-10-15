@@ -6,24 +6,34 @@ import { addTransaction } from '../actions'
 
 export default function AddTransactionModal({
   compteId,
+  comptes = [],
   imputations,
   onSuccess,
   dict,
 }: {
   compteId: string,
+  comptes?: any[],
   imputations: any[],
-  onSuccess: () => void,
+  onSuccess: (newCompteId?: string) => void,
   dict: any,
 }) {
   const [isOpen, setIsOpen] = useState(false)
+  const [selectedCompteId, setSelectedCompteId] = useState(compteId)
   const [loading, setLoading] = useState(false)
   const t = dict.tresorerie_pages.journaux.form
+
+  // Synchroniser le compte sélectionné lors de l'ouverture
+  const handleOpen = () => {
+    setSelectedCompteId(compteId || (comptes[0]?.id ?? ''))
+    setIsOpen(true)
+  }
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
     setLoading(true)
     const formData = new FormData(e.currentTarget)
 
+    const compte_id = (formData.get('compte_id') as string) || selectedCompteId || compteId
     const type_transaction = formData.get('type_transaction') as string
     const montant = Number(formData.get('montant'))
     const motif = formData.get('motif') as string
@@ -31,7 +41,7 @@ export default function AddTransactionModal({
     const imputation_id = (formData.get('imputation_id') as string) || undefined
 
     const res = await addTransaction({
-      compte_id: compteId,
+      compte_id,
       type_transaction,
       montant,
       motif,
@@ -44,14 +54,14 @@ export default function AddTransactionModal({
       alert(res.error)
     } else {
       setIsOpen(false)
-      onSuccess()
+      onSuccess(compte_id)
     }
   }
 
   return (
     <>
       <button
-        onClick={() => setIsOpen(true)}
+        onClick={handleOpen}
         className="inline-flex items-center gap-x-2 rounded-md bg-secondary px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-secondary/90"
       >
         <Plus className="-ml-0.5 h-5 w-5" aria-hidden="true" />
@@ -69,6 +79,28 @@ export default function AddTransactionModal({
                   {t.title}
                 </h3>
                 <form id="add-tx-form" onSubmit={handleSubmit} className="space-y-4">
+                  {comptes && comptes.length > 0 && (
+                    <div>
+                      <label htmlFor="compte_id" className="block text-sm font-medium text-foreground">
+                        {dict.tresorerie_pages?.journaux?.select_account || 'Compte de trésorerie (Caisse / Banque)'} *
+                      </label>
+                      <select
+                        name="compte_id"
+                        id="compte_id"
+                        required
+                        value={selectedCompteId}
+                        onChange={(e) => setSelectedCompteId(e.target.value)}
+                        className="mt-1 block w-full rounded-md border border-surface-border bg-background px-3 py-2 text-foreground font-medium shadow-sm focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary sm:text-sm"
+                      >
+                        {comptes.map((c) => (
+                          <option key={c.id} value={c.id}>
+                            {c.nom} ({c.type_compte || c.type})
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  )}
+
                   <div>
                     <label htmlFor="type_transaction" className="block text-sm font-medium text-foreground">{t.type_label}</label>
                     <select

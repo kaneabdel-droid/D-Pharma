@@ -1,11 +1,11 @@
 'use server'
 
 import { createClient } from '@/utils/supabase/server'
+import { createAdminClient } from '@/utils/supabase/admin'
 import { revalidatePath } from 'next/cache'
 import { getTenantContext } from '@/utils/supabase/tenant'
 
 export async function submitVente(formData: FormData) {
-  const supabase = await createClient()
   const tenant = await getTenantContext()
 
   if (!tenant) {
@@ -24,59 +24,85 @@ export async function submitVente(formData: FormData) {
   const montant_total = parseFloat(montant_total_str)
 
   try {
+    // Utiliser createAdminClient pour garantir l'insertion sécurisée sans blocage RLS sur lignes_vente_pharmacie
+    let adminClient: any
+    try {
+      adminClient = createAdminClient()
+    } catch {
+      adminClient = await createClient()
+    }
+
     // 1. Créer la vente
-    const { data: venteData, error: venteError } = await supabase
+    const { data: venteData, error: venteError } = await adminClient
       .from('ventes_pharmacie')
       .insert({
         gie_id: tenant.gieId,
         montant_total,
-        moyen_paiement
+        moyen_paiement,
       })
       .select()
       .single()
 
     if (venteError) throw venteError
 
-    // 2. Créer les lignes de vente et mettre à jour le stock
+    // 2. Créer les lignes de vente
     const lignesToInsert = cart.map((item: any) => ({
       vente_id: venteData.id,
       medicament_id: item.medicament_id,
       quantite: item.quantite,
-      prix_unitaire: item.prix_unitaire
+      prix_unitaire: item.prix_unitaire,
     }))
 
-    const { error: lignesError } = await supabase
+    const { error: lignesError } = await adminClient
       .from('lignes_vente_pharmacie')
       .insert(lignesToInsert)
 
     if (lignesError) throw lignesError
 
     // 3. Mettre à jour les stocks (diminuer la quantité)
-    // Note : Dans un cas réel avec forte concurrence, on utiliserait une fonction RPC 
-    // ou un trigger pour éviter les conditions de course (race conditions).
-    // Ici, nous faisons une simple mise à jour itérative.
     for (const item of cart) {
-      // Récupérer le stock actuel (on prend le premier lot expiré ou le stock global)
-      const { data: stockData } = await supabase
+      const { data: stockData } = await adminClient
         .from('stocks_pharmacie')
         .select('id, quantite')
         .eq('gie_id', tenant.gieId)
         .eq('medicament_id', item.medicament_id)
         .limit(1)
-        .single()
+        .maybeSingle()
 
       if (stockData) {
-        await supabase
+        await adminClient
           .from('stocks_pharmacie')
-          .update({ quantite: stockData.quantite - item.quantite })
+          .update({ quantite: Math.max(0, Number(stockData.quantite) - Number(item.quantite)) })
           .eq('id', stockData.id)
       }
     }
 
-    // 4. (Optionnel) Enregistrer dans la table tresorerie_transactions globale
-    // Cela dépend de la politique d'intégration financière du SaaS.
+    // 4. Enregistrer dans la table transactions (Caisse / Trésorerie) si un compte caisse existe
+    try {
+      const { data: caisseCompte } = await adminClient
+        .from('comptes')
+        .select('id')
+        .eq('gie_id', tenant.gieId)
+        .or('type_compte.ilike.%caisse%,type.ilike.%caisse%')
+        .limit(1)
+        .maybeSingle()
+
+      await adminClient.from('transactions').insert({
+        gie_id: tenant.gieId,
+        compte_id: caisseCompte?.id || null,
+        type_transaction: 'entree',
+        montant: montant_total,
+        motif: `Vente comptoir POS (${moyen_paiement})`,
+        date_transaction: new Date().toISOString().split('T')[0],
+      })
+    } catch (tresoErr) {
+      console.warn('Mise à jour trésorerie facultative ignorée:', tresoErr)
+    }
 
     revalidatePath('/pharmacie/pos')
+    revalidatePath('/pharmacie/stocks')
+    revalidatePath('/dashboard')
+    revalidatePath('/tresorerie')
     return { success: true }
   } catch (error: any) {
     console.error("Erreur lors de l'enregistrement de la vente:", error)

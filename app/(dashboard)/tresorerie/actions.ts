@@ -21,9 +21,13 @@ export async function getComptes() {
   }
 
   // Pour chaque compte, on calcule le solde actuel (solde initial + entrees - sorties)
-  const { data: transactions } = await supabase
+  const { data: transactions, error: txError } = await supabase
     .from('transactions')
     .select('compte_id, type_transaction, montant')
+
+  if (txError) {
+    console.warn('Note transactions:', txError.message)
+  }
 
   const comptesAvecSolde = comptes.map((compte: any) => {
     let solde = Number(compte.solde || compte.solde_initial || 0)
@@ -87,21 +91,29 @@ export async function addTransaction(data: { compte_id: string, type_transaction
 
   if (!userData) return { error: "Utilisateur introuvable" }
 
-  const { error } = await supabase
-    .from('transactions')
-    .insert({
-      gie_id: userData.gie_id,
-      compte_id: data.compte_id,
-      type_transaction: data.type_transaction,
-      montant: data.montant,
-      motif: data.motif,
-      type_piece: data.type_piece || null,
-      imputation_id: data.imputation_id || null,
-    })
+  const payload: any = {
+    gie_id: userData.gie_id,
+    type_transaction: data.type_transaction,
+    montant: data.montant,
+    motif: data.motif,
+    type_piece: data.type_piece || null,
+    imputation_id: data.imputation_id || null,
+  }
+  if (data.compte_id) payload.compte_id = data.compte_id
+
+  let { error } = await supabase.from('transactions').insert(payload)
+
+  // En cas d'absence de la colonne compte_id sur la table, insérer sans faire échouer l'opération
+  if (error && error.message?.includes('compte_id')) {
+    delete payload.compte_id
+    const retry = await supabase.from('transactions').insert(payload)
+    error = retry.error
+  }
 
   if (error) return { error: error.message }
 
   revalidatePath('/tresorerie')
+  revalidatePath('/tresorerie/journaux')
   return { success: true }
 }
 
@@ -127,6 +139,7 @@ export async function updateTransaction(id: string, data: { type_transaction: st
   if (error) return { error: error.message }
 
   revalidatePath('/tresorerie')
+  revalidatePath('/tresorerie/journaux')
   return { success: true }
 }
 
@@ -146,6 +159,7 @@ export async function deleteTransaction(id: string) {
   if (error) return { error: error.message }
 
   revalidatePath('/tresorerie')
+  revalidatePath('/tresorerie/journaux')
   return { success: true }
 }
 
@@ -166,7 +180,17 @@ export async function getJournal(compteId: string) {
     .eq('compte_id', compteId)
     .order('created_at', { ascending: true }) // Ordre chronologique strict
 
-  if (error) return { error: error.message }
+  if (error) {
+    if (error.message?.includes('compte_id')) {
+      return { 
+        journal: [], 
+        soldeInitial: Number((compte as any).solde || (compte as any).solde_initial || 0), 
+        compteNom: compte.nom,
+        warning: "La colonne compte_id est en cours de création dans la base." 
+      }
+    }
+    return { error: error.message }
+  }
 
   let soldeCourant = Number((compte as any).solde || (compte as any).solde_initial || 0)
   

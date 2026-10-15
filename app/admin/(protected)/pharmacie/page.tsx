@@ -54,7 +54,7 @@ export default async function AdminDPharmaDashboardPage() {
   }))
 
   const cards = [
-    { label: 'GIE au total', value: gies?.length ?? 0, icon: Building2 },
+    { label: 'Officines au total', value: gies?.length ?? 0, icon: Building2 },
     { label: 'Virements en attente de confirmation', value: virementsEnAttente?.length ?? 0, icon: Clock },
     { label: 'Autres paiements en attente', value: paiementsEnAttente?.length ?? 0, icon: Wallet },
     { label: 'Revenu global du mois (FCFA)', value: revenuDuMois.toLocaleString('fr-FR'), icon: TrendingUp },

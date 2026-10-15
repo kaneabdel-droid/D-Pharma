@@ -18,6 +18,10 @@ export default async function ParametresPage() {
     .eq('id', tenant.gieId)
     .single()
 
+  const { cookies } = await import('next/headers')
+  const cookieStore = await cookies()
+  const menuLayout = (cookieStore.get('menu_layout')?.value === 'horizontal' ? 'horizontal' : 'sidebar') as 'sidebar' | 'horizontal'
+
   return (
     <div>
       <h1 className="text-2xl font-bold font-heading text-foreground mb-2">{t.title}</h1>
@@ -25,6 +29,7 @@ export default async function ParametresPage() {
 
       <ParametresForm
         dict={dict}
+        menuLayout={menuLayout}
         gie={{
           nom: gie?.nom ?? '',
           adresse: gie?.adresse ?? '',

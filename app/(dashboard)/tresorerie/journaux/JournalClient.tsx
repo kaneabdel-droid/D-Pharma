@@ -52,7 +52,19 @@ export default function JournalClient({ comptes, imputations, dict, locale, gieN
         </div>
         <div className="mt-4 sm:mt-0 sm:flex-none flex items-center gap-2">
           <PrintSectionButton sectionId="journal-print" label={dict.common.print} />
-          <AddTransactionModal compteId={selectedCompte} imputations={imputations} onSuccess={fetchJournal} dict={dict} />
+          <AddTransactionModal 
+            compteId={selectedCompte} 
+            comptes={comptes}
+            imputations={imputations} 
+            onSuccess={(newCompteId) => {
+              if (newCompteId && newCompteId !== selectedCompte) {
+                setSelectedCompte(newCompteId)
+              } else {
+                fetchJournal()
+              }
+            }} 
+            dict={dict} 
+          />
         </div>
       </div>
 

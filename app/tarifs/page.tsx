@@ -27,7 +27,7 @@ export default async function TarifsDpharmaPage() {
               Tarifs <span className="text-primary">D-PHARMA</span>
             </h1>
             <p className="text-lg md:text-xl text-foreground-muted leading-relaxed">
-              Des forfaits transparents et adaptés à la taille de votre officine. Essai gratuit de 7 jours, sans engagement.
+              Un forfait annuel selon votre statut
             </p>
           </div>
         </section>

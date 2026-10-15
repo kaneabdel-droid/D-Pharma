@@ -4,10 +4,8 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { CreditCard, Smartphone, Banknote, ArrowLeft, Clock } from 'lucide-react'
-import { initiateSubscriptionPayment } from './actions'
+import { initiateSubscriptionPayment, type MoyenPaiement } from './actions'
 import { montantUsd } from '@/lib/payments/dollars'
-
-type MoyenPaiement = 'wave' | 'orange' | 'carte' | 'virement' | 'chariow' | 'maketou'
 
 export default function CheckoutClient({
   initialPlan,
@@ -32,23 +30,16 @@ export default function CheckoutClient({
   const d = dict.checkout_extra
   const localeCode = locale === 'fr' ? 'fr-FR' : 'en-US'
 
-  // Chariow ne facture que le prix plein d'un forfait (produit préconfiguré dans sa
-  // boutique) : jamais disponible pour un montant de proratisation d'upgrade.
-  const chariowDisponible = hasOnlinePayment.chariow && !isUpgrade && !enDollars
-  const maketouDisponible = hasOnlinePayment.maketou && !isUpgrade && !enDollars
-
   const availableMethods: MoyenPaiement[] = enDollars
     ? hasOnlinePayment.carte ? ['carte'] : []
     : [
-        ...(hasOnlinePayment.mobileMoney ? (['wave'] as const) : []),
+        'mobile_money',
         ...(hasOnlinePayment.carte ? (['carte'] as const) : []),
-        ...(chariowDisponible ? (['chariow'] as const) : []),
-        ...(maketouDisponible ? (['maketou'] as const) : []),
         'virement',
       ]
 
   const router = useRouter()
-  const [paymentMethod, setPaymentMethod] = useState<MoyenPaiement>(availableMethods[0])
+  const [paymentMethod, setPaymentMethod] = useState<MoyenPaiement>(availableMethods[0] || 'mobile_money')
   const [phoneLocal, setPhoneLocal] = useState('')
   const [isProcessing, setIsProcessing] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -89,8 +80,8 @@ export default function CheckoutClient({
     setError(null)
     setIsProcessing(true)
 
-    if ((paymentMethod === 'chariow' || paymentMethod === 'maketou') && !phoneLocal.trim()) {
-      setError(d.phone_required_error)
+    if ((paymentMethod === 'mobile_money' || paymentMethod === 'chariow' || paymentMethod === 'maketou' || paymentMethod === 'wave') && !phoneLocal.trim()) {
+      setError(d.phone_required_error || 'Veuillez saisir votre numéro de téléphone mobile.')
       setIsProcessing(false)
       return
     }
@@ -171,42 +162,32 @@ export default function CheckoutClient({
 
             <form onSubmit={handlePayment}>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
-                {hasOnlinePayment.mobileMoney && !enDollars && (
-                  <label className={`relative flex flex-col items-center justify-center p-4 rounded-xl border-2 cursor-pointer transition-all ${paymentMethod === 'wave' ? 'border-primary bg-primary/5' : 'border-surface-border bg-surface hover:bg-black/5'}`}>
-                    <input type="radio" name="paymentMethod" value="wave" checked={paymentMethod === 'wave'} onChange={() => setPaymentMethod('wave')} className="sr-only" />
-                    <Smartphone className={`w-8 h-8 mb-2 ${paymentMethod === 'wave' ? 'text-primary' : 'text-foreground-muted'}`} />
-                    <span className={`font-semibold ${paymentMethod === 'wave' ? 'text-primary' : 'text-foreground'}`}>Mobile Money</span>
+                {!enDollars && (
+                  <label className={`relative flex flex-col items-center justify-center p-4 rounded-xl border-2 cursor-pointer transition-all ${paymentMethod === 'mobile_money' ? 'border-primary bg-primary/5 shadow-sm' : 'border-surface-border bg-surface hover:bg-black/5'}`}>
+                    <input type="radio" name="paymentMethod" value="mobile_money" checked={paymentMethod === 'mobile_money'} onChange={() => setPaymentMethod('mobile_money')} className="sr-only" />
+                    <Smartphone className={`w-8 h-8 mb-2 ${paymentMethod === 'mobile_money' ? 'text-primary' : 'text-foreground-muted'}`} />
+                    <span className={`font-semibold text-center ${paymentMethod === 'mobile_money' ? 'text-primary' : 'text-foreground'}`}>
+                      Paiement Mobile
+                    </span>
+                    <span className="text-[11px] text-foreground-muted mt-0.5">Wave, Orange Money (Maketou & Chariow)</span>
                   </label>
                 )}
 
                 {hasOnlinePayment.carte && (
-                  <label className={`relative flex flex-col items-center justify-center p-4 rounded-xl border-2 cursor-pointer transition-all ${paymentMethod === 'carte' ? 'border-primary bg-primary/5' : 'border-surface-border bg-surface hover:bg-black/5'}`}>
+                  <label className={`relative flex flex-col items-center justify-center p-4 rounded-xl border-2 cursor-pointer transition-all ${paymentMethod === 'carte' ? 'border-primary bg-primary/5 shadow-sm' : 'border-surface-border bg-surface hover:bg-black/5'}`}>
                     <input type="radio" name="paymentMethod" value="carte" checked={paymentMethod === 'carte'} onChange={() => setPaymentMethod('carte')} className="sr-only" />
                     <CreditCard className={`w-8 h-8 mb-2 ${paymentMethod === 'carte' ? 'text-primary' : 'text-foreground-muted'}`} />
                     <span className={`font-semibold ${paymentMethod === 'carte' ? 'text-primary' : 'text-foreground'}`}>{d.card}</span>
-                  </label>
-                )}
-
-                {chariowDisponible && (
-                  <label className={`relative flex flex-col items-center justify-center p-4 rounded-xl border-2 cursor-pointer transition-all ${paymentMethod === 'chariow' ? 'border-primary bg-primary/5' : 'border-surface-border bg-surface hover:bg-black/5'}`}>
-                    <input type="radio" name="paymentMethod" value="chariow" checked={paymentMethod === 'chariow'} onChange={() => setPaymentMethod('chariow')} className="sr-only" />
-                    <Smartphone className={`w-8 h-8 mb-2 ${paymentMethod === 'chariow' ? 'text-primary' : 'text-foreground-muted'}`} />
-                    <span className={`font-semibold ${paymentMethod === 'chariow' ? 'text-primary' : 'text-foreground'}`}>{d.mobile_money_chariow}</span>
-                  </label>
-                )}
-                {maketouDisponible && (
-                  <label className={`relative flex flex-col items-center justify-center p-4 rounded-xl border-2 cursor-pointer transition-all ${paymentMethod === 'maketou' ? 'border-primary bg-primary/5' : 'border-surface-border bg-surface hover:bg-black/5'}`}>
-                    <input type="radio" name="paymentMethod" value="maketou" checked={paymentMethod === 'maketou'} onChange={() => setPaymentMethod('maketou')} className="sr-only" />
-                    <Smartphone className={`w-8 h-8 mb-2 ${paymentMethod === 'maketou' ? 'text-primary' : 'text-foreground-muted'}`} />
-                    <span className={`font-semibold ${paymentMethod === 'maketou' ? 'text-primary' : 'text-foreground'}`}>Mobile Money (Maketou)</span>
+                    <span className="text-[11px] text-foreground-muted mt-0.5">Visa, Mastercard</span>
                   </label>
                 )}
 
                 {!enDollars && (
-                  <label className={`relative flex flex-col items-center justify-center p-4 rounded-xl border-2 cursor-pointer transition-all ${paymentMethod === 'virement' ? 'border-primary bg-primary/5' : 'border-surface-border bg-surface hover:bg-black/5'}`}>
+                  <label className={`relative flex flex-col items-center justify-center p-4 rounded-xl border-2 cursor-pointer transition-all ${paymentMethod === 'virement' ? 'border-primary bg-primary/5 shadow-sm' : 'border-surface-border bg-surface hover:bg-black/5'}`}>
                     <input type="radio" name="paymentMethod" value="virement" checked={paymentMethod === 'virement'} onChange={() => setPaymentMethod('virement')} className="sr-only" />
                     <Banknote className={`w-8 h-8 mb-2 ${paymentMethod === 'virement' ? 'text-primary' : 'text-foreground-muted'}`} />
                     <span className={`font-semibold ${paymentMethod === 'virement' ? 'text-primary' : 'text-foreground'}`}>{d.transfer}</span>
+                    <span className="text-[11px] text-foreground-muted mt-0.5">Virement bancaire</span>
                   </label>
                 )}
               </div>
@@ -219,24 +200,29 @@ export default function CheckoutClient({
                 </div>
               )}
 
-              {(paymentMethod === 'chariow' || paymentMethod === 'maketou') && (
-                <div className="mb-8">
-                  <label htmlFor="phoneLocal" className="block text-sm font-medium text-foreground mb-2">{d.phone_label}</label>
+              {(paymentMethod === 'mobile_money' || paymentMethod === 'chariow' || paymentMethod === 'maketou' || paymentMethod === 'wave') && (
+                <div className="mb-8 bg-surface/50 border border-surface-border p-4 rounded-xl">
+                  <label htmlFor="phoneLocal" className="block text-sm font-semibold text-foreground mb-1.5">
+                    {d.phone_label || 'Numéro de téléphone mobile pour le paiement *'}
+                  </label>
                   <input
                     type="tel"
                     id="phoneLocal"
                     required
                     value={phoneLocal}
                     onChange={(e) => setPhoneLocal(e.target.value)}
-                    placeholder={d.phone_placeholder}
-                    className="w-full rounded-md border border-surface-border bg-surface px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary"
+                    placeholder={d.phone_placeholder || 'ex: 77 123 45 67'}
+                    className="w-full rounded-lg border border-surface-border bg-background px-4 py-3 text-foreground font-medium focus:outline-none focus:ring-2 focus:ring-primary shadow-sm"
                   />
+                  <p className="text-xs text-foreground-muted mt-2">
+                    Compatible Wave et Orange Money via Maketou (avec bascule automatique sur Chariow en cas d&apos;indisponibilité).
+                  </p>
                 </div>
               )}
 
-              {(paymentMethod === 'wave' || paymentMethod === 'carte' || paymentMethod === 'chariow' || paymentMethod === 'maketou') && (
+              {(paymentMethod === 'carte' || paymentMethod === 'mobile_money') && (
                 <p className="mb-8 text-sm text-foreground-muted">
-                  {d.redirect_notice_prefix} {paymentMethod === 'carte' ? d.redirect_notice_card : d.redirect_notice_mobile}.
+                  {d.redirect_notice_prefix} {paymentMethod === 'carte' ? d.redirect_notice_card : 'la plateforme de paiement mobile sécurisée'}.
                 </p>
               )}
 

@@ -9,7 +9,7 @@ import { initiateMaketouPayment } from '@/lib/payments/maketou'
 import { siteUrl } from '@/lib/payments/config'
 import { montantUsd } from '@/lib/payments/dollars'
 
-type MoyenPaiement = 'wave' | 'orange' | 'carte' | 'virement' | 'chariow' | 'maketou'
+export type MoyenPaiement = 'mobile_money' | 'wave' | 'orange' | 'carte' | 'virement' | 'chariow' | 'maketou'
 
 type InitiateResult =
   | { ok: true; checkoutUrl: string }
@@ -74,36 +74,14 @@ export async function initiateSubscriptionPayment(
   const devise = enDollars ? 'USD' : 'XOF'
   if (enDollars) montant = montantUsd(montant)
 
-  const provider = moyenPaiement === 'carte' ? 'moneroo' : moyenPaiement === 'virement' ? 'virement' : moyenPaiement === 'chariow' ? 'chariow' : moyenPaiement === 'maketou' ? 'maketou' : 'bictorys'
+  const isMobile = moyenPaiement === 'mobile_money' || moyenPaiement === 'wave' || moyenPaiement === 'orange' || moyenPaiement === 'maketou' || moyenPaiement === 'chariow'
+  const isCarte = moyenPaiement === 'carte'
+  const isVirement = moyenPaiement === 'virement'
 
-  let chariowProductId: string | null = null
-  if (provider === 'chariow') {
-    // chariow_produits n'a aucune policy RLS publique (config admin) : lecture via le client admin.
-    const { data: produit } = await createAdminClient()
-      .from('chariow_produits')
-      .select('product_id')
-      .eq('montant', montant)
-      .maybeSingle()
-    if (!produit) {
-      return { ok: false, error: "Chariow n'est pas configuré pour ce montant" }
-    }
-    chariowProductId = produit.product_id
-  }
-  let maketouProductId: string | null = null
-  if (provider === 'maketou') {
-    const { data: produit } = await createAdminClient()
-      .from('maketou_produits')
-      .select('product_id')
-      .eq('montant', montant)
-      .maybeSingle()
-    maketouProductId = produit?.product_id || process.env.MAKETOU_PRODUCT_ID || null
-    if (!maketouProductId) {
-      return { ok: false, error: "Maketou n'est pas configuré pour ce montant" }
-    }
-  }
+  const providerInitial = isCarte ? 'moneroo' : isVirement ? 'virement' : 'maketou'
+  const dbMoyenPaiement = isCarte ? 'carte' : isVirement ? 'virement' : 'wave'
 
   // Anti double paiement (1/2) : un forfait déjà réglé ne se paie pas une seconde fois
-  // (D-PHARMA n'a pas d'échéance : un paiement vaut pour le forfait tant qu'il est actif).
   if (planId === currentTier) {
     const { count } = await supabase
       .from('abonnement_paiements')
@@ -117,8 +95,7 @@ export async function initiateSubscriptionPayment(
     }
   }
 
-  // Anti double paiement (2/2) : relancer la même offre renvoie vers le paiement déjà
-  // ouvert au lieu d'en créer un second (double clic, second onglet, retour arrière).
+  // Anti double paiement (2/2) : relancer la même offre renvoie vers le paiement déjà ouvert
   const reutilisable = await paiementEnCoursReutilisable(supabase, userData.gie_id, planId, moyenPaiement, montant)
   if (reutilisable) return reutilisable
 
@@ -128,8 +105,8 @@ export async function initiateSubscriptionPayment(
       gie_id: userData.gie_id,
       niveau: planId,
       montant,
-      provider,
-      moyen_paiement: moyenPaiement,
+      provider: providerInitial,
+      moyen_paiement: dbMoyenPaiement,
       devise,
       statut: 'pending',
     })
@@ -137,8 +114,6 @@ export async function initiateSubscriptionPayment(
     .single()
 
   if (insertError || !payment) {
-    // 23505 = index unique « un paiement en cours par pharmacie » : une requête concurrente
-    // (double clic) vient d'en créer un — on renvoie celui-là.
     if (insertError?.code === '23505') {
       const concurrent = await paiementEnCoursReutilisable(supabase, userData.gie_id, planId, moyenPaiement, montant)
       if (concurrent) return concurrent
@@ -149,65 +124,136 @@ export async function initiateSubscriptionPayment(
   }
 
   if (moyenPaiement === 'virement') {
-    // Le virement est confirmé manuellement après réception des fonds — pas d'appel prestataire.
     return { ok: true, virement: true, paymentId: payment.id }
   }
 
   const returnUrl = `${siteUrl}/checkout/retour?ref=${payment.id}`
   const description = `Abonnement D-PHARMA — forfait ${planId}`
 
-  const result =
-    provider === 'moneroo'
-      ? await initiateMonerooPayment({
-          amount: montant,
-          currency: devise,
-          description,
-          reference: payment.id,
-          returnUrl,
-          cancelUrl: returnUrl,
-          customerEmail: user.email || '',
-        })
-      : provider === 'chariow'
-        ? await initiateChariowPayment({
-            productId: chariowProductId!,
-            montantAttendu: montant,
-            reference: payment.id,
-            phoneLocal: phoneLocal || '',
-            countryCode: gie?.pays && gie.pays !== 'AUTRE' ? gie.pays : 'SN',
-            customerEmail: user.email || '',
-            returnUrl,
-          })
-        : provider === 'maketou'
-          ? await initiateMaketouPayment({
-              productId: maketouProductId!,
-              reference: payment.id,
-              phoneLocal: phoneLocal || '',
-              countryCode: gie?.pays && gie.pays !== 'AUTRE' ? gie.pays : 'SN',
-              customerEmail: user.email || '',
-              returnUrl,
-              montantAttendu: montant,
-            })
-        : await initiateBictorysPayment({
-            amount: montant,
-            currency: 'XOF',
-            description,
-            reference: payment.id,
-            returnUrl,
-            cancelUrl: returnUrl,
-            customerEmail: user.email || '',
-          })
+  if (isCarte) {
+    const result = await initiateMonerooPayment({
+      amount: montant,
+      currency: devise,
+      description,
+      reference: payment.id,
+      returnUrl,
+      cancelUrl: returnUrl,
+      customerEmail: user.email || '',
+    })
 
-  if (!result.ok) {
-    await supabase.from('abonnement_paiements').update({ statut: 'failed' }).eq('id', payment.id)
-    return { ok: false, error: result.error }
+    if (!result.ok) {
+      await supabase.from('abonnement_paiements').update({ statut: 'failed' }).eq('id', payment.id)
+      return { ok: false, error: result.error }
+    }
+
+    await supabase
+      .from('abonnement_paiements')
+      .update({ provider: 'moneroo', provider_reference: result.providerTransactionId, checkout_url: result.checkoutUrl })
+      .eq('id', payment.id)
+
+    return { ok: true, checkoutUrl: result.checkoutUrl }
   }
 
-  await supabase
-    .from('abonnement_paiements')
-    .update({ provider_reference: result.providerTransactionId, checkout_url: result.checkoutUrl })
-    .eq('id', payment.id)
+  // PAIEMENT MOBILE : 1. Maketou en premier, 2. Chariow prend le relais en réserve en cas de défaillance
+  let maketouErrorDetail = ''
 
-  return { ok: true, checkoutUrl: result.checkoutUrl }
+  // Étape 1 : Essai avec Maketou
+  try {
+    const { data: produitMaketou } = await createAdminClient()
+      .from('maketou_produits')
+      .select('product_id')
+      .eq('montant', montant)
+      .maybeSingle()
+
+    const maketouProductId = produitMaketou?.product_id || process.env.MAKETOU_PRODUCT_ID || null
+
+    if (maketouProductId) {
+      const maketouRes = await initiateMaketouPayment({
+        productId: maketouProductId,
+        reference: payment.id,
+        phoneLocal: phoneLocal || '',
+        countryCode: gie?.pays && gie.pays !== 'AUTRE' ? gie.pays : 'SN',
+        customerEmail: user.email || '',
+        returnUrl,
+        montantAttendu: montant,
+      })
+
+      if (maketouRes.ok) {
+        await supabase
+          .from('abonnement_paiements')
+          .update({
+            provider: 'maketou',
+            provider_reference: maketouRes.providerTransactionId,
+            checkout_url: maketouRes.checkoutUrl,
+          })
+          .eq('id', payment.id)
+
+        return { ok: true, checkoutUrl: maketouRes.checkoutUrl }
+      } else {
+        maketouErrorDetail = maketouRes.error
+        console.warn('[Paiement Mobile] Maketou a échoué:', maketouRes.error, '-> Bascule immédiate sur Chariow en réserve...')
+      }
+    } else {
+      maketouErrorDetail = 'Aucun produit Maketou configuré pour ce montant'
+      console.warn('[Paiement Mobile] Produit Maketou absent pour', montant, '-> Relais Chariow...')
+    }
+  } catch (err: any) {
+    maketouErrorDetail = err?.message || 'Erreur inconnue Maketou'
+    console.warn('[Paiement Mobile] Exception Maketou:', maketouErrorDetail, '-> Relais Chariow...')
+  }
+
+  // Étape 2 : Chariow prend le relais en cas de défaillance ou indisponibilité de Maketou
+  try {
+    const { data: produitChariow } = await createAdminClient()
+      .from('chariow_produits')
+      .select('product_id')
+      .eq('montant', montant)
+      .maybeSingle()
+
+    const chariowProductId = produitChariow?.product_id || process.env.CHARIOW_PRODUCT_ID || null
+
+    if (chariowProductId) {
+      const chariowRes = await initiateChariowPayment({
+        productId: chariowProductId,
+        montantAttendu: montant,
+        reference: payment.id,
+        phoneLocal: phoneLocal || '',
+        countryCode: gie?.pays && gie.pays !== 'AUTRE' ? gie.pays : 'SN',
+        customerEmail: user.email || '',
+        returnUrl,
+      })
+
+      if (chariowRes.ok) {
+        await supabase
+          .from('abonnement_paiements')
+          .update({
+            provider: 'chariow',
+            provider_reference: chariowRes.providerTransactionId,
+            checkout_url: chariowRes.checkoutUrl,
+          })
+          .eq('id', payment.id)
+
+        return { ok: true, checkoutUrl: chariowRes.checkoutUrl }
+      } else {
+        console.error('[Paiement Mobile] Échec Chariow:', chariowRes.error)
+        await supabase.from('abonnement_paiements').update({ statut: 'failed' }).eq('id', payment.id)
+        return {
+          ok: false,
+          error: `Le paiement mobile a rencontré un problème (Maketou: ${maketouErrorDetail} | Chariow: ${chariowRes.error}). Veuillez réessayer ou utiliser le virement bancaire.`
+        }
+      }
+    } else {
+      await supabase.from('abonnement_paiements').update({ statut: 'failed' }).eq('id', payment.id)
+      return {
+        ok: false,
+        error: `Paiement mobile non disponible pour ce montant (${maketouErrorDetail}).`
+      }
+    }
+  } catch (err: any) {
+    console.error('[Paiement Mobile] Exception Chariow:', err)
+    await supabase.from('abonnement_paiements').update({ statut: 'failed' }).eq('id', payment.id)
+    return { ok: false, error: `Erreur lors de l'initialisation du paiement mobile: ${err.message}` }
+  }
 }
 
 // Au-delà, une page de paiement prestataire est considérée expirée : on en ouvre une nouvelle.

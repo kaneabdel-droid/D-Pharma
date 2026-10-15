@@ -16,7 +16,7 @@ type Gie = {
   logoUrl: string | null
 }
 
-export default function ParametresForm({ gie, dict }: { gie: Gie; dict: any }) {
+export default function ParametresForm({ gie, dict, menuLayout = 'sidebar' }: { gie: Gie; dict: any; menuLayout?: 'sidebar' | 'horizontal' }) {
   const t = dict.parametres
   const c = dict.common
   const [saving, setSaving] = useState(false)
@@ -126,6 +126,15 @@ export default function ParametresForm({ gie, dict }: { gie: Gie; dict: any }) {
             ))}
           </select>
           <p className="mt-1 text-xs text-foreground-muted">{t.currencyHint}</p>
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium text-foreground">Disposition du menu</label>
+          <select name="menu_layout" defaultValue={menuLayout} className="mt-1 block w-full rounded-md bg-background border border-surface-border text-foreground px-3 py-2">
+            <option value="sidebar">Barre latérale classique (à gauche)</option>
+            <option value="horizontal">Affichage horizontal en haut de page</option>
+          </select>
+          <p className="mt-1 text-xs text-foreground-muted">Choisissez comment s'affiche la navigation principale dans votre officine.</p>
         </div>
 
         <div className="pt-2 flex items-center gap-3">

@@ -1,4 +1,4 @@
-import { Activity, PackageOpen, Truck, Banknote, ArrowRight } from 'lucide-react'
+import { Activity, PackageOpen, Truck, Banknote, ArrowRight, TrendingUp, Award, AlertTriangle, ShieldCheck } from 'lucide-react'
 import { createClient } from '@/utils/supabase/server'
 import Link from 'next/link'
 import { getDictionary, getLocale } from '@/dictionaries'
@@ -24,6 +24,8 @@ export default async function Dashboard() {
     { data: ventesRecentes },
     { data: comptes },
     { data: transactions },
+    { data: stocksData },
+    { data: lignesVenteData },
   ] = await Promise.all([
     // Ventes du jour
     supabase.from('ventes_pharmacie').select('montant_total').gte('date_vente', todayStr),
@@ -36,6 +38,10 @@ export default async function Dashboard() {
     // Aperçu financier (Trésorerie globale, partagée avec la logique existante)
     supabase.from('comptes').select('solde'),
     supabase.from('transactions').select('type_transaction, montant'),
+    // Évolution des stocks
+    supabase.from('stocks_pharmacie').select('id, quantite, prix_vente, date_peremption, lot, medicaments(nom)'),
+    // Meilleures ventes (lignes de vente)
+    supabase.from('lignes_vente_pharmacie').select('quantite, prix_unitaire, medicament_id, medicaments(nom)').order('created_at', { ascending: false }).limit(200),
   ])
 
   // Calcul du CA du jour
@@ -56,6 +62,47 @@ export default async function Dashboard() {
   }
   const soldeActuel = soldeInitialTotal + totalEntrees - totalSorties
 
+  // Calculs Évolution & Santé des stocks
+  const allStocks = stocksData || []
+  const valeurTotaleStock = allStocks.reduce((sum, s) => sum + (Number(s.quantite || 0) * Number(s.prix_vente || 0)), 0)
+  const totalUnitesStock = allStocks.reduce((sum, s) => sum + Number(s.quantite || 0), 0)
+
+  const limitDate90 = new Date()
+  limitDate90.setDate(limitDate90.getDate() + 90)
+
+  const ruptureStock = allStocks.filter(s => Number(s.quantite) <= 0).length
+  const stockFaible = allStocks.filter(s => Number(s.quantite) > 0 && Number(s.quantite) < 10).length
+  const stockNormal = allStocks.filter(s => Number(s.quantite) >= 10).length
+  const peremptionProche = allStocks.filter(s => {
+    if (!s.date_peremption || Number(s.quantite) <= 0) return false
+    return new Date(s.date_peremption) <= limitDate90
+  }).length
+
+  const totalRefs = allStocks.length
+  const pctNormal = totalRefs > 0 ? Math.round((stockNormal / totalRefs) * 100) : 100
+  const pctFaible = totalRefs > 0 ? Math.round((stockFaible / totalRefs) * 100) : 0
+  const pctRupture = totalRefs > 0 ? Math.round((ruptureStock / totalRefs) * 100) : 0
+
+  // Calculs Meilleures Ventes
+  const ventesParMedicament: Record<string, { nom: string; quantite: number; ca: number }> = {}
+  if (lignesVenteData) {
+    lignesVenteData.forEach((l: any) => {
+      const nom = l.medicaments?.nom || 'Médicament'
+      const key = l.medicament_id || nom
+      if (!ventesParMedicament[key]) {
+        ventesParMedicament[key] = { nom, quantite: 0, ca: 0 }
+      }
+      ventesParMedicament[key].quantite += Number(l.quantite || 0)
+      ventesParMedicament[key].ca += Number(l.quantite || 0) * Number(l.prix_unitaire || 0)
+    })
+  }
+
+  const topVentes = Object.values(ventesParMedicament)
+    .sort((a, b) => b.quantite - a.quantite)
+    .slice(0, 5)
+
+  const maxVenteQte = topVentes.length > 0 ? Math.max(...topVentes.map(v => v.quantite)) : 1
+
   const stats = [
     { name: dict.dashboard.pharma_stats.sales_today, value: `${caJour.toLocaleString(locale === 'fr' ? 'fr-FR' : 'en-US', { maximumFractionDigits: 0 })}${unite}`, icon: Activity, desc: dict.dashboard.pharma_stats.sales_today_desc, color: 'text-blue-600', bg: 'bg-blue-100', link: '/pharmacie/pos' },
     { name: dict.dashboard.pharma_stats.low_stock, value: alertesStockCount || '0', icon: PackageOpen, desc: dict.dashboard.pharma_stats.low_stock_desc, color: 'text-red-600', bg: 'bg-red-100', link: '/pharmacie/stocks' },
@@ -74,6 +121,7 @@ export default async function Dashboard() {
         </div>
       </div>
       
+      {/* 4 Indicateurs Clés */}
       <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
         {stats.map((item) => (
           <div
@@ -103,6 +151,153 @@ export default async function Dashboard() {
         ))}
       </div>
 
+      {/* Évolution des Stocks & Meilleures Ventes */}
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+        {/* Widget 1 : Évolution & Santé des Stocks */}
+        <div className="rounded-xl bg-surface border border-surface-border shadow-sm overflow-hidden flex flex-col">
+          <div className="p-5 border-b border-surface-border bg-background/50 flex justify-between items-center">
+            <div className="flex items-center gap-2">
+              <div className="p-2 bg-primary/10 text-primary rounded-lg">
+                <TrendingUp className="w-5 h-5" />
+              </div>
+              <div>
+                <h3 className="text-lg font-bold font-heading text-foreground">Évolution & État des Stocks</h3>
+                <p className="text-xs text-foreground-muted">Santé globale de l&apos;officine et niveaux d&apos;alerte</p>
+              </div>
+            </div>
+            <Link href="/pharmacie/stocks" className="text-xs font-semibold text-primary hover:underline flex items-center gap-1">
+              Inventaire <ArrowRight className="w-3.5 h-3.5" />
+            </Link>
+          </div>
+
+          <div className="p-6 space-y-6 flex-1 flex flex-col justify-between">
+            {/* Chiffres Globaux du Stock */}
+            <div className="grid grid-cols-2 gap-4">
+              <div className="bg-background rounded-xl p-4 border border-surface-border">
+                <span className="text-xs font-medium text-foreground-muted block">Valeur marchande</span>
+                <span className="text-2xl font-extrabold text-foreground mt-1 block">
+                  {valeurTotaleStock.toLocaleString('fr-FR', { maximumFractionDigits: 0 })} {unite}
+                </span>
+                <span className="text-[11px] text-foreground-muted">{totalRefs} références enregistrées</span>
+              </div>
+              <div className="bg-background rounded-xl p-4 border border-surface-border">
+                <span className="text-xs font-medium text-foreground-muted block">Unités en rayon</span>
+                <span className="text-2xl font-extrabold text-primary mt-1 block">
+                  {totalUnitesStock.toLocaleString('fr-FR')} <span className="text-xs font-normal text-foreground-muted">unités</span>
+                </span>
+                <span className="text-[11px] text-foreground-muted">Disponibles immédiatement</span>
+              </div>
+            </div>
+
+            {/* Barre de répartition de la santé du stock */}
+            <div>
+              <div className="flex justify-between items-center text-xs font-semibold mb-2">
+                <span className="text-foreground">Répartition de la couverture ({totalRefs} produits)</span>
+                <span className="text-emerald-600 font-bold">{pctNormal}% en stock optimal</span>
+              </div>
+              <div className="w-full h-3.5 bg-surface-border rounded-full overflow-hidden flex shadow-inner">
+                <div style={{ width: `${pctNormal}%` }} className="bg-emerald-500 transition-all duration-500" title={`Optimal: ${pctNormal}%`} />
+                <div style={{ width: `${pctFaible}%` }} className="bg-amber-400 transition-all duration-500" title={`Faible: ${pctFaible}%`} />
+                <div style={{ width: `${pctRupture}%` }} className="bg-rose-500 transition-all duration-500" title={`Rupture: ${pctRupture}%`} />
+              </div>
+              <div className="flex items-center gap-4 text-[11px] font-medium mt-2 text-foreground-muted">
+                <span className="flex items-center gap-1.5"><span className="w-2 h-2 rounded-full bg-emerald-500" /> Optimal ({stockNormal})</span>
+                <span className="flex items-center gap-1.5"><span className="w-2 h-2 rounded-full bg-amber-400" /> Faible ({stockFaible})</span>
+                <span className="flex items-center gap-1.5"><span className="w-2 h-2 rounded-full bg-rose-500" /> Rupture ({ruptureStock})</span>
+              </div>
+            </div>
+
+            {/* Badges d'alertes péremptions & réapprovisionnement */}
+            <div className="grid grid-cols-2 gap-3 pt-2 border-t border-surface-border/60">
+              <div className={`p-3 rounded-xl border flex items-center gap-3 ${
+                peremptionProche > 0 ? 'bg-amber-500/10 border-amber-500/30 text-amber-700 dark:text-amber-400' : 'bg-background border-surface-border text-foreground-muted'
+              }`}>
+                <AlertTriangle className="w-5 h-5 shrink-0" />
+                <div className="min-w-0">
+                  <div className="text-xs font-bold leading-tight">{peremptionProche} lot(s) à surveiller</div>
+                  <div className="text-[10px] opacity-80 mt-0.5">Péremption &lt; 90 jours</div>
+                </div>
+              </div>
+
+              <div className={`p-3 rounded-xl border flex items-center gap-3 ${
+                stockFaible > 0 || ruptureStock > 0 ? 'bg-rose-500/10 border-rose-500/30 text-rose-700 dark:text-rose-400' : 'bg-background border-surface-border text-foreground-muted'
+              }`}>
+                <PackageOpen className="w-5 h-5 shrink-0" />
+                <div className="min-w-0">
+                  <div className="text-xs font-bold leading-tight">{stockFaible + ruptureStock} alerte(s) réappro</div>
+                  <div className="text-[10px] opacity-80 mt-0.5">Stock critique ou épuisé</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Widget 2 : Meilleures Ventes (Top Médicaments) */}
+        <div className="rounded-xl bg-surface border border-surface-border shadow-sm overflow-hidden flex flex-col">
+          <div className="p-5 border-b border-surface-border bg-background/50 flex justify-between items-center">
+            <div className="flex items-center gap-2">
+              <div className="p-2 bg-amber-500/10 text-amber-600 rounded-lg">
+                <Award className="w-5 h-5" />
+              </div>
+              <div>
+                <h3 className="text-lg font-bold font-heading text-foreground">Palmarès des Meilleures Ventes</h3>
+                <p className="text-xs text-foreground-muted">Médicaments et spécialités les plus délivrés</p>
+              </div>
+            </div>
+            <Link href="/pharmacie/pos" className="text-xs font-semibold text-primary hover:underline flex items-center gap-1">
+              Caisse POS <ArrowRight className="w-3.5 h-3.5" />
+            </Link>
+          </div>
+
+          <div className="p-6 flex-1 flex flex-col justify-between">
+            {topVentes.length === 0 ? (
+              <div className="py-12 text-center text-foreground-muted">
+                <Award className="w-12 h-12 mx-auto mb-2 opacity-30" />
+                <p className="text-sm font-medium">Aucune vente enregistrée pour le moment.</p>
+                <p className="text-xs mt-1">Les produits les plus demandés apparaîtront ici automatiquement.</p>
+              </div>
+            ) : (
+              <div className="space-y-4">
+                {topVentes.map((item, index) => {
+                  const medal = index === 0 ? '🥇' : index === 1 ? '🥈' : index === 2 ? '🥉' : `#${index + 1}`
+                  const ratio = Math.max(8, Math.round((item.quantite / maxVenteQte) * 100))
+                  return (
+                    <div key={item.nom} className="space-y-1.5">
+                      <div className="flex items-center justify-between text-sm">
+                        <div className="flex items-center gap-2 min-w-0">
+                          <span className="w-6 text-center font-bold text-sm shrink-0">{medal}</span>
+                          <span className="font-bold text-foreground truncate">{item.nom}</span>
+                        </div>
+                        <div className="text-right shrink-0 ml-3">
+                          <span className="font-extrabold text-foreground text-sm">{item.quantite} vendus</span>
+                          <span className="text-xs text-foreground-muted block">
+                            {item.ca.toLocaleString('fr-FR', { maximumFractionDigits: 0 })} {unite}
+                          </span>
+                        </div>
+                      </div>
+                      <div className="w-full h-2.5 bg-surface-border rounded-full overflow-hidden shadow-inner">
+                        <div 
+                          style={{ width: `${ratio}%` }} 
+                          className="h-full bg-gradient-to-r from-primary/80 to-primary rounded-full transition-all duration-500" 
+                        />
+                      </div>
+                    </div>
+                  )
+                })}
+              </div>
+            )}
+
+            <div className="mt-6 pt-4 border-t border-surface-border flex items-center justify-between text-xs text-foreground-muted">
+              <span>Classement calculé sur les sorties caisse</span>
+              <Link href="/pharmacie/pos" className="font-semibold text-primary hover:underline">
+                Nouvelle vente POS →
+              </Link>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Dernières Ventes & Trésorerie Globale */}
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
         {/* Dernières ventes */}
         <div className="rounded-xl bg-surface border border-surface-border shadow-sm overflow-hidden flex flex-col">

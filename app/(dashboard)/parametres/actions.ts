@@ -35,7 +35,15 @@ export async function updateGieInfos(formData: FormData): Promise<ActionResult> 
   })
   if (error) return { error: error.message }
 
+  const menuLayout = formData.get('menu_layout') as string
+  if (menuLayout === 'horizontal' || menuLayout === 'sidebar') {
+    const { cookies } = await import('next/headers')
+    const cookieStore = await cookies()
+    cookieStore.set('menu_layout', menuLayout, { path: '/', maxAge: 31536000 })
+  }
+
   revalidatePath('/parametres')
+  revalidatePath('/', 'layout')
   return { success: true }
 }
 
