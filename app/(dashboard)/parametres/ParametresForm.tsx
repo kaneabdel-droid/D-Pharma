@@ -2,8 +2,9 @@
 
 import { useRef, useState } from 'react'
 import Image from 'next/image'
-import { Building2, Upload, CheckCircle2 } from 'lucide-react'
+import { Building2, Upload, CheckCircle2, MapPin, Clock, ShieldAlert } from 'lucide-react'
 import { DEVISES, type DeviseCode } from '@/lib/currency'
+import { REGIONS_SENEGAL } from '@/lib/geo-regions'
 import { updateGieInfos, uploadLogo } from './actions'
 
 type Gie = {
@@ -14,6 +15,12 @@ type Gie = {
   identification: string
   devise: string
   logoUrl: string | null
+  region?: string
+  ville?: string
+  commune?: string
+  telephoneWhatsapp?: string
+  horaires?: string
+  estDeGarde?: boolean
 }
 
 export default function ParametresForm({ gie, dict, menuLayout = 'sidebar' }: { gie: Gie; dict: any; menuLayout?: 'sidebar' | 'horizontal' }) {
@@ -126,6 +133,92 @@ export default function ParametresForm({ gie, dict, menuLayout = 'sidebar' }: { 
             ))}
           </select>
           <p className="mt-1 text-xs text-foreground-muted">{t.currencyHint}</p>
+        </div>
+
+        <div className="pt-4 border-t border-surface-border">
+          <h3 className="font-semibold text-foreground mb-1 flex items-center gap-2">
+            <MapPin className="w-4 h-4 text-primary" /> Localisation & Recherche Client
+          </h3>
+          <p className="text-xs text-foreground-muted mb-4">
+            Permet aux patients de vous localiser dans leur région et prioritairement dans votre ville.
+          </p>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-3">
+            <div>
+              <label className="block text-sm font-medium text-foreground">Région</label>
+              <select
+                name="region"
+                defaultValue={gie.region || 'Dakar'}
+                className="mt-1 block w-full rounded-md bg-background border border-surface-border text-foreground px-3 py-2 text-sm"
+              >
+                {REGIONS_SENEGAL.map((r) => (
+                  <option key={r.code} value={r.nom}>
+                    {r.nom}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-foreground">Ville / Département</label>
+              <input
+                name="ville"
+                type="text"
+                defaultValue={gie.ville || 'Dakar'}
+                placeholder="Ex: Dakar, Thiès, Pikine, Mbour..."
+                className="mt-1 block w-full rounded-md bg-background border border-surface-border text-foreground px-3 py-2 text-sm"
+              />
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-3">
+            <div>
+              <label className="block text-sm font-medium text-foreground">Commune / Quartier</label>
+              <input
+                name="commune"
+                type="text"
+                defaultValue={gie.commune || ''}
+                placeholder="Ex: Dakar-Plateau, Almadies, Golf Sud..."
+                className="mt-1 block w-full rounded-md bg-background border border-surface-border text-foreground px-3 py-2 text-sm"
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-foreground">WhatsApp Officine</label>
+              <input
+                name="telephone_whatsapp"
+                type="text"
+                defaultValue={gie.telephoneWhatsapp || ''}
+                placeholder="Ex: +221 77 123 45 67"
+                className="mt-1 block w-full rounded-md bg-background border border-surface-border text-foreground px-3 py-2 text-sm"
+              />
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-3">
+            <div>
+              <label className="block text-sm font-medium text-foreground">Horaires d'ouverture</label>
+              <input
+                name="horaires"
+                type="text"
+                defaultValue={gie.horaires || '8h00 - 22h00'}
+                placeholder="Ex: 8h00 - 22h00 ou 24h/24"
+                className="mt-1 block w-full rounded-md bg-background border border-surface-border text-foreground px-3 py-2 text-sm"
+              />
+            </div>
+
+            <div className="flex items-center pt-6">
+              <label className="inline-flex items-center gap-2 cursor-pointer text-sm font-medium text-foreground select-none">
+                <input
+                  name="est_de_garde"
+                  type="checkbox"
+                  defaultChecked={gie.estDeGarde}
+                  className="rounded border-surface-border text-primary focus:ring-primary w-4 h-4"
+                />
+                <span>🌙 Pharmacie de garde actuellement</span>
+              </label>
+            </div>
+          </div>
         </div>
 
         <div>

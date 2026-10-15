@@ -14,7 +14,7 @@ export default async function ParametresPage() {
 
   const { data: gie } = await supabase
     .from('gies')
-    .select('nom, adresse, telephone, email, identification, devise, logo_url')
+    .select('nom, adresse, telephone, email, identification, devise, logo_url, region, ville, commune, telephone_whatsapp, horaires, est_de_garde')
     .eq('id', tenant.gieId)
     .single()
 
@@ -38,6 +38,12 @@ export default async function ParametresPage() {
           identification: gie?.identification ?? '',
           devise: gie?.devise ?? 'XOF',
           logoUrl: gie?.logo_url ?? null,
+          region: gie?.region ?? 'Dakar',
+          ville: gie?.ville ?? 'Dakar',
+          commune: gie?.commune ?? '',
+          telephoneWhatsapp: gie?.telephone_whatsapp ?? '',
+          horaires: gie?.horaires ?? '8h00 - 22h00',
+          estDeGarde: !!gie?.est_de_garde,
         }}
       />
     </div>

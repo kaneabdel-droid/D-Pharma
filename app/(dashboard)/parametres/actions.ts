@@ -18,20 +18,32 @@ export async function updateGieInfos(formData: FormData): Promise<ActionResult> 
   const nom = (formData.get('nom') as string)?.trim()
   const adresse = (formData.get('adresse') as string) ?? ''
   const telephone = (formData.get('telephone') as string) ?? ''
+  const telephoneWhatsapp = (formData.get('telephone_whatsapp') as string) ?? ''
   const email = (formData.get('email') as string) ?? ''
   const identification = (formData.get('identification') as string) ?? ''
   const devise = formData.get('devise') as string
+  const region = (formData.get('region') as string) ?? 'Dakar'
+  const ville = (formData.get('ville') as string) ?? 'Dakar'
+  const commune = (formData.get('commune') as string) ?? ''
+  const horaires = (formData.get('horaires') as string) ?? '8h00 - 22h00'
+  const estDeGarde = formData.get('est_de_garde') === 'on' || formData.get('est_de_garde') === 'true'
 
   if (!nom) return { error: 'Le nom est requis' }
   if (!estDeviseValide(devise)) return { error: 'Devise invalide' }
 
-  const { error } = await supabase.rpc('update_gie_infos', {
+  const { error } = await supabase.rpc('update_gie_infos_geo', {
     p_nom: nom,
     p_adresse: adresse,
     p_telephone: telephone,
+    p_telephone_whatsapp: telephoneWhatsapp,
     p_email: email,
     p_identification: identification,
     p_devise: devise,
+    p_region: region,
+    p_ville: ville,
+    p_commune: commune,
+    p_horaires: horaires,
+    p_est_de_garde: estDeGarde,
   })
   if (error) return { error: error.message }
 
