@@ -19,7 +19,7 @@ const produits = [
   {
     nom: 'SIGGIE',
     description: 'Gestion des GIE agricoles — membres, campagnes, intrants, trésorerie.',
-    href: 'https://siggie.dembasolution.com/admin',
+    href: 'https://siggie.dembasolution.com/admin/siggie',
     externe: true,
     icon: Building2,
     statut: 'en_ligne' as const,
@@ -27,7 +27,7 @@ const produits = [
   {
     nom: 'D-ÉLEVAGE',
     description: "Gestion d'élevage multi-espèces — volailles, bovins, ovins, prophylaxie, stocks & alimentation.",
-    href: 'https://d-elevage.dembasolution.com/admin',
+    href: 'https://d-elevage.dembasolution.com/admin/elevage',
     externe: true,
     icon: Bird,
     statut: 'en_ligne' as const,
