@@ -1,23 +1,38 @@
 'use server'
 
 import { createClient } from '@/utils/supabase/server'
+import { createAdminClient } from '@/utils/supabase/admin'
 import { redirect } from 'next/navigation'
+import { headers } from 'next/headers'
 import { pageSuivante, suitePaiement } from '@/lib/suite'
 import { AUTRE_PAYS, PAYS_PAR_DEFAUT, trouverPays } from '@/lib/pays'
 
 export async function signup(formData: FormData) {
   const supabase = await createClient()
 
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'
-  const plan = (formData.get('plan') as string) || 'standard'
-  // Inscription depuis les tarifs ou la page de paiement : la page de paiement du forfait choisi
-  // s'ouvre juste après (ou après la confirmation de l'adresse email), au lieu du tableau de bord.
-  const suite = pageSuivante(formData.get('next')) ?? suitePaiement(formData.get('plan') as string | null)
+  // Détection dynamique et fiable de l'origine (hôte et protocole réels)
+  const headerList = await headers()
+  const host = headerList.get('x-forwarded-host') || headerList.get('host') || 'localhost:3000'
+  const proto = headerList.get('x-forwarded-proto') || 'http'
+  const currentOrigin = `${proto}://${host}`
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || currentOrigin
 
-  // Pays du GIE : sa devise en découle ; « Autre pays » = GIE sans unité, abonnement payé en dollars US.
+  // Forfait par défaut : pharmacie (suppression standard/medium/premium)
+  const rawPlan = (formData.get('plan') as string) || 'pharmacie'
+  const plan = (rawPlan === 'fournisseur') ? 'fournisseur' : 'pharmacie'
+
+  const email = (formData.get('email') as string || '').trim().toLowerCase()
+  const password = formData.get('password') as string
+  const pharmacieNom = ((formData.get('gie_nom') as string) || (formData.get('pharmacie_nom') as string) || '').trim() || 'Ma Pharmacie'
+
+  // Inscription depuis les tarifs ou la page de paiement : redirection vers la finalisation
+  const suite = pageSuivante(formData.get('next')) ?? suitePaiement(plan) ?? `/checkout?plan=${plan}`
+
+  // Pays de l'officine
   const codePays = (formData.get('pays') as string) || PAYS_PAR_DEFAUT
   const pays = trouverPays(codePays)
   const paysNom = ((formData.get('pays_nom') as string) || '').trim()
+
   if (!pays && codePays !== AUTRE_PAYS) {
     return redirect('/signup?message=' + encodeURIComponent('Pays invalide'))
   }
@@ -26,20 +41,18 @@ export async function signup(formData: FormData) {
   }
 
   const data = {
-    email: formData.get('email') as string,
-    password: formData.get('password') as string,
+    email,
+    password,
     options: {
       data: {
-        gie_nom: formData.get('gie_nom') as string,
+        gie_nom: pharmacieNom,
+        pharmacie_nom: pharmacieNom,
         plan,
         pays: codePays,
         pays_nom: pays ? pays.nom : paysNom,
         devise: pays ? pays.devise : 'AUCUNE',
       },
-      // Passe par /auth/callback pour échanger le code Supabase contre une session
-      // avant d'atterrir sur la page suivante (paiement du forfait, sinon /login) —
-      // sans ça, le lien de confirmation renvoie un visiteur déconnecté vers l'accueil.
-      emailRedirectTo: `${siteUrl}/auth/callback?next=${encodeURIComponent(suite ?? '/login')}`,
+      emailRedirectTo: `${siteUrl}/auth/callback?next=${encodeURIComponent(suite)}`,
     }
   }
 
@@ -49,14 +62,33 @@ export async function signup(formData: FormData) {
     return redirect('/signup?message=' + encodeURIComponent(error.message))
   }
 
-  // Confirmation d'email désactivée : la session est ouverte, on va directement au paiement.
-  if (inscription.session && suite) {
+  // Auto-confirmation immédiate pour éviter tout problème de lien ERR_CONNECTION_REFUSED
+  if (inscription?.user) {
+    try {
+      const admin = createAdminClient()
+      await admin.auth.admin.updateUserById(inscription.user.id, {
+        email_confirm: true,
+      })
+
+      // Connexion directe pour session immédiate
+      const { data: loginData, error: loginErr } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      })
+
+      if (!loginErr && loginData?.session) {
+        return redirect(suite)
+      }
+    } catch (e: any) {
+      console.warn('Auto-confirmation ou connexion directe post-inscription:', e?.message)
+    }
+  }
+
+  if (inscription?.session) {
     return redirect(suite)
   }
 
-  // Sinon, on demande de confirmer l'adresse ; le lien mènera à la page de paiement.
-  const message = suite
-    ? "Compte créé avec succès ! Vérifiez votre boîte mail : le lien de confirmation vous mènera au paiement de votre abonnement."
-    : "Compte créé avec succès ! Un lien de confirmation a été envoyé à votre adresse e-mail. Vous devez cliquer sur ce lien avant de pouvoir vous connecter."
+  // Si jamais la session n'est pas ouverte
+  const message = "Compte créé avec succès ! Connectez-vous pour accéder à votre espace."
   return redirect('/login?message=' + encodeURIComponent(message) + (suite ? '&next=' + encodeURIComponent(suite) : ''))
 }

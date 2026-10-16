@@ -17,7 +17,9 @@ import {
   Shield,
   Settings,
   Activity,
-  Truck
+  Truck,
+  BookOpen,
+  UploadCloud
 } from 'lucide-react'
 import { DeviseProvider } from '@/components/DeviseProvider'
 
@@ -53,6 +55,8 @@ export default function ClientLayout({
     { key: 'stock_pharma', href: '/pharmacie/stocks', icon: PackageOpen },
     { key: 'commandes_pharma', href: '/pharmacie/commandes', icon: Truck },
     { key: 'tresorerie', href: '/tresorerie', icon: Landmark },
+    { key: 'comptabilite', href: '/comptabilite', icon: BookOpen },
+    { key: 'import_donnees', href: '/parametres/import', icon: UploadCloud },
     { key: 'abonnement', href: '/abonnement', icon: Shield },
     { key: 'parametres', href: '/parametres', icon: Settings },
     { key: 'support', href: '/support', icon: LifeBuoy },
@@ -75,14 +79,16 @@ export default function ClientLayout({
       ],
     },
     {
-      titre: 'Trésorerie',
+      titre: 'Finance & Compta',
       items: [
         { key: 'tresorerie', href: '/tresorerie', icon: Landmark },
+        { key: 'comptabilite', href: '/comptabilite', icon: BookOpen },
       ],
     },
     {
       titre: 'Administration',
       items: [
+        { key: 'import_donnees', href: '/parametres/import', icon: UploadCloud },
         { key: 'parametres', href: '/parametres', icon: Settings },
         { key: 'abonnement', href: '/abonnement', icon: Shield },
       ],

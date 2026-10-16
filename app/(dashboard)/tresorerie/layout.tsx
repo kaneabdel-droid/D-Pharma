@@ -11,11 +11,7 @@ export default async function TresorerieLayout({
   const locale = await getLocale()
   const dict = await getDictionary(locale)
 
-  // Les rubriques budgétaires (imputations) sont réservées au forfait Premium :
-  // l'onglet n'est proposé que si l'officine y a accès (la page elle-même
-  // redirige en plus les accès directs par URL).
   const tenant = await getTenantContext()
-  const isPremium = tenant?.subscriptionTier === 'premium'
 
   return (
     <div className="space-y-6">
@@ -44,15 +40,13 @@ export default async function TresorerieLayout({
           {dict.tresorerie.tabs.journaux}
         </Link>
 
-        {isPremium && (
-          <Link
-            href="/tresorerie/imputations"
-            className="bg-surface text-foreground-muted hover:text-foreground rounded-md px-3 py-2 text-sm font-medium flex items-center gap-2 border border-surface-border"
-          >
-            <Tags className="w-4 h-4" />
-            {dict.tresorerie.tabs.imputations}
-          </Link>
-        )}
+        <Link
+          href="/tresorerie/imputations"
+          className="bg-surface text-foreground-muted hover:text-foreground rounded-md px-3 py-2 text-sm font-medium flex items-center gap-2 border border-surface-border"
+        >
+          <Tags className="w-4 h-4" />
+          {dict.tresorerie.tabs.imputations}
+        </Link>
       </nav>
 
       {children}

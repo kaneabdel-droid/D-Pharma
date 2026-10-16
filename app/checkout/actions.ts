@@ -37,7 +37,7 @@ export async function initiateSubscriptionPayment(
 
   const { data: userData } = await supabase
     .from('utilisateurs')
-    .select('gie_id, gies(subscription_tier, devise, pays)')
+    .select('gie_id, gies(nom, subscription_tier, devise, pays)')
     .eq('id', user.id)
     .single()
 
@@ -46,7 +46,7 @@ export async function initiateSubscriptionPayment(
   }
 
   const gie = Array.isArray(userData.gies) ? userData.gies[0] : userData.gies
-  const currentTier = gie?.subscription_tier || 'standard'
+  const currentTier = gie?.subscription_tier || 'pharmacie'
   // Pharmacie d'un autre pays (devise « sans unité ») : abonnement payé par carte, en dollars US.
   const enDollars = gie?.devise === 'AUCUNE'
   if (enDollars && moyenPaiement !== 'carte') {
@@ -174,6 +174,7 @@ export async function initiateSubscriptionPayment(
         phoneLocal: phoneLocal || '',
         countryCode: gie?.pays && gie.pays !== 'AUTRE' ? gie.pays : 'SN',
         customerEmail: user.email || '',
+        customerName: gie?.nom || 'Ma Pharmacie',
         returnUrl,
         montantAttendu: montant,
       })
@@ -220,6 +221,7 @@ export async function initiateSubscriptionPayment(
         phoneLocal: phoneLocal || '',
         countryCode: gie?.pays && gie.pays !== 'AUTRE' ? gie.pays : 'SN',
         customerEmail: user.email || '',
+        customerName: gie?.nom || 'Ma Pharmacie',
         returnUrl,
       })
 

@@ -33,6 +33,7 @@ export const PERMISSION_MODULES: PermissionModule[] = [
   { key: 'commandes_pharma', label: 'Commandes Labo', group: 'Pharmacie', paths: ['/pharmacie/commandes'], actions: CRUD },
   { key: 'tresorerie', label: 'Trésorerie (comptes, journaux)', group: 'Finance', paths: ['/tresorerie'], actions: CRUD },
   { key: 'imputations', label: 'Imputations', group: 'Finance', paths: ['/tresorerie/imputations'], actions: CRUD },
+  { key: 'comptabilite', label: 'Comptabilité (SYSCOHADA)', group: 'Finance', paths: ['/comptabilite'], actions: CRUD },
   { key: 'parametres', label: 'Paramètres', group: 'Administration', paths: ['/parametres'], actions: ['read', 'update'] },
 ]
 
@@ -87,7 +88,7 @@ export function readOnlyPermissions(): PermissionMap {
 // Première page accessible : destination de repli quand l'accès est refusé.
 const FIRST_PAGE_ORDER: [string, string][] = [
   ['dashboard', '/dashboard'], ['pos_pharma', '/pharmacie/pos'], ['stock_pharma', '/pharmacie/stocks'],
-  ['commandes_pharma', '/pharmacie/commandes'], ['tresorerie', '/tresorerie'], ['parametres', '/parametres'],
+  ['commandes_pharma', '/pharmacie/commandes'], ['tresorerie', '/tresorerie'], ['comptabilite', '/comptabilite'], ['parametres', '/parametres'],
 ]
 
 export function firstAllowedPath(role: string | null | undefined, permissions: PermissionMap | null | undefined): string {

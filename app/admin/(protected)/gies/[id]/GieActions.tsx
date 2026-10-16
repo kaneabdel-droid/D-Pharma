@@ -42,9 +42,6 @@ export default function GieActions({
             <select value={forfait} onChange={(e) => setForfait(e.target.value)} className="rounded-md border border-surface-border bg-surface px-3 py-2 text-sm">
               <option value="pharmacie">Pharmacie (75 000 FCFA/an)</option>
               <option value="fournisseur">Fournisseur / Labo (50 000 FCFA/an)</option>
-              <option value="standard">Standard (75 000 FCFA/an)</option>
-              <option value="medium">Medium (75 000 FCFA/an)</option>
-              <option value="premium">Premium (75 000 FCFA/an)</option>
             </select>
             <button
               disabled={isPending}

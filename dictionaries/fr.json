@@ -181,7 +181,9 @@
     "stock_pharma": "Stocks (Pharma)",
     "commandes_pharma": "Commandes Labo",
     "tresorerie": "Trésorerie",
+    "comptabilite": "Comptabilité",
     "abonnement": "Abonnement",
+    "import_donnees": "Importer des données",
     "parametres": "Paramètres",
     "support": "Aide & Support",
     "logout": "Déconnexion"
@@ -986,5 +988,85 @@
         ]
       }
     ]
+  },
+  "landing_pharma": {
+    "nav": {
+      "features": "Fonctionnalités",
+      "guide": "Guide d'utilisation",
+      "pricing": "Tarifs",
+      "patients": "Espace Patients",
+      "demo": "Démo en direct",
+      "login": "Connexion"
+    },
+    "hero": {
+      "badge": "Solution Officine & Pharmacie",
+      "title": "Gérez votre officine avec précision et simplicité",
+      "desc": "Vente rapide au comptoir par lecteur de code-barres, alertes péremption automatiques, réapprovisionnement labos et suivi de caisse en temps réel.",
+      "demo_btn": "Tester la démo en direct",
+      "pricing_btn": "Voir nos forfaits",
+      "patients_btn": "Espace Patients",
+      "m1_val": "< 2 sec",
+      "m1_lbl": "Scan & encaissement ticket",
+      "m2_val": "100%",
+      "m2_lbl": "Contrôle des péremptions",
+      "m3_val": "7 jours",
+      "m3_lbl": "Essai gratuit sans carte",
+      "m4_val": "Multi-mode",
+      "m4_lbl": "Espèces, Wave, Orange Money"
+    },
+    "features_section": {
+      "title": "Tout ce dont votre pharmacie a besoin au quotidien",
+      "desc": "Un système pensé pour libérer le pharmacien et ses collaborateurs des tâches fastidieuses afin de se concentrer sur le conseil aux patients.",
+      "pos_title": "Point de Vente (POS) Rapide",
+      "pos_desc": "Bipez les boîtes au scanner code-barres, encaissez en quelques secondes par espèces, Wave, Orange Money ou carte avec calcul automatique du rendu de monnaie.",
+      "stock_title": "Stocks & Lots Rigoureux",
+      "stock_desc": "Suivez vos niveaux de stock en temps réel. Historique des entrées/sorties, gestion des numéros de lot et seuils d’alerte anti-rupture.",
+      "expiry_title": "Contrôle des Péremptions",
+      "expiry_desc": "Alertes visuelles immédiates pour les médicaments périmés ou proches de la date limite. Évitez les pertes et garantissez la sécurité sanitaire.",
+      "orders_title": "Commandes Labos & Répartiteurs",
+      "orders_desc": "Créez vos bons de commande pour vos grossistes en quelques clics. Pointez les réceptions et alimentez directement vos stocks.",
+      "treasury_title": "Caisse & Trésorerie Officinale",
+      "treasury_desc": "Clôture de caisse quotidienne, journal des recettes et décaissements, imputation comptable des dépenses de fonctionnement.",
+      "search_title": "Recherche Publique Médicaments",
+      "search_desc": "Portail dédié aux patients pour vérifier la disponibilité d’un traitement sans affichage des prix, dans le respect strict de la déontologie."
+    },
+    "demo_banner": {
+      "title": "Découvrez l'interface en direct",
+      "desc": "Testez immédiatement notre Point de Vente, ajoutez des produits au panier, simulez un encaissement et consultez le catalogue sans aucune installation.",
+      "demo_btn": "Accéder à la démo en 1 clic",
+      "guide_btn": "Lire le guide pas-à-pas"
+    },
+    "pricing_section": {
+      "title": "Des tarifs clairs, adaptés à vos besoins",
+      "desc": "Tous les forfaits incluent 7 jours d'essai gratuit. Aucun frais caché.",
+      "pharma_badge": "Officines & Pharmacies",
+      "pharma_title": "Pharmacie",
+      "pharma_price": "75.000",
+      "pharma_unit": "FCFA / an",
+      "pharma_desc": "Tout le système pour informatiser et gérer l'officine.",
+      "pharma_f1": "Vente POS & scan rapide code-barres",
+      "pharma_f2": "Suivi des stocks & alertes de péremption",
+      "pharma_f3": "Caisse quotidienne & contrôle des écarts",
+      "pharma_f4": "Commandes directes fournisseurs & labos",
+      "pharma_btn": "Souscrire Pharmacie",
+      "supplier_badge": "Laboratoires & Grossistes",
+      "supplier_title": "Fournisseur / Labo",
+      "supplier_price": "50.000",
+      "supplier_unit": "FCFA / an",
+      "supplier_desc": "Pour les grossistes, répartiteurs et laboratoires.",
+      "supplier_f1": "Catalogue médicaments & molécules",
+      "supplier_f2": "Réception des commandes officines",
+      "supplier_f3": "Suivi livraisons & accusés de réception",
+      "supplier_f4": "Support technique & accompagnement",
+      "supplier_btn": "Souscrire Fournisseur / Labo",
+      "details_link": "Consulter les détails des tarifs"
+    },
+    "contact_section": {
+      "title": "Une question ou besoin d'aide pour démarrer ?",
+      "desc": "Notre équipe d'assistance est à votre service pour vous accompagner dans la prise en main de D-PHARMA."
+    },
+    "footer": {
+      "rights": "Demba Solution. D-PHARMA — Tous droits réservés."
+    }
   }
 }

@@ -38,7 +38,7 @@ export default function SupprimerGieButton({ gieId, nomGie }: { gieId: string; n
         <AlertTriangle className="w-4 h-4" /> Zone dangereuse
       </h2>
       <p className="text-sm text-foreground-muted mb-4">
-        Supprime définitivement ce GIE, ses comptes utilisateurs, campagnes, paiements et toutes ses données.
+        Supprime définitivement cette pharmacie, ses comptes utilisateurs, stocks, ventes, écritures comptables, paiements et toutes ses données.
         Réservé aux inscriptions jamais payées après expiration de l&apos;essai. Aucune annulation possible.
       </p>
 

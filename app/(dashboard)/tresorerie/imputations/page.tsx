@@ -13,11 +13,7 @@ export default async function ImputationsPage() {
   const tenant = await getTenantContext()
   const isAdmin = tenant?.role === 'admin'
 
-  // Les rubriques budgétaires (imputations) sont réservées au forfait Premium,
-  // au même titre que la prévision et le suivi budgétaires.
-  if (tenant?.subscriptionTier !== 'premium') {
-    redirect('/dashboard?error=upgrade_required')
-  }
+
 
   const { imputations, error } = await getImputations()
 

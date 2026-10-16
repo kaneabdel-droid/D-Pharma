@@ -15,34 +15,37 @@ export default async function CheckoutPage({
   const locale = await getLocale()
   const dict = await getDictionary(locale)
   
-  const plan = params.plan || 'pharmacie'
+  const rawPlan = params.plan || 'pharmacie'
+  const plan = rawPlan === 'fournisseur' ? 'fournisseur' : 'pharmacie'
   const isUpgrade = params.upgrade === 'true'
 
   if (isUpgrade && !user) {
     redirect('/login')
   }
 
-  // Visiteur sans compte : inscription d'abord, sans passer par le formulaire de paiement
-  // (il y saisissait son moyen de paiement et son numéro pour rien, puis à nouveau au retour).
-  // Après l'inscription, il revient ici connecté pour payer le forfait choisi.
+  // Visiteur sans compte : inscription d'abord avec le forfait choisi
   if (!user) {
     redirect(`/signup?plan=${encodeURIComponent(plan)}`)
   }
 
-  let currentTier = 'standard'
-  // GIE d'un autre pays (devise « sans unité ») : abonnement payé par carte en dollars US
+  let currentTier = 'pharmacie'
   let enDollars = false
+  let pharmacieNom = 'Pharmacie'
+  let telephoneDefaut = ''
+
   if (user) {
     const { data: userData } = await supabase
       .from('utilisateurs')
-      .select('gies(subscription_tier, devise)')
+      .select('telephone, gies(nom, telephone, subscription_tier, devise)')
       .eq('id', user.id)
       .single()
 
     const gie = Array.isArray(userData?.gies) ? userData.gies[0] : userData?.gies
     if (gie) {
-      currentTier = gie.subscription_tier || 'standard'
+      currentTier = gie.subscription_tier || 'pharmacie'
       enDollars = gie.devise === 'AUCUNE'
+      pharmacieNom = gie.nom || 'Pharmacie'
+      telephoneDefaut = userData?.telephone || gie.telephone || ''
     }
   }
 
@@ -53,6 +56,8 @@ export default async function CheckoutPage({
       currentTier={currentTier}
       isUpgrade={isUpgrade}
       enDollars={enDollars}
+      pharmacieNom={pharmacieNom}
+      telephoneDefaut={telephoneDefaut}
       hasOnlinePayment={{ mobileMoney: hasBictorysKeys, carte: hasMonerooKeys, chariow: hasChariowKeys, maketou: hasMaketouKeys }}
       dict={dict}
       locale={locale}
