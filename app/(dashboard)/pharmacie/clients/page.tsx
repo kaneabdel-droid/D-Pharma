@@ -10,12 +10,19 @@ export const metadata = {
   title: 'Clients & Créances Tiers Payant | D-PHARMA',
 }
 
+import { getLocale, getDictionary } from '@/dictionaries'
+
 export default async function ClientsPage(props: {
   searchParams: Promise<{ type?: string; q?: string }>
 }) {
   const searchParams = await props.searchParams
   const selectedType = searchParams.type || 'tous'
   const query = (searchParams.q || '').toLowerCase().trim()
+
+  const locale = await getLocale()
+  const dict = await getDictionary(locale)
+  const t = dict.clients || {}
+  const tbl = t.table || {}
 
   const supabase = await createClient()
   const tenant = await getTenantContext()
@@ -44,7 +51,7 @@ export default async function ClientsPage(props: {
   const countMutuelles = (clientsData || []).filter(c => c.type_client === 'mutuelle' || c.type_client === 'assurance').length
 
   const formatCFA = (val: number) =>
-    new Intl.NumberFormat('fr-FR', { style: 'decimal', maximumFractionDigits: 0 }).format(val) + ' FCFA'
+    new Intl.NumberFormat(locale === 'ar' ? 'ar-EG' : locale === 'en' ? 'en-US' : 'fr-FR', { style: 'decimal', maximumFractionDigits: 0 }).format(val) + ' FCFA'
 
   return (
     <div className="space-y-6">
@@ -52,10 +59,10 @@ export default async function ClientsPage(props: {
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
           <h2 className="text-xl font-bold font-heading text-foreground">
-            Clients, Créances & Tiers Payant
+            {t.title || 'Clients, Créances & Tiers Payant'}
           </h2>
           <p className="text-xs text-foreground-muted">
-            Gestion des particuliers, entreprises conventionnées, mutuelles IPM et assurances de santé.
+            {t.subtitle || 'Gestion des particuliers, entreprises conventionnées, mutuelles IPM et assurances de santé.'}
           </p>
         </div>
         <div className="flex flex-wrap items-center gap-2.5">
@@ -67,21 +74,21 @@ export default async function ClientsPage(props: {
       {/* Cartes KPI */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         <div className="bg-surface rounded-2xl p-4 border border-surface-border shadow-sm">
-          <span className="text-xs text-foreground-muted font-medium">Total Créances Clients (En cours)</span>
+          <span className="text-xs text-foreground-muted font-medium">{t.total_creances || 'Total Créances Clients (En cours)'}</span>
           <p className="text-2xl font-bold text-danger mt-1">{formatCFA(totalCreances)}</p>
-          <span className="text-[11px] text-foreground-muted">Montants dus par particuliers, entreprises & assurances</span>
+          <span className="text-[11px] text-foreground-muted">Montants dus par tiers & mutuelles</span>
         </div>
 
         <div className="bg-surface rounded-2xl p-4 border border-surface-border shadow-sm">
-          <span className="text-xs text-foreground-muted font-medium">Nombre Total de Clients</span>
+          <span className="text-xs text-foreground-muted font-medium">{t.table?.nom || 'Nombre Total de Clients'}</span>
           <p className="text-2xl font-bold text-foreground mt-1">{(clientsData || []).length}</p>
-          <span className="text-[11px] text-foreground-muted">Fiches tiers enregistrées dans l&apos;officine</span>
+          <span className="text-[11px] text-foreground-muted">Fiches tiers enregistrées</span>
         </div>
 
         <div className="bg-surface rounded-2xl p-4 border border-surface-border shadow-sm">
-          <span className="text-xs text-foreground-muted font-medium">Conventions Mutuelles & Assurances</span>
+          <span className="text-xs text-foreground-muted font-medium">{t.mutuelles_count || 'Conventions Mutuelles & Assurances'}</span>
           <p className="text-2xl font-bold text-primary mt-1">{countMutuelles}</p>
-          <span className="text-[11px] text-emerald-600 font-medium">Partenariats de prise en charge tiers payant</span>
+          <span className="text-[11px] text-emerald-600 font-medium">Prise en charge tiers payant</span>
         </div>
       </div>
 
@@ -89,11 +96,11 @@ export default async function ClientsPage(props: {
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div className="flex flex-wrap items-center gap-1.5">
           {[
-            { id: 'tous', label: `Tous (${(clientsData || []).length})` },
-            { id: 'particulier', label: 'Particuliers' },
-            { id: 'entreprise', label: 'Entreprises' },
-            { id: 'mutuelle', label: 'Mutuelles / IPM' },
-            { id: 'assurance', label: 'Assurances' },
+            { id: 'tous', label: `${t.tab_tous || 'Tous'} (${(clientsData || []).length})` },
+            { id: 'particulier', label: t.tab_particuliers || 'Particuliers' },
+            { id: 'entreprise', label: t.tab_entreprises || 'Entreprises' },
+            { id: 'mutuelle', label: t.tab_mutuelles || 'Mutuelles / IPM' },
+            { id: 'assurance', label: t.tab_assurances || 'Assurances' },
           ].map((tab) => {
             const isActive = selectedType === tab.id
             return (
@@ -118,23 +125,20 @@ export default async function ClientsPage(props: {
         {clients.length === 0 ? (
           <div className="p-12 text-center text-foreground-muted">
             <Users className="w-12 h-12 mx-auto mb-3 opacity-30 text-primary" />
-            <p className="text-base font-semibold text-foreground">Aucun client ou organisme trouvé</p>
-            <p className="text-xs text-foreground-muted mt-1 max-w-sm mx-auto">
-              Utilisez le bouton &quot;Nouveau Client / Tiers Payant&quot; pour enregistrer votre premier compte client.
-            </p>
+            <p className="text-base font-semibold text-foreground">{tbl.empty || 'Aucun client ou organisme trouvé'}</p>
           </div>
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-left text-sm">
               <thead className="bg-surface-border/40 text-foreground-muted text-[11px] uppercase tracking-wider border-b border-surface-border">
                 <tr>
-                  <th className="py-3 px-4">Client / Organisme</th>
-                  <th className="py-3 px-4">Catégorie</th>
-                  <th className="py-3 px-4">Contact</th>
-                  <th className="py-3 px-4">Convention / Réf.</th>
-                  <th className="py-3 px-4 text-right">Plafond Crédit</th>
-                  <th className="py-3 px-4 text-right">Solde Dû (Créance)</th>
-                  <th className="py-3 px-4 text-center">Action</th>
+                  <th className="py-3 px-4">{tbl.nom || 'Client / Organisme'}</th>
+                  <th className="py-3 px-4">{tbl.type || 'Catégorie'}</th>
+                  <th className="py-3 px-4">{tbl.contact || 'Contact'}</th>
+                  <th className="py-3 px-4">{tbl.prise_en_charge || 'Convention / Réf.'}</th>
+                  <th className="py-3 px-4 text-right">{tbl.plafond || 'Plafond Crédit'}</th>
+                  <th className="py-3 px-4 text-right">{tbl.solde_creance || 'Solde Dû (Créance)'}</th>
+                  <th className="py-3 px-4 text-center">{tbl.actions || 'Action'}</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-surface-border/50">

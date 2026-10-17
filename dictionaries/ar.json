@@ -14,14 +14,14 @@
       "desc": "توفر ديمبا سوليوشن برمجيات حديثة وسهلة الاستخدام لأتمتة عمليات الصيدليات، وتتبع مخزون الأدوية وتواريخ الصلاحية، ومراقبة المعاملات المالية بدقة."
     },
     "features": {
-      "title": "الكفاءة في خدمة الصيدلية الحديثة",
-      "desc": "أدوات مصممة لتلبية متطلبات الصيدليات وفق أعلى المعايير المهنية.",
-      "f1_title": "Rapide & Efficace",
-      "f1_desc": "Des interfaces fluides qui vous font gagner un temps précieux chaque jour.",
-      "f2_title": "Sécurité Maximale",
-      "f2_desc": "Vos données sont cryptées, sauvegardées et accessibles uniquement par vous.",
-      "f3_title": "100% Responsive",
-      "f3_desc": "Gérez votre activité depuis votre bureau ou sur le terrain avec votre smartphone."
+      "title": "الكفاءة والتميز في خدمة الصيدلية الحديثة",
+      "desc": "أدوات صممت خصيصاً لتلائم متطلبات الصيدليات وفق المعايير الصحية العالمية.",
+      "f1_title": "سريع وفائق الدقة",
+      "f1_desc": "واجهة بيع وصرف أدوية فائقة السرعة توفر وقتاً ثميناً للصيدلي والمريض.",
+      "f2_title": "أمان كامل للبيانات",
+      "f2_desc": "سجلاتك الطبية والمالية مشفرة ومحفوظة احتياطياً ولا يمكن الوصول إليها إلا من طرف صيدليتك.",
+      "f3_title": "متوافق 100% مع جميع الأجهزة",
+      "f3_desc": "أدر صيدليتك وتابع المبيعات من حاسوب الصندوق أو هاتفك الذكي في أي وقت."
     },
     "products": {
       "title": "حلولنا الرقمية",
@@ -52,27 +52,27 @@
       "desc": "اختر الباقة المناسبة لاحتياجات مؤسستك. دفع سنوي آمن عبر المحافظ الإلكترونية أو البطاقة المصرفية أو التحويل.",
       "per_year": "فرنك غرب إفريقي / سنوياً",
       "popular_badge": "موصى به",
-      "feature_membres": "Gestion des membres",
-      "feature_campagnes": "Gestion des campagnes",
-      "feature_all_standard": "Tout du plan Standard",
-      "feature_materiel": "Gestion complète du matériel",
-      "feature_all_medium": "Tout du plan Medium",
-      "feature_etats": "États de suivi budgétaire complets",
+      "feature_membres": "سجلات الزبائن والتأمين",
+      "feature_campagnes": "إدارة المبيعات والطلبيات",
+      "feature_all_standard": "جميع مزايا الباقة الأساسية",
+      "feature_materiel": "تتبع المستلزمات والخدمات",
+      "feature_all_medium": "جميع مزايا الباقة المتوسطة",
+      "feature_etats": "محاسبة وقوائم سيسكوهادا الرسمية",
       "choose_standard": "اختيار باقة الصيدلية",
       "choose_medium": "اختيار باقة الصيدلية",
       "choose_premium": "اختيار باقة الصيدلية"
     },
     "tips": {
-      "title": "نصائح وإرشادات صيدلانية",
-      "tip1": "Digitalisez vos processus",
-      "tip2": "Suivez la rentabilité par secteur",
-      "tip3": "Impliquez vos membres",
-      "tip3_desc": "Disposez de vos ratios et bénéficiez d’analyses pertinentes de vos données.",
-      "tip1_desc": "Avec nos applications multiutilisateurs, disponibles à tout moment, en tout lieu.",
-      "tip2_desc": "De toutes vos activités, grâce à nos approches analytiques."
+      "title": "نصائح لإدارة الصيدلية",
+      "tip1": "رقمنة عمليات الصرف والبيع",
+      "tip2": "متابعة هوامش الربح بدقة",
+      "tip3": "التحكم في تواريخ الصلاحية",
+      "tip1_desc": "مع تطبيق متعدد المستخدمين متاح في أي وقت على الصندوق أو عن بعد.",
+      "tip2_desc": "رؤية شاملة ولحظية للهوامش والأدوية سريعة الحركة وديون التأمين.",
+      "tip3_desc": "تنبيهات استباقية للأدوية قريبة الانتهاء لتفادي الخسائر وتأمين المرضى."
     },
     "footer": {
-      "desc": "Propulsez la gestion de votre organisation vers l'avenir avec nos solutions logicielles intuitives et performantes."
+      "desc": "D-PHARMA — برنامج الإدارة الذكي للصيدليات. من باقة DEMBA SOLUTION."
     },
     "contact": {
       "title": "هل لديك استفسار أو تحتاج لمساعدة؟",
@@ -129,17 +129,16 @@
     "demo_note": "مجهزة مسبقاً ببيانات أدوية، ومخزون دفعات، ومبيعات يومية.",
     "demo_error": "تعذر بدء الجلسة التجريبية، يُرجى المحاولة مرة أخرى.",
     "modules": {
-      "dashboard": "Tableau de bord",
-      "pos_pharma": "Point de Vente (POS)",
-      "stock_pharma": "Gestion des stocks & péremptions",
-      "commandes_pharma": "Commandes grossistes & labos",
-      "tresorerie": "الصندوق اليومي والخزينة",
-      "imputations": "Imputations budgétaires"
+      "dashboard": "لوحة القيادة والمؤشرات",
+      "pos_pharma": "صندوق البيع السريع (POS)",
+      "stock_pharma": "المخزون وتواريخ الصلاحية",
+      "commandes_pharma": "طلبيات موزعي الأدوية",
+      "imputations": "المحاسبة المزدوجة سيسكوهادا"
     },
     "plans": {
-      "standard_resume": "L'essentiel pour informatiser son officine : point de vente, stocks et péremptions.",
-      "medium_resume": "Tout Standard, plus les commandes grossistes et réceptions.",
-      "premium_resume": "Tout Medium, plus la trésorerie analytique et les imputations avancées."
+      "standard_resume": "عمليات الصندوق الأساسية ونقطة البيع",
+      "medium_resume": "إدارة المخزون، الباركود ومراقبة الصلاحية",
+      "premium_resume": "محاسبة صيدلانية متكاملة ومتابعة ديون التأمين"
     }
   },
   "auth": {
@@ -263,6 +262,16 @@
       "critical_or_out": "مخزون حرج أو منتهٍ",
       "top_sales": "أفضل الأدوية مبيعاً",
       "top_sales_sub": "المنتجات الأكثر صرفاً في الصيدلية"
+    },
+    "top_sales": {
+      "title": "المنتجات الأكثر مبيعاً",
+      "subtitle": "الأدوية والمستلزمات الأكثر طلباً وصرفاً",
+      "pos_btn": "صندوق المبيعات",
+      "no_sales": "لا توجد أي مبيعات مسجلة حتى الآن.",
+      "no_sales_sub": "ستظهر هنا تلقائياً المنتجات الأكثر طلباً.",
+      "sold": "تم بيعها",
+      "ranking_footer": "ترتيب مبني على عمليات البيع في الصندوق",
+      "new_sale": "عملية بيع جديدة في الصندوق ←"
     }
   },
   "tresorerie": {
@@ -1114,7 +1123,19 @@
       "success": "تم تسجيل عملية البيع بنجاح!",
       "ticket": "إيصال رقم",
       "stock_available": "المتوفر في المخزن",
-      "subtitle": "امسح الرمز الشريطي أو ابحث عن دواء لإضافته إلى السلة."
+      "subtitle": "امسح الرمز الشريطي أو ابحث عن دواء لإضافته إلى السلة.",
+      "cat_all": "جميع المواد",
+      "cat_meds": "الأدوية",
+      "cat_mat": "المستلزمات والأجهزة",
+      "cat_services": "الخدمات والرعاية الصحية",
+      "badge_service": "خدمة صحية",
+      "badge_mat": "مستلزم طبي",
+      "badge_med": "دواء",
+      "out_of_stock": "نفد من المخزن",
+      "simuler_scan": "محاكاة المسح",
+      "vider_panier": "تفريغ السلة",
+      "monnaie_rendue": "الباقي المسترجع",
+      "montant_recu": "المبلغ المستلم"
     },
     "stocks": {
       "title": "إدارة مخزون الأدوية",
@@ -1122,12 +1143,21 @@
       "add_stock": "دواء جديد / دفعة جديدة",
       "stock_value": "القيمة الإجمالية للمخزون",
       "expiring_soon": "تنبيهات انتهاء الصلاحية",
-      "medicament": "الدواء",
-      "lot": "رقم التشغيلة / الدفعة",
+      "medicament": "دواء",
+      "lot": "رقم التشغيلة",
       "quantity": "الكمية المتوفرة",
       "price": "سعر البيع للجمهور",
       "expiry": "تاريخ انتهاء الصلاحية",
-      "status": "الحالة"
+      "status": "الحالة",
+      "article": "المادة / الدواء",
+      "categorie": "التصنيف",
+      "code_barres": "الرمز الشريطي",
+      "quantite": "الكمية",
+      "prix_vente": "سعر البيع",
+      "peremption": "الصلاحية / الحالة",
+      "materiel": "مستلزم طبي",
+      "service": "خدمة صحية",
+      "lots_to_watch": "تشغيلة تحت المراقبة"
     },
     "commandes": {
       "title": "طلبيات المخابر والموزعين",
@@ -1138,6 +1168,192 @@
       "reception": "الاستلام",
       "pending": "قيد الانتظار",
       "completed": "تم الاستلام"
+    }
+  },
+  "comptabilite": {
+    "title": "محاسبة الصيدلية (سيسكوهادا)",
+    "subtitle": "دليل الحسابات المحاسبي الموحد للصيدليات، قيود القيد المزدوج، ميزان المراجعة وقائمة الدخل.",
+    "tabs": {
+      "journal": "دفتر اليومية العامة",
+      "plan": "دليل الحسابات سيسكوهادا",
+      "balance": "الأستاذ العام وميزان المراجعة",
+      "resultat": "قائمة الدخل والنتائج"
+    },
+    "journal": {
+      "title": "دفتر يومية القيود المحاسبية",
+      "subtitle": "سجل شامل ومفصل لجميع العمليات والحركات المحاسبية للصيدلية.",
+      "add_entry": "تسجيل قيد محاسبي",
+      "total_entries": "إجمالي القيود",
+      "filter_all": "جميع السندات",
+      "filter_vente": "مبيعات الصندوق (نقدية)",
+      "filter_achat": "مشتريات الأدوية والمستلزمات",
+      "filter_reglement": "تسديدات ومدفوعات",
+      "filter_od": "عمليات وقيود مختلفة",
+      "table": {
+        "date": "التاريخ",
+        "piece": "رقم المستند",
+        "libelle": "بيان العملية",
+        "debit_account": "حساب المدين",
+        "credit_account": "حساب الدائن",
+        "montant": "المبلغ",
+        "empty": "لا توجد قيود محاسبية مسجلة بعد."
+      }
+    },
+    "plan": {
+      "title": "دليل الحسابات المحاسبي الموحد سيسكوهادا",
+      "subtitle": "التصنيف الرسمي سيسكوهادا مع الحسابات الفرعية ثلاثية ورباعية الأرقام الخاصة بالصيدليات.",
+      "classes": {
+        "c1": "الفئة 1 - الموارد الدائمة (رأس المال والقروض)",
+        "c2": "الفئة 2 - الأصول الثابتة (التجهيزات والمعدات)",
+        "c3": "الفئة 3 - المخزون (أدوية، مستلزمات طبية وبضائع)",
+        "c4": "الفئة 4 - حسابات الغير (الزبائن، التأمين، الموردون)",
+        "c5": "الفئة 5 - الخزينة (الصناديق اليومية والحسابات البنكية)",
+        "c6": "الفئة 6 - الأعباء والمصروفات (مشتريات الأدوية، الإيجار، الرواتب)",
+        "c7": "الفئة 7 - المنتجات والإيرادات (مبيعات الأدوية والخدمات الصحية)"
+      }
+    },
+    "balance": {
+      "title": "دفتر الأستاذ العام وميزان المراجعة",
+      "subtitle": "التأكد من التوازن المحاسبي مدين = دائن وأرصدة حسابات سيسكوهادا.",
+      "total_debit": "إجمالي حركات المدين",
+      "total_credit": "إجمالي حركات الدائن",
+      "equilibre": "توازن المدين والدائن",
+      "conforme": "متوازن ومطابق",
+      "erreur_equilibre": "يوجد عدم توازن",
+      "table": {
+        "num_compte": "رقم الحساب",
+        "libelle": "اسم الحساب",
+        "mvt_debit": "حركات المدين",
+        "mvt_credit": "حركات الدائن",
+        "solde_debiteur": "رصيد مدين",
+        "solde_crediteur": "رصيد دائن"
+      }
+    },
+    "resultat": {
+      "title": "قائمة الدخل والنتيجة التشغيلية",
+      "subtitle": "إيرادات المبيعات، تكلفة البضاعة المباعة، الهامش الإجمالي وصافي ربح الصيدلية.",
+      "chiffre_affaires": "رقم المعاملات الإجمالي (مبيعات وخدمات)",
+      "achats_marchandises": "مشتريات مستهلكة (فواتير الموردين)",
+      "marge_brute": "الهامش التجاري الإجمالي",
+      "charges_exploitation": "مصاريف الاستغلال (الإيجار، الكهرباء، التسيير)",
+      "resultat_net": "صافي النتيجة التشغيلية",
+      "benefice": "صافي الربح",
+      "deficit": "عجز في الاستغلال"
+    }
+  },
+  "clients": {
+    "title": "الزبائن، الديون والتأمين الصحي",
+    "subtitle": "إدارة المرضى الخواص، الشركات المتعاقدة، صناديق التأمين الصحي وشركات التأمين.",
+    "new_client": "إضافة زبون / جهة تأمين",
+    "total_creances": "إجمالي ديون الزبائن والتأمين",
+    "mutuelles_count": "جهات التأمين والصناديق الشريكة",
+    "tab_tous": "الكل",
+    "tab_particuliers": "خواص وأفراد",
+    "tab_entreprises": "شركات متعاقدة",
+    "tab_mutuelles": "صناديق تعاضدية",
+    "tab_assurances": "شركات التأمين",
+    "search_placeholder": "ابحث بالاسم، رقم الهاتف أو رقم بطاقة التأمين...",
+    "table": {
+      "nom": "الزبون / الهيئة",
+      "type": "النوع",
+      "contact": "الهاتف والبريد",
+      "prise_en_charge": "نسبة التغطية",
+      "plafond": "سقف الائتمان",
+      "solde_creance": "الرصيد المستحق",
+      "actions": "الإجراءات",
+      "releve": "كشف الحساب",
+      "reglement": "تسجيل دفعة",
+      "empty": "لم يتم العثور على أي زبون أو هيئة."
+    },
+    "modal": {
+      "title_create": "إضافة زبون / مؤمن له / هيئة",
+      "nom_label": "الاسم الكامل أو اسم الهيئة",
+      "type_label": "فئة الزبون",
+      "type_particulier": "فرد / مريض خاص",
+      "type_entreprise": "شركة متعاقدة",
+      "type_mutuelle": "صندوق تعاضدي صحي",
+      "type_assurance": "شركة تأمين",
+      "tel_label": "رقم الهاتف",
+      "matricule_label": "رقم بطاقة التأمين / العقد",
+      "taux_label": "نسبة التحمل والتغطية (%)",
+      "plafond_label": "سقف الائتمان المسموح (فرنك سيفا)",
+      "notes_label": "ملاحظات وشروط خاصة",
+      "btn_save": "حفظ البيانات",
+      "btn_cancel": "إلغاء"
+    },
+    "releve_modal": {
+      "title": "كشف حساب الزبون",
+      "current_balance": "إجمالي الدين الحالي",
+      "history": "سجل الفواتير والدفعات",
+      "date": "التاريخ",
+      "libelle": "البيان",
+      "debit": "فاتورة / مشتريات",
+      "credit": "تسديد / دفعة",
+      "solde": "الرصيد التراكمي",
+      "empty": "لا توجد حركات مسجلة في هذا الحساب.",
+      "close": "إغلاق"
+    },
+    "reglement_modal": {
+      "title": "تسجيل تحصيل أو تسديد زبون",
+      "amount_due": "إجمالي المبلغ المستحق",
+      "amount_paid": "المبلغ المحصل (فرنك سيفا)",
+      "payment_mode": "طريقة التحصيل",
+      "ref_piece": "رقم الوصل / الإيصال",
+      "notes": "ملاحظات",
+      "btn_confirm": "تأكيد التحصيل",
+      "success": "تم تسجيل التسديد بنجاح!"
+    }
+  },
+  "fournisseurs": {
+    "title": "الموزعون المعتمدون وذمم الموردين",
+    "subtitle": "متابعة حسابات الموردين وموزعي الأدوية، فواتير الشراء وآجال الاستحقاق.",
+    "new_fournisseur": "إضافة موزع / مورد جديد",
+    "total_dettes": "إجمالي ديون الموردين المستحقة",
+    "active_suppliers": "الموزعون المعتمدون النشطون",
+    "search_placeholder": "ابحث بالاسم، الهاتف، اسم المندوب...",
+    "table": {
+      "nom": "الموزع / المورد",
+      "contact": "الاتصال ومندوب المبيعات",
+      "delai": "أجل السداد",
+      "delai_days": "يوم نهاية الشهر",
+      "solde_dette": "المبلغ المستحق",
+      "actions": "الإجراءات",
+      "releve": "كشف الحساب",
+      "reglement": "تسديد الفاتورة",
+      "empty": "لا يوجد أي موزع أو مورد مسجل."
+    },
+    "modal": {
+      "title_create": "إضافة موزع جملة معتمد",
+      "nom_label": "اسم الموزع (مثال: لابوريكس)",
+      "tel_label": "رقم هاتف المصلحة",
+      "email_label": "بريد الطلبيات",
+      "contact_commercial": "مندوب المبيعات المعتمد",
+      "delai_label": "أجل السداد المتفق عليه (بالأيام)",
+      "btn_save": "حفظ بيانات المورد",
+      "btn_cancel": "إلغاء"
+    },
+    "releve_modal": {
+      "title": "كشف حساب المورد",
+      "current_balance": "إجمالي الدين المستحق للمورد",
+      "history": "سجل الفواتير والمدفوعات",
+      "date": "التاريخ",
+      "libelle": "البيان",
+      "debit": "دفعة / تسديد صادر",
+      "credit": "فاتورة شراء",
+      "solde": "الرصيد المتبقي",
+      "empty": "لا توجد أي حركات مسجلة لهذا المورد.",
+      "close": "إغلاق"
+    },
+    "reglement_modal": {
+      "title": "تسديد مستحقات المورد",
+      "amount_due": "إجمالي الرصيد المستحق للموزع",
+      "amount_paid": "المبلغ المدفوع (فرنك سيفا)",
+      "payment_mode": "وسيلة الدفع",
+      "compte_source": "حساب الخزينة / البنك المصدر",
+      "ref_piece": "رقم الشيك / التحويل / السند",
+      "notes": "ملاحظات",
+      "btn_confirm": "تأكيد الدفع للمورد",
+      "success": "تم تسجيل تسديد المورد بنجاح!"
     }
   }
 }

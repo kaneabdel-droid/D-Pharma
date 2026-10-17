@@ -63,16 +63,16 @@
       "choose_premium": "Choose Pharmacy"
     },
     "tips": {
-      "title": "Tips & Best Practices for Pharmacies",
-      "tip1": "Digitalisez vos processus",
-      "tip2": "Suivez la rentabilité par secteur",
-      "tip3": "Impliquez vos membres",
-      "tip3_desc": "Disposez de vos ratios et bénéficiez d’analyses pertinentes de vos données.",
-      "tip1_desc": "Avec nos applications multiutilisateurs, disponibles à tout moment, en tout lieu.",
-      "tip2_desc": "De toutes vos activités, grâce à nos approches analytiques."
+      "title": "Pharmacy Management Tips",
+      "tip1": "Digitize your dispensary",
+      "tip2": "Track profit margins accurately",
+      "tip3": "Prevent stockouts & expiries",
+      "tip1_desc": "With multi-user access available anytime, from your dispensary counter or remotely.",
+      "tip2_desc": "Gain real-time insights into your gross margins, high-turnover medicines, and receivables.",
+      "tip3_desc": "Set automatic reorder points and monitor drug shelf-life to avoid expired stock."
     },
     "footer": {
-      "desc": "Propulsez la gestion de votre organisation vers l'avenir avec nos solutions logicielles intuitives et performantes."
+      "desc": "D-PHARMA — Smart Pharmacy Management Software. Powered by DEMBA SOLUTION."
     },
     "contact": {
       "title": "Need help getting started?",
@@ -129,17 +129,16 @@
     "demo_note": "Pre-loaded with sample medicines, stock lots, and sales.",
     "demo_error": "Unable to start demo session. Please try again.",
     "modules": {
-      "dashboard": "Tableau de bord",
-      "pos_pharma": "Point de Vente (POS)",
-      "stock_pharma": "Gestion des stocks & péremptions",
-      "commandes_pharma": "Commandes grossistes & labos",
-      "tresorerie": "Cash Register & Treasury",
-      "imputations": "Imputations budgétaires"
+      "dashboard": "Analytical Dashboard",
+      "pos_pharma": "Fast Point of Sale (POS)",
+      "stock_pharma": "Inventory & Expirations",
+      "commandes_pharma": "Wholesaler Purchase Orders",
+      "imputations": "Double-entry Accounting"
     },
     "plans": {
-      "standard_resume": "L'essentiel pour informatiser son officine : point de vente, stocks et péremptions.",
-      "medium_resume": "Tout Standard, plus les commandes grossistes et réceptions.",
-      "premium_resume": "Tout Medium, plus la trésorerie analytique et les imputations avancées."
+      "standard_resume": "Essential dispensary operations & POS cash register",
+      "medium_resume": "Full inventory control, barcode scanning & expiry tracking",
+      "premium_resume": "Integrated SYSCOHADA accounting & third-party payer claims"
     }
   },
   "auth": {
@@ -263,6 +262,16 @@
       "critical_or_out": "Critical or exhausted stock",
       "top_sales": "Top Selling Medicines",
       "top_sales_sub": "Highest volume dispensed products"
+    },
+    "top_sales": {
+      "title": "Best-Selling Products",
+      "subtitle": "Top dispensed medicines and healthcare items",
+      "pos_btn": "Checkout POS",
+      "no_sales": "No sales recorded yet.",
+      "no_sales_sub": "Most demanded items will appear here automatically.",
+      "sold": "dispensed",
+      "ranking_footer": "Ranking calculated from POS sales transactions",
+      "new_sale": "New POS Sale →"
     }
   },
   "tresorerie": {
@@ -1114,7 +1123,19 @@
       "success": "Sale completed successfully!",
       "ticket": "Receipt #",
       "stock_available": "In stock",
-      "subtitle": "Scan or search for a medicine to add to cart."
+      "subtitle": "Scan or search for a medicine to add to cart.",
+      "cat_all": "All items",
+      "cat_meds": "Medicines",
+      "cat_mat": "Supplies & Equipment",
+      "cat_services": "Healthcare Services",
+      "badge_service": "Service",
+      "badge_mat": "Supply",
+      "badge_med": "Medicine",
+      "out_of_stock": "Out of stock",
+      "simuler_scan": "Simulate Scan",
+      "vider_panier": "Empty Cart",
+      "monnaie_rendue": "Change Due",
+      "montant_recu": "Amount Received"
     },
     "stocks": {
       "title": "Inventory & Stock Management",
@@ -1123,11 +1144,20 @@
       "stock_value": "Market Value",
       "expiring_soon": "Expiry Alerts",
       "medicament": "Medicine",
-      "lot": "Batch #",
+      "lot": "Lot #",
       "quantity": "Available Quantity",
       "price": "Retail Price",
       "expiry": "Expiry Date",
-      "status": "Status"
+      "status": "Status",
+      "article": "Product / Medicine",
+      "categorie": "Category",
+      "code_barres": "Barcode",
+      "quantite": "Quantity",
+      "prix_vente": "Sale Price",
+      "peremption": "Expiry / Status",
+      "materiel": "Supply",
+      "service": "Service",
+      "lots_to_watch": "batch(es) to watch"
     },
     "commandes": {
       "title": "Wholesaler & Lab Orders",
@@ -1138,6 +1168,192 @@
       "reception": "Reception",
       "pending": "Pending",
       "completed": "Received"
+    }
+  },
+  "comptabilite": {
+    "title": "Pharmacy Accounting",
+    "subtitle": "Pharmaceutical SYSCOHADA chart of accounts, double-entry bookkeeping, general ledger, balance sheet & income statement.",
+    "tabs": {
+      "journal": "General Journal",
+      "plan": "SYSCOHADA Chart of Accounts",
+      "balance": "Ledger & Trial Balance",
+      "resultat": "Income Statement (P&L)"
+    },
+    "journal": {
+      "title": "General Journal Entries",
+      "subtitle": "Comprehensive record of all pharmacy accounting transactions.",
+      "add_entry": "New Journal Entry",
+      "total_entries": "Total Entries",
+      "filter_all": "All document types",
+      "filter_vente": "Point of Sale Cash Receipts",
+      "filter_achat": "Medicine & Supply Purchases",
+      "filter_reglement": "Payments & Settlements",
+      "filter_od": "General Journal Vouchers",
+      "table": {
+        "date": "Date",
+        "piece": "Voucher #",
+        "libelle": "Transaction Description",
+        "debit_account": "Debit Account",
+        "credit_account": "Credit Account",
+        "montant": "Amount",
+        "empty": "No accounting entries recorded yet."
+      }
+    },
+    "plan": {
+      "title": "Pharmaceutical SYSCOHADA Chart of Accounts",
+      "subtitle": "Revised SYSCOHADA standard nomenclature with 3-digit and 4-digit sub-accounts tailored to pharmacy practice.",
+      "classes": {
+        "c1": "Class 1 - Long-term Equity & Liabilities",
+        "c2": "Class 2 - Fixed Assets & Clinic Fixtures",
+        "c3": "Class 3 - Inventories (Medicines, Health Supplies)",
+        "c4": "Class 4 - Third-Party Accounts (Patients, Insurers, Wholesalers)",
+        "c5": "Class 5 - Treasury (Cash Registers & Bank Accounts)",
+        "c6": "Class 6 - Operating Expenses (Medicine purchases, Rent, Utilities, Wages)",
+        "c7": "Class 7 - Operating Revenues (Medicine sales, Equipment, Clinical services)"
+      }
+    },
+    "balance": {
+      "title": "General Ledger & Trial Balance",
+      "subtitle": "Verification of double-entry Debit = Credit balance and SYSCOHADA account balances.",
+      "total_debit": "Total Debit Movements",
+      "total_credit": "Total Credit Movements",
+      "equilibre": "Debit / Credit Balance",
+      "conforme": "Balanced (Conforming)",
+      "erreur_equilibre": "Imbalance detected",
+      "table": {
+        "num_compte": "Account #",
+        "libelle": "Account Title",
+        "mvt_debit": "Debit Movements",
+        "mvt_credit": "Credit Movements",
+        "solde_debiteur": "Debit Balance",
+        "solde_crediteur": "Credit Balance"
+      }
+    },
+    "resultat": {
+      "title": "Pharmacy Income Statement (P&L)",
+      "subtitle": "Operating revenue, medicine purchase costs, gross margin and net pharmacy operating profit.",
+      "chiffre_affaires": "Total Turnover (Sales & Services)",
+      "achats_marchandises": "Cost of Goods Sold (Wholesaler Purchases)",
+      "marge_brute": "Gross Commercial Margin",
+      "charges_exploitation": "Operating Overhead (Rent, Electricity, Supplies)",
+      "resultat_net": "Net Operating Profit",
+      "benefice": "Net Operating Profit",
+      "deficit": "Operating Deficit"
+    }
+  },
+  "clients": {
+    "title": "Clients, Receivables & Third-Party Payers",
+    "subtitle": "Manage private patients, corporate accounts, health mutual funds (IPM), and insurance companies.",
+    "new_client": "New Client / Insurance",
+    "total_creances": "Total Outstanding Receivables",
+    "mutuelles_count": "Partner Mutual Funds & Insurers",
+    "tab_tous": "All",
+    "tab_particuliers": "Private Patients",
+    "tab_entreprises": "Corporate Accounts",
+    "tab_mutuelles": "Mutual Funds / IPM",
+    "tab_assurances": "Insurance Companies",
+    "search_placeholder": "Search by name, phone, or policy ID...",
+    "table": {
+      "nom": "Client / Organization",
+      "type": "Type",
+      "contact": "Phone & Email",
+      "prise_en_charge": "Coverage %",
+      "plafond": "Credit Limit",
+      "solde_creance": "Outstanding Debt",
+      "actions": "Actions",
+      "releve": "Account Statement",
+      "reglement": "Collect Payment",
+      "empty": "No clients or organizations found."
+    },
+    "modal": {
+      "title_create": "Create Client / Insured / Organization",
+      "nom_label": "Full Name or Company Name",
+      "type_label": "Client Category",
+      "type_particulier": "Private Patient",
+      "type_entreprise": "Contracted Company",
+      "type_mutuelle": "Health Mutual Fund (IPM)",
+      "type_assurance": "Insurance Provider",
+      "tel_label": "Phone Number",
+      "matricule_label": "Policy / Insured Member ID",
+      "taux_label": "Coverage Rate (%)",
+      "plafond_label": "Authorized Credit Limit (FCFA)",
+      "notes_label": "Notes or specific contractual terms",
+      "btn_save": "Save Record",
+      "btn_cancel": "Cancel"
+    },
+    "releve_modal": {
+      "title": "Client Account Statement",
+      "current_balance": "Current Outstanding Balance",
+      "history": "Invoices & Settlement History",
+      "date": "Date",
+      "libelle": "Description",
+      "debit": "Charge / Invoice",
+      "credit": "Payment Received",
+      "solde": "Running Balance",
+      "empty": "No transactions found on this account.",
+      "close": "Close"
+    },
+    "reglement_modal": {
+      "title": "Record Client Settlement",
+      "amount_due": "Total outstanding balance",
+      "amount_paid": "Amount collected (FCFA)",
+      "payment_mode": "Payment method",
+      "ref_piece": "Receipt # / Reference",
+      "notes": "Comments",
+      "btn_confirm": "Confirm Payment",
+      "success": "Payment recorded successfully!"
+    }
+  },
+  "fournisseurs": {
+    "title": "Wholesale Distributors & Accounts Payable",
+    "subtitle": "Track pharmacy supplier accounts (Laborex, Sodipharm, Cophase, direct labs), purchase invoices, and payment due dates.",
+    "new_fournisseur": "New Wholesaler / Supplier",
+    "total_dettes": "Total Accounts Payable",
+    "active_suppliers": "Active Wholesale Distributors",
+    "search_placeholder": "Search by name, phone, sales rep...",
+    "table": {
+      "nom": "Wholesaler / Supplier",
+      "contact": "Contact & Sales Rep",
+      "delai": "Payment Terms",
+      "delai_days": "days end of month",
+      "solde_dette": "Current Balance Due",
+      "actions": "Actions",
+      "releve": "Account Statement",
+      "reglement": "Pay Supplier",
+      "empty": "No wholesalers or suppliers found."
+    },
+    "modal": {
+      "title_create": "Add Wholesale Distributor",
+      "nom_label": "Distributor Name (e.g., Laborex)",
+      "tel_label": "Main Phone Number",
+      "email_label": "Orders Email",
+      "contact_commercial": "Dedicated Sales Rep",
+      "delai_label": "Agreed Payment Terms (days)",
+      "btn_save": "Save Wholesaler",
+      "btn_cancel": "Cancel"
+    },
+    "releve_modal": {
+      "title": "Supplier Account Statement",
+      "current_balance": "Total Payable Due",
+      "history": "Invoices & Settlement History",
+      "date": "Date",
+      "libelle": "Description",
+      "debit": "Settlement Paid",
+      "credit": "Purchase Invoice",
+      "solde": "Balance Payable",
+      "empty": "No transactions found on this supplier account.",
+      "close": "Close"
+    },
+    "reglement_modal": {
+      "title": "Issue Supplier Payment",
+      "amount_due": "Total balance owed to wholesaler",
+      "amount_paid": "Amount paid (FCFA)",
+      "payment_mode": "Payment method",
+      "compte_source": "Source account / Cash / Bank",
+      "ref_piece": "Check # / Transfer reference / Voucher",
+      "notes": "Comments",
+      "btn_confirm": "Confirm Supplier Payment",
+      "success": "Supplier payment recorded successfully!"
     }
   }
 }

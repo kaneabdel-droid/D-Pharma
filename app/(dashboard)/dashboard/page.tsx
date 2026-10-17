@@ -238,68 +238,73 @@ export default async function Dashboard() {
         })()}
 
         {/* Widget 2 : Meilleures Ventes (Top Médicaments) */}
-        <div className="rounded-xl bg-surface border border-surface-border shadow-sm overflow-hidden flex flex-col">
-          <div className="p-5 border-b border-surface-border bg-background/50 flex justify-between items-center">
-            <div className="flex items-center gap-2">
-              <div className="p-2 bg-amber-500/10 text-amber-600 rounded-lg">
-                <Award className="w-5 h-5" />
+        {(() => {
+          const ts = dict.dashboard?.top_sales || {}
+          return (
+            <div className="rounded-xl bg-surface border border-surface-border shadow-sm overflow-hidden flex flex-col">
+              <div className="p-5 border-b border-surface-border bg-background/50 flex justify-between items-center">
+                <div className="flex items-center gap-2">
+                  <div className="p-2 bg-amber-500/10 text-amber-600 rounded-lg">
+                    <Award className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-bold font-heading text-foreground">{ts.title || 'Palmarès des Meilleures Ventes'}</h3>
+                    <p className="text-xs text-foreground-muted">{ts.subtitle || 'Médicaments et spécialités les plus délivrés'}</p>
+                  </div>
+                </div>
+                <Link href="/pharmacie/pos" className="text-xs font-semibold text-primary hover:underline flex items-center gap-1">
+                  {ts.pos_btn || 'Caisse POS'} <ArrowRight className="w-3.5 h-3.5 rtl:-scale-x-100" />
+                </Link>
               </div>
-              <div>
-                <h3 className="text-lg font-bold font-heading text-foreground">Palmarès des Meilleures Ventes</h3>
-                <p className="text-xs text-foreground-muted">Médicaments et spécialités les plus délivrés</p>
+
+              <div className="p-6 flex-1 flex flex-col justify-between">
+                {topVentes.length === 0 ? (
+                  <div className="py-12 text-center text-foreground-muted">
+                    <Award className="w-12 h-12 mx-auto mb-2 opacity-30" />
+                    <p className="text-sm font-medium">{ts.no_sales || 'Aucune vente enregistrée pour le moment.'}</p>
+                    <p className="text-xs mt-1">{ts.no_sales_sub || 'Les produits les plus demandés apparaîtront ici automatiquement.'}</p>
+                  </div>
+                ) : (
+                  <div className="space-y-4">
+                    {topVentes.map((item, index) => {
+                      const medal = index === 0 ? '🥇' : index === 1 ? '🥈' : index === 2 ? '🥉' : `#${index + 1}`
+                      const ratio = Math.max(8, Math.round((item.quantite / maxVenteQte) * 100))
+                      return (
+                        <div key={item.nom} className="space-y-1.5">
+                          <div className="flex items-center justify-between text-sm">
+                            <div className="flex items-center gap-2 min-w-0">
+                              <span className="w-6 text-center font-bold text-sm shrink-0">{medal}</span>
+                              <span className="font-bold text-foreground truncate">{item.nom}</span>
+                            </div>
+                            <div className="text-right shrink-0 ml-3">
+                              <span className="font-extrabold text-foreground text-sm">{item.quantite} {ts.sold || 'vendus'}</span>
+                              <span className="text-xs text-foreground-muted block">
+                                {item.ca.toLocaleString(locale === 'ar' ? 'ar-EG' : locale === 'en' ? 'en-US' : 'fr-FR', { maximumFractionDigits: 0 })} {unite}
+                              </span>
+                            </div>
+                          </div>
+                          <div className="w-full h-2.5 bg-surface-border rounded-full overflow-hidden shadow-inner">
+                            <div 
+                              style={{ width: `${ratio}%` }} 
+                              className="h-full bg-gradient-to-r from-primary/80 to-primary rounded-full transition-all duration-500" 
+                            />
+                          </div>
+                        </div>
+                      )
+                    })}
+                  </div>
+                )}
+
+                <div className="mt-6 pt-4 border-t border-surface-border flex items-center justify-between text-xs text-foreground-muted">
+                  <span>{ts.ranking_footer || 'Classement calculé sur les sorties caisse'}</span>
+                  <Link href="/pharmacie/pos" className="font-semibold text-primary hover:underline">
+                    {ts.new_sale || 'Nouvelle vente POS →'}
+                  </Link>
+                </div>
               </div>
             </div>
-            <Link href="/pharmacie/pos" className="text-xs font-semibold text-primary hover:underline flex items-center gap-1">
-              Caisse POS <ArrowRight className="w-3.5 h-3.5" />
-            </Link>
-          </div>
-
-          <div className="p-6 flex-1 flex flex-col justify-between">
-            {topVentes.length === 0 ? (
-              <div className="py-12 text-center text-foreground-muted">
-                <Award className="w-12 h-12 mx-auto mb-2 opacity-30" />
-                <p className="text-sm font-medium">Aucune vente enregistrée pour le moment.</p>
-                <p className="text-xs mt-1">Les produits les plus demandés apparaîtront ici automatiquement.</p>
-              </div>
-            ) : (
-              <div className="space-y-4">
-                {topVentes.map((item, index) => {
-                  const medal = index === 0 ? '🥇' : index === 1 ? '🥈' : index === 2 ? '🥉' : `#${index + 1}`
-                  const ratio = Math.max(8, Math.round((item.quantite / maxVenteQte) * 100))
-                  return (
-                    <div key={item.nom} className="space-y-1.5">
-                      <div className="flex items-center justify-between text-sm">
-                        <div className="flex items-center gap-2 min-w-0">
-                          <span className="w-6 text-center font-bold text-sm shrink-0">{medal}</span>
-                          <span className="font-bold text-foreground truncate">{item.nom}</span>
-                        </div>
-                        <div className="text-right shrink-0 ml-3">
-                          <span className="font-extrabold text-foreground text-sm">{item.quantite} vendus</span>
-                          <span className="text-xs text-foreground-muted block">
-                            {item.ca.toLocaleString('fr-FR', { maximumFractionDigits: 0 })} {unite}
-                          </span>
-                        </div>
-                      </div>
-                      <div className="w-full h-2.5 bg-surface-border rounded-full overflow-hidden shadow-inner">
-                        <div 
-                          style={{ width: `${ratio}%` }} 
-                          className="h-full bg-gradient-to-r from-primary/80 to-primary rounded-full transition-all duration-500" 
-                        />
-                      </div>
-                    </div>
-                  )
-                })}
-              </div>
-            )}
-
-            <div className="mt-6 pt-4 border-t border-surface-border flex items-center justify-between text-xs text-foreground-muted">
-              <span>Classement calculé sur les sorties caisse</span>
-              <Link href="/pharmacie/pos" className="font-semibold text-primary hover:underline">
-                Nouvelle vente POS →
-              </Link>
-            </div>
-          </div>
-        </div>
+          )
+        })()}
       </div>
 
       {/* Dernières Ventes & Trésorerie Globale */}

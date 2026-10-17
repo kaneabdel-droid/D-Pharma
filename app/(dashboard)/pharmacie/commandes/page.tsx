@@ -4,6 +4,8 @@ import { FileText, Send, CheckCircle2 } from 'lucide-react'
 import CreateCommandeButton from './CreateCommandeButton'
 import ReceiveCommandeButton from './ReceiveCommandeButton'
 
+import { getLocale, getDictionary } from '@/dictionaries'
+
 export const metadata = {
   title: 'Commandes Labo | D-PHARMA',
 }
@@ -11,6 +13,9 @@ export const metadata = {
 export default async function CommandesLaboPage() {
   const supabase = await createClient()
   const tenant = await getTenantContext()
+  const locale = await getLocale()
+  const dict = await getDictionary(locale)
+  const t = dict.pharmacie?.commandes || {}
 
   // 1. Récupérer les commandes du GIE
   const { data: commandes } = await supabase
@@ -42,9 +47,11 @@ export default async function CommandesLaboPage() {
     <div className="space-y-6">
       <div className="sm:flex sm:items-center">
         <div className="sm:flex-auto min-w-0">
-          <h2 className="text-2xl font-bold font-heading text-foreground break-words">Commandes Laboratoires</h2>
+          <h2 className="text-2xl font-bold font-heading text-foreground break-words">
+            {t.title || 'Commandes Laboratoires'}
+          </h2>
           <p className="mt-2 text-sm text-foreground-muted">
-            Passez commande auprès de vos fournisseurs et accusez réception après contrôle de la marchandise.
+            {t.subtitle || 'Passez commande auprès de vos fournisseurs et accusez réception après contrôle de la marchandise.'}
           </p>
         </div>
         <div className="mt-4 sm:ml-16 sm:mt-0 flex flex-wrap gap-3 sm:flex-none">
@@ -61,7 +68,9 @@ export default async function CommandesLaboPage() {
             <FileText className="h-5 w-5 text-info" />
           </div>
           <div className="min-w-0">
-            <dt className="text-sm font-medium text-foreground-muted">Total Commandes</dt>
+            <dt className="text-sm font-medium text-foreground-muted">
+              {locale === 'ar' ? 'إجمالي الطلبيات' : locale === 'en' ? 'Total Orders' : 'Total Commandes'}
+            </dt>
             <dd className="mt-1 text-2xl font-semibold tracking-tight text-foreground">{cmds.length}</dd>
           </div>
         </div>
@@ -71,7 +80,7 @@ export default async function CommandesLaboPage() {
             <Send className="h-5 w-5 text-warning" />
           </div>
           <div className="min-w-0">
-            <dt className="text-sm font-medium text-foreground-muted">En attente de livraison</dt>
+            <dt className="text-sm font-medium text-foreground-muted">{t.pending || 'En attente de livraison'}</dt>
             <dd className="mt-1 text-2xl font-semibold tracking-tight text-warning">{envoyeesCount}</dd>
           </div>
         </div>
@@ -81,7 +90,7 @@ export default async function CommandesLaboPage() {
             <CheckCircle2 className="h-5 w-5 text-success" />
           </div>
           <div className="min-w-0">
-            <dt className="text-sm font-medium text-foreground-muted">Réceptionnées</dt>
+            <dt className="text-sm font-medium text-foreground-muted">{t.completed || 'Réceptionnées'}</dt>
             <dd className="mt-1 text-2xl font-semibold tracking-tight text-success">{recuesCount}</dd>
           </div>
         </div>

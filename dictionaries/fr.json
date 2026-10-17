@@ -263,6 +263,16 @@
       "critical_or_out": "Stock critique ou épuisé",
       "top_sales": "Meilleures Ventes (Top Médicaments)",
       "top_sales_sub": "Produits les plus délivrés au comptoir"
+    },
+    "top_sales": {
+      "title": "Palmarès des Meilleures Ventes",
+      "subtitle": "Médicaments et spécialités les plus délivrés",
+      "pos_btn": "Caisse POS",
+      "no_sales": "Aucune vente enregistrée pour le moment.",
+      "no_sales_sub": "Les produits les plus demandés apparaîtront ici automatiquement.",
+      "sold": "vendus",
+      "ranking_footer": "Classement calculé sur les sorties caisse",
+      "new_sale": "Nouvelle vente POS →"
     }
   },
   "tresorerie": {
@@ -1114,7 +1124,19 @@
       "success": "Vente validée avec succès !",
       "ticket": "Ticket N°",
       "stock_available": "En stock",
-      "subtitle": "Scannez ou recherchez un médicament pour l'ajouter au panier."
+      "subtitle": "Scannez ou recherchez un médicament pour l'ajouter au panier.",
+      "cat_all": "Tous les articles",
+      "cat_meds": "Médicaments",
+      "cat_mat": "Matériel & Fournitures",
+      "cat_services": "Services & Soins",
+      "badge_service": "Service",
+      "badge_mat": "Matériel",
+      "badge_med": "Médicament",
+      "out_of_stock": "Rupture de stock",
+      "simuler_scan": "Simuler Scan",
+      "vider_panier": "Vider le panier",
+      "monnaie_rendue": "Monnaie à rendre",
+      "montant_recu": "Montant reçu"
     },
     "stocks": {
       "title": "Gestion des Stocks",
@@ -1123,11 +1145,20 @@
       "stock_value": "Valeur marchande",
       "expiring_soon": "Alertes Péremption",
       "medicament": "Médicament",
-      "lot": "N° Lot",
+      "lot": "Lot",
       "quantity": "Quantité disponible",
       "price": "Prix Public",
       "expiry": "Date Péremption",
-      "status": "État"
+      "status": "État",
+      "article": "Article / Médicament",
+      "categorie": "Catégorie",
+      "code_barres": "Code-barres",
+      "quantite": "Quantité",
+      "prix_vente": "Prix Vente",
+      "peremption": "Péremption / Statut",
+      "materiel": "Matériel",
+      "service": "Service",
+      "lots_to_watch": "lot(s) à surveiller"
     },
     "commandes": {
       "title": "Commandes Laboratoires",
@@ -1138,6 +1169,192 @@
       "reception": "Réception",
       "pending": "En attente",
       "completed": "Réceptionnée"
+    }
+  },
+  "comptabilite": {
+    "title": "Comptabilité Officinale",
+    "subtitle": "Plan comptable SYSCOHADA pharmaceutique, écritures en partie double, balance générale et compte de résultat.",
+    "tabs": {
+      "journal": "Journal des Écritures",
+      "plan": "Plan Comptable SYSCOHADA",
+      "balance": "Grand Livre & Balance",
+      "resultat": "Compte de Résultat Officinal"
+    },
+    "journal": {
+      "title": "Livre-Journal des Écritures",
+      "subtitle": "Historique exhaustif de tous les mouvements comptables de la pharmacie.",
+      "add_entry": "Saisir une Écriture",
+      "total_entries": "Nombre d'Écritures",
+      "filter_all": "Toutes les pièces",
+      "filter_vente": "Ventes au comptoir (Caisse)",
+      "filter_achat": "Achats médicaments & fournitures",
+      "filter_reglement": "Règlements & Paiements",
+      "filter_od": "Opérations Diverses",
+      "table": {
+        "date": "Date",
+        "piece": "N° Pièce",
+        "libelle": "Libellé de l'opération",
+        "debit_account": "Compte Débit",
+        "credit_account": "Compte Crédit",
+        "montant": "Montant",
+        "empty": "Aucune écriture comptable enregistrée."
+      }
+    },
+    "plan": {
+      "title": "Plan Comptable SYSCOHADA Pharmaceutique",
+      "subtitle": "Nomenclature officielle SYSCOHADA révisée avec sous-comptes à 3 et 4 chiffres dédiés à l'officine.",
+      "classes": {
+        "c1": "Classe 1 - Ressources Durables (Capital & Emprunts)",
+        "c2": "Classe 2 - Actif Immobilisé (Agencements & Matériel)",
+        "c3": "Classe 3 - Stocks (Médicaments, Produits Para & Fournitures)",
+        "c4": "Classe 4 - Tiers (Clients, Mutuelles, IPM, Grossistes)",
+        "c5": "Classe 5 - Trésorerie (Caisses du jour & Banques)",
+        "c6": "Classe 6 - Charges (Achats médicaments, Loyers, Énergie, Salaires)",
+        "c7": "Classe 7 - Produits (Ventes médicaments, Matériel, Soins & Services)"
+      }
+    },
+    "balance": {
+      "title": "Grand Livre & Balance Générale des Comptes",
+      "subtitle": "Contrôle de l'équilibre comptable Débit = Crédit et soldes des comptes SYSCOHADA.",
+      "total_debit": "Total Mouvements Débit",
+      "total_credit": "Total Mouvements Crédit",
+      "equilibre": "Équilibre Débit / Crédit",
+      "conforme": "Conforme (Équilibré)",
+      "erreur_equilibre": "Déséquilibre détecté",
+      "table": {
+        "num_compte": "N° Compte",
+        "libelle": "Intitulé du Compte",
+        "mvt_debit": "Mouvements Débit",
+        "mvt_credit": "Mouvements Crédit",
+        "solde_debiteur": "Solde Débiteur",
+        "solde_crediteur": "Solde Créditeur"
+      }
+    },
+    "resultat": {
+      "title": "Compte de Résultat Officinal",
+      "subtitle": "Produits d'exploitation, charges d'achats et marge nette de la pharmacie.",
+      "chiffre_affaires": "Chiffre d'Affaires Global (Ventes & Services)",
+      "achats_marchandises": "Achats Consommés (Grossistes & Produits)",
+      "marge_brute": "Marge Commerciale Brute",
+      "charges_exploitation": "Charges d'Exploitation (Loyers, Électricité, Frais)",
+      "resultat_net": "Résultat d'Exploitation Net",
+      "benefice": "Bénéfice Net",
+      "deficit": "Déficit d'Exploitation"
+    }
+  },
+  "clients": {
+    "title": "Clients, Créances & Tiers Payant",
+    "subtitle": "Gestion des particuliers, entreprises conventionnées, mutuelles IPM et assurances de santé.",
+    "new_client": "Nouveau Client / Mutuelle",
+    "total_creances": "Créances Globales à Recouvrer",
+    "mutuelles_count": "Mutuelles & Assurances Partenaires",
+    "tab_tous": "Tous",
+    "tab_particuliers": "Particuliers",
+    "tab_entreprises": "Entreprises",
+    "tab_mutuelles": "Mutuelles / IPM",
+    "tab_assurances": "Assurances",
+    "search_placeholder": "Rechercher par nom, téléphone ou N° assuré...",
+    "table": {
+      "nom": "Client / Organisme",
+      "type": "Type",
+      "contact": "Téléphone & Email",
+      "prise_en_charge": "Prise en charge",
+      "plafond": "Plafond Crédit",
+      "solde_creance": "Créance en cours",
+      "actions": "Actions",
+      "releve": "Relevé de Compte",
+      "reglement": "Encaisser Règlement",
+      "empty": "Aucun client ou organisme trouvé."
+    },
+    "modal": {
+      "title_create": "Créer un Client / Assuré / Organisme",
+      "nom_label": "Nom complet ou Raison Sociale",
+      "type_label": "Catégorie de client",
+      "type_particulier": "Particulier (Client régulier)",
+      "type_entreprise": "Entreprise conventionnée",
+      "type_mutuelle": "Mutuelle / IPM",
+      "type_assurance": "Compagnie d'Assurance",
+      "tel_label": "Numéro de Téléphone",
+      "matricule_label": "Matricule Assuré / Police",
+      "taux_label": "Taux de Prise en Charge (%)",
+      "plafond_label": "Plafond de Crédit Autorisé (FCFA)",
+      "notes_label": "Observations ou conditions particulières",
+      "btn_save": "Enregistrer",
+      "btn_cancel": "Annuler"
+    },
+    "releve_modal": {
+      "title": "Relevé de Compte Client",
+      "current_balance": "Créance Actuelle Due",
+      "history": "Historique des Ventes & Règlements",
+      "date": "Date",
+      "libelle": "Désignation",
+      "debit": "Vente / Crédit",
+      "credit": "Règlement / Paiement",
+      "solde": "Solde Cumulé",
+      "empty": "Aucun mouvement sur ce compte.",
+      "close": "Fermer"
+    },
+    "reglement_modal": {
+      "title": "Encaisser un Règlement Client",
+      "amount_due": "Montant total de la créance due",
+      "amount_paid": "Montant encaissé (FCFA)",
+      "payment_mode": "Mode d'encaissement",
+      "ref_piece": "N° Reçu / Référence virement",
+      "notes": "Commentaire",
+      "btn_confirm": "Confirmer l'Encaissement",
+      "success": "Règlement enregistré avec succès !"
+    }
+  },
+  "fournisseurs": {
+    "title": "Grossistes Répartiteurs & Dettes Fournisseurs",
+    "subtitle": "Suivi des comptes fournisseurs officinaux (Laborex, Sodipharm, Cophase, Direct labo), factures d'achat et échéances de paiement.",
+    "new_fournisseur": "Nouveau Grossiste / Fournisseur",
+    "total_dettes": "Total Dettes Fournisseurs",
+    "active_suppliers": "Grossistes Répartiteurs Actifs",
+    "search_placeholder": "Rechercher par nom, téléphone, contact commercial...",
+    "table": {
+      "nom": "Grossiste / Fournisseur",
+      "contact": "Contact & Commercial",
+      "delai": "Délai de Paiement",
+      "delai_days": "jours fin de mois",
+      "solde_dette": "Dette en cours",
+      "actions": "Actions",
+      "releve": "Relevé de Compte",
+      "reglement": "Régler Facture",
+      "empty": "Aucun grossiste ou fournisseur enregistré."
+    },
+    "modal": {
+      "title_create": "Ajouter un Grossiste Répartiteur",
+      "nom_label": "Nom du Grossiste (ex: Laborex Sénégal)",
+      "tel_label": "Téléphone Standard",
+      "email_label": "Email Commandes",
+      "contact_commercial": "Nom du Commercial dédié",
+      "delai_label": "Délai de règlement accordé (en jours)",
+      "btn_save": "Enregistrer le Fournisseur",
+      "btn_cancel": "Annuler"
+    },
+    "releve_modal": {
+      "title": "Relevé de Compte Fournisseur",
+      "current_balance": "Total Dette Fournisseur Due",
+      "history": "Historique des Factures & Règlements",
+      "date": "Date",
+      "libelle": "Désignation",
+      "debit": "Règlement Effectué",
+      "credit": "Facture / Achat",
+      "solde": "Solde Dû",
+      "empty": "Aucun mouvement sur ce compte fournisseur.",
+      "close": "Fermer"
+    },
+    "reglement_modal": {
+      "title": "Émettre un Règlement Fournisseur",
+      "amount_due": "Solde total dû au grossiste",
+      "amount_paid": "Montant payé (FCFA)",
+      "payment_mode": "Moyen de paiement émis",
+      "compte_source": "Compte / Caisse / Banque émettrice",
+      "ref_piece": "N° Chèque / Virement / Quittance",
+      "notes": "Commentaire",
+      "btn_confirm": "Valider le Paiement Fournisseur",
+      "success": "Règlement fournisseur enregistré avec succès !"
     }
   }
 }

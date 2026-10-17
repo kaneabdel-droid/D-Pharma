@@ -160,10 +160,10 @@ export default function PointDeVenteClient({
           {/* Filtres par type */}
           <div className="flex flex-wrap gap-1.5 mb-3">
             {[
-              { id: 'tous', label: `Tous (${initialMedicaments.length})` },
-              { id: 'medicament', label: 'Médicaments', icon: Pill },
-              { id: 'materiel', label: 'Matériels & Fournitures', icon: Stethoscope },
-              { id: 'service', label: 'Services Officinaux', icon: Sparkles },
+              { id: 'tous', label: `${t.cat_all || 'Tous'} (${initialMedicaments.length})` },
+              { id: 'medicament', label: t.cat_meds || 'Médicaments', icon: Pill },
+              { id: 'materiel', label: t.cat_mat || 'Matériels & Fournitures', icon: Stethoscope },
+              { id: 'service', label: t.cat_services || 'Services Officinaux', icon: Sparkles },
             ].map(tab => {
               const isActive = selectedCategory === tab.id
               const Icon = tab.icon
@@ -221,10 +221,10 @@ export default function PointDeVenteClient({
                           ? 'bg-cyan-500/10 text-cyan-600'
                           : 'bg-primary/10 text-primary'
                       }`}>
-                        {isService ? 'Service' : isMateriel ? 'Matériel' : 'Médicament'}
+                        {isService ? (t.badge_service || 'Service') : isMateriel ? (t.badge_mat || 'Matériel') : (t.badge_med || 'Médicament')}
                       </span>
                       <span className="text-[11px] text-foreground-muted">
-                        {isService ? 'Actif' : `Stock: ${med.quantite_stock}`}
+                        {isService ? (locale === 'ar' ? 'نشط' : locale === 'en' ? 'Active' : 'Actif') : `${t.stock_available || 'Stock'}: ${med.quantite_stock}`}
                       </span>
                     </div>
                     <div className="font-bold text-xs sm:text-sm text-foreground group-hover:text-primary transition-colors line-clamp-2">
@@ -232,14 +232,14 @@ export default function PointDeVenteClient({
                     </div>
                   </div>
                   <div className="text-primary font-extrabold text-xs sm:text-sm mt-2">
-                    {med.prix_vente.toLocaleString('fr-FR')} FCFA
+                    {med.prix_vente.toLocaleString(locale === 'ar' ? 'ar-EG' : locale === 'en' ? 'en-US' : 'fr-FR')} FCFA
                   </div>
                 </div>
               )
             })}
             {filteredMedicaments.length === 0 && (
               <div className="col-span-full text-center py-10 text-foreground-muted text-xs">
-                Aucun article ou prestation trouvé
+                {locale === 'ar' ? 'لم يتم العثور على أي منتج أو خدمة' : locale === 'en' ? 'No items or services found' : 'Aucun article ou prestation trouvé'}
               </div>
             )}
           </div>

@@ -5,6 +5,8 @@ import FournisseurModal from './FournisseurModal'
 import ReglementFournisseurModal from './ReglementFournisseurModal'
 import ReleveFournisseurModal from './ReleveFournisseurModal'
 
+import { getLocale, getDictionary } from '@/dictionaries'
+
 export const metadata = {
   title: 'Grossistes & Dettes Fournisseurs | D-PHARMA',
 }
@@ -14,6 +16,11 @@ export default async function FournisseursPage(props: {
 }) {
   const searchParams = await props.searchParams
   const query = (searchParams.q || '').toLowerCase().trim()
+
+  const locale = await getLocale()
+  const dict = await getDictionary(locale)
+  const t = dict.fournisseurs || {}
+  const tbl = t.table || {}
 
   const supabase = await createClient()
   const tenant = await getTenantContext()
@@ -36,7 +43,7 @@ export default async function FournisseursPage(props: {
   const totalDettes = (fournisseursData || []).reduce((sum, f) => sum + Number(f.solde_dette || 0), 0)
 
   const formatCFA = (val: number) =>
-    new Intl.NumberFormat('fr-FR', { style: 'decimal', maximumFractionDigits: 0 }).format(val) + ' FCFA'
+    new Intl.NumberFormat(locale === 'ar' ? 'ar-EG' : locale === 'en' ? 'en-US' : 'fr-FR', { style: 'decimal', maximumFractionDigits: 0 }).format(val) + ' FCFA'
 
   return (
     <div className="space-y-6">
@@ -44,10 +51,10 @@ export default async function FournisseursPage(props: {
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
           <h2 className="text-xl font-bold font-heading text-foreground">
-            Grossistes Répartiteurs & Dettes Fournisseurs
+            {t.title || 'Grossistes Répartiteurs & Dettes Fournisseurs'}
           </h2>
           <p className="text-xs text-foreground-muted">
-            Gestion des centrales d&apos;achat, grossistes (Laborex, Copharm, Ubipharm...) et suivi des règlements.
+            {t.subtitle || 'Gestion des centrales d\'achat, grossistes (Laborex, Copharm, Ubipharm...) et suivi des règlements.'}
           </p>
         </div>
         <div className="flex flex-wrap items-center gap-2.5">
@@ -59,13 +66,13 @@ export default async function FournisseursPage(props: {
       {/* Cartes KPI */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         <div className="bg-surface rounded-2xl p-4 border border-surface-border shadow-sm">
-          <span className="text-xs text-foreground-muted font-medium">Total Dettes Grossistes (À payer)</span>
+          <span className="text-xs text-foreground-muted font-medium">{t.total_dettes || 'Total Dettes Grossistes (À payer)'}</span>
           <p className="text-2xl font-bold text-danger mt-1">{formatCFA(totalDettes)}</p>
-          <span className="text-[11px] text-foreground-muted">Factures et commandes en attente de règlement</span>
+          <span className="text-[11px] text-foreground-muted">Factures et commandes en attente</span>
         </div>
 
         <div className="bg-surface rounded-2xl p-4 border border-surface-border shadow-sm">
-          <span className="text-xs text-foreground-muted font-medium">Nombre de Grossistes Partenaires</span>
+          <span className="text-xs text-foreground-muted font-medium">{t.active_suppliers || 'Nombre de Grossistes Partenaires'}</span>
           <p className="text-2xl font-bold text-foreground mt-1">{(fournisseursData || []).length}</p>
           <span className="text-[11px] text-foreground-muted">Comptes fournisseurs actifs</span>
         </div>
@@ -73,7 +80,7 @@ export default async function FournisseursPage(props: {
         <div className="bg-surface rounded-2xl p-4 border border-surface-border shadow-sm">
           <span className="text-xs text-foreground-muted font-medium">Compte SYSCOHADA Associé</span>
           <p className="text-2xl font-bold text-primary mt-1">401</p>
-          <span className="text-[11px] text-foreground-muted">Fournisseurs d&apos;exploitation & répartiteurs</span>
+          <span className="text-[11px] text-foreground-muted">Fournisseurs d&apos;exploitation</span>
         </div>
       </div>
 
@@ -82,23 +89,20 @@ export default async function FournisseursPage(props: {
         {fournisseurs.length === 0 ? (
           <div className="p-12 text-center text-foreground-muted">
             <Truck className="w-12 h-12 mx-auto mb-3 opacity-30 text-primary" />
-            <p className="text-base font-semibold text-foreground">Aucun grossiste ou laboratoire trouvé</p>
-            <p className="text-xs text-foreground-muted mt-1 max-w-sm mx-auto">
-              Utilisez le bouton &quot;Nouveau Grossiste / Fournisseur&quot; pour enregistrer votre premier fournisseur.
-            </p>
+            <p className="text-base font-semibold text-foreground">{tbl.empty || 'Aucun grossiste ou laboratoire trouvé'}</p>
           </div>
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-left text-sm">
               <thead className="bg-surface-border/40 text-foreground-muted text-[11px] uppercase tracking-wider border-b border-surface-border">
                 <tr>
-                  <th className="py-3 px-4">Fournisseur / Grossiste</th>
+                  <th className="py-3 px-4">{tbl.nom || 'Fournisseur / Grossiste'}</th>
                   <th className="py-3 px-4">Code Réf.</th>
-                  <th className="py-3 px-4">Téléphone</th>
+                  <th className="py-3 px-4">{tbl.contact || 'Téléphone'}</th>
                   <th className="py-3 px-4">E-mail</th>
                   <th className="py-3 px-4">Adresse</th>
-                  <th className="py-3 px-4 text-right">Dette Due</th>
-                  <th className="py-3 px-4 text-center">Action</th>
+                  <th className="py-3 px-4 text-right">{tbl.solde_dette || 'Dette Due'}</th>
+                  <th className="py-3 px-4 text-center">{tbl.actions || 'Actions'}</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-surface-border/50">

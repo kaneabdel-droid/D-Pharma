@@ -83,13 +83,13 @@ export default async function StocksPage() {
               <table className="min-w-full divide-y divide-surface-border">
                 <thead className="bg-background/50">
                   <tr>
-                    <th scope="col" className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-foreground sm:pl-6">Article / Médicament</th>
-                    <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-foreground">Catégorie</th>
-                    <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-foreground">Code-barres</th>
-                    <th scope="col" className="px-3 py-3.5 text-right text-sm font-semibold text-foreground">Quantité</th>
-                    <th scope="col" className="px-3 py-3.5 text-right text-sm font-semibold text-foreground">Prix Vente</th>
-                    <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-foreground">Péremption / Statut</th>
-                    <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-foreground">Lot</th>
+                    <th scope="col" className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-foreground sm:pl-6">{t.article || 'Article / Médicament'}</th>
+                    <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-foreground">{t.categorie || 'Catégorie'}</th>
+                    <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-foreground">{t.code_barres || 'Code-barres'}</th>
+                    <th scope="col" className="px-3 py-3.5 text-right text-sm font-semibold text-foreground">{t.quantite || 'Quantité'}</th>
+                    <th scope="col" className="px-3 py-3.5 text-right text-sm font-semibold text-foreground">{t.prix_vente || 'Prix Vente'}</th>
+                    <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-foreground">{t.peremption || 'Péremption / Statut'}</th>
+                    <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-foreground">{t.lot || 'Lot'}</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-surface-border bg-surface">
@@ -113,22 +113,24 @@ export default async function StocksPage() {
                                 ? 'bg-cyan-500/10 text-cyan-600' 
                                 : 'bg-primary/10 text-primary'
                             }`}>
-                              {isService ? 'Service' : isMateriel ? 'Matériel' : 'Médicament'}
+                              {isService ? (t.service || 'Service') : isMateriel ? (t.materiel || 'Matériel') : (t.medicament || 'Médicament')}
                             </span>
                           </td>
                           <td className="whitespace-nowrap px-3 py-3.5 text-sm text-foreground-muted font-mono">{item.medicaments.code_barres || '—'}</td>
                           <td className="whitespace-nowrap px-3 py-3.5 text-sm text-right font-bold text-foreground">
-                            {isService ? 'Illimité' : item.quantite}
+                            {isService ? (locale === 'ar' ? 'غير محدود' : locale === 'en' ? 'Unlimited' : 'Illimité') : item.quantite}
                           </td>
-                          <td className="whitespace-nowrap px-3 py-3.5 text-sm text-right font-medium text-primary">{item.prix_vente.toLocaleString('fr-FR')} FCFA</td>
+                          <td className="whitespace-nowrap px-3 py-3.5 text-sm text-right font-medium text-primary">
+                            {item.prix_vente.toLocaleString(locale === 'ar' ? 'ar-EG' : locale === 'en' ? 'en-US' : 'fr-FR')} FCFA
+                          </td>
                           <td className="whitespace-nowrap px-3 py-3.5 text-sm">
                             {isService ? (
                               <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-500/10 text-emerald-600">
-                                Prestation active
+                                {locale === 'ar' ? 'خدمة صحية نشطة' : locale === 'en' ? 'Active service' : 'Prestation active'}
                               </span>
                             ) : (
                               <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${isExpired ? 'bg-danger/10 text-danger' : isExpiring ? 'bg-warning/10 text-warning' : 'bg-success/10 text-success'}`}>
-                                {new Date(item.date_peremption).toLocaleDateString('fr-FR')}
+                                {new Date(item.date_peremption).toLocaleDateString(locale === 'ar' ? 'ar-EG' : locale === 'en' ? 'en-US' : 'fr-FR')}
                               </span>
                             )}
                           </td>
@@ -139,7 +141,7 @@ export default async function StocksPage() {
                   ) : (
                     <tr>
                       <td colSpan={7} className="whitespace-nowrap py-8 text-center text-sm text-foreground-muted">
-                        Aucun stock trouvé. Ajoutez des médicaments pour commencer.
+                        {locale === 'ar' ? 'لا يوجد أي مخزون مسجل حالياً. أضف أدوية للبدء.' : locale === 'en' ? 'No stock found. Add medicines to get started.' : 'Aucun stock trouvé. Ajoutez des médicaments pour commencer.'}
                       </td>
                     </tr>
                   )}
