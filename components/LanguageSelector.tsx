@@ -20,9 +20,18 @@ export default function LanguageSelector({ currentLang }: { currentLang: string 
     setIsOpen(false)
     if (code === currentLang) return
     
+    try {
+      document.cookie = `lang=${code}; path=/; max-age=31536000; SameSite=Lax`
+    } catch (e) {
+      console.error('Error writing cookie client-side:', e)
+    }
+    
     startTransition(async () => {
-      await setLanguage(code)
-      // Hard refresh to ensure layout direction and server components update
+      try {
+        await setLanguage(code)
+      } catch (err) {
+        console.error('Failed to update language on server:', err)
+      }
       window.location.reload()
     })
   }

@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from 'react'
 import { Search, ShoppingCart, Plus, Minus, Trash2, CreditCard, Banknote, Smartphone, ScanLine } from 'lucide-react'
 import { createClient } from '@/utils/supabase/client'
 import { submitVente } from './actions'
+import { executeOfflineSafe } from '@/lib/offline/offline-action-helper'
 
 type Medicament = {
   id: string
@@ -22,9 +23,13 @@ type LigneCart = {
 }
 
 export default function PointDeVenteClient({ 
-  initialMedicaments 
+  initialMedicaments,
+  t = {},
+  locale = 'fr'
 }: { 
-  initialMedicaments: Medicament[] 
+  initialMedicaments: Medicament[]
+  t?: any
+  locale?: string
 }) {
   const [searchTerm, setSearchTerm] = useState('')
   const [cart, setCart] = useState<LigneCart[]>([])
@@ -83,11 +88,23 @@ export default function PointDeVenteClient({
     formData.append('moyen_paiement', moyenPaiement)
     formData.append('montant_total', totalAmount.toString())
 
-    const result = await submitVente(formData)
+    const result = await executeOfflineSafe({
+      actionType: 'vente_pos',
+      label: `Vente Pharmacie ${moyenPaiement} (${totalAmount.toLocaleString('fr-FR')} FCFA)`,
+      payload: {
+        cart,
+        moyen_paiement: moyenPaiement,
+        montant_total: totalAmount
+      },
+      onlineAction: () => submitVente(formData)
+    })
 
     setIsSubmitting(false)
     if (result.error) {
       setMessage({ type: 'error', text: result.error })
+    } else if (result.offline) {
+      setMessage({ type: 'success', text: '💾 Vente enregistrée hors-ligne ! Les stocks et transactions seront synchronisés dès retour du réseau.' })
+      setCart([])
     } else {
       setMessage({ type: 'success', text: 'Vente enregistrée avec succès !' })
       setCart([])
@@ -100,7 +117,7 @@ export default function PointDeVenteClient({
       <div className="lg:col-span-2 flex flex-col gap-6">
         <div className="bg-surface border border-surface-border p-6 rounded-2xl shadow-sm">
           <div className="flex items-center justify-between mb-4">
-            <h2 className="text-xl font-bold font-heading text-foreground">Catalogue Médicaments</h2>
+            <h2 className="text-xl font-bold font-heading text-foreground">{t.title || 'Catalogue Médicaments'}</h2>
             {/* Simulation Scan Code Barres */}
             <button 
               onClick={() => {
@@ -110,7 +127,7 @@ export default function PointDeVenteClient({
               className="flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-lg font-medium hover:bg-primary/20 transition-colors"
             >
               <ScanLine className="w-5 h-5" />
-              Simuler Scan
+              {t.scanner || 'Simuler Scan'}
             </button>
           </div>
           
@@ -124,7 +141,7 @@ export default function PointDeVenteClient({
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               className="block w-full pl-10 pr-3 py-3 border border-surface-border rounded-xl bg-background text-foreground focus:ring-primary focus:border-primary transition-shadow shadow-sm"
-              placeholder="Rechercher par nom ou scanner le code-barres..."
+              placeholder={t.search_placeholder || 'Rechercher par nom ou scanner le code-barres...'}
               autoFocus
             />
           </div>
@@ -158,9 +175,9 @@ export default function PointDeVenteClient({
               <ShoppingCart className="w-5 h-5" />
             </div>
             <div>
-              <h2 className="text-lg font-bold font-heading text-foreground">Panier en cours</h2>
+              <h2 className="text-lg font-bold font-heading text-foreground">{t.cart || 'Panier en cours'}</h2>
               <p className="text-xs text-foreground-muted">
-                {cart.reduce((s, i) => s + i.quantite, 0)} article(s) sélectionné(s)
+                {cart.reduce((s, i) => s + i.quantite, 0)} article(s)
               </p>
             </div>
           </div>
@@ -169,7 +186,7 @@ export default function PointDeVenteClient({
               onClick={() => setCart([])}
               className="text-xs text-danger hover:underline font-medium px-2 py-1"
             >
-              Vider le panier
+              {locale === 'ar' ? 'إفراغ السلة' : locale === 'en' ? 'Clear cart' : 'Vider le panier'}
             </button>
           )}
         </div>
@@ -180,8 +197,8 @@ export default function PointDeVenteClient({
               <div className="w-16 h-16 rounded-full bg-surface-border/40 flex items-center justify-center mb-3 text-foreground-muted">
                 <ShoppingCart className="w-8 h-8 opacity-40" />
               </div>
-              <p className="font-semibold text-foreground">Le panier est vide</p>
-              <p className="text-sm mt-1 max-w-xs">Sélectionnez un médicament ou scannez son code-barres pour commencer la vente.</p>
+              <p className="font-semibold text-foreground">{t.empty_cart || 'Le panier est vide'}</p>
+              <p className="text-sm mt-1 max-w-xs">{t.search_placeholder || 'Sélectionnez un médicament ou scannez son code-barres pour commencer la vente.'}</p>
             </div>
           ) : (
             cart.map(item => {
@@ -197,12 +214,12 @@ export default function PointDeVenteClient({
                         {item.nom}
                       </div>
                       <div className="text-xs font-semibold text-primary mt-0.5">
-                        {item.prix_unitaire.toLocaleString('fr-FR')} FCFA <span className="text-foreground-muted font-normal">/ unité</span>
+                        {item.prix_unitaire.toLocaleString(locale === 'ar' ? 'ar-EG' : locale === 'en' ? 'en-US' : 'fr-FR')} FCFA <span className="text-foreground-muted font-normal">/ unité</span>
                       </div>
                     </div>
                     <div className="text-right shrink-0">
                       <div className="text-base font-extrabold text-foreground">
-                        {ligneTotal.toLocaleString('fr-FR')} FCFA
+                        {ligneTotal.toLocaleString(locale === 'ar' ? 'ar-EG' : locale === 'en' ? 'en-US' : 'fr-FR')} FCFA
                       </div>
                     </div>
                   </div>
@@ -246,11 +263,11 @@ export default function PointDeVenteClient({
           {/* Card Total à Payer Haute Visibilité */}
           <div className="bg-gradient-to-br from-primary/15 via-primary/5 to-surface border-2 border-primary/30 rounded-xl p-4 mb-5 shadow-sm">
             <div className="flex justify-between items-baseline mb-1">
-              <span className="text-xs uppercase tracking-wider font-bold text-foreground-muted">Total à payer</span>
-              <span className="text-xs font-semibold text-primary">{cart.length} référence(s)</span>
+              <span className="text-xs uppercase tracking-wider font-bold text-foreground-muted">{t.total || 'Total à payer'}</span>
+              <span className="text-xs font-semibold text-primary">{cart.length} réf.</span>
             </div>
             <div className="text-3xl sm:text-4xl font-extrabold text-primary tracking-tight">
-              {totalAmount.toLocaleString('fr-FR')} <span className="text-xl sm:text-2xl font-bold">FCFA</span>
+              {totalAmount.toLocaleString(locale === 'ar' ? 'ar-EG' : locale === 'en' ? 'en-US' : 'fr-FR')} <span className="text-xl sm:text-2xl font-bold">FCFA</span>
             </div>
           </div>
 
@@ -266,7 +283,7 @@ export default function PointDeVenteClient({
               }`}
             >
               <Banknote className="w-5 h-5" />
-              <span>Espèces</span>
+              <span>{t.cash || 'Espèces'}</span>
             </button>
             <button
               type="button"
@@ -278,7 +295,7 @@ export default function PointDeVenteClient({
               }`}
             >
               <Smartphone className="w-5 h-5" />
-              <span>Mobile</span>
+              <span>{t.mobile_money || 'Mobile'}</span>
             </button>
             <button
               type="button"
@@ -290,7 +307,7 @@ export default function PointDeVenteClient({
               }`}
             >
               <CreditCard className="w-5 h-5" />
-              <span>Carte</span>
+              <span>{t.card || 'Carte'}</span>
             </button>
           </div>
 
@@ -307,7 +324,7 @@ export default function PointDeVenteClient({
             disabled={cart.length === 0 || isSubmitting}
             className="w-full bg-primary text-white py-3.5 rounded-xl font-extrabold text-base sm:text-lg hover:bg-primary-hover disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-md active:scale-[0.99] flex items-center justify-center gap-2"
           >
-            {isSubmitting ? 'Validation en cours...' : "Valider l'encaissement"}
+            {isSubmitting ? (locale === 'ar' ? 'جارِ التسجيل...' : locale === 'en' ? 'Processing...' : 'Validation en cours...') : (t.validate || "Valider l'encaissement")}
           </button>
         </div>
       </div>

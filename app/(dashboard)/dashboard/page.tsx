@@ -154,83 +154,88 @@ export default async function Dashboard() {
       {/* Évolution des Stocks & Meilleures Ventes */}
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
         {/* Widget 1 : Évolution & Santé des Stocks */}
-        <div className="rounded-xl bg-surface border border-surface-border shadow-sm overflow-hidden flex flex-col">
-          <div className="p-5 border-b border-surface-border bg-background/50 flex justify-between items-center">
-            <div className="flex items-center gap-2">
-              <div className="p-2 bg-primary/10 text-primary rounded-lg">
-                <TrendingUp className="w-5 h-5" />
+        {(() => {
+          const sw = dict.dashboard?.stocks_widget || {}
+          return (
+            <div className="rounded-xl bg-surface border border-surface-border shadow-sm overflow-hidden flex flex-col">
+              <div className="p-5 border-b border-surface-border bg-background/50 flex justify-between items-center">
+                <div className="flex items-center gap-2">
+                  <div className="p-2 bg-primary/10 text-primary rounded-lg">
+                    <TrendingUp className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-bold font-heading text-foreground">{sw.title || 'Évolution & État des Stocks'}</h3>
+                    <p className="text-xs text-foreground-muted">{sw.subtitle || 'Santé globale de l\'officine et niveaux d\'alerte'}</p>
+                  </div>
+                </div>
+                <Link href="/pharmacie/stocks" className="text-xs font-semibold text-primary hover:underline flex items-center gap-1">
+                  {sw.inventory || 'Inventaire'} <ArrowRight className="w-3.5 h-3.5 rtl:-scale-x-100" />
+                </Link>
               </div>
-              <div>
-                <h3 className="text-lg font-bold font-heading text-foreground">Évolution & État des Stocks</h3>
-                <p className="text-xs text-foreground-muted">Santé globale de l&apos;officine et niveaux d&apos;alerte</p>
-              </div>
-            </div>
-            <Link href="/pharmacie/stocks" className="text-xs font-semibold text-primary hover:underline flex items-center gap-1">
-              Inventaire <ArrowRight className="w-3.5 h-3.5" />
-            </Link>
-          </div>
 
-          <div className="p-6 space-y-6 flex-1 flex flex-col justify-between">
-            {/* Chiffres Globaux du Stock */}
-            <div className="grid grid-cols-2 gap-4">
-              <div className="bg-background rounded-xl p-4 border border-surface-border">
-                <span className="text-xs font-medium text-foreground-muted block">Valeur marchande</span>
-                <span className="text-2xl font-extrabold text-foreground mt-1 block">
-                  {valeurTotaleStock.toLocaleString('fr-FR', { maximumFractionDigits: 0 })} {unite}
-                </span>
-                <span className="text-[11px] text-foreground-muted">{totalRefs} références enregistrées</span>
-              </div>
-              <div className="bg-background rounded-xl p-4 border border-surface-border">
-                <span className="text-xs font-medium text-foreground-muted block">Unités en rayon</span>
-                <span className="text-2xl font-extrabold text-primary mt-1 block">
-                  {totalUnitesStock.toLocaleString('fr-FR')} <span className="text-xs font-normal text-foreground-muted">unités</span>
-                </span>
-                <span className="text-[11px] text-foreground-muted">Disponibles immédiatement</span>
-              </div>
-            </div>
+              <div className="p-6 space-y-6 flex-1 flex flex-col justify-between">
+                {/* Chiffres Globaux du Stock */}
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="bg-background rounded-xl p-4 border border-surface-border">
+                    <span className="text-xs font-medium text-foreground-muted block">{sw.market_value || 'Valeur marchande'}</span>
+                    <span className="text-2xl font-extrabold text-foreground mt-1 block">
+                      {valeurTotaleStock.toLocaleString(locale === 'fr' ? 'fr-FR' : 'en-US', { maximumFractionDigits: 0 })} {unite}
+                    </span>
+                    <span className="text-[11px] text-foreground-muted">{totalRefs} {sw.registered_refs || 'références enregistrées'}</span>
+                  </div>
+                  <div className="bg-background rounded-xl p-4 border border-surface-border">
+                    <span className="text-xs font-medium text-foreground-muted block">{sw.units_on_shelf || 'Unités en rayon'}</span>
+                    <span className="text-2xl font-extrabold text-primary mt-1 block">
+                      {totalUnitesStock.toLocaleString(locale === 'fr' ? 'fr-FR' : 'en-US')} <span className="text-xs font-normal text-foreground-muted">unités</span>
+                    </span>
+                    <span className="text-[11px] text-foreground-muted">{sw.available_now || 'Disponibles immédiatement'}</span>
+                  </div>
+                </div>
 
-            {/* Barre de répartition de la santé du stock */}
-            <div>
-              <div className="flex justify-between items-center text-xs font-semibold mb-2">
-                <span className="text-foreground">Répartition de la couverture ({totalRefs} produits)</span>
-                <span className="text-emerald-600 font-bold">{pctNormal}% en stock optimal</span>
-              </div>
-              <div className="w-full h-3.5 bg-surface-border rounded-full overflow-hidden flex shadow-inner">
-                <div style={{ width: `${pctNormal}%` }} className="bg-emerald-500 transition-all duration-500" title={`Optimal: ${pctNormal}%`} />
-                <div style={{ width: `${pctFaible}%` }} className="bg-amber-400 transition-all duration-500" title={`Faible: ${pctFaible}%`} />
-                <div style={{ width: `${pctRupture}%` }} className="bg-rose-500 transition-all duration-500" title={`Rupture: ${pctRupture}%`} />
-              </div>
-              <div className="flex items-center gap-4 text-[11px] font-medium mt-2 text-foreground-muted">
-                <span className="flex items-center gap-1.5"><span className="w-2 h-2 rounded-full bg-emerald-500" /> Optimal ({stockNormal})</span>
-                <span className="flex items-center gap-1.5"><span className="w-2 h-2 rounded-full bg-amber-400" /> Faible ({stockFaible})</span>
-                <span className="flex items-center gap-1.5"><span className="w-2 h-2 rounded-full bg-rose-500" /> Rupture ({ruptureStock})</span>
-              </div>
-            </div>
+                {/* Barre de répartition de la santé du stock */}
+                <div>
+                  <div className="flex justify-between items-center text-xs font-semibold mb-2">
+                    <span className="text-foreground">{sw.coverage_distribution || 'Répartition de la couverture'} ({totalRefs} produits)</span>
+                    <span className="text-emerald-600 font-bold">{pctNormal}% {sw.optimal_in_stock || 'en stock optimal'}</span>
+                  </div>
+                  <div className="w-full h-3.5 bg-surface-border rounded-full overflow-hidden flex shadow-inner">
+                    <div style={{ width: `${pctNormal}%` }} className="bg-emerald-500 transition-all duration-500" title={`Optimal: ${pctNormal}%`} />
+                    <div style={{ width: `${pctFaible}%` }} className="bg-amber-400 transition-all duration-500" title={`Faible: ${pctFaible}%`} />
+                    <div style={{ width: `${pctRupture}%` }} className="bg-rose-500 transition-all duration-500" title={`Rupture: ${pctRupture}%`} />
+                  </div>
+                  <div className="flex items-center gap-4 text-[11px] font-medium mt-2 text-foreground-muted">
+                    <span className="flex items-center gap-1.5"><span className="w-2 h-2 rounded-full bg-emerald-500" /> {sw.optimal || 'Optimal'} ({stockNormal})</span>
+                    <span className="flex items-center gap-1.5"><span className="w-2 h-2 rounded-full bg-amber-400" /> {sw.low || 'Faible'} ({stockFaible})</span>
+                    <span className="flex items-center gap-1.5"><span className="w-2 h-2 rounded-full bg-rose-500" /> {sw.out_of_stock || 'Rupture'} ({ruptureStock})</span>
+                  </div>
+                </div>
 
-            {/* Badges d'alertes péremptions & réapprovisionnement */}
-            <div className="grid grid-cols-2 gap-3 pt-2 border-t border-surface-border/60">
-              <div className={`p-3 rounded-xl border flex items-center gap-3 ${
-                peremptionProche > 0 ? 'bg-amber-500/10 border-amber-500/30 text-amber-700 dark:text-amber-400' : 'bg-background border-surface-border text-foreground-muted'
-              }`}>
-                <AlertTriangle className="w-5 h-5 shrink-0" />
-                <div className="min-w-0">
-                  <div className="text-xs font-bold leading-tight">{peremptionProche} lot(s) à surveiller</div>
-                  <div className="text-[10px] opacity-80 mt-0.5">Péremption &lt; 90 jours</div>
+                {/* Badges d'alertes péremptions & réapprovisionnement */}
+                <div className="grid grid-cols-2 gap-3 pt-2 border-t border-surface-border/60">
+                  <div className={`p-3 rounded-xl border flex items-center gap-3 ${
+                    peremptionProche > 0 ? 'bg-amber-500/10 border-amber-500/30 text-amber-700 dark:text-amber-400' : 'bg-background border-surface-border text-foreground-muted'
+                  }`}>
+                    <AlertTriangle className="w-5 h-5 shrink-0" />
+                    <div className="min-w-0">
+                      <div className="text-xs font-bold leading-tight">{peremptionProche} {sw.watch_expiry || 'lot(s) à surveiller'}</div>
+                      <div className="text-[10px] opacity-80 mt-0.5">{sw.expiry_under_90 || 'Péremption < 90 jours'}</div>
+                    </div>
+                  </div>
+
+                  <div className={`p-3 rounded-xl border flex items-center gap-3 ${
+                    stockFaible > 0 || ruptureStock > 0 ? 'bg-rose-500/10 border-rose-500/30 text-rose-700 dark:text-rose-400' : 'bg-background border-surface-border text-foreground-muted'
+                  }`}>
+                    <PackageOpen className="w-5 h-5 shrink-0" />
+                    <div className="min-w-0">
+                      <div className="text-xs font-bold leading-tight">{stockFaible + ruptureStock} {sw.reorder_alerts || 'alerte(s) réappro'}</div>
+                      <div className="text-[10px] opacity-80 mt-0.5">{sw.critical_or_out || 'Stock critique ou épuisé'}</div>
+                    </div>
+                  </div>
                 </div>
               </div>
-
-              <div className={`p-3 rounded-xl border flex items-center gap-3 ${
-                stockFaible > 0 || ruptureStock > 0 ? 'bg-rose-500/10 border-rose-500/30 text-rose-700 dark:text-rose-400' : 'bg-background border-surface-border text-foreground-muted'
-              }`}>
-                <PackageOpen className="w-5 h-5 shrink-0" />
-                <div className="min-w-0">
-                  <div className="text-xs font-bold leading-tight">{stockFaible + ruptureStock} alerte(s) réappro</div>
-                  <div className="text-[10px] opacity-80 mt-0.5">Stock critique ou épuisé</div>
-                </div>
-              </div>
             </div>
-          </div>
-        </div>
+          )
+        })()}
 
         {/* Widget 2 : Meilleures Ventes (Top Médicaments) */}
         <div className="rounded-xl bg-surface border border-surface-border shadow-sm overflow-hidden flex flex-col">

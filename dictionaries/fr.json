@@ -186,7 +186,12 @@
     "import_donnees": "Importer des données",
     "parametres": "Paramètres",
     "support": "Aide & Support",
-    "logout": "Déconnexion"
+    "logout": "Déconnexion",
+    "section_pilotage": "Pilotage",
+    "section_pharmacie": "Pharmacie",
+    "section_finances": "Finance & Compta",
+    "section_admin": "Administration",
+    "section_aide": "Assistance"
   },
   "header": {
     "admin": "Admin",
@@ -236,6 +241,26 @@
       "empty": "Aucune vente récente",
       "pos_link": "Aller au Point de Vente",
       "sale_of": "Ticket N°"
+    },
+    "stocks_widget": {
+      "title": "Évolution & État des Stocks",
+      "subtitle": "Santé globale de l'officine et niveaux d'alerte",
+      "inventory": "Inventaire",
+      "market_value": "Valeur marchande",
+      "units_on_shelf": "Unités en rayon",
+      "available_now": "Disponibles immédiatement",
+      "registered_refs": "références enregistrées",
+      "coverage_distribution": "Répartition de la couverture",
+      "optimal_in_stock": "en stock optimal",
+      "optimal": "Optimal",
+      "low": "Faible",
+      "out_of_stock": "Rupture",
+      "watch_expiry": "lot(s) à surveiller",
+      "expiry_under_90": "Péremption < 90 jours",
+      "reorder_alerts": "alerte(s) réappro",
+      "critical_or_out": "Stock critique ou épuisé",
+      "top_sales": "Meilleures Ventes (Top Médicaments)",
+      "top_sales_sub": "Produits les plus délivrés au comptoir"
     }
   },
   "tresorerie": {
@@ -996,7 +1021,9 @@
       "pricing": "Tarifs",
       "patients": "Espace Patients",
       "demo": "Démo en direct",
-      "login": "Connexion"
+      "login": "Connexion",
+      "contact": "Contact",
+      "signup": "Essai gratuit"
     },
     "hero": {
       "badge": "Solution Officine & Pharmacie",
@@ -1067,6 +1094,48 @@
     },
     "footer": {
       "rights": "Demba Solution. D-PHARMA — Tous droits réservés."
+    }
+  },
+  "pharmacie": {
+    "pos": {
+      "title": "Point de Vente (Caisse)",
+      "search_placeholder": "Rechercher un médicament par nom ou code-barres...",
+      "cart": "Panier de vente",
+      "empty_cart": "Le panier est vide. Scannez ou cliquez sur un médicament pour l'ajouter.",
+      "total": "Total à payer",
+      "validate": "Valider la Vente",
+      "payment_method": "Mode de paiement",
+      "cash": "Espèces",
+      "card": "Carte bancaire",
+      "mobile_money": "Mobile Money (Wave / Orange)",
+      "scanner": "Scanner code-barres",
+      "success": "Vente validée avec succès !",
+      "ticket": "Ticket N°",
+      "stock_available": "En stock",
+      "subtitle": "Scannez ou recherchez un médicament pour l'ajouter au panier."
+    },
+    "stocks": {
+      "title": "Gestion des Stocks",
+      "subtitle": "Gérez votre inventaire, ajoutez des médicaments et surveillez les dates de péremption.",
+      "add_stock": "Nouveau Médicament / Lot",
+      "stock_value": "Valeur marchande",
+      "expiring_soon": "Alertes Péremption",
+      "medicament": "Médicament",
+      "lot": "N° Lot",
+      "quantity": "Quantité disponible",
+      "price": "Prix Public",
+      "expiry": "Date Péremption",
+      "status": "État"
+    },
+    "commandes": {
+      "title": "Commandes Laboratoires",
+      "subtitle": "Passez commande auprès de vos fournisseurs et accusez réception après contrôle de la marchandise.",
+      "new_order": "Nouvelle Commande Grossiste",
+      "supplier": "Fournisseur / Laboratoire",
+      "date": "Date commande",
+      "reception": "Réception",
+      "pending": "En attente",
+      "completed": "Réceptionnée"
     }
   }
 }

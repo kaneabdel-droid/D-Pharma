@@ -7,6 +7,7 @@ import LanguageSelector from '@/components/LanguageSelector'
 
 export default function ClientNavbar({ dict, currentLang }: { dict?: any, currentLang: string }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const nav = dict?.landing_pharma?.nav || {}
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-surface-border bg-background/85 backdrop-blur-md">
@@ -28,22 +29,22 @@ export default function ClientNavbar({ dict, currentLang }: { dict?: any, curren
 
           <nav className="hidden md:flex gap-6 items-center">
             <Link href="/#fonctionnalites" className="text-sm font-medium text-foreground-muted hover:text-primary transition-colors">
-              Fonctionnalités
+              {nav.features || 'Fonctionnalités'}
             </Link>
             <Link href="/tarifs" className="text-sm font-medium text-foreground-muted hover:text-primary transition-colors">
-              Tarifs
+              {nav.pricing || 'Tarifs'}
             </Link>
             <Link href="/guide" className="text-sm font-medium text-foreground-muted hover:text-primary transition-colors">
-              Guide d&apos;utilisation
+              {nav.guide || "Guide d'utilisation"}
             </Link>
             <Link href="/decouvrir-dpharma" className="text-sm font-medium text-foreground-muted hover:text-primary transition-colors inline-flex items-center gap-1 text-primary font-semibold">
-              <Sparkles className="w-3.5 h-3.5" /> Démo
+              <Sparkles className="w-3.5 h-3.5" /> {nav.demo || 'Démo'}
             </Link>
             <Link href="/recherche-medicament" className="text-sm font-medium text-foreground-muted hover:text-primary transition-colors">
-              Espace Patients
+              {nav.patients || 'Espace Patients'}
             </Link>
             <Link href="/#contact" className="text-sm font-medium text-foreground-muted hover:text-primary transition-colors">
-              Contact
+              {nav.contact || 'Contact'}
             </Link>
           </nav>
 
@@ -53,13 +54,13 @@ export default function ClientNavbar({ dict, currentLang }: { dict?: any, curren
               href="/login"
               className="rounded-full border border-surface-border px-3.5 py-1.5 text-sm font-semibold text-foreground hover:border-primary hover:text-primary transition-all"
             >
-              Connexion
+              {nav.login || 'Connexion'}
             </Link>
             <Link
               href="/signup"
               className="hidden sm:inline-flex rounded-full bg-primary px-4 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-primary-hover transition-all"
             >
-              Essai gratuit
+              {nav.signup || 'Essai gratuit'}
             </Link>
             <button
               className="md:hidden p-2 text-foreground-muted"
@@ -80,42 +81,42 @@ export default function ClientNavbar({ dict, currentLang }: { dict?: any, curren
             onClick={() => setMobileMenuOpen(false)}
             className="block text-base font-medium text-foreground hover:text-primary"
           >
-            Fonctionnalités
+            {nav.features || 'Fonctionnalités'}
           </Link>
           <Link
             href="/tarifs"
             onClick={() => setMobileMenuOpen(false)}
             className="block text-base font-medium text-foreground hover:text-primary"
           >
-            Tarifs
+            {nav.pricing || 'Tarifs'}
           </Link>
           <Link
             href="/guide"
             onClick={() => setMobileMenuOpen(false)}
             className="block text-base font-medium text-foreground hover:text-primary"
           >
-            Guide d&apos;utilisation
+            {nav.guide || "Guide d'utilisation"}
           </Link>
           <Link
             href="/decouvrir-dpharma"
             onClick={() => setMobileMenuOpen(false)}
             className="block text-base font-semibold text-primary hover:underline"
           >
-            Démo en direct
+            {nav.demo || 'Démo en direct'}
           </Link>
           <Link
             href="/recherche-medicament"
             onClick={() => setMobileMenuOpen(false)}
             className="block text-base font-medium text-foreground hover:text-primary"
           >
-            Espace Public Patients
+            {nav.patients || 'Espace Public Patients'}
           </Link>
           <Link
             href="/#contact"
             onClick={() => setMobileMenuOpen(false)}
             className="block text-base font-medium text-foreground hover:text-primary"
           >
-            Contact
+            {nav.contact || 'Contact'}
           </Link>
           <div className="pt-2 flex flex-col gap-2">
             <Link
@@ -123,14 +124,14 @@ export default function ClientNavbar({ dict, currentLang }: { dict?: any, curren
               onClick={() => setMobileMenuOpen(false)}
               className="text-center w-full rounded-lg border border-surface-border py-2 text-sm font-semibold text-foreground hover:border-primary"
             >
-              Connexion
+              {nav.login || 'Connexion'}
             </Link>
             <Link
               href="/signup"
               onClick={() => setMobileMenuOpen(false)}
               className="text-center w-full rounded-lg bg-primary py-2 text-sm font-semibold text-white hover:bg-primary-hover"
             >
-              Créer un compte
+              {nav.signup || 'Créer un compte'}
             </Link>
           </div>
         </div>

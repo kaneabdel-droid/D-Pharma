@@ -6,12 +6,16 @@ export const metadata = {
   title: 'Point de Vente | D-PHARMA',
 }
 
+import { getLocale, getDictionary } from '@/dictionaries'
+
 export default async function POSPage() {
   const supabase = await createClient()
   const tenant = await getTenantContext()
+  const locale = await getLocale()
+  const dict = await getDictionary(locale)
+  const tPos: any = dict.pharmacie?.pos || {}
 
   // Récupérer le catalogue de médicaments avec le stock disponible pour le GIE (Pharmacie) actuel.
-  // On fait une jointure entre les médicaments globaux et le stock de cette pharmacie.
   const { data: stocks, error } = await supabase
     .from('stocks_pharmacie')
     .select(`
@@ -25,7 +29,6 @@ export default async function POSPage() {
         code_barres
       )
     `)
-    //.eq('gie_id', tenant?.gieId) // Le RLS s'en charge théoriquement, mais c'est bien de sécuriser
     .order('date_peremption', { ascending: true })
 
   // Reformater les données pour le client
@@ -54,14 +57,14 @@ export default async function POSPage() {
     <div className="space-y-6">
       <div className="sm:flex sm:items-center">
         <div className="sm:flex-auto min-w-0">
-          <h2 className="text-2xl font-bold font-heading text-foreground break-words">Point de Vente (Caisse)</h2>
+          <h2 className="text-2xl font-bold font-heading text-foreground break-words">{tPos.title || 'Point de Vente (Caisse)'}</h2>
           <p className="mt-2 text-sm text-foreground-muted">
-            Scannez ou recherchez un médicament pour l'ajouter au panier.
+            {tPos.subtitle || 'Scannez ou recherchez un médicament pour l\'ajouter au panier.'}
           </p>
         </div>
       </div>
 
-      <PointDeVenteClient initialMedicaments={aggregatedMedicaments} />
+      <PointDeVenteClient initialMedicaments={aggregatedMedicaments} t={tPos} locale={locale} />
     </div>
   )
 }

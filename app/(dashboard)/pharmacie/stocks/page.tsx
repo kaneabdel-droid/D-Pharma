@@ -3,6 +3,8 @@ import { getTenantContext } from '@/utils/supabase/tenant'
 import { PackageOpen, AlertTriangle } from 'lucide-react'
 import CreateStockButton from './CreateStockButton'
 
+import { getLocale, getDictionary } from '@/dictionaries'
+
 export const metadata = {
   title: 'Gestion des Stocks | D-PHARMA',
 }
@@ -10,6 +12,9 @@ export const metadata = {
 export default async function StocksPage() {
   const supabase = await createClient()
   const tenant = await getTenantContext()
+  const locale = await getLocale()
+  const dict = await getDictionary(locale)
+  const t = dict.pharmacie?.stocks || {}
 
   // Fetch stocks
   const { data: stocks, error } = await supabase
@@ -25,7 +30,6 @@ export default async function StocksPage() {
         code_barres
       )
     `)
-    // .eq('gie_id', tenant?.gieId) // Protected by RLS
     .order('date_peremption', { ascending: true })
 
   const totalValue = (stocks || []).reduce((sum, item) => sum + (item.quantite * item.prix_vente), 0)
@@ -39,9 +43,9 @@ export default async function StocksPage() {
     <div className="space-y-6">
       <div className="sm:flex sm:items-center">
         <div className="sm:flex-auto min-w-0">
-          <h2 className="text-2xl font-bold font-heading text-foreground break-words">Gestion des Stocks</h2>
+          <h2 className="text-2xl font-bold font-heading text-foreground break-words">{t.title || 'Gestion des Stocks'}</h2>
           <p className="mt-2 text-sm text-foreground-muted">
-            Gérez votre inventaire, ajoutez des médicaments et surveillez les dates de péremption.
+            {t.subtitle || 'Gérez votre inventaire, ajoutez des médicaments et surveillez les dates de péremption.'}
           </p>
         </div>
         <div className="mt-4 sm:ml-16 sm:mt-0 flex flex-wrap gap-3 sm:flex-none">
@@ -55,8 +59,8 @@ export default async function StocksPage() {
             <PackageOpen className="h-5 w-5 text-primary" />
           </div>
           <div className="min-w-0">
-            <dt className="text-sm font-medium text-foreground-muted">Valeur du Stock</dt>
-            <dd className="mt-1 text-2xl font-semibold tracking-tight text-foreground">{totalValue.toLocaleString('fr-FR')} FCFA</dd>
+            <dt className="text-sm font-medium text-foreground-muted">{t.stock_value || 'Valeur du Stock'}</dt>
+            <dd className="mt-1 text-2xl font-semibold tracking-tight text-foreground">{totalValue.toLocaleString(locale === 'ar' ? 'ar-EG' : locale === 'en' ? 'en-US' : 'fr-FR')} FCFA</dd>
           </div>
         </div>
         
@@ -65,7 +69,7 @@ export default async function StocksPage() {
             <AlertTriangle className="h-5 w-5 text-warning" />
           </div>
           <div className="min-w-0">
-            <dt className="text-sm font-medium text-foreground-muted">Péremption proche (&lt; 90j)</dt>
+            <dt className="text-sm font-medium text-foreground-muted">{t.expiring_soon || 'Péremption proche (< 90j)'}</dt>
             <dd className="mt-1 text-2xl font-semibold tracking-tight text-warning">{expiringSoon} lot(s)</dd>
           </div>
         </div>

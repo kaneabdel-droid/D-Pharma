@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { ThemeSwitcher } from '../components/ThemeSwitcher'
 import LanguageSelector from '@/components/LanguageSelector'
+import { OfflineSyncBar } from '@/components/offline/OfflineSyncBar'
 import { hasPermission, moduleForPath, type PermissionMap } from '@/lib/permissions'
 import { 
   LayoutDashboard, 
@@ -65,13 +66,13 @@ export default function ClientLayout({
   // Définition structurée par catégories pour le menu horizontal
   const menuSections = [
     {
-      titre: 'Pilotage',
+      titre: dict.sidebar?.section_pilotage || 'Pilotage',
       items: [
         { key: 'dashboard', href: '/dashboard', icon: LayoutDashboard },
       ],
     },
     {
-      titre: 'Pharmacie',
+      titre: dict.sidebar?.section_pharmacie || 'Pharmacie',
       items: [
         { key: 'pos_pharma', href: '/pharmacie/pos', icon: Activity },
         { key: 'stock_pharma', href: '/pharmacie/stocks', icon: PackageOpen },
@@ -79,14 +80,14 @@ export default function ClientLayout({
       ],
     },
     {
-      titre: 'Finance & Compta',
+      titre: dict.sidebar?.section_finances || 'Finance & Compta',
       items: [
         { key: 'tresorerie', href: '/tresorerie', icon: Landmark },
         { key: 'comptabilite', href: '/comptabilite', icon: BookOpen },
       ],
     },
     {
-      titre: 'Administration',
+      titre: dict.sidebar?.section_admin || 'Administration',
       items: [
         { key: 'import_donnees', href: '/parametres/import', icon: UploadCloud },
         { key: 'parametres', href: '/parametres', icon: Settings },
@@ -94,7 +95,7 @@ export default function ClientLayout({
       ],
     },
     {
-      titre: 'Assistance',
+      titre: dict.sidebar?.section_aide || 'Assistance',
       items: [
         { key: 'support', href: '/support', icon: LifeBuoy },
       ],
@@ -206,6 +207,7 @@ export default function ClientLayout({
               <span className="text-sm font-semibold text-foreground truncate max-w-xs">{gieName}</span>
             </div>
             <div className="flex items-center gap-4">
+              <OfflineSyncBar />
               <LanguageSelector currentLang={locale} />
               <ThemeSwitcher />
               <a
@@ -339,6 +341,7 @@ export default function ClientLayout({
           <div className="flex flex-1 min-w-0 gap-x-4 self-stretch lg:gap-x-6">
             <div className="flex flex-1"></div>
             <div className="flex min-w-0 items-center gap-x-3 sm:gap-x-4 lg:gap-x-6">
+              <OfflineSyncBar />
               <LanguageSelector currentLang={locale} />
               <ThemeSwitcher />
               {/* Profile dropdown or simple user info could go here */}

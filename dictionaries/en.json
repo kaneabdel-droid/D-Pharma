@@ -186,7 +186,12 @@
     "import_donnees": "Import Data",
     "parametres": "Settings",
     "support": "Help & Support",
-    "logout": "Sign Out"
+    "logout": "Sign Out",
+    "section_pilotage": "Management",
+    "section_pharmacie": "Pharmacy",
+    "section_finances": "Finance & Accounting",
+    "section_admin": "Administration",
+    "section_aide": "Help & Support"
   },
   "header": {
     "admin": "Admin",
@@ -236,6 +241,26 @@
       "empty": "No sales recorded recently",
       "pos_link": "Go to Point of Sale",
       "sale_of": "Receipt #"
+    },
+    "stocks_widget": {
+      "title": "Stock Status & Evolution",
+      "subtitle": "Overall dispensary health and alert thresholds",
+      "inventory": "Inventory",
+      "market_value": "Market Value",
+      "units_on_shelf": "Units in Stock",
+      "available_now": "Available immediately",
+      "registered_refs": "registered medicines",
+      "coverage_distribution": "Inventory coverage distribution",
+      "optimal_in_stock": "in optimal stock",
+      "optimal": "Optimal",
+      "low": "Low",
+      "out_of_stock": "Out of stock",
+      "watch_expiry": "lot(s) to monitor",
+      "expiry_under_90": "Expires < 90 days",
+      "reorder_alerts": "restock alert(s)",
+      "critical_or_out": "Critical or exhausted stock",
+      "top_sales": "Top Selling Medicines",
+      "top_sales_sub": "Highest volume dispensed products"
     }
   },
   "tresorerie": {
@@ -996,7 +1021,9 @@
       "pricing": "Pricing",
       "patients": "Patient Portal",
       "demo": "Live Demo",
-      "login": "Login"
+      "login": "Login",
+      "contact": "Contact",
+      "signup": "Free Trial"
     },
     "hero": {
       "badge": "Dispensary & Pharmacy Solution",
@@ -1067,6 +1094,48 @@
     },
     "footer": {
       "rights": "Demba Solution. D-PHARMA — All rights reserved."
+    }
+  },
+  "pharmacie": {
+    "pos": {
+      "title": "Point of Sale (Checkout)",
+      "search_placeholder": "Search medicine by name or barcode...",
+      "cart": "Sales Cart",
+      "empty_cart": "Cart is empty. Scan or click a medicine to add it.",
+      "total": "Total Due",
+      "validate": "Complete Sale",
+      "payment_method": "Payment method",
+      "cash": "Cash",
+      "card": "Bank Card",
+      "mobile_money": "Mobile Money (Wave / Orange)",
+      "scanner": "Scan Barcode",
+      "success": "Sale completed successfully!",
+      "ticket": "Receipt #",
+      "stock_available": "In stock",
+      "subtitle": "Scan or search for a medicine to add to cart."
+    },
+    "stocks": {
+      "title": "Inventory & Stock Management",
+      "subtitle": "Manage your pharmaceutical stock, add medicines and monitor expiration dates.",
+      "add_stock": "New Medicine / Batch",
+      "stock_value": "Market Value",
+      "expiring_soon": "Expiry Alerts",
+      "medicament": "Medicine",
+      "lot": "Batch #",
+      "quantity": "Available Quantity",
+      "price": "Retail Price",
+      "expiry": "Expiry Date",
+      "status": "Status"
+    },
+    "commandes": {
+      "title": "Wholesaler & Lab Orders",
+      "subtitle": "Order supplies from pharmaceutical distributors and verify shipments.",
+      "new_order": "New Distributor Order",
+      "supplier": "Supplier / Lab",
+      "date": "Order Date",
+      "reception": "Reception",
+      "pending": "Pending",
+      "completed": "Received"
     }
   }
 }

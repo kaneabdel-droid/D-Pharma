@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
-import { Inter, Outfit } from "next/font/google";
+import { Inter, Outfit, Cairo } from "next/font/google";
 import "./globals.css";
 import { getLocale } from "@/dictionaries";
+
+import { RegisterServiceWorker } from "@/components/RegisterServiceWorker";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -13,9 +15,15 @@ const outfit = Outfit({
   subsets: ["latin"],
 });
 
+const cairo = Cairo({
+  variable: "--font-cairo",
+  subsets: ["arabic", "latin"],
+});
+
 export const metadata: Metadata = {
   title: "D-PHARMA - Gestion Intelligente d'Officine Pharmaceutique",
-  description: "Logiciel SaaS complet pour pharmacies : point de vente, gestion des stocks et péremptions, commandes grossistes et trésorerie.",
+  description: "Logiciel SaaS complet pour pharmacies : point de vente, gestion des stocks et péremptions, commandes grossistes et trésorerie avec mode hors-ligne.",
+  manifest: "/manifest.json"
 };
 
 export default async function RootLayout({
@@ -27,8 +35,11 @@ export default async function RootLayout({
   const dir = locale === "ar" ? "rtl" : "ltr";
 
   return (
-    <html lang={locale} dir={dir} className={`${inter.variable} ${outfit.variable} h-full antialiased`}>
-      <body className={`min-h-full flex flex-col`}>{children}</body>
+    <html lang={locale} dir={dir} suppressHydrationWarning className={`${inter.variable} ${outfit.variable} ${cairo.variable} h-full antialiased`}>
+      <body className={`min-h-full flex flex-col`}>
+        <RegisterServiceWorker />
+        {children}
+      </body>
     </html>
   );
 }
