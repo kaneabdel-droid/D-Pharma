@@ -18,6 +18,7 @@ export default async function PlanComptablePage(props: {
     5: { title: 'Classe 5 : Trésorerie (Caisse, Banques, Mobile Money)', color: 'text-cyan-500 bg-cyan-500/10' },
     6: { title: 'Classe 6 : Charges (Achats médicaments, Salaires, Loyer)', color: 'text-rose-500 bg-rose-500/10' },
     7: { title: 'Classe 7 : Produits (Ventes comptoir, Tiers payant)', color: 'text-emerald-600 bg-emerald-600/10' },
+    8: { title: 'Classe 8 : Autres Charges et Produits H.A.O. (Hors Activités Ordinaires)', color: 'text-purple-500 bg-purple-500/10' },
   }
 
   const filteredPlan = selectedClasse
@@ -53,7 +54,7 @@ export default async function PlanComptablePage(props: {
         >
           Tous les comptes ({plan?.length || 0})
         </Link>
-        {[1, 2, 3, 4, 5, 6, 7].map((cl) => {
+        {[1, 2, 3, 4, 5, 6, 7, 8].map((cl) => {
           const isActive = selectedClasse === cl
           const count = (plan || []).filter((p: any) => p.classe === cl).length
           return (
@@ -74,7 +75,7 @@ export default async function PlanComptablePage(props: {
 
       {/* Liste des comptes par classe */}
       <div className="space-y-6">
-        {[1, 2, 3, 4, 5, 6, 7]
+        {[1, 2, 3, 4, 5, 6, 7, 8]
           .filter((cl) => !selectedClasse || selectedClasse === cl)
           .map((cl) => {
             const items = filteredPlan.filter((p: any) => p.classe === cl)
