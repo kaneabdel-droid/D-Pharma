@@ -27,7 +27,8 @@ export default async function StocksPage() {
       lot,
       medicaments!inner (
         nom,
-        code_barres
+        code_barres,
+        type_produit
       )
     `)
     .order('date_peremption', { ascending: true })
@@ -82,38 +83,62 @@ export default async function StocksPage() {
               <table className="min-w-full divide-y divide-surface-border">
                 <thead className="bg-background/50">
                   <tr>
-                    <th scope="col" className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-foreground sm:pl-6">Médicament</th>
+                    <th scope="col" className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-foreground sm:pl-6">Article / Médicament</th>
+                    <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-foreground">Catégorie</th>
                     <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-foreground">Code-barres</th>
                     <th scope="col" className="px-3 py-3.5 text-right text-sm font-semibold text-foreground">Quantité</th>
                     <th scope="col" className="px-3 py-3.5 text-right text-sm font-semibold text-foreground">Prix Vente</th>
-                    <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-foreground">Date Péremption</th>
+                    <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-foreground">Péremption / Statut</th>
                     <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-foreground">Lot</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-surface-border bg-surface">
                   {stocks && stocks.length > 0 ? (
                     stocks.map((item: any) => {
-                      const isExpiring = new Date(item.date_peremption) <= limitDate
-                      const isExpired = new Date(item.date_peremption) < new Date()
+                      const isService = item.medicaments.type_produit === 'service'
+                      const isMateriel = item.medicaments.type_produit === 'materiel' || item.medicaments.type_produit === 'fourniture'
+                      const isExpiring = !isService && new Date(item.date_peremption) <= limitDate
+                      const isExpired = !isService && new Date(item.date_peremption) < new Date()
                       
                       return (
                         <tr key={item.id} className="hover:bg-background/50 transition-colors">
-                          <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-foreground sm:pl-6">{item.medicaments.nom}</td>
-                          <td className="whitespace-nowrap px-3 py-4 text-sm text-foreground-muted">{item.medicaments.code_barres || '-'}</td>
-                          <td className="whitespace-nowrap px-3 py-4 text-sm text-right font-bold text-foreground">{item.quantite}</td>
-                          <td className="whitespace-nowrap px-3 py-4 text-sm text-right font-medium text-primary">{item.prix_vente.toLocaleString('fr-FR')} FCFA</td>
-                          <td className="whitespace-nowrap px-3 py-4 text-sm">
-                            <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${isExpired ? 'bg-danger/10 text-danger' : isExpiring ? 'bg-warning/10 text-warning' : 'bg-success/10 text-success'}`}>
-                              {new Date(item.date_peremption).toLocaleDateString('fr-FR')}
+                          <td className="whitespace-nowrap py-3.5 pl-4 pr-3 text-sm font-medium text-foreground sm:pl-6">
+                            {item.medicaments.nom}
+                          </td>
+                          <td className="whitespace-nowrap px-3 py-3.5 text-xs">
+                            <span className={`inline-block px-2 py-0.5 rounded-md font-bold uppercase text-[10px] ${
+                              isService 
+                                ? 'bg-purple-500/10 text-purple-600' 
+                                : isMateriel 
+                                ? 'bg-cyan-500/10 text-cyan-600' 
+                                : 'bg-primary/10 text-primary'
+                            }`}>
+                              {isService ? 'Service' : isMateriel ? 'Matériel' : 'Médicament'}
                             </span>
                           </td>
-                          <td className="whitespace-nowrap px-3 py-4 text-sm text-foreground-muted">{item.lot || '-'}</td>
+                          <td className="whitespace-nowrap px-3 py-3.5 text-sm text-foreground-muted font-mono">{item.medicaments.code_barres || '—'}</td>
+                          <td className="whitespace-nowrap px-3 py-3.5 text-sm text-right font-bold text-foreground">
+                            {isService ? 'Illimité' : item.quantite}
+                          </td>
+                          <td className="whitespace-nowrap px-3 py-3.5 text-sm text-right font-medium text-primary">{item.prix_vente.toLocaleString('fr-FR')} FCFA</td>
+                          <td className="whitespace-nowrap px-3 py-3.5 text-sm">
+                            {isService ? (
+                              <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-500/10 text-emerald-600">
+                                Prestation active
+                              </span>
+                            ) : (
+                              <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${isExpired ? 'bg-danger/10 text-danger' : isExpiring ? 'bg-warning/10 text-warning' : 'bg-success/10 text-success'}`}>
+                                {new Date(item.date_peremption).toLocaleDateString('fr-FR')}
+                              </span>
+                            )}
+                          </td>
+                          <td className="whitespace-nowrap px-3 py-3.5 text-sm text-foreground-muted">{item.lot || '—'}</td>
                         </tr>
                       )
                     })
                   ) : (
                     <tr>
-                      <td colSpan={6} className="whitespace-nowrap py-8 text-center text-sm text-foreground-muted">
+                      <td colSpan={7} className="whitespace-nowrap py-8 text-center text-sm text-foreground-muted">
                         Aucun stock trouvé. Ajoutez des médicaments pour commencer.
                       </td>
                     </tr>

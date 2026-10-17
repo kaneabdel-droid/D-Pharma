@@ -26,7 +26,8 @@ export default async function POSPage() {
       medicaments!inner (
         id,
         nom,
-        code_barres
+        code_barres,
+        type_produit
       )
     `)
     .order('date_peremption', { ascending: true })
@@ -36,6 +37,7 @@ export default async function POSPage() {
     id: stock.medicaments.id,
     nom: stock.medicaments.nom,
     code_barres: stock.medicaments.code_barres,
+    type_produit: stock.medicaments.type_produit || 'medicament',
     prix_vente: stock.prix_vente,
     quantite_stock: stock.quantite,
     date_peremption: stock.date_peremption

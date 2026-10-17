@@ -10,19 +10,31 @@ export async function addStock(formData: FormData) {
 
   if (!tenant) return { error: 'Officine non trouvée.' }
 
-  const nom = formData.get('nom') as string
-  const code_barres = formData.get('code_barres') as string
-  const quantite = parseFloat(formData.get('quantite') as string)
-  const prix_vente = parseFloat(formData.get('prix_vente') as string)
-  const date_peremption = formData.get('date_peremption') as string
-  const lot = formData.get('lot') as string
+  const nom = (formData.get('nom') as string)?.trim()
+  const type_produit = (formData.get('type_produit') as string) || 'medicament'
+  const code_barres = ((formData.get('code_barres') as string) || '').trim()
+  const quantiteRaw = formData.get('quantite') as string
+  const quantite = type_produit === 'service' ? 9999 : parseFloat(quantiteRaw || '0')
+  const prix_vente = parseFloat(formData.get('prix_vente') as string || '0')
+  const prix_achat = parseFloat(formData.get('prix_achat') as string || '0')
+  const date_peremption = (formData.get('date_peremption') as string) || (type_produit === 'service' ? '2099-12-31' : '')
+  const lot = ((formData.get('lot') as string) || '').trim()
 
-  if (!nom || !quantite || !prix_vente || !date_peremption) {
-    return { error: 'Veuillez remplir les champs obligatoires.' }
+  if (!nom || isNaN(prix_vente) || prix_vente <= 0) {
+    return { error: 'Le nom et un prix de vente valide sont obligatoires.' }
+  }
+
+  if (type_produit !== 'service') {
+    if (isNaN(quantite) || quantite < 0) {
+      return { error: 'Veuillez saisir une quantité valide.' }
+    }
+    if (!date_peremption) {
+      return { error: 'La date de péremption est requise pour les médicaments et produits périssables.' }
+    }
   }
 
   try {
-    // 1. Chercher si le médicament existe déjà dans le catalogue global
+    // 1. Chercher si l'article existe déjà dans le catalogue global
     let medicament_id = null
 
     // Cherche d'abord par code barre si fourni
@@ -55,12 +67,19 @@ export async function addStock(formData: FormData) {
     if (!medicament_id) {
       const { data: newMed, error: newMedError } = await supabase
         .from('medicaments')
-        .insert({ nom, code_barres: code_barres || null })
+        .insert({ 
+          nom, 
+          code_barres: code_barres || null,
+          type_produit
+        })
         .select('id')
         .single()
 
       if (newMedError) throw newMedError
       medicament_id = newMed.id
+    } else {
+      // Mettre à jour le type si besoin
+      await supabase.from('medicaments').update({ type_produit }).eq('id', medicament_id)
     }
 
     // 3. Ajouter l'entrée en stock pour cette pharmacie
@@ -71,16 +90,18 @@ export async function addStock(formData: FormData) {
         medicament_id,
         quantite,
         prix_vente,
-        date_peremption,
+        prix_achat: isNaN(prix_achat) ? 0 : prix_achat,
+        date_peremption: date_peremption || '2099-12-31',
         lot: lot || null
       })
 
     if (stockError) throw stockError
 
     revalidatePath('/pharmacie/stocks')
+    revalidatePath('/pharmacie/pos')
     return { success: true }
   } catch (err: any) {
-    console.error('Erreur ajout stock:', err)
-    return { error: err.message || 'Erreur lors de l\'ajout du stock' }
+    console.error('Erreur ajout article/médicament:', err)
+    return { error: err.message || 'Erreur lors de l\'enregistrement' }
   }
 }

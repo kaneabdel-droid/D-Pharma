@@ -177,8 +177,10 @@
   },
   "sidebar": {
     "dashboard": "Dashboard",
-    "pos_pharma": "Point of Sale",
-    "stock_pharma": "Medicine Stocks",
+    "pos_pharma": "Point of Sale (POS)",
+    "stock_pharma": "Products, Stocks & Services",
+    "clients_pharma": "Clients & Receivables",
+    "fournisseurs_pharma": "Wholesalers & Payables",
     "commandes_pharma": "Wholesaler Orders",
     "tresorerie": "Treasury & Cash",
     "comptabilite": "Accounting",

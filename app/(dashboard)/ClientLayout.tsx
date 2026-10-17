@@ -20,7 +20,9 @@ import {
   Activity,
   Truck,
   BookOpen,
-  UploadCloud
+  UploadCloud,
+  Users,
+  Building2
 } from 'lucide-react'
 import { DeviseProvider } from '@/components/DeviseProvider'
 
@@ -54,6 +56,8 @@ export default function ClientLayout({
     { key: 'dashboard', href: '/dashboard', icon: LayoutDashboard },
     { key: 'pos_pharma', href: '/pharmacie/pos', icon: Activity },
     { key: 'stock_pharma', href: '/pharmacie/stocks', icon: PackageOpen },
+    { key: 'clients_pharma', href: '/pharmacie/clients', icon: Users },
+    { key: 'fournisseurs_pharma', href: '/pharmacie/fournisseurs', icon: Building2 },
     { key: 'commandes_pharma', href: '/pharmacie/commandes', icon: Truck },
     { key: 'tresorerie', href: '/tresorerie', icon: Landmark },
     { key: 'comptabilite', href: '/comptabilite', icon: BookOpen },
@@ -72,10 +76,12 @@ export default function ClientLayout({
       ],
     },
     {
-      titre: dict.sidebar?.section_pharmacie || 'Pharmacie',
+      titre: dict.sidebar?.section_pharmacie || 'Pharmacie & Tiers',
       items: [
         { key: 'pos_pharma', href: '/pharmacie/pos', icon: Activity },
         { key: 'stock_pharma', href: '/pharmacie/stocks', icon: PackageOpen },
+        { key: 'clients_pharma', href: '/pharmacie/clients', icon: Users },
+        { key: 'fournisseurs_pharma', href: '/pharmacie/fournisseurs', icon: Building2 },
         { key: 'commandes_pharma', href: '/pharmacie/commandes', icon: Truck },
       ],
     },
