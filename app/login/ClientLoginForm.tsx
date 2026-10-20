@@ -54,6 +54,7 @@ export default function ClientLoginForm({ dict, next }: { dict: any, next?: stri
       startTransition(async () => {
         const offRes = await verifyOfflineCredentials(cleanIdentifier, password)
         if (offRes.success && offRes.session) {
+          document.cookie = 'demba_offline_active=1; path=/; max-age=2592000; SameSite=Lax'
           setSuccessNotice('Connexion locale validée ! Accès à votre officine hors-ligne...')
           setTimeout(() => {
             window.location.href = next || '/dashboard'
@@ -79,6 +80,7 @@ export default function ClientLoginForm({ dict, next }: { dict: any, next?: stri
           if (res.error.toLowerCase().includes('fetch') || res.error.toLowerCase().includes('réseau') || res.error.toLowerCase().includes('network')) {
             const offRes = await verifyOfflineCredentials(cleanIdentifier, password)
             if (offRes.success) {
+              document.cookie = 'demba_offline_active=1; path=/; max-age=2592000; SameSite=Lax'
               setSuccessNotice('Réseau instable : connexion locale hors-ligne activée !')
               setTimeout(() => {
                 window.location.href = next || '/dashboard'
@@ -99,12 +101,27 @@ export default function ClientLoginForm({ dict, next }: { dict: any, next?: stri
             }
           }
 
+          document.cookie = 'demba_offline_active=1; path=/; max-age=2592000; SameSite=Lax'
+
+          if ('caches' in window) {
+            try {
+              const cache = await caches.open('demba-offline-dpharma-v3')
+              const dashRes = await fetch('/dashboard')
+              if (dashRes && dashRes.ok) {
+                await cache.put('/dashboard', dashRes)
+              }
+            } catch (cacheErr) {
+              console.warn('Erreur pré-mise en cache dashboard shell:', cacheErr)
+            }
+          }
+
           setSuccessNotice('Connexion réussie ! Redirection...')
           window.location.href = res.redirectUrl || '/dashboard'
         }
       } catch (networkError: any) {
         const offRes = await verifyOfflineCredentials(cleanIdentifier, password)
         if (offRes.success) {
+          document.cookie = 'demba_offline_active=1; path=/; max-age=2592000; SameSite=Lax'
           setSuccessNotice('Connexion hors-ligne de secours validée !')
           setTimeout(() => {
             window.location.href = next || '/dashboard'

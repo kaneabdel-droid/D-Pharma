@@ -5,6 +5,7 @@ import {
 } from 'lucide-react'
 import LanguageSelector from '@/components/LanguageSelector'
 import { getDictionary, getLocale } from '@/dictionaries'
+import OfflineLandingBanner from '@/components/offline/OfflineLandingBanner'
 
 export default async function HomePage({
   searchParams,
@@ -72,6 +73,7 @@ export default async function HomePage({
 
       {/* Navbar */}
       <header className="sticky top-0 z-50 w-full border-b border-surface-border bg-surface/85 backdrop-blur-md">
+        <OfflineLandingBanner appName="D-PHARMA" dashboardUrl="/dashboard" loginUrl="/login" />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex h-16 items-center justify-between">
             <Link href="/" className="flex items-center gap-2.5">
