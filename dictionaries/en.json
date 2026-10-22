@@ -335,6 +335,7 @@
       "type": "Account Type",
       "type_caisse": "Caisse (Espèces)",
       "type_banque": "Compte Bancaire",
+      "type_mobile_money": "Mobile Money (Wave, Orange Money...)",
       "initial_balance": "Solde initial (FCFA)"
     }
   },

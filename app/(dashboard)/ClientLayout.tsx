@@ -179,38 +179,55 @@ export default function ClientLayout({
             </div>
             
             {/* Sidebar component */}
-            <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-[var(--sidebar)] px-6 pb-4">
+            <div className="flex grow flex-col gap-y-4 overflow-y-auto bg-[var(--sidebar)] px-4 pb-4">
               <div className="flex h-16 shrink-0 items-center">
-                <h1 className="text-2xl font-bold text-primary font-heading">D-PHARMA</h1>
+                <h1 className="text-2xl font-bold text-primary font-heading tracking-wide">D-PHARMA</h1>
               </div>
               <nav className="flex flex-1 flex-col">
-                <ul role="list" className="flex flex-1 flex-col gap-y-7">
-                  <li>
-                    <ul role="list" className="-mx-2 space-y-1">
-                      {filteredNavigation.map((item) => (
-                        <li key={item.key}>
-                          <Link
-                            href={item.href}
-                            onClick={() => setSidebarOpen(false)}
-                            className={`
-                              group flex items-center gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold
-                              ${pathname === item.href
-                                ? 'bg-primary text-white'
-                                : 'text-foreground-muted hover:text-foreground hover:bg-black/5'
-                              }
-                            `}
-                          >
-                            <item.icon
-                              className={`h-6 w-6 shrink-0 ${pathname === item.href ? 'text-white' : 'text-foreground-muted group-hover:text-foreground'}`}
-                              aria-hidden="true"
-                            />
-                            <span className="truncate">{dict.sidebar[item.key]}</span>
-                          </Link>
-                        </li>
-                      ))}
-                    </ul>
-                  </li>
-                </ul>
+                <div className="space-y-4">
+                  {filteredSections.map((section) => (
+                    <div key={section.titre} className="space-y-1">
+                      <p className="px-2 text-[10px] font-bold uppercase tracking-wider text-foreground-muted/70">
+                        {section.titre}
+                      </p>
+                      <div className="bg-surface/90 border border-surface-border/80 rounded-xl p-1 shadow-xs space-y-0.5">
+                        {section.items.map((item) => {
+                          const actif = pathname === item.href || (item.href !== '/dashboard' && pathname.startsWith(item.href))
+                          return (
+                            <Link
+                              key={item.key}
+                              href={item.href}
+                              onClick={() => setSidebarOpen(false)}
+                              className={`
+                                group flex items-center gap-x-2.5 rounded-lg px-2.5 py-2 text-xs font-semibold transition-all
+                                ${actif
+                                  ? 'bg-primary text-white shadow-xs font-bold'
+                                  : 'text-foreground/80 hover:text-foreground hover:bg-black/5'
+                                }
+                              `}
+                            >
+                              <item.icon
+                                className={`h-4 w-4 shrink-0 ${actif ? 'text-white' : 'text-primary'}`}
+                                aria-hidden="true"
+                              />
+                              <span className="truncate">{dict.sidebar?.[item.key] || item.key}</span>
+                            </Link>
+                          )
+                        })}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="mt-auto pt-4 border-t border-surface-border">
+                  <a
+                    href="/logout"
+                    className="group flex items-center gap-x-2.5 rounded-lg px-2.5 py-2 text-xs font-semibold text-foreground-muted hover:bg-black/5 hover:text-danger transition-colors"
+                  >
+                    <LogOut className="h-4 w-4 shrink-0 text-foreground-muted group-hover:text-danger" aria-hidden="true" />
+                    {dict.sidebar.logout}
+                  </a>
+                </div>
               </nav>
             </div>
           </div>
@@ -272,7 +289,7 @@ export default function ClientLayout({
                       estOuvert ? 'block opacity-100 scale-100 pointer-events-auto' : 'hidden group-hover:block'
                     }`}
                   >
-                    <div className="min-w-56 rounded-xl border border-surface-border bg-sidebar p-1.5 shadow-xl">
+                    <div className="min-w-56 rounded-xl border border-surface-border bg-surface p-1.5 shadow-xl">
                       {section.items.map((item) => {
                         const actif = pathname === item.href || (item.href !== '/dashboard' && pathname.startsWith(item.href))
                         return (
@@ -283,7 +300,7 @@ export default function ClientLayout({
                             className={`flex items-center gap-2.5 rounded-lg px-3 py-2 text-xs font-medium transition-colors ${
                               actif
                                 ? 'bg-primary text-white'
-                                : 'text-foreground-muted hover:text-foreground hover:bg-surface'
+                                : 'text-foreground-muted hover:text-foreground hover:bg-black/5'
                             }`}
                           >
                             <item.icon className="h-4 w-4 shrink-0" />
@@ -302,47 +319,54 @@ export default function ClientLayout({
         /* Static sidebar for desktop */
         <div className="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-60 lg:flex-col">
           {/* Sidebar component */}
-          <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-[var(--sidebar)] border-r border-surface-border px-4 pb-4">
-            <div className="flex h-16 shrink-0 items-center">
-              <h1 className="text-3xl font-bold text-primary font-heading tracking-wide">D-PHARMA</h1>
+          <div className="flex grow flex-col gap-y-4 overflow-y-auto bg-[var(--sidebar)] border-r border-surface-border px-3.5 pb-4">
+            <div className="flex h-16 shrink-0 items-center px-1">
+              <h1 className="text-2xl font-bold text-primary font-heading tracking-wide">D-PHARMA</h1>
             </div>
             <nav className="flex flex-1 flex-col">
-              <ul role="list" className="flex flex-1 flex-col gap-y-7">
-                <li>
-                  <ul role="list" className="-mx-2 space-y-1">
-                    {filteredNavigation.map((item) => (
-                      <li key={item.key}>
-                        <Link
-                          href={item.href}
-                          className={`
-                            group flex items-center gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold transition-colors
-                            ${pathname === item.href
-                              ? 'bg-primary text-white'
-                              : 'text-foreground-muted hover:text-foreground hover:bg-black/5'
-                            }
-                          `}
-                        >
-                          <item.icon
-                            className={`h-6 w-6 shrink-0 ${pathname === item.href ? 'text-white' : 'text-foreground-muted group-hover:text-foreground'}`}
-                            aria-hidden="true"
-                          />
-                          <span className="truncate">{dict.sidebar[item.key]}</span>
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                </li>
-                
-                <li className="mt-auto">
-                  <a
-                    href="/logout"
-                    className="group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-foreground-muted hover:bg-black/5 hover:text-danger transition-colors"
-                  >
-                    <LogOut className="h-6 w-6 shrink-0 text-foreground-muted group-hover:text-danger" aria-hidden="true" />
-                    {dict.sidebar.logout}
-                  </a>
-                </li>
-              </ul>
+              <div className="space-y-4">
+                {filteredSections.map((section) => (
+                  <div key={section.titre} className="space-y-1">
+                    <p className="px-2 text-[10px] font-bold uppercase tracking-wider text-foreground-muted/70">
+                      {section.titre}
+                    </p>
+                    <div className="bg-surface/90 border border-surface-border/80 rounded-xl p-1 shadow-xs space-y-0.5">
+                      {section.items.map((item) => {
+                        const actif = pathname === item.href || (item.href !== '/dashboard' && pathname.startsWith(item.href))
+                        return (
+                          <Link
+                            key={item.key}
+                            href={item.href}
+                            className={`
+                              group flex items-center gap-x-2.5 rounded-lg px-2.5 py-1.5 text-xs font-semibold transition-all
+                              ${actif
+                                ? 'bg-primary text-white shadow-xs font-bold'
+                                : 'text-foreground/80 hover:text-foreground hover:bg-black/5'
+                              }
+                            `}
+                          >
+                            <item.icon
+                              className={`h-4 w-4 shrink-0 ${actif ? 'text-white' : 'text-primary'}`}
+                              aria-hidden="true"
+                            />
+                            <span className="truncate">{dict.sidebar?.[item.key] || item.key}</span>
+                          </Link>
+                        )
+                      })}
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              <div className="mt-auto pt-4 border-t border-surface-border">
+                <a
+                  href="/logout"
+                  className="group flex items-center gap-x-2.5 rounded-lg px-2.5 py-2 text-xs font-semibold text-foreground-muted hover:bg-black/5 hover:text-danger transition-colors"
+                >
+                  <LogOut className="h-4 w-4 shrink-0 text-foreground-muted group-hover:text-danger" aria-hidden="true" />
+                  {dict.sidebar.logout}
+                </a>
+              </div>
             </nav>
           </div>
         </div>

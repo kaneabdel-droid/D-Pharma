@@ -2,7 +2,7 @@ import { createClient } from '@/utils/supabase/server'
 import { getTenantContext } from '@/utils/supabase/tenant'
 import { FileText, Send, CheckCircle2 } from 'lucide-react'
 import CreateCommandeButton from './CreateCommandeButton'
-import ReceiveCommandeButton from './ReceiveCommandeButton'
+import ReceiveCommandeModal from './ReceiveCommandeModal'
 
 import { getLocale, getDictionary } from '@/dictionaries'
 
@@ -17,29 +17,52 @@ export default async function CommandesLaboPage() {
   const dict = await getDictionary(locale)
   const t = dict.pharmacie?.commandes || {}
 
-  // 1. Récupérer les commandes du GIE
-  const { data: commandes } = await supabase
-    .from('commandes_labo')
-    .select(`
-      id,
-      statut,
-      date_commande,
-      date_reception,
-      fournisseurs_labo!inner (nom),
-      lignes_commande_labo (
-        quantite_commandee,
-        medicaments (nom)
-      )
-    `)
-    //.eq('gie_id', tenant?.gieId) // RLS
-    .order('date_commande', { ascending: false })
+  // 1. Récupérer les commandes et stocks en parallèle
+  const [commandesRes, stocksRes, fournisseursRes, medicamentsRes] = await Promise.all([
+    supabase
+      .from('commandes_labo')
+      .select(`
+        id,
+        statut,
+        date_commande,
+        date_reception,
+        fournisseurs_labo!inner (id, nom),
+        lignes_commande_labo (
+          id,
+          medicament_id,
+          quantite_commandee,
+          quantite_recue,
+          prix_achat_unitaire,
+          medicaments (id, nom)
+        )
+      `)
+      .order('date_commande', { ascending: false }),
+    supabase
+      .from('stocks_pharmacie')
+      .select('medicament_id, prix_vente, prix_achat, lot, date_peremption'),
+    supabase.from('fournisseurs_labo').select('id, nom'),
+    supabase.from('medicaments').select('id, nom').order('nom')
+  ])
 
-  // 2. Récupérer la liste des fournisseurs et des médicaments pour le formulaire
-  const { data: fournisseurs } = await supabase.from('fournisseurs_labo').select('id, nom')
-  const { data: medicaments } = await supabase.from('medicaments').select('id, nom').order('nom')
+  const commandes = commandesRes.data || []
+  const fournisseurs = fournisseursRes.data || []
+  const medicaments = medicamentsRes.data || []
+
+  // Construire la carte des stocks
+  const stockMap: Record<string, { prix_vente: number, prix_achat?: number, lot?: string | null, date_peremption?: string | null }> = {}
+  for (const s of (stocksRes.data || [])) {
+    if (s.medicament_id) {
+      stockMap[s.medicament_id] = {
+        prix_vente: s.prix_vente,
+        prix_achat: s.prix_achat,
+        lot: s.lot,
+        date_peremption: s.date_peremption
+      }
+    }
+  }
 
   // Statistiques
-  const cmds = commandes || []
+  const cmds = commandes
   const envoyeesCount = cmds.filter(c => c.statut === 'envoyee').length
   const recuesCount = cmds.filter(c => c.statut === 'complete').length
 
@@ -142,7 +165,7 @@ export default async function CommandesLaboPage() {
                         </td>
                         <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
                           {cmd.statut === 'envoyee' && (
-                            <ReceiveCommandeButton commandeId={cmd.id} />
+                            <ReceiveCommandeModal commande={cmd as any} stockMap={stockMap} />
                           )}
                         </td>
                       </tr>

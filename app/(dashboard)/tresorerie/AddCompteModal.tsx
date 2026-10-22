@@ -72,6 +72,7 @@ export default function AddCompteModal({ dict, onSuccess, buttonLabel }: { dict:
                     >
                       <option value="caisse">{d.modal.type_caisse}</option>
                       <option value="banque">{d.modal.type_banque}</option>
+                      <option value="mobile_money">{d.modal.type_mobile_money || 'Mobile Money (Wave, Orange Money...)'}</option>
                     </select>
                   </div>
                   <div>

@@ -53,11 +53,33 @@
   --success: #16A34A;
   --warning: #CA8A04;
   --info: #0891B2;
+  --surface-border: #E5E7EB;
+}
+
+:root {
+  --surface-border: #E2E8F0;
+}
+
+.theme-officine,
+.theme-agriculture {
+  --surface-border: #E2E8F0;
+}
+
+.theme-clinique,
+.theme-ocean {
+  --surface-border: #E2E8F0;
+}
+
+.theme-apothicaire,
+.theme-savane {
+  --surface-border: #E7E5E4;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-surface: var(--surface);
+  --color-surface-border: var(--surface-border);
+  --color-sidebar: var(--sidebar);
   --color-foreground: var(--foreground);
   --color-foreground-muted: var(--foreground-muted);
 

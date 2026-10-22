@@ -2,6 +2,7 @@ import { createClient } from '@/utils/supabase/server'
 import { getTenantContext } from '@/utils/supabase/tenant'
 import { PackageOpen, AlertTriangle } from 'lucide-react'
 import CreateStockButton from './CreateStockButton'
+import EditStockPriceModal from './EditStockPriceModal'
 
 import { getLocale, getDictionary } from '@/dictionaries'
 
@@ -23,6 +24,7 @@ export default async function StocksPage() {
       id,
       quantite,
       prix_vente,
+      prix_achat,
       date_peremption,
       lot,
       medicaments!inner (
@@ -90,6 +92,7 @@ export default async function StocksPage() {
                     <th scope="col" className="px-3 py-3.5 text-right text-sm font-semibold text-foreground">{t.prix_vente || 'Prix Vente'}</th>
                     <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-foreground">{t.peremption || 'Péremption / Statut'}</th>
                     <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-foreground">{t.lot || 'Lot'}</th>
+                    <th scope="col" className="relative py-3.5 pl-3 pr-4 sm:pr-6 text-right text-sm font-semibold text-foreground">Actions</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-surface-border bg-surface">
@@ -135,12 +138,15 @@ export default async function StocksPage() {
                             )}
                           </td>
                           <td className="whitespace-nowrap px-3 py-3.5 text-sm text-foreground-muted">{item.lot || '—'}</td>
+                          <td className="relative whitespace-nowrap py-3.5 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
+                            <EditStockPriceModal stock={item} />
+                          </td>
                         </tr>
                       )
                     })
                   ) : (
                     <tr>
-                      <td colSpan={7} className="whitespace-nowrap py-8 text-center text-sm text-foreground-muted">
+                      <td colSpan={8} className="whitespace-nowrap py-8 text-center text-sm text-foreground-muted">
                         {locale === 'ar' ? 'لا يوجد أي مخزون مسجل حالياً. أضف أدوية للبدء.' : locale === 'en' ? 'No stock found. Add medicines to get started.' : 'Aucun stock trouvé. Ajoutez des médicaments pour commencer.'}
                       </td>
                     </tr>

@@ -159,6 +159,16 @@ export default function PointDeVenteClient({
     }
   }
 
+  // Liste filtrée des comptes Mobile Money disponibles
+  const mobileMoneyAccounts = comptes.filter(c => 
+    c.type === 'mobile_money' || 
+    c.type_compte === 'mobile_money' || 
+    c.nom?.toLowerCase().includes('wave') || 
+    c.nom?.toLowerCase().includes('orange') || 
+    c.nom?.toLowerCase().includes('free') || 
+    c.nom?.toLowerCase().includes('mobile')
+  )
+
   // Changer de mode et adapter le compte de trésorerie par défaut
   const handleSelectMoyenPaiement = (mode: 'especes' | 'mobile_money' | 'carte' | 'credit') => {
     setMoyenPaiement(mode)
@@ -166,8 +176,14 @@ export default function PointDeVenteClient({
       const c = comptes.find(c => c.nom?.toLowerCase().includes('caisse') || c.type === 'caisse')
       if (c) setCompteTresorerieId(c.id)
     } else if (mode === 'mobile_money') {
-      const c = comptes.find(c => c.nom?.toLowerCase().includes('wave') || c.nom?.toLowerCase().includes('orange') || c.nom?.toLowerCase().includes('mobile'))
-      if (c) setCompteTresorerieId(c.id)
+      // Si un compte mobile money existe, le pré-sélectionner
+      if (mobileMoneyAccounts.length > 0) {
+        // Préserver le compte actuel s'il fait déjà partie des comptes mobile money
+        const isAlreadyMM = mobileMoneyAccounts.some(a => a.id === compteTresorerieId)
+        if (!isAlreadyMM) {
+          setCompteTresorerieId(mobileMoneyAccounts[0].id)
+        }
+      }
     } else if (mode === 'carte') {
       const c = comptes.find(c => c.nom?.toLowerCase().includes('banque') || c.nom?.toLowerCase().includes('cbao') || c.type === 'banque')
       if (c) setCompteTresorerieId(c.id)
@@ -178,7 +194,7 @@ export default function PointDeVenteClient({
   const handleCheckout = async () => {
     if (cart.length === 0) return
     if (moyenPaiement === 'credit' && !selectedClientId) {
-      setMessage({ type: 'error', text: 'Veuillez sélectionner le client / organisme bénéficiaire pour la vente à crédit.' })
+      setMessage({ type: 'error', text: '⚠️ En vente à crédit, vous devez obligatoirement sélectionner le client ou l\'organisme payeur.' })
       return
     }
 
@@ -510,71 +526,147 @@ export default function PointDeVenteClient({
                 </div>
               </div>
 
-              {/* Sélecteur Mode de Règlement */}
+              {/* Choix Type d'Opération : Comptant vs Vente à Crédit */}
               <div>
                 <label className="block text-[11px] font-bold text-foreground uppercase tracking-wider mb-1.5">
-                  Mode de règlement
+                  Type d&apos;opération
                 </label>
-                <div className="grid grid-cols-4 gap-1.5">
+                <div className="grid grid-cols-2 gap-1.5 p-1 bg-surface border border-surface-border rounded-xl shadow-xs">
                   <button
                     type="button"
                     onClick={() => handleSelectMoyenPaiement('especes')}
-                    className={`py-2 px-1 rounded-xl border text-center transition-all ${
-                      moyenPaiement === 'especes'
-                        ? 'bg-primary text-white border-primary shadow-sm font-bold'
-                        : 'bg-surface border-surface-border text-foreground-muted hover:text-foreground text-xs'
+                    className={`py-2 px-2 rounded-lg text-xs font-bold flex items-center justify-center gap-1.5 transition-all ${
+                      moyenPaiement !== 'credit'
+                        ? 'bg-primary text-white shadow-xs'
+                        : 'text-foreground-muted hover:text-foreground hover:bg-black/5'
                     }`}
                   >
-                    <Banknote className="w-3.5 h-3.5 mx-auto mb-1" />
-                    <span className="text-[10px] block">Espèces</span>
-                  </button>
-
-                  <button
-                    type="button"
-                    onClick={() => handleSelectMoyenPaiement('mobile_money')}
-                    className={`py-2 px-1 rounded-xl border text-center transition-all ${
-                      moyenPaiement === 'mobile_money'
-                        ? 'bg-primary text-white border-primary shadow-sm font-bold'
-                        : 'bg-surface border-surface-border text-foreground-muted hover:text-foreground text-xs'
-                    }`}
-                  >
-                    <Smartphone className="w-3.5 h-3.5 mx-auto mb-1" />
-                    <span className="text-[10px] block">Mobile</span>
-                  </button>
-
-                  <button
-                    type="button"
-                    onClick={() => handleSelectMoyenPaiement('carte')}
-                    className={`py-2 px-1 rounded-xl border text-center transition-all ${
-                      moyenPaiement === 'carte'
-                        ? 'bg-primary text-white border-primary shadow-sm font-bold'
-                        : 'bg-surface border-surface-border text-foreground-muted hover:text-foreground text-xs'
-                    }`}
-                  >
-                    <CreditCard className="w-3.5 h-3.5 mx-auto mb-1" />
-                    <span className="text-[10px] block">Carte/Bque</span>
+                    <Banknote className="w-3.5 h-3.5" />
+                    <span>Paiement Comptant</span>
                   </button>
 
                   <button
                     type="button"
                     onClick={() => handleSelectMoyenPaiement('credit')}
-                    className={`py-2 px-1 rounded-xl border text-center transition-all ${
+                    className={`py-2 px-2 rounded-lg text-xs font-bold flex items-center justify-center gap-1.5 transition-all ${
                       moyenPaiement === 'credit'
-                        ? 'bg-amber-600 text-white border-amber-600 shadow-sm font-bold'
-                        : 'bg-surface border-surface-border text-foreground-muted hover:text-foreground text-xs'
+                        ? 'bg-amber-600 text-white shadow-xs'
+                        : 'text-foreground-muted hover:text-foreground hover:bg-black/5'
                     }`}
                   >
-                    <UserCheck className="w-3.5 h-3.5 mx-auto mb-1" />
-                    <span className="text-[10px] block">À Crédit</span>
+                    <UserCheck className="w-3.5 h-3.5" />
+                    <span>Vente à Crédit / Mutuelle</span>
                   </button>
                 </div>
               </div>
 
-              {/* Sélection du compte de Trésorerie précis (Caisse / Wave / Orange Money / Banque) */}
-              {(moyenPaiement !== 'credit' || partPatientCalculee > 0) && (
+              {/* Si Comptant : Choix du Mode de Règlement */}
+              {moyenPaiement !== 'credit' && (
+                <div>
+                  <label className="block text-[11px] font-bold text-foreground uppercase tracking-wider mb-1.5">
+                    Moyen de règlement
+                  </label>
+                  <div className="grid grid-cols-3 gap-1.5">
+                    <button
+                      type="button"
+                      onClick={() => handleSelectMoyenPaiement('especes')}
+                      className={`py-2 px-2 rounded-xl border text-center transition-all ${
+                        moyenPaiement === 'especes'
+                          ? 'bg-primary text-white border-primary shadow-sm font-bold'
+                          : 'bg-surface border-surface-border text-foreground-muted hover:text-foreground text-xs'
+                      }`}
+                    >
+                      <Banknote className="w-3.5 h-3.5 mx-auto mb-1" />
+                      <span className="text-[10px] block">Espèces</span>
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={() => handleSelectMoyenPaiement('mobile_money')}
+                      className={`py-2 px-2 rounded-xl border text-center transition-all ${
+                        moyenPaiement === 'mobile_money'
+                          ? 'bg-primary text-white border-primary shadow-sm font-bold'
+                          : 'bg-surface border-surface-border text-foreground-muted hover:text-foreground text-xs'
+                      }`}
+                    >
+                      <Smartphone className="w-3.5 h-3.5 mx-auto mb-1" />
+                      <span className="text-[10px] block">Mobile Money</span>
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={() => handleSelectMoyenPaiement('carte')}
+                      className={`py-2 px-2 rounded-xl border text-center transition-all ${
+                        moyenPaiement === 'carte'
+                          ? 'bg-primary text-white border-primary shadow-sm font-bold'
+                          : 'bg-surface border-surface-border text-foreground-muted hover:text-foreground text-xs'
+                      }`}
+                    >
+                      <CreditCard className="w-3.5 h-3.5 mx-auto mb-1" />
+                      <span className="text-[10px] block">Carte/Bque</span>
+                    </button>
+                  </div>
+                </div>
+              )}
+
+              {/* Si Mobile Money : Choix précis du compte récepteur (Wave, Orange Money, etc.) */}
+              {moyenPaiement === 'mobile_money' && (
+                <div className="bg-surface p-3 rounded-xl border border-surface-border space-y-2">
+                  <label className="block text-xs font-bold text-foreground flex items-center justify-between">
+                    <span className="flex items-center gap-1.5">
+                      <Smartphone className="w-4 h-4 text-primary" />
+                      <span>Compte Mobile Money récepteur *</span>
+                    </span>
+                    {mobileMoneyAccounts.length > 1 && (
+                      <span className="text-[10px] text-primary font-medium">({mobileMoneyAccounts.length} comptes disponibles)</span>
+                    )}
+                  </label>
+
+                  {mobileMoneyAccounts.length > 1 ? (
+                    <div className="grid grid-cols-2 gap-2">
+                      {mobileMoneyAccounts.map((acc) => {
+                        const isSel = compteTresorerieId === acc.id
+                        return (
+                          <button
+                            key={acc.id}
+                            type="button"
+                            onClick={() => setCompteTresorerieId(acc.id)}
+                            className={`p-2.5 rounded-xl border text-left transition-all flex items-center justify-between ${
+                              isSel
+                                ? 'border-primary bg-primary/10 text-primary font-bold shadow-xs ring-2 ring-primary/30'
+                                : 'border-surface-border bg-background text-foreground hover:border-primary/50'
+                            }`}
+                          >
+                            <span className="text-xs truncate">{acc.nom}</span>
+                            {isSel && <span className="text-[10px] text-primary font-bold">✓</span>}
+                          </button>
+                        )
+                      })}
+                    </div>
+                  ) : (
+                    <select
+                      value={compteTresorerieId}
+                      onChange={(e) => setCompteTresorerieId(e.target.value)}
+                      className="block w-full rounded-lg border border-surface-border bg-background px-2.5 py-1.5 text-xs font-semibold text-foreground focus:ring-1 focus:ring-primary"
+                    >
+                      {(mobileMoneyAccounts.length > 0 ? mobileMoneyAccounts : comptes).map((c) => (
+                        <option key={c.id} value={c.id}>
+                          {c.nom} ({c.type || c.type_compte || 'compte'})
+                        </option>
+                      ))}
+                    </select>
+                  )}
+                  <p className="text-[10px] text-foreground-muted">
+                    L&apos;argent sera automatiquement imputé sur le journal <strong>{comptes.find(c => c.id === compteTresorerieId)?.nom || 'sélectionné'}</strong>.
+                  </p>
+                </div>
+              )}
+
+              {/* Si Espèces ou Carte : Affichage du journal récepteur */}
+              {(moyenPaiement === 'especes' || moyenPaiement === 'carte') && (
                 <div className="bg-surface p-2.5 rounded-xl border border-surface-border">
                   <label htmlFor="compte_tresorerie" className="block text-xs font-semibold text-foreground mb-1 flex items-center gap-1.5">
-                    {moyenPaiement === 'mobile_money' ? <Smartphone className="w-3.5 h-3.5 text-primary" /> : <Wallet className="w-3.5 h-3.5 text-primary" />}
+                    <Wallet className="w-3.5 h-3.5 text-primary" />
                     <span>Journal de trésorerie récepteur *</span>
                   </label>
                   <select
@@ -590,40 +682,55 @@ export default function PointDeVenteClient({
                     ))}
                   </select>
                   <p className="text-[10px] text-foreground-muted mt-1">
-                    L&apos;encaissement sera automatiquement crédité dans ce journal de trésorerie.
+                    L&apos;encaissement sera automatiquement crédité dans ce journal.
                   </p>
                 </div>
               )}
 
               {/* Bloc Vente à Crédit / Convention client */}
               {moyenPaiement === 'credit' && (
-                <div className="bg-amber-500/10 border border-amber-500/30 p-3 rounded-xl space-y-2.5">
-                  <div>
-                    <label htmlFor="client_credit" className="block text-xs font-bold text-amber-900 dark:text-amber-100 mb-1 flex items-center gap-1.5">
-                      <Building2 className="w-3.5 h-3.5 text-amber-700 dark:text-amber-300" />
-                      <span>Sélectionner le Client / Mutuelle / IPM *</span>
+                <div className="bg-amber-500/10 border-2 border-amber-500/40 p-3.5 rounded-xl space-y-2.5">
+                  <div className="flex items-center justify-between">
+                    <label htmlFor="client_credit" className="block text-xs font-bold text-amber-900 dark:text-amber-100 flex items-center gap-1.5">
+                      <Building2 className="w-4 h-4 text-amber-700 dark:text-amber-300" />
+                      <span>Client Débiteur / Mutuelle / IPM *</span>
                     </label>
-                    <select
-                      id="client_credit"
-                      value={selectedClientId}
-                      onChange={(e) => setSelectedClientId(e.target.value)}
-                      className="block w-full rounded-lg border border-amber-400 bg-background px-2.5 py-1.5 text-xs font-semibold text-foreground focus:ring-1 focus:ring-amber-500"
-                    >
-                      <option value="">-- Choisir un client pour la créance --</option>
-                      {clients.map(c => (
-                        <option key={c.id} value={c.id}>
-                          {c.nom} ({c.type_client || 'Client'}) {c.taux_couverture ? `- ${c.taux_couverture}%` : ''}
-                        </option>
-                      ))}
-                    </select>
+                    {!selectedClientId && (
+                      <span className="text-[10px] bg-danger text-white px-2 py-0.5 rounded-full font-bold animate-pulse">
+                        Client Requis
+                      </span>
+                    )}
                   </div>
 
-                  {selectedClient && (
-                    <div className="bg-background/80 p-2.5 rounded-lg border border-amber-300 dark:border-amber-700 text-xs space-y-1">
+                  <select
+                    id="client_credit"
+                    value={selectedClientId}
+                    onChange={(e) => setSelectedClientId(e.target.value)}
+                    required
+                    className={`block w-full rounded-lg bg-background px-2.5 py-2 text-xs font-bold text-foreground focus:ring-2 focus:ring-amber-500 transition-all ${
+                      !selectedClientId
+                        ? 'border-2 border-amber-500 ring-2 ring-amber-500/20'
+                        : 'border border-surface-border'
+                    }`}
+                  >
+                    <option value="">-- Sélectionner obligatoirement le client --</option>
+                    {clients.map(c => (
+                      <option key={c.id} value={c.id}>
+                        {c.nom} ({c.type_client || 'Client'}) {c.taux_couverture ? `- ${c.taux_couverture}% PEC` : ''} [Dette: {Number(c.solde_creance || 0).toLocaleString('fr-FR')} F]
+                      </option>
+                    ))}
+                  </select>
+
+                  {!selectedClientId ? (
+                    <div className="text-[11px] text-amber-800 dark:text-amber-200 bg-amber-500/15 p-2.5 rounded-lg border border-amber-500/30 font-semibold">
+                      ⚠️ En vente à crédit, vous devez obligatoirement préciser le client ou la mutuelle avant de pouvoir valider la vente.
+                    </div>
+                  ) : (
+                    <div className="bg-background/90 p-2.5 rounded-lg border border-amber-300 dark:border-amber-700 text-xs space-y-1.5">
                       <div className="flex justify-between items-center text-foreground font-medium">
                         <span>Prise en charge ({tauxCouverture}%) :</span>
                         <span className="font-bold font-mono text-amber-700 dark:text-amber-300">
-                          {partCreditCalculee.toLocaleString('fr-FR')} FCFA (Créance)
+                          {partCreditCalculee.toLocaleString('fr-FR')} FCFA (Créance Client)
                         </span>
                       </div>
                       {partPatientCalculee > 0 && (
@@ -635,8 +742,8 @@ export default function PointDeVenteClient({
                         </div>
                       )}
                       <div className="pt-1 border-t border-surface-border text-[10px] text-foreground-muted flex justify-between">
-                        <span>Créance actuelle : {Number(selectedClient.solde_creance || 0).toLocaleString('fr-FR')} FCFA</span>
-                        <span>Plafond : {selectedClient.plafond_credit ? `${selectedClient.plafond_credit.toLocaleString('fr-FR')} FCFA` : 'Non plafonné'}</span>
+                        <span>Créance actuelle : {Number(selectedClient?.solde_creance || 0).toLocaleString('fr-FR')} FCFA</span>
+                        <span>Plafond : {selectedClient?.plafond_credit ? `${selectedClient.plafond_credit.toLocaleString('fr-FR')} FCFA` : 'Non plafonné'}</span>
                       </div>
                     </div>
                   )}
@@ -655,13 +762,23 @@ export default function PointDeVenteClient({
               <button
                 type="button"
                 onClick={handleCheckout}
-                disabled={cart.length === 0 || isSubmitting}
-                className="w-full bg-primary text-white py-2.5 rounded-xl font-bold text-sm hover:bg-primary-hover disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-md active:scale-[0.99] flex items-center justify-center gap-2"
+                disabled={cart.length === 0 || isSubmitting || (moyenPaiement === 'credit' && !selectedClientId)}
+                className={`w-full py-2.5 rounded-xl font-bold text-sm transition-all shadow-md active:scale-[0.99] flex items-center justify-center gap-2 ${
+                  moyenPaiement === 'credit' && !selectedClientId
+                    ? 'bg-amber-500/30 text-amber-800 dark:text-amber-300 cursor-not-allowed border border-amber-500/40'
+                    : 'bg-primary text-white hover:bg-primary-hover disabled:opacity-50 disabled:cursor-not-allowed'
+                }`}
               >
-                {isSubmitting ? 'Enregistrement en cours...' : (
-                  moyenPaiement === 'credit' 
-                    ? `Valider la Vente à Crédit (${totalAmount.toLocaleString('fr-FR')} FCFA)` 
-                    : `Valider l'Encaissement (${totalAmount.toLocaleString('fr-FR')} FCFA)`
+                {isSubmitting ? (
+                  'Enregistrement en cours...'
+                ) : moyenPaiement === 'credit' ? (
+                  !selectedClientId ? (
+                    '⚠️ Précisez le client pour valider le crédit'
+                  ) : (
+                    `✓ Valider la Vente à Crédit (${totalAmount.toLocaleString('fr-FR')} FCFA)`
+                  )
+                ) : (
+                  `✓ Valider l'Encaissement (${totalAmount.toLocaleString('fr-FR')} FCFA)`
                 )}
               </button>
             </div>

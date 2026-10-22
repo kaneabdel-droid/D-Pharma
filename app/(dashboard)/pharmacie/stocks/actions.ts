@@ -105,3 +105,59 @@ export async function addStock(formData: FormData) {
     return { error: err.message || 'Erreur lors de l\'enregistrement' }
   }
 }
+
+export async function updateStockPrice(formData: FormData) {
+  const supabase = await createClient()
+  const tenant = await getTenantContext()
+  if (!tenant) return { error: 'Officine non trouvée.' }
+
+  const stockId = formData.get('stock_id') as string
+  const prixVenteStr = formData.get('prix_vente') as string
+  const prixAchatStr = formData.get('prix_achat') as string
+  const lot = ((formData.get('lot') as string) || '').trim()
+  const datePeremption = (formData.get('date_peremption') as string) || ''
+
+  const prix_vente = parseFloat(prixVenteStr)
+  if (!stockId || isNaN(prix_vente) || prix_vente <= 0) {
+    return { error: 'Un prix de vente valide supérieur à zéro est obligatoire.' }
+  }
+
+  const updatePayload: any = {
+    prix_vente,
+    updated_at: new Date().toISOString()
+  }
+
+  if (prixAchatStr !== null && prixAchatStr !== undefined && prixAchatStr !== '') {
+    const prix_achat = parseFloat(prixAchatStr)
+    if (!isNaN(prix_achat) && prix_achat >= 0) {
+      updatePayload.prix_achat = prix_achat
+    }
+  }
+
+  if (lot !== undefined) {
+    updatePayload.lot = lot || null
+  }
+
+  if (datePeremption) {
+    updatePayload.date_peremption = datePeremption
+  }
+
+  try {
+    const { error } = await supabase
+      .from('stocks_pharmacie')
+      .update(updatePayload)
+      .eq('id', stockId)
+      .eq('gie_id', tenant.gieId)
+
+    if (error) throw error
+
+    revalidatePath('/pharmacie/stocks')
+    revalidatePath('/pharmacie/pos')
+    revalidatePath('/dashboard')
+    return { success: true }
+  } catch (err: any) {
+    console.error('Erreur mise à jour prix stock:', err)
+    return { error: err.message || 'Erreur lors de la mise à jour du prix' }
+  }
+}
+

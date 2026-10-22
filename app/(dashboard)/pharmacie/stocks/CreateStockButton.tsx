@@ -174,7 +174,7 @@ export default function CreateStockButton() {
                   <input 
                     required 
                     type="number" 
-                    step="50" 
+                    step="any" 
                     min="1" 
                     name="prix_vente" 
                     placeholder="Ex: 1500" 
@@ -189,7 +189,7 @@ export default function CreateStockButton() {
                     <label className="block text-xs font-semibold text-foreground mb-1">Prix d'Achat (Optionnel)</label>
                     <input 
                       type="number" 
-                      step="50" 
+                      step="any" 
                       min="0" 
                       name="prix_achat" 
                       placeholder="Ex: 1000" 

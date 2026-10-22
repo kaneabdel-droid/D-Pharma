@@ -116,7 +116,7 @@ export default function ReglementFournisseurModal({ fournisseurs }: { fournisseu
                   <input 
                     required 
                     type="number" 
-                    step="50" 
+                    step="any" 
                     min="1" 
                     name="montant" 
                     placeholder="Ex: 500000" 

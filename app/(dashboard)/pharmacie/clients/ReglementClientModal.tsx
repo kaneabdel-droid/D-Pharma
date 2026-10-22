@@ -117,7 +117,7 @@ export default function ReglementClientModal({ clients }: { clients: Client[] })
                   <input 
                     required 
                     type="number" 
-                    step="50" 
+                    step="any" 
                     min="1" 
                     name="montant" 
                     placeholder="Ex: 25000" 

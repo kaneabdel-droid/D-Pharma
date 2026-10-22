@@ -79,29 +79,44 @@ export async function submitVente(formData: FormData) {
     const randCode = Math.floor(1000 + Math.random() * 9000)
     const numero_ticket = `TK-${dateCode}-${randCode}`
 
-    // Résoudre le compte de trésorerie
+    // Validation vente à crédit
+    if (moyen_paiement === 'credit' && !client_id) {
+      return { error: 'Pour une vente à crédit, vous devez obligatoirement sélectionner un client ou organisme payeur.' }
+    }
+
+    // Résoudre le compte de trésorerie récepteur
     let targetCompteId = compte_tresorerie_id
     if (!targetCompteId && part_patient > 0) {
-      // Auto-résolution selon le mode
-      let typeFilter = 'caisse'
-      if (moyen_paiement.includes('wave') || moyen_paiement.includes('orange') || moyen_paiement === 'mobile_money') {
-        typeFilter = moyen_paiement
+      if (moyen_paiement === 'mobile_money' || moyen_paiement.includes('wave') || moyen_paiement.includes('orange')) {
+        const { data: mmCompte } = await adminClient
+          .from('comptes')
+          .select('id, nom, type')
+          .eq('gie_id', tenant.gieId)
+          .or('type.eq.mobile_money,nom.ilike.%wave%,nom.ilike.%orange%,nom.ilike.%free%')
+          .limit(1)
+          .maybeSingle()
+        targetCompteId = mmCompte?.id || null
       } else if (moyen_paiement === 'carte' || moyen_paiement === 'virement') {
-        typeFilter = 'banque'
+        const { data: bqCompte } = await adminClient
+          .from('comptes')
+          .select('id, nom, type')
+          .eq('gie_id', tenant.gieId)
+          .or('type.eq.banque,nom.ilike.%banque%,nom.ilike.%cbao%')
+          .limit(1)
+          .maybeSingle()
+        targetCompteId = bqCompte?.id || null
+      } else {
+        const { data: defaultCompte } = await adminClient
+          .from('comptes')
+          .select('id, nom, type')
+          .eq('gie_id', tenant.gieId)
+          .or('type.eq.caisse,nom.ilike.%caisse%')
+          .limit(1)
+          .maybeSingle()
+        targetCompteId = defaultCompte?.id || null
       }
 
-      const { data: defaultCompte } = await adminClient
-        .from('comptes')
-        .select('id, nom, type')
-        .eq('gie_id', tenant.gieId)
-        .ilike('nom', `%${typeFilter}%`)
-        .limit(1)
-        .maybeSingle()
-
-      targetCompteId = defaultCompte?.id || null
-
       if (!targetCompteId) {
-        // Fallback sur le premier compte disponible
         const { data: firstCompte } = await adminClient
           .from('comptes')
           .select('id')
@@ -236,14 +251,21 @@ export async function submitVente(formData: FormData) {
     }
 
     // 5. Enregistrement dans le JOURNAL DE TRÉSORERIE concerné (si encaissement comptant)
-    if (part_patient > 0) {
+    if (part_patient > 0 && targetCompteId) {
       try {
+        const { data: compInfo } = await adminClient
+          .from('comptes')
+          .select('nom')
+          .eq('id', targetCompteId)
+          .maybeSingle()
+        const compteLibelle = compInfo?.nom ? ` [${compInfo.nom}]` : ''
+
         await adminClient.from('transactions').insert({
           gie_id: tenant.gieId,
           compte_id: targetCompteId,
           type_transaction: 'entree',
           montant: part_patient,
-          motif: `Encaissement vente POS ${numero_ticket} (${moyen_paiement})`,
+          motif: `Encaissement vente POS ${numero_ticket} (${moyen_paiement}${compteLibelle})`,
           type_piece: 'ticket_pos',
           date_transaction: new Date().toISOString().split('T')[0],
         })
