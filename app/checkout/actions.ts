@@ -16,6 +16,14 @@ type InitiateResult =
   | { ok: true; virement: true; paymentId: string }
   | { ok: false; error: string }
 
+const FORFAITS_PHARMA: Record<string, { niveau: string; prix_annuel: number }> = {
+  pharmacie: { niveau: 'pharmacie', prix_annuel: 75000 },
+  fournisseur: { niveau: 'fournisseur', prix_annuel: 50000 },
+  standard: { niveau: 'standard', prix_annuel: 75000 },
+  medium: { niveau: 'medium', prix_annuel: 75000 },
+  premium: { niveau: 'premium', prix_annuel: 75000 },
+}
+
 export async function initiateSubscriptionPayment(
   planId: string,
   isUpgrade: boolean,
@@ -35,11 +43,13 @@ export async function initiateSubscriptionPayment(
     return { ok: false, error: "Chariow n'est disponible que pour un forfait à prix plein" }
   }
 
-  const { data: userData } = await supabase
+  const admin = createAdminClient()
+
+  const { data: userData } = await admin
     .from('utilisateurs')
     .select('gie_id, gies(nom, subscription_tier, devise, pays)')
     .eq('id', user.id)
-    .single()
+    .maybeSingle()
 
   if (!userData?.gie_id) {
     return { ok: false, error: 'Pharmacie introuvable' }
@@ -53,14 +63,14 @@ export async function initiateSubscriptionPayment(
     return { ok: false, error: 'Depuis votre pays, l’abonnement se paie par carte bancaire en dollars US' }
   }
 
-  // Ne jamais faire confiance au prix envoyé par le client : on relit les tarifs en base.
-  const { data: tarifs } = await supabase
+  // Ne jamais faire confiance au prix envoyé par le client : on relit les tarifs en base avec repli sécurisé.
+  const { data: tarifs } = await admin
     .from('tarif_abonnement')
     .select('niveau, prix_annuel')
     .in('niveau', [planId, currentTier])
 
-  const selectedTarif = tarifs?.find((t) => t.niveau === planId)
-  const currentTarif = tarifs?.find((t) => t.niveau === currentTier)
+  const selectedTarif = tarifs?.find((t) => t.niveau === planId) || FORFAITS_PHARMA[planId]
+  const currentTarif = tarifs?.find((t) => t.niveau === currentTier) || FORFAITS_PHARMA[currentTier]
 
   if (!selectedTarif) {
     return { ok: false, error: 'Forfait inconnu' }
@@ -74,7 +84,6 @@ export async function initiateSubscriptionPayment(
   const devise = enDollars ? 'USD' : 'XOF'
   if (enDollars) montant = montantUsd(montant)
 
-  const isMobile = moyenPaiement === 'mobile_money' || moyenPaiement === 'wave' || moyenPaiement === 'orange' || moyenPaiement === 'maketou' || moyenPaiement === 'chariow'
   const isCarte = moyenPaiement === 'carte'
   const isVirement = moyenPaiement === 'virement'
 
@@ -83,7 +92,7 @@ export async function initiateSubscriptionPayment(
 
   // Anti double paiement (1/2) : un forfait déjà réglé ne se paie pas une seconde fois
   if (planId === currentTier) {
-    const { count } = await supabase
+    const { count } = await admin
       .from('abonnement_paiements')
       .select('id', { count: 'exact', head: true })
       .eq('gie_id', userData.gie_id)
@@ -96,10 +105,10 @@ export async function initiateSubscriptionPayment(
   }
 
   // Anti double paiement (2/2) : relancer la même offre renvoie vers le paiement déjà ouvert
-  const reutilisable = await paiementEnCoursReutilisable(supabase, userData.gie_id, planId, moyenPaiement, montant)
+  const reutilisable = await paiementEnCoursReutilisable(admin, userData.gie_id, planId, dbMoyenPaiement, montant)
   if (reutilisable) return reutilisable
 
-  const { data: payment, error: insertError } = await supabase
+  const { data: payment, error: insertError } = await admin
     .from('abonnement_paiements')
     .insert({
       gie_id: userData.gie_id,
@@ -115,7 +124,7 @@ export async function initiateSubscriptionPayment(
 
   if (insertError || !payment) {
     if (insertError?.code === '23505') {
-      const concurrent = await paiementEnCoursReutilisable(supabase, userData.gie_id, planId, moyenPaiement, montant)
+      const concurrent = await paiementEnCoursReutilisable(admin, userData.gie_id, planId, dbMoyenPaiement, montant)
       if (concurrent) return concurrent
       return { ok: false, error: 'Un paiement est déjà en cours pour votre pharmacie. Patientez quelques secondes puis réessayez.' }
     }
@@ -142,11 +151,11 @@ export async function initiateSubscriptionPayment(
     })
 
     if (!result.ok) {
-      await supabase.from('abonnement_paiements').update({ statut: 'failed' }).eq('id', payment.id)
+      await admin.from('abonnement_paiements').update({ statut: 'failed' }).eq('id', payment.id)
       return { ok: false, error: result.error }
     }
 
-    await supabase
+    await admin
       .from('abonnement_paiements')
       .update({ provider: 'moneroo', provider_reference: result.providerTransactionId, checkout_url: result.checkoutUrl })
       .eq('id', payment.id)
@@ -159,7 +168,7 @@ export async function initiateSubscriptionPayment(
 
   // Étape 1 : Essai avec Maketou
   try {
-    const { data: produitMaketou } = await createAdminClient()
+    const { data: produitMaketou } = await admin
       .from('maketou_produits')
       .select('product_id')
       .eq('montant', montant)
@@ -180,7 +189,7 @@ export async function initiateSubscriptionPayment(
       })
 
       if (maketouRes.ok) {
-        await supabase
+        await admin
           .from('abonnement_paiements')
           .update({
             provider: 'maketou',
@@ -205,7 +214,7 @@ export async function initiateSubscriptionPayment(
 
   // Étape 2 : Chariow prend le relais en cas de défaillance ou indisponibilité de Maketou
   try {
-    const { data: produitChariow } = await createAdminClient()
+    const { data: produitChariow } = await admin
       .from('chariow_produits')
       .select('product_id')
       .eq('montant', montant)
@@ -226,7 +235,7 @@ export async function initiateSubscriptionPayment(
       })
 
       if (chariowRes.ok) {
-        await supabase
+        await admin
           .from('abonnement_paiements')
           .update({
             provider: 'chariow',
@@ -238,14 +247,14 @@ export async function initiateSubscriptionPayment(
         return { ok: true, checkoutUrl: chariowRes.checkoutUrl }
       } else {
         console.error('[Paiement Mobile] Échec Chariow:', chariowRes.error)
-        await supabase.from('abonnement_paiements').update({ statut: 'failed' }).eq('id', payment.id)
+        await admin.from('abonnement_paiements').update({ statut: 'failed' }).eq('id', payment.id)
         return {
           ok: false,
           error: `Le paiement mobile a rencontré un problème (Maketou: ${maketouErrorDetail} | Chariow: ${chariowRes.error}). Veuillez réessayer ou utiliser le virement bancaire.`
         }
       }
     } else {
-      await supabase.from('abonnement_paiements').update({ statut: 'failed' }).eq('id', payment.id)
+      await admin.from('abonnement_paiements').update({ statut: 'failed' }).eq('id', payment.id)
       return {
         ok: false,
         error: `Paiement mobile non disponible pour ce montant (${maketouErrorDetail}).`
@@ -253,7 +262,7 @@ export async function initiateSubscriptionPayment(
     }
   } catch (err: any) {
     console.error('[Paiement Mobile] Exception Chariow:', err)
-    await supabase.from('abonnement_paiements').update({ statut: 'failed' }).eq('id', payment.id)
+    await admin.from('abonnement_paiements').update({ statut: 'failed' }).eq('id', payment.id)
     return { ok: false, error: `Erreur lors de l'initialisation du paiement mobile: ${err.message}` }
   }
 }
@@ -268,13 +277,13 @@ const DUREE_REUTILISATION_MS = 30 * 60 * 1000
  *   le webhook le traite et le marque doublon si besoin) et on laisse en créer un neuf.
  */
 async function paiementEnCoursReutilisable(
-  supabase: Awaited<ReturnType<typeof createClient>>,
+  admin: ReturnType<typeof createAdminClient>,
   gieId: string,
   niveau: string,
-  moyenPaiement: MoyenPaiement,
+  dbMoyenPaiement: string,
   montant: number
 ): Promise<InitiateResult | null> {
-  const { data: enCours } = await supabase
+  const { data: enCours } = await admin
     .from('abonnement_paiements')
     .select('id, niveau, moyen_paiement, montant, checkout_url, created_at')
     .eq('gie_id', gieId)
@@ -284,8 +293,12 @@ async function paiementEnCoursReutilisable(
 
   if (!enCours) return null
 
-  const memeOffre = enCours.niveau === niveau && enCours.moyen_paiement === moyenPaiement && Number(enCours.montant) === montant
-  if (memeOffre && moyenPaiement === 'virement') {
+  const memeOffre =
+    enCours.niveau === niveau &&
+    (enCours.moyen_paiement === dbMoyenPaiement || (dbMoyenPaiement === 'wave' && (enCours.moyen_paiement === 'wave' || enCours.moyen_paiement === 'mobile_money'))) &&
+    Number(enCours.montant) === montant
+
+  if (memeOffre && dbMoyenPaiement === 'virement') {
     // Virement déjà déclaré pour cette offre : il attend la confirmation de réception des fonds.
     return { ok: true, virement: true, paymentId: enCours.id }
   }
@@ -294,7 +307,7 @@ async function paiementEnCoursReutilisable(
     return { ok: true, checkoutUrl: enCours.checkout_url }
   }
 
-  await supabase
+  await admin
     .from('abonnement_paiements')
     .update({ abandonne_le: new Date().toISOString() })
     .eq('id', enCours.id)

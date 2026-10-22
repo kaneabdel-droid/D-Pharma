@@ -24,7 +24,8 @@ export default function AddTransactionModal({
 
   // Synchroniser le compte sélectionné lors de l'ouverture
   const handleOpen = () => {
-    setSelectedCompteId(compteId || (comptes[0]?.id ?? ''))
+    const validCompte = (!compteId || compteId === 'tous') ? (comptes[0]?.id ?? '') : compteId
+    setSelectedCompteId(validCompte)
     setIsOpen(true)
   }
 
@@ -33,7 +34,8 @@ export default function AddTransactionModal({
     setLoading(true)
     const formData = new FormData(e.currentTarget)
 
-    const compte_id = (formData.get('compte_id') as string) || selectedCompteId || compteId
+    const rawCompteId = (formData.get('compte_id') as string) || selectedCompteId || compteId
+    const compte_id = (rawCompteId && rawCompteId !== 'tous') ? rawCompteId : (comptes[0]?.id || '')
     const type_transaction = formData.get('type_transaction') as string
     const montant = Number(formData.get('montant'))
     const motif = formData.get('motif') as string

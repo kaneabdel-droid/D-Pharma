@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { Plus } from 'lucide-react'
 import { addCompte } from './actions'
 
-export default function AddCompteModal({ dict }: { dict: any }) {
+export default function AddCompteModal({ dict, onSuccess, buttonLabel }: { dict: any, onSuccess?: (newCompte: any) => void, buttonLabel?: string }) {
   const [isOpen, setIsOpen] = useState(false)
   const [loading, setLoading] = useState(false)
   const d = dict.tresorerie_extra
@@ -24,6 +24,9 @@ export default function AddCompteModal({ dict }: { dict: any }) {
       alert(res.error)
     } else {
       setIsOpen(false)
+      if (onSuccess && (res as any)?.compte) {
+        onSuccess((res as any).compte)
+      }
     }
   }
 
@@ -34,7 +37,7 @@ export default function AddCompteModal({ dict }: { dict: any }) {
         className="inline-flex items-center gap-x-2 rounded-md bg-primary px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-primary/90"
       >
         <Plus className="-ml-0.5 h-5 w-5" aria-hidden="true" />
-        {d.add_account_btn}
+        {buttonLabel || d.add_account_btn}
       </button>
 
       {isOpen && (

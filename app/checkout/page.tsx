@@ -1,4 +1,5 @@
 import { createClient } from '@/utils/supabase/server'
+import { createAdminClient } from '@/utils/supabase/admin'
 import CheckoutClient from './CheckoutClient'
 import { redirect } from 'next/navigation'
 import { hasBictorysKeys, hasMonerooKeys, hasChariowKeys, hasMaketouKeys } from '@/lib/payments/config'
@@ -34,11 +35,12 @@ export default async function CheckoutPage({
   let telephoneDefaut = ''
 
   if (user) {
-    const { data: userData } = await supabase
+    const admin = createAdminClient()
+    const { data: userData } = await admin
       .from('utilisateurs')
-      .select('telephone, gies(nom, telephone, subscription_tier, devise)')
+      .select('telephone, gie_id, gies(nom, telephone, subscription_tier, devise)')
       .eq('id', user.id)
-      .single()
+      .maybeSingle()
 
     const gie = Array.isArray(userData?.gies) ? userData.gies[0] : userData?.gies
     if (gie) {

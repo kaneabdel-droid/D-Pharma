@@ -60,7 +60,7 @@ export async function addCompte(nom: string, type_compte: string, solde_initial:
     
   if (!userData) return { error: "Utilisateur introuvable" }
 
-  const { error } = await supabase
+  const { data: newCompte, error } = await supabase
     .from('comptes')
     .insert({
       gie_id: userData.gie_id,
@@ -68,11 +68,14 @@ export async function addCompte(nom: string, type_compte: string, solde_initial:
       type: type_compte,
       solde: solde_initial
     })
+    .select()
+    .single()
 
   if (error) return { error: error.message }
 
   revalidatePath('/tresorerie')
-  return { success: true }
+  revalidatePath('/tresorerie/journaux')
+  return { success: true, compte: newCompte }
 }
 
 export async function addTransaction(data: { compte_id: string, type_transaction: string, montant: number, motif: string, type_piece?: string, imputation_id?: string }) {
@@ -166,9 +169,72 @@ export async function deleteTransaction(id: string) {
 export async function getJournal(compteId: string) {
   const supabase = await createClient()
 
+  const { data: { user } } = await supabase.auth.getUser()
+  if (!user) return { error: "Non authentifié" }
+
+  const { data: userData } = await supabase
+    .from('utilisateurs')
+    .select('gie_id')
+    .eq('id', user.id)
+    .single()
+
+  if (!userData) return { error: "Utilisateur introuvable" }
+
+  // 1. Vue consolidée de TOUS les journaux
+  if (!compteId || compteId === 'tous') {
+    const { data: comptes, error: cErr } = await supabase
+      .from('comptes')
+      .select('id, solde, nom, type')
+      .eq('gie_id', userData.gie_id)
+      .order('nom')
+
+    if (cErr) return { error: cErr.message }
+
+    const soldeInitialTotal = (comptes || []).reduce((acc, c) => acc + Number((c as any).solde || (c as any).solde_initial || 0), 0)
+    const compteMap = new Map((comptes || []).map(c => [c.id, { nom: c.nom, type: (c as any).type }]))
+
+    const { data: transactions, error } = await supabase
+      .from('transactions')
+      .select('*')
+      .eq('gie_id', userData.gie_id)
+      .order('created_at', { ascending: true })
+
+    if (error) return { error: error.message }
+
+    let soldeCourant = soldeInitialTotal
+    const journal = (transactions || []).map(tx => {
+      let entree = null
+      let sortie = null
+      if (tx.type_transaction === 'entree') {
+        entree = Number(tx.montant)
+        soldeCourant += entree
+      } else {
+        sortie = Number(tx.montant)
+        soldeCourant -= sortie
+      }
+      const cInfo = tx.compte_id ? compteMap.get(tx.compte_id) : null
+      return {
+        ...tx,
+        compte_nom: cInfo?.nom || 'Journal général',
+        compte_type: cInfo?.type || '',
+        entree,
+        sortie,
+        solde: soldeCourant
+      }
+    })
+
+    return { 
+      journal: journal.reverse(), 
+      soldeInitial: soldeInitialTotal, 
+      compteNom: 'Tous les journaux (Vue consolidée)',
+      estTousJournaux: true
+    }
+  }
+
+  // 2. Journal d'un compte spécifique
   const { data: compte } = await supabase
     .from('comptes')
-    .select('solde, nom')
+    .select('solde, nom, type')
     .eq('id', compteId)
     .single()
 
@@ -181,14 +247,6 @@ export async function getJournal(compteId: string) {
     .order('created_at', { ascending: true }) // Ordre chronologique strict
 
   if (error) {
-    if (error.message?.includes('compte_id')) {
-      return { 
-        journal: [], 
-        soldeInitial: Number((compte as any).solde || (compte as any).solde_initial || 0), 
-        compteNom: compte.nom,
-        warning: "La colonne compte_id est en cours de création dans la base." 
-      }
-    }
     return { error: error.message }
   }
 
@@ -206,6 +264,8 @@ export async function getJournal(compteId: string) {
     }
     return {
       ...tx,
+      compte_nom: compte.nom,
+      compte_type: (compte as any).type,
       entree,
       sortie,
       solde: soldeCourant
@@ -215,7 +275,8 @@ export async function getJournal(compteId: string) {
   return { 
     journal: journal.reverse(), 
     soldeInitial: (compte as any).solde || (compte as any).solde_initial || 0, 
-    compteNom: compte.nom 
+    compteNom: compte.nom,
+    estTousJournaux: false
   }
 }
 
