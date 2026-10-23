@@ -30,13 +30,16 @@ export const PERMISSION_MODULES: PermissionModule[] = [
   { key: 'dashboard', label: 'Tableau de bord', group: 'Général', paths: ['/dashboard'], actions: ['read'] },
   { key: 'pos_pharma', label: 'Point de Vente (POS)', group: 'Pharmacie', paths: ['/pharmacie/pos'], actions: CRUD },
   { key: 'stock_pharma', label: 'Gestion des Stocks', group: 'Pharmacie', paths: ['/pharmacie/stocks'], actions: CRUD },
+  { key: 'perimes_pharma', label: 'Périmés & PV Destruction', group: 'Pharmacie', paths: ['/pharmacie/perimes'], actions: CRUD },
+  { key: 'retours_pharma', label: 'Retours & Avoirs Grossistes', group: 'Pharmacie', paths: ['/pharmacie/retours-grossistes'], actions: CRUD },
   { key: 'clients_pharma', label: 'Clients & Créances (Tiers Payant)', group: 'Pharmacie', paths: ['/pharmacie/clients'], actions: CRUD },
   { key: 'fournisseurs_pharma', label: 'Grossistes & Dettes Fournisseurs', group: 'Pharmacie', paths: ['/pharmacie/fournisseurs'], actions: CRUD },
   { key: 'commandes_pharma', label: 'Commandes Labo & Grossistes', group: 'Pharmacie', paths: ['/pharmacie/commandes'], actions: CRUD },
   { key: 'tresorerie', label: 'Trésorerie (comptes, journaux)', group: 'Finance', paths: ['/tresorerie'], actions: CRUD },
   { key: 'imputations', label: 'Imputations', group: 'Finance', paths: ['/tresorerie/imputations'], actions: CRUD },
   { key: 'comptabilite', label: 'Comptabilité (SYSCOHADA)', group: 'Finance', paths: ['/comptabilite'], actions: CRUD },
-  { key: 'parametres', label: 'Paramètres', group: 'Administration', paths: ['/parametres'], actions: ['read', 'update'] },
+  { key: 'tva_pharma', label: 'Déclaration TVA Officine', group: 'Finance', paths: ['/comptabilite/tva'], actions: CRUD },
+  { key: 'parametres', label: 'Paramètres & Équipe', group: 'Administration', paths: ['/parametres'], actions: ['read', 'update'] },
 ]
 
 // Route -> module (préfixe le plus long). null = page non soumise aux droits

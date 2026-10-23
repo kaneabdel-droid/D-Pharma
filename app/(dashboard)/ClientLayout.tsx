@@ -22,7 +22,10 @@ import {
   BookOpen,
   UploadCloud,
   Users,
-  Building2
+  Building2,
+  FileWarning,
+  RotateCcw,
+  Receipt
 } from 'lucide-react'
 import { DeviseProvider } from '@/components/DeviseProvider'
 
@@ -67,18 +70,21 @@ export default function ClientLayout({
   }, [])
 
   const navigation = [
-    { key: 'dashboard', href: '/dashboard', icon: LayoutDashboard },
-    { key: 'pos_pharma', href: '/pharmacie/pos', icon: Activity },
-    { key: 'stock_pharma', href: '/pharmacie/stocks', icon: PackageOpen },
-    { key: 'clients_pharma', href: '/pharmacie/clients', icon: Users },
-    { key: 'fournisseurs_pharma', href: '/pharmacie/fournisseurs', icon: Building2 },
-    { key: 'commandes_pharma', href: '/pharmacie/commandes', icon: Truck },
-    { key: 'tresorerie', href: '/tresorerie', icon: Landmark },
-    { key: 'comptabilite', href: '/comptabilite', icon: BookOpen },
-    { key: 'import_donnees', href: '/parametres/import', icon: UploadCloud },
-    { key: 'abonnement', href: '/abonnement', icon: Shield },
-    { key: 'parametres', href: '/parametres', icon: Settings },
-    { key: 'support', href: '/support', icon: LifeBuoy },
+    { key: 'dashboard', label: 'Tableau de bord', href: '/dashboard', icon: LayoutDashboard },
+    { key: 'pos_pharma', label: 'Vente Comptoir (POS)', href: '/pharmacie/pos', icon: Activity },
+    { key: 'stock_pharma', label: 'Gestion des Stocks', href: '/pharmacie/stocks', icon: PackageOpen },
+    { key: 'perimes_pharma', label: 'Périmés & PV Destruction', href: '/pharmacie/perimes', icon: FileWarning },
+    { key: 'retours_pharma', label: 'Retours & Avoirs Grossistes', href: '/pharmacie/retours-grossistes', icon: RotateCcw },
+    { key: 'clients_pharma', label: 'Clients & Tiers-Payant', href: '/pharmacie/clients', icon: Users },
+    { key: 'fournisseurs_pharma', label: 'Grossistes & Dettes', href: '/pharmacie/fournisseurs', icon: Building2 },
+    { key: 'commandes_pharma', label: 'Commandes d’Appro', href: '/pharmacie/commandes', icon: Truck },
+    { key: 'tresorerie', label: 'Trésorerie & Caisses', href: '/tresorerie', icon: Landmark },
+    { key: 'comptabilite', label: 'Comptabilité (SYSCOHADA)', href: '/comptabilite', icon: BookOpen },
+    { key: 'tva_pharma', label: 'Déclaration TVA (DGID)', href: '/comptabilite/tva', icon: Receipt },
+    { key: 'import_donnees', label: 'Importer des données', href: '/parametres/import', icon: UploadCloud },
+    { key: 'parametres', label: 'Paramètres & Équipe', href: '/parametres', icon: Settings },
+    { key: 'abonnement', label: 'Abonnement', href: '/abonnement', icon: Shield },
+    { key: 'support', label: 'Assistance & Support', href: '/support', icon: LifeBuoy },
   ]
 
   // Définition structurée par catégories pour le menu horizontal
@@ -86,38 +92,41 @@ export default function ClientLayout({
     {
       titre: dict.sidebar?.section_pilotage || 'Pilotage',
       items: [
-        { key: 'dashboard', href: '/dashboard', icon: LayoutDashboard },
+        { key: 'dashboard', label: 'Tableau de bord', href: '/dashboard', icon: LayoutDashboard },
       ],
     },
     {
       titre: dict.sidebar?.section_pharmacie || 'Pharmacie & Tiers',
       items: [
-        { key: 'pos_pharma', href: '/pharmacie/pos', icon: Activity },
-        { key: 'stock_pharma', href: '/pharmacie/stocks', icon: PackageOpen },
-        { key: 'clients_pharma', href: '/pharmacie/clients', icon: Users },
-        { key: 'fournisseurs_pharma', href: '/pharmacie/fournisseurs', icon: Building2 },
-        { key: 'commandes_pharma', href: '/pharmacie/commandes', icon: Truck },
+        { key: 'pos_pharma', label: 'Vente Comptoir (POS)', href: '/pharmacie/pos', icon: Activity },
+        { key: 'stock_pharma', label: 'Gestion des Stocks', href: '/pharmacie/stocks', icon: PackageOpen },
+        { key: 'perimes_pharma', label: 'Périmés & PV Destruction', href: '/pharmacie/perimes', icon: FileWarning },
+        { key: 'retours_pharma', label: 'Retours & Avoirs Grossistes', href: '/pharmacie/retours-grossistes', icon: RotateCcw },
+        { key: 'clients_pharma', label: 'Clients & Tiers-Payant', href: '/pharmacie/clients', icon: Users },
+        { key: 'fournisseurs_pharma', label: 'Grossistes & Dettes', href: '/pharmacie/fournisseurs', icon: Building2 },
+        { key: 'commandes_pharma', label: 'Commandes d’Appro', href: '/pharmacie/commandes', icon: Truck },
       ],
     },
     {
       titre: dict.sidebar?.section_finances || 'Finance & Compta',
       items: [
-        { key: 'tresorerie', href: '/tresorerie', icon: Landmark },
-        { key: 'comptabilite', href: '/comptabilite', icon: BookOpen },
+        { key: 'tresorerie', label: 'Trésorerie & Caisses', href: '/tresorerie', icon: Landmark },
+        { key: 'comptabilite', label: 'Comptabilité (SYSCOHADA)', href: '/comptabilite', icon: BookOpen },
+        { key: 'tva_pharma', label: 'Déclaration TVA (DGID)', href: '/comptabilite/tva', icon: Receipt },
       ],
     },
     {
       titre: dict.sidebar?.section_admin || 'Administration',
       items: [
-        { key: 'import_donnees', href: '/parametres/import', icon: UploadCloud },
-        { key: 'parametres', href: '/parametres', icon: Settings },
-        { key: 'abonnement', href: '/abonnement', icon: Shield },
+        { key: 'import_donnees', label: 'Importer des données', href: '/parametres/import', icon: UploadCloud },
+        { key: 'parametres', label: 'Paramètres & Équipe', href: '/parametres', icon: Settings },
+        { key: 'abonnement', label: 'Abonnement', href: '/abonnement', icon: Shield },
       ],
     },
     {
       titre: dict.sidebar?.section_aide || 'Assistance',
       items: [
-        { key: 'support', href: '/support', icon: LifeBuoy },
+        { key: 'support', label: 'Assistance & Support', href: '/support', icon: LifeBuoy },
       ],
     },
   ]
@@ -210,7 +219,7 @@ export default function ClientLayout({
                                 className={`h-4 w-4 shrink-0 ${actif ? 'text-white' : 'text-primary'}`}
                                 aria-hidden="true"
                               />
-                              <span className="truncate">{dict.sidebar?.[item.key] || item.key}</span>
+                              <span className="truncate">{(item as any).label || dict.sidebar?.[item.key] || item.key}</span>
                             </Link>
                           )
                         })}
@@ -304,7 +313,7 @@ export default function ClientLayout({
                             }`}
                           >
                             <item.icon className="h-4 w-4 shrink-0" />
-                            <span>{dict.sidebar?.[item.key] || item.key}</span>
+                            <span>{(item as any).label || dict.sidebar?.[item.key] || item.key}</span>
                           </Link>
                         )
                       })}
@@ -349,7 +358,7 @@ export default function ClientLayout({
                               className={`h-4 w-4 shrink-0 ${actif ? 'text-white' : 'text-primary'}`}
                               aria-hidden="true"
                             />
-                            <span className="truncate">{dict.sidebar?.[item.key] || item.key}</span>
+                            <span className="truncate">{(item as any).label || dict.sidebar?.[item.key] || item.key}</span>
                           </Link>
                         )
                       })}

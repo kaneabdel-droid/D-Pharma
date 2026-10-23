@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { BookOpen, FileText, Scale, BarChart3 } from 'lucide-react'
+import { BookOpen, FileText, Scale, BarChart3, Receipt } from 'lucide-react'
 import { getLocale, getDictionary } from '@/dictionaries'
 
 export default async function ComptabiliteLayout({
@@ -61,6 +61,13 @@ export default async function ComptabiliteLayout({
         >
           <BarChart3 className="w-4 h-4 text-amber-500" />
           <span>{tabs.resultat || 'Compte de Résultat Officinal'}</span>
+        </Link>
+        <Link
+          href="/comptabilite/tva"
+          className="bg-surface text-foreground-muted hover:text-foreground rounded-xl px-4 py-2.5 text-sm font-semibold flex items-center gap-2 border border-surface-border transition-colors hover:border-primary/40"
+        >
+          <Receipt className="w-4 h-4 text-primary" />
+          <span>Déclaration de TVA (DGID)</span>
         </Link>
       </nav>
 
