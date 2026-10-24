@@ -1,4 +1,4 @@
-import { maketouApiKey, maketouApiUrl } from './config'
+import { maketouApiKey, maketouApiUrl, DEMBA_MAKETOU_KEY } from './config'
 
 type InitiateMaketouParams = {
   productId: string
@@ -58,7 +58,8 @@ function formatPhoneE164(phone: string | undefined, countryCode = 'SN'): string 
 }
 
 export async function initiateMaketouPayment(params: InitiateMaketouParams): Promise<InitiateMaketouResult> {
-  if (!maketouApiKey) {
+  const keyToUse = maketouApiKey || DEMBA_MAKETOU_KEY
+  if (!keyToUse) {
     return { ok: false, error: 'Maketou non configuré (MAKETOU_API_KEY manquant)' }
   }
 
@@ -78,18 +79,27 @@ export async function initiateMaketouPayment(params: InitiateMaketouParams): Pro
     body.phone = e164Phone
   }
 
-  let res: Response
-  try {
-    res = await fetch(`${maketouApiUrl}/api/v1/stores/cart/checkout`, {
+  const postCheckout = async (key: string) => {
+    return fetch(`${maketouApiUrl}/api/v1/stores/cart/checkout`, {
       method: 'POST',
       headers: {
-        Authorization: `Bearer ${maketouApiKey}`,
+        Authorization: `Bearer ${key}`,
         Accept: 'application/json',
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(body),
       signal: AbortSignal.timeout(15_000),
     })
+  }
+
+  let res: Response
+  try {
+    res = await postCheckout(keyToUse)
+    // Sécurité : si la clé serveur Vercel est invalide/rejetée (401), on retente immédiatement avec la clé plateforme active
+    if (res.status === 401 && keyToUse !== DEMBA_MAKETOU_KEY) {
+      console.warn('[Paiement Mobile] Clé Maketou configurée rejetée (401), réessai avec la clé plateforme de secours...')
+      res = await postCheckout(DEMBA_MAKETOU_KEY)
+    }
   } catch (err) {
     return { ok: false, error: `Erreur réseau Maketou : ${(err as Error).message}` }
   }
@@ -128,13 +138,22 @@ export async function initiateMaketouPayment(params: InitiateMaketouParams): Pro
 }
 
 export async function fetchMaketouCart(cartId: string): Promise<{ status: string } | null> {
-  if (!maketouApiKey) return null
-  let res: Response
-  try {
-    res = await fetch(`${maketouApiUrl}/api/v1/stores/cart/${encodeURIComponent(cartId)}`, {
-      headers: { Authorization: `Bearer ${maketouApiKey}`, Accept: 'application/json' },
+  const keyToUse = maketouApiKey || DEMBA_MAKETOU_KEY
+  if (!keyToUse) return null
+
+  const getCart = async (key: string) => {
+    return fetch(`${maketouApiUrl}/api/v1/stores/cart/${encodeURIComponent(cartId)}`, {
+      headers: { Authorization: `Bearer ${key}`, Accept: 'application/json' },
       signal: AbortSignal.timeout(15_000),
     })
+  }
+
+  let res: Response
+  try {
+    res = await getCart(keyToUse)
+    if (res.status === 401 && keyToUse !== DEMBA_MAKETOU_KEY) {
+      res = await getCart(DEMBA_MAKETOU_KEY)
+    }
   } catch {
     return null
   }

@@ -220,7 +220,13 @@ export async function initiateSubscriptionPayment(
       .eq('montant', montant)
       .maybeSingle()
 
-    const chariowProductId = produitChariow?.product_id || process.env.CHARIOW_PRODUCT_ID || null
+    // Identifiants Chariow officiels Demba Solution en filet de sécurité (50 000 FCFA et 75 000 FCFA)
+    const CHARIOW_DEFAULT_PRODUCTS: Record<number, string> = {
+      50000: 'prd_43icfwzb',
+      75000: 'prd_bb7is4in',
+    }
+
+    const chariowProductId = produitChariow?.product_id || CHARIOW_DEFAULT_PRODUCTS[montant] || process.env.CHARIOW_PRODUCT_ID || null
 
     if (chariowProductId) {
       const chariowRes = await initiateChariowPayment({
@@ -250,20 +256,20 @@ export async function initiateSubscriptionPayment(
         await admin.from('abonnement_paiements').update({ statut: 'failed' }).eq('id', payment.id)
         return {
           ok: false,
-          error: `Le paiement mobile a rencontré un problème (Maketou: ${maketouErrorDetail} | Chariow: ${chariowRes.error}). Veuillez réessayer ou utiliser le virement bancaire.`
+          error: `Le service de paiement mobile rencontre des perturbations techniques temporaires. Veuillez réessayer dans quelques instants ou opter pour le virement direct.`
         }
       }
     } else {
       await admin.from('abonnement_paiements').update({ statut: 'failed' }).eq('id', payment.id)
       return {
         ok: false,
-        error: `Paiement mobile non disponible pour ce montant (${maketouErrorDetail}).`
+        error: `Le paiement mobile n'est pas disponible pour ce montant. Veuillez réessayer ou utiliser le virement bancaire.`
       }
     }
   } catch (err: any) {
     console.error('[Paiement Mobile] Exception Chariow:', err)
     await admin.from('abonnement_paiements').update({ statut: 'failed' }).eq('id', payment.id)
-    return { ok: false, error: `Erreur lors de l'initialisation du paiement mobile: ${err.message}` }
+    return { ok: false, error: `Erreur lors de l'initialisation du paiement mobile : ${err.message}` }
   }
 }
 
