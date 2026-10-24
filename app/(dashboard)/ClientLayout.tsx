@@ -70,21 +70,21 @@ export default function ClientLayout({
   }, [])
 
   const navigation = [
-    { key: 'dashboard', label: 'Tableau de bord', href: '/dashboard', icon: LayoutDashboard },
-    { key: 'pos_pharma', label: 'Vente Comptoir (POS)', href: '/pharmacie/pos', icon: Activity },
-    { key: 'stock_pharma', label: 'Gestion des Stocks', href: '/pharmacie/stocks', icon: PackageOpen },
-    { key: 'perimes_pharma', label: 'Périmés & PV Destruction', href: '/pharmacie/perimes', icon: FileWarning },
-    { key: 'retours_pharma', label: 'Retours & Avoirs Grossistes', href: '/pharmacie/retours-grossistes', icon: RotateCcw },
-    { key: 'clients_pharma', label: 'Clients & Tiers-Payant', href: '/pharmacie/clients', icon: Users },
-    { key: 'fournisseurs_pharma', label: 'Grossistes & Dettes', href: '/pharmacie/fournisseurs', icon: Building2 },
-    { key: 'commandes_pharma', label: 'Commandes d’Appro', href: '/pharmacie/commandes', icon: Truck },
-    { key: 'tresorerie', label: 'Trésorerie & Caisses', href: '/tresorerie', icon: Landmark },
-    { key: 'comptabilite', label: 'Comptabilité (SYSCOHADA)', href: '/comptabilite', icon: BookOpen },
-    { key: 'tva_pharma', label: 'Déclaration TVA (DGID)', href: '/comptabilite/tva', icon: Receipt },
-    { key: 'import_donnees', label: 'Importer des données', href: '/parametres/import', icon: UploadCloud },
-    { key: 'parametres', label: 'Paramètres & Équipe', href: '/parametres', icon: Settings },
-    { key: 'abonnement', label: 'Abonnement', href: '/abonnement', icon: Shield },
-    { key: 'support', label: 'Assistance & Support', href: '/support', icon: LifeBuoy },
+    { key: 'dashboard', label: dict.sidebar?.dashboard || 'Tableau de bord', href: '/dashboard', icon: LayoutDashboard },
+    { key: 'pos_pharma', label: dict.sidebar?.pos_pharma || 'Vente Comptoir (POS)', href: '/pharmacie/pos', icon: Activity },
+    { key: 'stock_pharma', label: dict.sidebar?.stock_pharma || 'Gestion des Stocks', href: '/pharmacie/stocks', icon: PackageOpen },
+    { key: 'perimes_pharma', label: dict.sidebar?.perimes_pharma || 'Périmés & PV Destruction', href: '/pharmacie/perimes', icon: FileWarning },
+    { key: 'retours_pharma', label: dict.sidebar?.retours_pharma || 'Retours & Avoirs Grossistes', href: '/pharmacie/retours-grossistes', icon: RotateCcw },
+    { key: 'clients_pharma', label: dict.sidebar?.clients_pharma || 'Clients & Tiers-Payant', href: '/pharmacie/clients', icon: Users },
+    { key: 'fournisseurs_pharma', label: dict.sidebar?.fournisseurs_pharma || 'Grossistes & Dettes', href: '/pharmacie/fournisseurs', icon: Building2 },
+    { key: 'commandes_pharma', label: dict.sidebar?.commandes_pharma || 'Commandes d’Appro', href: '/pharmacie/commandes', icon: Truck },
+    { key: 'tresorerie', label: dict.sidebar?.tresorerie || 'Trésorerie & Caisses', href: '/tresorerie', icon: Landmark },
+    { key: 'comptabilite', label: dict.sidebar?.comptabilite || 'Comptabilité (SYSCOHADA)', href: '/comptabilite', icon: BookOpen },
+    { key: 'tva_pharma', label: dict.sidebar?.tva_pharma || 'Déclaration TVA (DGID)', href: '/comptabilite/tva', icon: Receipt },
+    { key: 'import_donnees', label: dict.sidebar?.import_donnees || 'Importer des données', href: '/parametres/import', icon: UploadCloud },
+    { key: 'parametres', label: dict.sidebar?.parametres || 'Paramètres & Équipe', href: '/parametres', icon: Settings },
+    { key: 'abonnement', label: dict.sidebar?.abonnement || 'Abonnement', href: '/abonnement', icon: Shield },
+    { key: 'support', label: dict.sidebar?.support || 'Assistance & Support', href: '/support', icon: LifeBuoy },
   ]
 
   // Définition structurée par catégories pour le menu horizontal
@@ -92,41 +92,41 @@ export default function ClientLayout({
     {
       titre: dict.sidebar?.section_pilotage || 'Pilotage',
       items: [
-        { key: 'dashboard', label: 'Tableau de bord', href: '/dashboard', icon: LayoutDashboard },
+        { key: 'dashboard', label: dict.sidebar?.dashboard || 'Tableau de bord', href: '/dashboard', icon: LayoutDashboard },
       ],
     },
     {
       titre: dict.sidebar?.section_pharmacie || 'Pharmacie & Tiers',
       items: [
-        { key: 'pos_pharma', label: 'Vente Comptoir (POS)', href: '/pharmacie/pos', icon: Activity },
-        { key: 'stock_pharma', label: 'Gestion des Stocks', href: '/pharmacie/stocks', icon: PackageOpen },
-        { key: 'perimes_pharma', label: 'Périmés & PV Destruction', href: '/pharmacie/perimes', icon: FileWarning },
-        { key: 'retours_pharma', label: 'Retours & Avoirs Grossistes', href: '/pharmacie/retours-grossistes', icon: RotateCcw },
-        { key: 'clients_pharma', label: 'Clients & Tiers-Payant', href: '/pharmacie/clients', icon: Users },
-        { key: 'fournisseurs_pharma', label: 'Grossistes & Dettes', href: '/pharmacie/fournisseurs', icon: Building2 },
-        { key: 'commandes_pharma', label: 'Commandes d’Appro', href: '/pharmacie/commandes', icon: Truck },
+        { key: 'pos_pharma', label: dict.sidebar?.pos_pharma || 'Vente Comptoir (POS)', href: '/pharmacie/pos', icon: Activity },
+        { key: 'stock_pharma', label: dict.sidebar?.stock_pharma || 'Gestion des Stocks', href: '/pharmacie/stocks', icon: PackageOpen },
+        { key: 'perimes_pharma', label: dict.sidebar?.perimes_pharma || 'Périmés & PV Destruction', href: '/pharmacie/perimes', icon: FileWarning },
+        { key: 'retours_pharma', label: dict.sidebar?.retours_pharma || 'Retours & Avoirs Grossistes', href: '/pharmacie/retours-grossistes', icon: RotateCcw },
+        { key: 'clients_pharma', label: dict.sidebar?.clients_pharma || 'Clients & Tiers-Payant', href: '/pharmacie/clients', icon: Users },
+        { key: 'fournisseurs_pharma', label: dict.sidebar?.fournisseurs_pharma || 'Grossistes & Dettes', href: '/pharmacie/fournisseurs', icon: Building2 },
+        { key: 'commandes_pharma', label: dict.sidebar?.commandes_pharma || 'Commandes d’Appro', href: '/pharmacie/commandes', icon: Truck },
       ],
     },
     {
       titre: dict.sidebar?.section_finances || 'Finance & Compta',
       items: [
-        { key: 'tresorerie', label: 'Trésorerie & Caisses', href: '/tresorerie', icon: Landmark },
-        { key: 'comptabilite', label: 'Comptabilité (SYSCOHADA)', href: '/comptabilite', icon: BookOpen },
-        { key: 'tva_pharma', label: 'Déclaration TVA (DGID)', href: '/comptabilite/tva', icon: Receipt },
+        { key: 'tresorerie', label: dict.sidebar?.tresorerie || 'Trésorerie & Caisses', href: '/tresorerie', icon: Landmark },
+        { key: 'comptabilite', label: dict.sidebar?.comptabilite || 'Comptabilité (SYSCOHADA)', href: '/comptabilite', icon: BookOpen },
+        { key: 'tva_pharma', label: dict.sidebar?.tva_pharma || 'Déclaration TVA (DGID)', href: '/comptabilite/tva', icon: Receipt },
       ],
     },
     {
       titre: dict.sidebar?.section_admin || 'Administration',
       items: [
-        { key: 'import_donnees', label: 'Importer des données', href: '/parametres/import', icon: UploadCloud },
-        { key: 'parametres', label: 'Paramètres & Équipe', href: '/parametres', icon: Settings },
-        { key: 'abonnement', label: 'Abonnement', href: '/abonnement', icon: Shield },
+        { key: 'import_donnees', label: dict.sidebar?.import_donnees || 'Importer des données', href: '/parametres/import', icon: UploadCloud },
+        { key: 'parametres', label: dict.sidebar?.parametres || 'Paramètres & Équipe', href: '/parametres', icon: Settings },
+        { key: 'abonnement', label: dict.sidebar?.abonnement || 'Abonnement', href: '/abonnement', icon: Shield },
       ],
     },
     {
       titre: dict.sidebar?.section_aide || 'Assistance',
       items: [
-        { key: 'support', label: 'Assistance & Support', href: '/support', icon: LifeBuoy },
+        { key: 'support', label: dict.sidebar?.support || 'Assistance & Support', href: '/support', icon: LifeBuoy },
       ],
     },
   ]

@@ -2,17 +2,22 @@ import { getRetoursGrossistes, getFournisseursGrossistes } from './actions'
 import NouveauRetourModal from './NouveauRetourModal'
 import EnregistrerAvoirModal from './EnregistrerAvoirModal'
 import { RotateCcw, Truck, Receipt, CheckCircle2, Clock, AlertCircle } from 'lucide-react'
+import { getDictionary, getLocale } from '@/dictionaries'
 
 export const dynamic = 'force-dynamic'
 
 export default async function RetoursGrossistesPage() {
+  const locale = await getLocale()
+  const dict = await getDictionary(locale)
+  const rDict = dict.pharmacie?.retours || {}
+
   const [{ retours }, { fournisseurs }] = await Promise.all([
     getRetoursGrossistes(),
     getFournisseursGrossistes(),
   ])
 
   const formatCFA = (val: number) =>
-    new Intl.NumberFormat('fr-FR', { style: 'decimal', maximumFractionDigits: 0 }).format(val) + ' FCFA'
+    new Intl.NumberFormat(locale === 'ar' ? 'ar-SA' : locale === 'en' ? 'en-US' : 'fr-FR', { style: 'decimal', maximumFractionDigits: 0 }).format(val) + ' FCFA'
 
   const totalAvoirsObtenus = (retours || [])
     .filter((r) => r.statut === 'avoir_recu')
@@ -33,10 +38,10 @@ export default async function RetoursGrossistesPage() {
           </div>
           <div>
             <h1 className="text-2xl sm:text-3xl font-bold font-heading text-foreground">
-              Retours & Avoirs chez les Grossistes
+              {rDict.title || 'Retours & Avoirs chez les Grossistes'}
             </h1>
             <p className="text-xs sm:text-sm text-foreground-muted">
-              Suivi des colis de retours (périmés avec convention de reprise, erreurs, casses) et lettrage comptable des notes d'avoir.
+              {rDict.subtitle || "Suivi des colis de retours (périmés avec convention de reprise, erreurs, casses) et lettrage comptable des notes d'avoir."}
             </p>
           </div>
         </div>
@@ -48,20 +53,24 @@ export default async function RetoursGrossistesPage() {
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         <div className="bg-surface rounded-2xl p-4 border border-surface-border shadow-sm">
           <div className="flex items-center justify-between">
-            <span className="text-xs text-foreground-muted font-bold uppercase tracking-wider">Avoirs Encaissés / Déduits</span>
+            <span className="text-xs text-foreground-muted font-bold uppercase tracking-wider">
+              {rDict.kpi_avoirs || 'Avoirs Encaissés / Déduits'}
+            </span>
             <CheckCircle2 className="w-4 h-4 text-emerald-600" />
           </div>
           <p className="text-2xl font-black text-emerald-600 mt-1">{formatCFA(totalAvoirsObtenus)}</p>
-          <span className="text-[11px] text-foreground-muted">Déduit des dettes fournisseurs (401)</span>
+          <span className="text-[11px] text-foreground-muted">{rDict.kpi_avoirs_sub || 'Déduit des dettes fournisseurs (401)'}</span>
         </div>
 
         <div className="bg-surface rounded-2xl p-4 border border-surface-border shadow-sm">
           <div className="flex items-center justify-between">
-            <span className="text-xs text-foreground-muted font-bold uppercase tracking-wider">Retours en Attente d'Avoir</span>
+            <span className="text-xs text-foreground-muted font-bold uppercase tracking-wider">
+              {rDict.kpi_en_attente || "Retours en Attente d'Avoir"}
+            </span>
             <Clock className="w-4 h-4 text-amber-500" />
           </div>
           <p className="text-2xl font-black text-amber-600 mt-1">{formatCFA(totalEnAttente)}</p>
-          <span className="text-[11px] text-foreground-muted">{enAttenteAvoir.length} dossier(s) en cours chez les grossistes</span>
+          <span className="text-[11px] text-foreground-muted">{enAttenteAvoir.length} {rDict.kpi_en_attente_sub || 'dossier(s) en cours chez les grossistes'}</span>
         </div>
 
         <div className="bg-surface rounded-2xl p-4 border border-surface-border shadow-sm">

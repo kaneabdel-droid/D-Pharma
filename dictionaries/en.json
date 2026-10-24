@@ -133,7 +133,8 @@
       "pos_pharma": "Fast Point of Sale (POS)",
       "stock_pharma": "Inventory & Expirations",
       "commandes_pharma": "Wholesaler Purchase Orders",
-      "imputations": "Double-entry Accounting"
+      "imputations": "Double-entry Accounting",
+      "tresorerie": "Treasury & Cash Management"
     },
     "plans": {
       "standard_resume": "Essential dispensary operations & POS cash register",
@@ -176,23 +177,26 @@
   },
   "sidebar": {
     "dashboard": "Dashboard",
-    "pos_pharma": "Point of Sale (POS)",
-    "stock_pharma": "Products, Stocks & Services",
-    "clients_pharma": "Clients & Receivables",
+    "pos_pharma": "Counter Sales (POS)",
+    "stock_pharma": "Stock & Inventory",
+    "clients_pharma": "Clients & Third-Party Payers",
     "fournisseurs_pharma": "Wholesalers & Payables",
-    "commandes_pharma": "Wholesaler Orders",
+    "commandes_pharma": "Supply Orders",
     "tresorerie": "Treasury & Cash",
-    "comptabilite": "Accounting",
+    "comptabilite": "Accounting (SYSCOHADA)",
     "abonnement": "Subscription",
     "import_donnees": "Import Data",
-    "parametres": "Settings",
+    "parametres": "Settings & Team",
     "support": "Help & Support",
     "logout": "Sign Out",
     "section_pilotage": "Management",
-    "section_pharmacie": "Pharmacy",
+    "section_pharmacie": "Pharmacy & Partners",
     "section_finances": "Finance & Accounting",
     "section_admin": "Administration",
-    "section_aide": "Help & Support"
+    "section_aide": "Support",
+    "perimes_pharma": "Expired & Destruction Records",
+    "retours_pharma": "Wholesaler Returns & Credit Notes",
+    "tva_pharma": "VAT Declaration (DGID)"
   },
   "header": {
     "admin": "Admin",
@@ -285,8 +289,8 @@
     "balances": {
       "title": "Account Balances Overview",
       "desc": "Current balances for cash register and bank accounts.",
-      "total": "Trésorerie Globale",
-      "empty": "Aucun compte créé pour le moment."
+      "total": "Global Treasury",
+      "empty": "No account created yet."
     }
   },
   "parametres": {
@@ -330,13 +334,13 @@
     "add_account_btn": "New Financial Account",
     "modal": {
       "title": "Add Cash or Bank Account",
-      "name": "Nom du compte",
-      "name_placeholder": "Ex: Caisse Comptoir, Compte BOA, Compte Wave...",
+      "name": "Account Name",
+      "name_placeholder": "e.g., Counter Cash, BOA Account, Wave Account...",
       "type": "Account Type",
-      "type_caisse": "Caisse (Espèces)",
-      "type_banque": "Compte Bancaire",
+      "type_caisse": "Cash Register (Cash)",
+      "type_banque": "Bank Account",
       "type_mobile_money": "Mobile Money (Wave, Orange Money...)",
-      "initial_balance": "Solde initial (FCFA)"
+      "initial_balance": "Initial Balance (FCFA)"
     }
   },
   "checkout_extra": {
@@ -393,91 +397,91 @@
     "form_title": "Send a support message",
     "form_desc": "Encountering an issue? Describe it below and a technician will reach out immediately.",
     "form": {
-      "subject": "Sujet de votre demande",
-      "subject_placeholder": "Ex: Question sur le scanner code-barres, Gestion des lots...",
+      "subject": "Subject of your request",
+      "subject_placeholder": "e.g., Question about barcode scanner, Batch management...",
       "message": "Detailed Message",
       "message_placeholder": "Describe the issue encountered, steps to reproduce, or any relevant details...",
-      "send": "Envoyer le message",
+      "send": "Send Message",
       "sending": "Sending ticket...",
-      "sent_title": "Message envoyé avec succès !",
-      "sent_desc": "Notre équipe de support a bien reçu votre message et vous répondra dans les plus brefs délais.",
+      "sent_title": "Message sent successfully!",
+      "sent_desc": "Our support team has received your message and will respond as soon as possible.",
       "send_another": "Send another message",
       "errors": {
-        "required": "Veuillez remplir tous les champs.",
-        "too_long": "Le sujet (200 caractères max) ou le message (5000 caractères max) est trop long.",
-        "not_authenticated": "Votre session a expiré. Veuillez vous reconnecter.",
+        "required": "Please fill in all fields.",
+        "too_long": "The subject (max 200 characters) or message (max 5000 characters) is too long.",
+        "not_authenticated": "Your session has expired. Please log in again.",
         "failed": "The message could not be sent. Please retry or email support@dembasolution.com."
       }
     }
   },
   "tresorerie_pages": {
     "journaux": {
-      "no_account": "Aucun compte trouvé. Veuillez d'abord créer un compte.",
+      "no_account": "No account found. Please create an account first.",
       "title": "Dispensary Cash & Bank Journals",
       "desc": "Chronological ledger of cash intakes and disbursements.",
-      "select_account": "Choisir un compte",
-      "add_operation": "Saisir une opération",
-      "loading": "Chargement du journal...",
+      "select_account": "Choose an account",
+      "add_operation": "Record an operation",
+      "loading": "Loading journal...",
       "headers": {
-        "reason": "Motif",
-        "imputation": "Imputation",
-        "in": "Entrée",
-        "out": "Sortie",
-        "balance": "Solde en cours",
+        "reason": "Reason",
+        "imputation": "Allocation",
+        "in": "Inflow",
+        "out": "Outflow",
+        "balance": "Current Balance",
         "actions": "Actions"
       },
-      "initial_balance": "Solde Initial",
-      "edit_tooltip": "Modifier l'opération",
-      "delete_tooltip": "Supprimer l'opération",
-      "edit_title": "Modifier l'opération",
-      "delete_title": "Supprimer l'opération",
-      "delete_confirm_prefix": "Êtes-vous sûr de vouloir supprimer l'opération",
-      "delete_confirm_suffix": "? Le solde du compte sera recalculé.",
+      "initial_balance": "Initial Balance",
+      "edit_tooltip": "Edit operation",
+      "delete_tooltip": "Delete operation",
+      "edit_title": "Edit Operation",
+      "delete_title": "Delete Operation",
+      "delete_confirm_prefix": "Are you sure you want to delete operation ",
+      "delete_confirm_suffix": "? Account balance will be recalculated.",
       "form": {
-        "title": "Saisir une nouvelle opération",
-        "type_label": "Type d'opération",
-        "type_in": "Entrée d'argent (+)",
-        "type_out": "Sortie d'argent (-)",
-        "piece_label": "Type de pièce (Optionnel)",
-        "piece_none": "-- Aucun --",
-        "piece_supplier": "Paiement Facture Fournisseur",
-        "piece_withdrawal": "Retrait en espèces",
-        "piece_deposit": "Versement",
-        "amount_label": "Montant (FCFA)",
-        "reason_label": "Motif (Description)",
-        "reason_placeholder": "Ex: Réception commande grossiste, Fournitures d'officine...",
-        "imputation_label": "Imputation (Optionnel)",
-        "imputation_none": "-- Aucune --"
+        "title": "Record a new operation",
+        "type_label": "Operation Type",
+        "type_in": "Cash In (+)",
+        "type_out": "Cash Out (-)",
+        "piece_label": "Document Type (Optional)",
+        "piece_none": "-- None --",
+        "piece_supplier": "Supplier Invoice Payment",
+        "piece_withdrawal": "Cash Withdrawal",
+        "piece_deposit": "Deposit",
+        "amount_label": "Amount (FCFA)",
+        "reason_label": "Reason (Description)",
+        "reason_placeholder": "e.g., Wholesaler order reception, Pharmacy supplies...",
+        "imputation_label": "Budget Allocation (Optional)",
+        "imputation_none": "-- None --"
       }
     },
     "imputations": {
       "title": "Budgetary Expense Codes",
       "desc": "Classify your operating costs (electricity, rent, cleaning supplies, staff allowances).",
-      "add_btn": "Nouvelle Imputation",
-      "admin_only_notice": "Seul l'administrateur de l'officine peut créer, modifier ou supprimer une imputation.",
+      "add_btn": "New Allocation",
+      "admin_only_notice": "Only the pharmacy administrator can create, edit, or delete an allocation.",
       "table": {
-        "libelle": "Rubrique",
-        "compte": "Sous-Rubrique / Poste",
+        "libelle": "Category",
+        "compte": "Sub-Category / Account",
         "categorie": "Type",
         "nature": "Nature",
         "actions": "Actions",
-        "empty": "Aucune imputation créée pour le moment."
+        "empty": "No allocation created yet."
       },
       "modal": {
-        "create_title": "Créer une imputation",
-        "edit_title": "Modifier l'imputation",
-        "libelle": "Rubrique",
-        "libelle_placeholder": "Ex: Achats médicaments & parapharmacie",
-        "compte": "Sous-Rubrique / Poste",
-        "compte_placeholder": "Ex: Grossiste Laborex",
-        "categorie": "Type de budget",
-        "categorie_exploitation": "Exploitation",
-        "categorie_materiel": "Officine",
+        "create_title": "Create an allocation",
+        "edit_title": "Edit allocation",
+        "libelle": "Category",
+        "libelle_placeholder": "e.g., Medicines & Parapharmacy Purchases",
+        "compte": "Sub-Category / Account",
+        "compte_placeholder": "e.g., Laborex Wholesaler",
+        "categorie": "Budget Type",
+        "categorie_exploitation": "Operations",
+        "categorie_materiel": "Pharmacy Facility",
         "nature": "Nature",
-        "nature_recette": "Recette",
-        "nature_depense": "Dépense",
-        "delete_title": "Supprimer l'imputation",
-        "delete_confirm_prefix": "Êtes-vous sûr de vouloir supprimer l'imputation",
+        "nature_recette": "Revenue",
+        "nature_depense": "Expense",
+        "delete_title": "Delete allocation",
+        "delete_confirm_prefix": "Are you sure you want to delete allocation ",
         "delete_confirm_suffix": "?"
       }
     }
@@ -520,7 +524,7 @@
         ]
       },
       "standard": {
-        "name": "Pharmacie (Officine)",
+        "name": "Standard Pharmacy",
         "features": [
           "Point de Vente (POS) & scan code-barres",
           "Gestion des stocks & catalogue médicaments",
@@ -529,7 +533,7 @@
         ]
       },
       "medium": {
-        "name": "Pharmacie (Officine)",
+        "name": "Medium Pharmacy",
         "features": [
           "Point de Vente (POS) & scan code-barres",
           "Gestion des stocks & catalogue médicaments",
@@ -538,7 +542,7 @@
         ]
       },
       "premium": {
-        "name": "Pharmacie (Officine)",
+        "name": "Premium Pharmacy",
         "features": [
           "Toutes les fonctionnalités Pharmacie",
           "Comptabilité de trésorerie & imputations avancées",
@@ -549,28 +553,28 @@
   },
   "guide": {
     "meta": {
-      "back": "Retour à l’accueil",
-      "pageTitle": "Guide d’utilisation D-PHARMA",
-      "toc": "Sommaire du guide",
+      "back": "Back to home",
+      "pageTitle": "D-PHARMA User Guide",
+      "toc": "Guide Table of Contents",
       "menu": "Menu",
       "important": "Important",
-      "edition": "Fonctionnalité avancée :",
-      "editionLink": "Voir les formules d’abonnement",
-      "needHelp": "Besoin d’aide pour démarrer votre officine ?",
-      "needHelpText": "Ce guide complet vous accompagne pas à pas dans l’utilisation de D-PHARMA : configuration de votre officine, ventes comptoir (POS), gestion stricte des stocks et dates de péremption, commandes aux répartiteurs et réconciliation de caisse.",
-      "readGuide": "Consulter le guide complet",
+      "edition": "Advanced Feature:",
+      "editionLink": "View subscription plans",
+      "needHelp": "Need help getting started with your pharmacy?",
+      "needHelpText": "This comprehensive guide walks you step by step through using D-PHARMA: pharmacy setup, counter sales (POS), strict batch & expiry tracking, wholesaler orders, and cash reconciliation.",
+      "readGuide": "Read the full guide",
       "guideNav": "Guide"
     },
     "hero": {
-      "eyebrow": "Guide d’utilisation & Prise en main",
+      "eyebrow": "User Guide & Getting Started",
       "title": "D-PHARMA Step-by-Step User Guide",
-      "subtitle": "Le logiciel tout-en-un pour pharmacies d’officine : Point de vente (POS) ultra-rapide, traçabilité des lots et péremptions, approvisionnements grossistes, trésorerie et recherche publique pour vos patients.",
-      "intro": "Ce guide pratique explique avec simplicité comment piloter votre officine au quotidien avec D-PHARMA. Il s’articule en trois parties claires : d’abord la configuration de l’officine ; puis les opérations courantes au comptoir et en réserve (ventes, commandes, péremptions) ; enfin le suivi financier et l’espace public patients."
+      "subtitle": "All-in-one software for retail pharmacies: ultra-fast POS, batch & expiry traceability, wholesaler supplies, treasury, and public patient search.",
+      "intro": "This practical guide explains simply how to manage your pharmacy day to day with D-PHARMA. It covers pharmacy configuration, counter and stockroom routines (sales, orders, expirations), financial monitoring, and public patient portal."
     },
     "overview": {
-      "id": "dpharma-en-bref",
+      "id": "dpharma-at-a-glance",
       "title": "System Overview",
-      "lead": "Six piliers essentiels conçus sur mesure pour le pharmacien titulaire, ses adjoints et son équipe au comptoir :",
+      "lead": "Six essential pillars custom-built for head pharmacists, assistant pharmacists, and counter staff:",
       "cards": [
         {
           "t": "Point de vente au comptoir (POS)",
@@ -1169,6 +1173,49 @@
       "reception": "Reception",
       "pending": "Pending",
       "completed": "Received"
+    },
+    "perimes": {
+      "title": "Expired Products Management & Destruction Records",
+      "subtitle": "Legal traceability, Bailiff / Health Service endorsement, VAT regularization, and SYSCOHADA accounting entries.",
+      "new_pv": "New Destruction Record",
+      "kpi_pertes": "Cumulative Losses (excl. tax)",
+      "kpi_pertes_sub": "Posted to account 6581 (Expense)",
+      "kpi_tva": "Validated Deductible VAT",
+      "kpi_tva_sub": "18% VAT on cosmetics (Official record)",
+      "kpi_en_rayon": "Detected Expired Batches",
+      "kpi_en_rayon_sub": "To be removed immediately from shelves",
+      "kpi_pv_count": "Official Records Filed",
+      "kpi_pv_count_sub": "Endorsed archived files",
+      "table": {
+        "num_pv": "Record #",
+        "date_pv": "Record Date",
+        "motif": "Reason & Endorsement",
+        "valeur_ht": "Value (excl. tax)",
+        "tva_recup": "Recoverable VAT",
+        "statut": "Status",
+        "actions": "Actions"
+      }
+    },
+    "retours": {
+      "title": "Wholesaler Returns & Credit Notes",
+      "subtitle": "Tracking of return packages (expired goods under buyback agreement, errors, breakages) and credit note accounting.",
+      "new_retour": "New Return Package",
+      "kpi_avoirs": "Received / Deducted Credit Notes",
+      "kpi_avoirs_sub": "Deducted from supplier payables (401)",
+      "kpi_en_attente": "Returns Awaiting Credit Note",
+      "kpi_en_attente_sub": "Packages shipped to wholesalers",
+      "kpi_total_expedie": "Packages Shipped Count",
+      "kpi_total_expedie_sub": "Active return agreements",
+      "table": {
+        "num_colis": "Package #",
+        "fournisseur": "Wholesaler",
+        "date_expedition": "Shipping Date",
+        "motif": "Return Reason",
+        "valeur_ht": "Estimated Value (excl. tax)",
+        "avoir_recu": "Credit Note Received",
+        "statut": "Status",
+        "actions": "Actions"
+      }
     }
   },
   "comptabilite": {
@@ -1178,7 +1225,8 @@
       "journal": "General Journal",
       "plan": "SYSCOHADA Chart of Accounts",
       "balance": "Ledger & Trial Balance",
-      "resultat": "Income Statement (P&L)"
+      "resultat": "Income Statement (P&L)",
+      "tva": "VAT Declaration (DGID)"
     },
     "journal": {
       "title": "General Journal Entries",
@@ -1240,6 +1288,31 @@
       "resultat_net": "Net Operating Profit",
       "benefice": "Net Operating Profit",
       "deficit": "Operating Deficit"
+    },
+    "tva": {
+      "title": "Periodic VAT Declaration (DGID)",
+      "subtitle": "Automatic calculation compliant with DGID: Exempt medicines, 18% taxable cosmetics, expired goods adjustment, and VAT credit.",
+      "period_label": "Tax Period",
+      "print": "Print Declaration",
+      "validate": "Validate Declaration",
+      "validating": "Saving...",
+      "validated_badge": "Declaration Validated",
+      "status_draft": "Draft (Open)",
+      "sec_ca": "1. Revenue Realized (Collected VAT)",
+      "sec_achats": "2. Purchases & Deductions (Deductible VAT)",
+      "sec_synthese": "3. Summary & Net VAT Due to DGID",
+      "ca_medicaments": "Exempt Medicines Revenue (0%)",
+      "ca_taxables": "Taxable Products Revenue (18%)",
+      "ca_taxables_ht": "Taxable Base excl. tax (18%)",
+      "tva_collectee": "Gross Collected VAT",
+      "achats_medicaments": "Exempt Medicines Purchases",
+      "achats_taxables": "Taxable Purchases (18%)",
+      "tva_deductible": "Deductible VAT on Purchases",
+      "tva_regularisable": "Expired Goods VAT Adjustment",
+      "total_deductions": "Total Cumulative Deductions",
+      "credit_precedent": "Previous Period VAT Credit",
+      "tva_nette": "Net VAT Payable to Treasury",
+      "credit_reporter": "VAT Credit to Carry Forward"
     }
   },
   "clients": {

@@ -133,7 +133,7 @@
       "pos_pharma": "Point de Vente (POS)",
       "stock_pharma": "Gestion des stocks & péremptions",
       "commandes_pharma": "Commandes grossistes & labos",
-      "tresorerie": "Trésorerie & Caisse",
+      "tresorerie": "Trésorerie & Caisses",
       "imputations": "Imputations budgétaires"
     },
     "plans": {
@@ -177,23 +177,26 @@
   },
   "sidebar": {
     "dashboard": "Tableau de bord",
-    "pos_pharma": "Point de Vente (Caisse)",
-    "stock_pharma": "Articles, Stocks & Services",
-    "clients_pharma": "Clients & Créances (Tiers Payant)",
+    "pos_pharma": "Vente Comptoir (POS)",
+    "stock_pharma": "Gestion des Stocks",
+    "clients_pharma": "Clients & Tiers-Payant",
     "fournisseurs_pharma": "Grossistes & Dettes",
-    "commandes_pharma": "Commandes Grossistes",
-    "tresorerie": "Trésorerie",
-    "comptabilite": "Comptabilité",
+    "commandes_pharma": "Commandes d’Appro",
+    "tresorerie": "Trésorerie & Caisses",
+    "comptabilite": "Comptabilité (SYSCOHADA)",
     "abonnement": "Abonnement",
     "import_donnees": "Importer des données",
-    "parametres": "Paramètres",
-    "support": "Aide & Support",
+    "parametres": "Paramètres & Équipe",
+    "support": "Assistance & Support",
     "logout": "Déconnexion",
     "section_pilotage": "Pilotage",
-    "section_pharmacie": "Pharmacie",
+    "section_pharmacie": "Pharmacie & Tiers",
     "section_finances": "Finance & Compta",
     "section_admin": "Administration",
-    "section_aide": "Assistance"
+    "section_aide": "Assistance",
+    "perimes_pharma": "Périmés & PV Destruction",
+    "retours_pharma": "Retours & Avoirs Grossistes",
+    "tva_pharma": "Déclaration TVA (DGID)"
   },
   "header": {
     "admin": "Admin",
@@ -1170,6 +1173,49 @@
       "reception": "Réception",
       "pending": "En attente",
       "completed": "Réceptionnée"
+    },
+    "perimes": {
+      "title": "Gestion des Produits Périmés & PV de Destruction",
+      "subtitle": "Traçabilité légale, visa Huissier / Service d'Hygiène, régularisation TVA et écritures comptables SYSCOHADA.",
+      "new_pv": "Nouveau PV de Destruction",
+      "kpi_pertes": "Pertes Cumulées (HT)",
+      "kpi_pertes_sub": "Imputé au compte 6581 (Charge)",
+      "kpi_tva": "TVA Déductible Validée",
+      "kpi_tva_sub": "TVA 18% cosmétiques (PV officiel)",
+      "kpi_en_rayon": "Lots Périmés Détectés",
+      "kpi_en_rayon_sub": "À retirer immédiatement des rayons",
+      "kpi_pv_count": "PV Officiels Établis",
+      "kpi_pv_count_sub": "Dossiers archivés avec visa",
+      "table": {
+        "num_pv": "N° PV",
+        "date_pv": "Date PV",
+        "motif": "Motif & Visa",
+        "valeur_ht": "Valeur HT",
+        "tva_recup": "TVA Récupérable",
+        "statut": "Statut",
+        "actions": "Actions"
+      }
+    },
+    "retours": {
+      "title": "Retours & Avoirs chez les Grossistes",
+      "subtitle": "Suivi des colis de retours (périmés avec convention de reprise, erreurs, casses) et lettrage comptable des notes d'avoir.",
+      "new_retour": "Nouveau Colis Retour",
+      "kpi_avoirs": "Avoirs Encaissés / Déduits",
+      "kpi_avoirs_sub": "Déduit des dettes fournisseurs (401)",
+      "kpi_en_attente": "Retours en Attente d'Avoir",
+      "kpi_en_attente_sub": "Colis expédiés aux grossistes",
+      "kpi_total_expedie": "Nombre de Colis Expédiés",
+      "kpi_total_expedie_sub": "Conventions de reprise actives",
+      "table": {
+        "num_colis": "N° Colis",
+        "fournisseur": "Grossiste",
+        "date_expedition": "Date Expédition",
+        "motif": "Motif du Retour",
+        "valeur_ht": "Valeur Estimée HT",
+        "avoir_recu": "Avoir Reçu",
+        "statut": "Statut",
+        "actions": "Actions"
+      }
     }
   },
   "comptabilite": {
@@ -1179,7 +1225,8 @@
       "journal": "Journal des Écritures",
       "plan": "Plan Comptable SYSCOHADA",
       "balance": "Grand Livre & Balance",
-      "resultat": "Compte de Résultat Officinal"
+      "resultat": "Compte de Résultat Officinal",
+      "tva": "Déclaration de TVA (DGID)"
     },
     "journal": {
       "title": "Livre-Journal des Écritures",
@@ -1241,6 +1288,31 @@
       "resultat_net": "Résultat d'Exploitation Net",
       "benefice": "Bénéfice Net",
       "deficit": "Déficit d'Exploitation"
+    },
+    "tva": {
+      "title": "Déclaration Périodique de TVA (DGID)",
+      "subtitle": "Calcul automatique conforme DGID : Médicaments exonérés, cosmétiques taxables 18%, régularisation périmés et crédit de TVA.",
+      "period_label": "Période d'imposition",
+      "print": "Imprimer la Déclaration",
+      "validate": "Valider la Déclaration",
+      "validating": "Enregistrement en cours...",
+      "validated_badge": "Déclaration Validée",
+      "status_draft": "Brouillon (Non clôturé)",
+      "sec_ca": "1. Chiffre d'Affaires Réalisé (TVA Collectée)",
+      "sec_achats": "2. Achats & Déductions (TVA Déductible)",
+      "sec_synthese": "3. Synthèse & TVA Nette Due à la DGID",
+      "ca_medicaments": "CA Médicaments Exonérés (0%)",
+      "ca_taxables": "CA Produits Taxables (18%)",
+      "ca_taxables_ht": "Base Imposable HT (18%)",
+      "tva_collectee": "TVA Brute Collectée",
+      "achats_medicaments": "Achats Médicaments Exonérés",
+      "achats_taxables": "Achats Produits Taxables (18%)",
+      "tva_deductible": "TVA Déductible sur Achats",
+      "tva_regularisable": "Régularisation TVA Périmés (PV)",
+      "total_deductions": "Total Déductions Cumulées",
+      "credit_precedent": "Crédit TVA Période Précédente",
+      "tva_nette": "TVA Nette à Payer au Trésor",
+      "credit_reporter": "Crédit de TVA à Reporter"
     }
   },
   "clients": {

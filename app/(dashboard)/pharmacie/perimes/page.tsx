@@ -2,17 +2,22 @@ import Link from 'next/link'
 import { getPVDestructions, getLotsPerimesDisponibles } from './actions'
 import NouveauPVModal from './NouveauPVModal'
 import { FileWarning, ShieldCheck, AlertTriangle, Scale, Printer, CheckCircle2, Building2 } from 'lucide-react'
+import { getDictionary, getLocale } from '@/dictionaries'
 
 export const dynamic = 'force-dynamic'
 
 export default async function PerimesPage() {
+  const locale = await getLocale()
+  const dict = await getDictionary(locale)
+  const pDict = dict.pharmacie?.perimes || {}
+
   const [{ destructions }, { lots }] = await Promise.all([
     getPVDestructions(),
     getLotsPerimesDisponibles(),
   ])
 
   const formatCFA = (val: number) =>
-    new Intl.NumberFormat('fr-FR', { style: 'decimal', maximumFractionDigits: 0 }).format(val) + ' FCFA'
+    new Intl.NumberFormat(locale === 'ar' ? 'ar-SA' : locale === 'en' ? 'en-US' : 'fr-FR', { style: 'decimal', maximumFractionDigits: 0 }).format(val) + ' FCFA'
 
   const totalPertesHT = (destructions || []).reduce((s, p) => s + (Number(p.valeur_achat_ht_totale) || 0), 0)
   const totalTVARecup = (destructions || []).reduce((s, p) => s + (Number(p.tva_recuperable_totale) || 0), 0)
@@ -28,10 +33,10 @@ export default async function PerimesPage() {
           </div>
           <div>
             <h1 className="text-2xl sm:text-3xl font-bold font-heading text-foreground">
-              Gestion des Produits Périmés & PV de Destruction
+              {pDict.title || 'Gestion des Produits Périmés & PV de Destruction'}
             </h1>
             <p className="text-xs sm:text-sm text-foreground-muted">
-              Traçabilité légale, visa Huissier / Service d'Hygiène, régularisation TVA et écritures comptables SYSCOHADA.
+              {pDict.subtitle || "Traçabilité légale, visa Huissier / Service d'Hygiène, régularisation TVA et écritures comptables SYSCOHADA."}
             </p>
           </div>
         </div>
@@ -43,20 +48,24 @@ export default async function PerimesPage() {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <div className="bg-surface rounded-2xl p-4 border border-surface-border shadow-sm">
           <div className="flex items-center justify-between">
-            <span className="text-xs text-foreground-muted font-bold uppercase tracking-wider">Pertes Cumulées (HT)</span>
+            <span className="text-xs text-foreground-muted font-bold uppercase tracking-wider">
+              {pDict.kpi_pertes || 'Pertes Cumulées (HT)'}
+            </span>
             <AlertTriangle className="w-4 h-4 text-danger" />
           </div>
           <p className="text-2xl font-black text-danger mt-1">{formatCFA(totalPertesHT)}</p>
-          <span className="text-[11px] text-foreground-muted">Imputé au compte 6581 (Charge)</span>
+          <span className="text-[11px] text-foreground-muted">{pDict.kpi_pertes_sub || 'Imputé au compte 6581 (Charge)'}</span>
         </div>
 
         <div className="bg-surface rounded-2xl p-4 border border-surface-border shadow-sm">
           <div className="flex items-center justify-between">
-            <span className="text-xs text-foreground-muted font-bold uppercase tracking-wider">TVA Déductible Validée</span>
+            <span className="text-xs text-foreground-muted font-bold uppercase tracking-wider">
+              {pDict.kpi_tva || 'TVA Déductible Validée'}
+            </span>
             <ShieldCheck className="w-4 h-4 text-emerald-600" />
           </div>
           <p className="text-2xl font-black text-emerald-600 mt-1">{formatCFA(totalTVARecup)}</p>
-          <span className="text-[11px] text-foreground-muted">TVA 18% cosmétiques (PV officiel)</span>
+          <span className="text-[11px] text-foreground-muted">{pDict.kpi_tva_sub || 'TVA 18% cosmétiques (PV officiel)'}</span>
         </div>
 
         <div className="bg-surface rounded-2xl p-4 border border-surface-border shadow-sm">

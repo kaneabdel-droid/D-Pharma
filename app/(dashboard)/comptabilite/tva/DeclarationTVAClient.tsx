@@ -37,19 +37,33 @@ interface CalculTVA {
   existante: any | null
 }
 
-const NOMS_MOIS = [
-  'Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin',
-  'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'
-]
+const MOIS_LOCALES: Record<string, string[]> = {
+  fr: [
+    'Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin',
+    'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'
+  ],
+  en: [
+    'January', 'February', 'March', 'April', 'May', 'June',
+    'July', 'August', 'September', 'October', 'November', 'December'
+  ],
+  ar: [
+    'يناير', 'فبراير', 'مارس', 'أبريل', 'مايو', 'يونيو',
+    'يوليو', 'أغسطس', 'سبتمبر', 'أكتوبر', 'نوفمبر', 'ديسمبر'
+  ]
+}
 
 export default function DeclarationTVAClient({
   calculInitial,
   pharmaNom,
   historique,
+  dict = {},
+  locale = 'fr',
 }: {
   calculInitial: CalculTVA
   pharmaNom: string
   historique: any[]
+  dict?: any
+  locale?: string
 }) {
   const router = useRouter()
   const [calcul, setCalcul] = useState<CalculTVA>(calculInitial)
@@ -57,8 +71,11 @@ export default function DeclarationTVAClient({
   const [error, setError] = useState<string | null>(null)
   const [success, setSuccess] = useState(false)
 
+  const tDict = dict.comptabilite?.tva || {}
+  const nomsMois = MOIS_LOCALES[locale] || MOIS_LOCALES.fr
+
   const formatCFA = (val: number) =>
-    new Intl.NumberFormat('fr-FR', { style: 'decimal', maximumFractionDigits: 0 }).format(val) + ' FCFA'
+    new Intl.NumberFormat(locale === 'ar' ? 'ar-SA' : locale === 'en' ? 'en-US' : 'fr-FR', { style: 'decimal', maximumFractionDigits: 0 }).format(val) + ' FCFA'
 
   const changerPeriode = (mois: number, annee: number) => {
     router.push(`/comptabilite/tva?mois=${mois}&annee=${annee}`)
@@ -103,9 +120,11 @@ export default function DeclarationTVAClient({
         <div className="flex items-center gap-2">
           <Calendar className="w-5 h-5 text-primary" />
           <div>
-            <span className="text-xs text-foreground-muted font-bold uppercase">Période d'imposition</span>
+            <span className="text-xs text-foreground-muted font-bold uppercase">
+              {tDict.period_label || "Période d'imposition"}
+            </span>
             <p className="text-base font-bold text-foreground">
-              {NOMS_MOIS[calcul.periodeMois - 1]} {calcul.periodeAnnee}
+              {nomsMois[calcul.periodeMois - 1]} {calcul.periodeAnnee}
             </p>
           </div>
         </div>
@@ -116,7 +135,7 @@ export default function DeclarationTVAClient({
             onChange={(e) => changerPeriode(Number(e.target.value), calcul.periodeAnnee)}
             className="px-3 py-2 rounded-xl border border-surface-border bg-background text-foreground text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-primary/20"
           >
-            {NOMS_MOIS.map((m, idx) => (
+            {nomsMois.map((m, idx) => (
               <option key={idx + 1} value={idx + 1}>
                 {m}
               </option>
@@ -138,10 +157,10 @@ export default function DeclarationTVAClient({
           <button
             type="button"
             onClick={() => window.print()}
-            className="px-3 py-2 rounded-xl border border-surface-border bg-surface hover:bg-background text-foreground text-xs font-bold flex items-center gap-1.5 transition-colors print:hidden"
+            className="px-3 py-2 rounded-xl border border-surface-border bg-surface hover:bg-background text-foreground text-xs font-bold flex items-center gap-1.5 transition-colors print:hidden cursor-pointer"
           >
             <Printer className="w-3.5 h-3.5" />
-            <span>Imprimer Déclaration</span>
+            <span>{tDict.print || 'Imprimer Déclaration'}</span>
           </button>
         </div>
       </div>
@@ -392,7 +411,7 @@ export default function DeclarationTVAClient({
                 {historique.map((h) => (
                   <tr key={h.id} className="hover:bg-background/40">
                     <td className="py-2.5 px-3 font-bold text-foreground">
-                      {NOMS_MOIS[h.periode_mois - 1]} {h.periode_annee}
+                      {nomsMois[h.periode_mois - 1]} {h.periode_annee}
                     </td>
                     <td className="py-2.5 px-3 text-right font-mono text-foreground-muted">
                       {formatCFA(h.ca_medicaments_exonere || 0)}

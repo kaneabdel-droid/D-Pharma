@@ -67,7 +67,7 @@ export default async function ComptabiliteLayout({
           className="bg-surface text-foreground-muted hover:text-foreground rounded-xl px-4 py-2.5 text-sm font-semibold flex items-center gap-2 border border-surface-border transition-colors hover:border-primary/40"
         >
           <Receipt className="w-4 h-4 text-primary" />
-          <span>Déclaration de TVA (DGID)</span>
+          <span>{tabs.tva || 'Déclaration de TVA (DGID)'}</span>
         </Link>
       </nav>
 

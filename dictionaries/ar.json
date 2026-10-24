@@ -133,7 +133,8 @@
       "pos_pharma": "صندوق البيع السريع (POS)",
       "stock_pharma": "المخزون وتواريخ الصلاحية",
       "commandes_pharma": "طلبيات موزعي الأدوية",
-      "imputations": "المحاسبة المزدوجة سيسكوهادا"
+      "imputations": "المحاسبة المزدوجة سيسكوهادا",
+      "tresorerie": "الخزينة وإدارة الصناديق"
     },
     "plans": {
       "standard_resume": "عمليات الصندوق الأساسية ونقطة البيع",
@@ -176,23 +177,26 @@
   },
   "sidebar": {
     "dashboard": "لوحة القيادة",
-    "pos_pharma": "نقطة البيع (الصندوق)",
-    "stock_pharma": "المخزون والخدمات",
-    "clients_pharma": "الزبائن والديون",
-    "fournisseurs_pharma": "الموردون والذمم",
-    "commandes_pharma": "طلبيات الموردين",
-    "tresorerie": "الخزينة والصندوق",
+    "pos_pharma": "مبيعات الكاشير (نقطة البيع)",
+    "stock_pharma": "إدارة المخزون والأدوية",
+    "clients_pharma": "العملاء والتأمين الصحي",
+    "fournisseurs_pharma": "الموزعون والديون",
+    "commandes_pharma": "طلبيات التوريد",
+    "tresorerie": "الخزينة والصناديق",
     "comptabilite": "المحاسبة (سيسكوهادا)",
     "abonnement": "الاشتراك",
     "import_donnees": "استيراد البيانات",
-    "parametres": "الإعدادات",
-    "support": "المساعدة والدعم",
+    "parametres": "الإعدادات وفريق العمل",
+    "support": "المساعدة والدعم الفني",
     "logout": "تسجيل الخروج",
     "section_pilotage": "الإدارة والقيادة",
-    "section_pharmacie": "الصيدلية",
+    "section_pharmacie": "الصيدلية والشركاء",
     "section_finances": "المالية والمحاسبة",
-    "section_admin": "الإدارة والدعم",
-    "section_aide": "المساعدة والدعم"
+    "section_admin": "الإدارة العامة",
+    "section_aide": "الدعم والمساعدة",
+    "perimes_pharma": "المنتهية الصلاحية ومحاضر الإتلاف",
+    "retours_pharma": "مرتجعات وإشعارات الموزعين",
+    "tva_pharma": "إقرار ضريبة القيمة المضافة (DGID)"
   },
   "header": {
     "admin": "مدير",
@@ -285,8 +289,8 @@
     "balances": {
       "title": "ملخص الأرصدة الحالية",
       "desc": "الرصيد الفعلي لصندوق الكاونتر وللحسابات البنكية.",
-      "total": "Trésorerie Globale",
-      "empty": "Aucun compte créé pour le moment."
+      "total": "الخزينة الإجمالية",
+      "empty": "لم يتم إنشاء أي حساب حتى الآن."
     }
   },
   "parametres": {
@@ -330,13 +334,13 @@
     "add_account_btn": "إضافة حساب مالي جديد",
     "modal": {
       "title": "إضافة صندوق أو حساب بنكي",
-      "name": "Nom du compte",
-      "name_placeholder": "Ex: Caisse Comptoir, Compte BOA, Compte Wave...",
+      "name": "اسم الحساب",
+      "name_placeholder": "مثال: صندوق الكاشير، حساب بنك التجاري، محفظة ويف...",
       "type": "نوع الحساب",
-      "type_caisse": "Caisse (Espèces)",
-      "type_banque": "Compte Bancaire",
-      "type_mobile_money": "Mobile Money (Wave, Orange Money...)",
-      "initial_balance": "Solde initial (FCFA)"
+      "type_caisse": "صندوق نقدية (سيولة)",
+      "type_banque": "حساب مصرفي",
+      "type_mobile_money": "محفظة إلكترونية (ويف، أورنج موني...)",
+      "initial_balance": "الرصيد الافتتاحي (فرنك غرب أفريقي)"
     }
   },
   "checkout_extra": {
@@ -393,91 +397,91 @@
     "form_title": "إرسال رسالة دعم فني",
     "form_desc": "هل واجهت مشكلة؟ صفها أدناه وسيتواصل معك فني متخصص في أسرع وقت.",
     "form": {
-      "subject": "Sujet de votre demande",
-      "subject_placeholder": "Ex: Question sur le scanner code-barres, Gestion des lots...",
+      "subject": "موضوع طلبك",
+      "subject_placeholder": "مثال: استفسار حول قارئ الباركود، تتبع الصلاحيات...",
       "message": "التفاصيل والوصف",
       "message_placeholder": "صف ما حدث والخطوات التي قمت بها بالتفصيل...",
-      "send": "Envoyer le message",
+      "send": "إرسال الرسالة",
       "sending": "جارٍ الإرسال...",
-      "sent_title": "Message envoyé avec succès !",
-      "sent_desc": "Notre équipe de support a bien reçu votre message et vous répondra dans les plus brefs délais.",
+      "sent_title": "تم إرسال الرسالة بنجاح!",
+      "sent_desc": "تلقى فريق الدعم الفني رسالتك وسيقوم بالرد عليك في أقرب وقت ممكن.",
       "send_another": "إرسال رسالة أخرى",
       "errors": {
-        "required": "Veuillez remplir tous les champs.",
-        "too_long": "Le sujet (200 caractères max) ou le message (5000 caractères max) est trop long.",
-        "not_authenticated": "Votre session a expiré. Veuillez vous reconnecter.",
+        "required": "يرجى ملء جميع الحقول المطلوبة.",
+        "too_long": "الموضوع أو نص الرسالة يتجاوز الحد المسموح به من الحروف.",
+        "not_authenticated": "انتهت جلستك. يرجى تسجيل الدخول مرة أخرى.",
         "failed": "تعذر إرسال الرسالة، يرجى إعادة المحاولة أو مراسلتنا على support@dembasolution.com."
       }
     }
   },
   "tresorerie_pages": {
     "journaux": {
-      "no_account": "Aucun compte trouvé. Veuillez d'abord créer un compte.",
+      "no_account": "لم يتم العثور على أي حساب. يرجى إنشاء حساب أولاً.",
       "title": "دفتر يومية الصندوق والبنك",
       "desc": "سجل زمني لجميع الإيرادات النقدية والمدفوعات والمصاريف الصيدلانية.",
-      "select_account": "Choisir un compte",
-      "add_operation": "Saisir une opération",
-      "loading": "Chargement du journal...",
+      "select_account": "اختر حساباً",
+      "add_operation": "تسجيل حركة مالية",
+      "loading": "جارٍ تحميل السجل...",
       "headers": {
-        "reason": "Motif",
-        "imputation": "Imputation",
-        "in": "Entrée",
-        "out": "Sortie",
-        "balance": "Solde en cours",
-        "actions": "Actions"
+        "reason": "البيان",
+        "imputation": "بند التخصيص",
+        "in": "مقبوضات (+)<",
+        "out": "مدفوعات (-)",
+        "balance": "الرصيد الحالي",
+        "actions": "الإجراءات"
       },
-      "initial_balance": "Solde Initial",
-      "edit_tooltip": "Modifier l'opération",
-      "delete_tooltip": "Supprimer l'opération",
-      "edit_title": "Modifier l'opération",
-      "delete_title": "Supprimer l'opération",
-      "delete_confirm_prefix": "Êtes-vous sûr de vouloir supprimer l'opération",
-      "delete_confirm_suffix": "? Le solde du compte sera recalculé.",
+      "initial_balance": "الرصيد الافتتاحي",
+      "edit_tooltip": "تعديل الحركة",
+      "delete_tooltip": "حذف الحركة",
+      "edit_title": "تعديل الحركة المالية",
+      "delete_title": "حذف الحركة المالية",
+      "delete_confirm_prefix": "هل أنت متأكد من رغبتك في حذف العملية ",
+      "delete_confirm_suffix": "؟ سيتم إعادة احتساب رصيد الحساب تلقائياً.",
       "form": {
-        "title": "Saisir une nouvelle opération",
-        "type_label": "Type d'opération",
-        "type_in": "Entrée d'argent (+)",
-        "type_out": "Sortie d'argent (-)",
-        "piece_label": "Type de pièce (Optionnel)",
-        "piece_none": "-- Aucun --",
-        "piece_supplier": "Paiement Facture Fournisseur",
-        "piece_withdrawal": "Retrait en espèces",
-        "piece_deposit": "Versement",
-        "amount_label": "Montant (FCFA)",
-        "reason_label": "Motif (Description)",
-        "reason_placeholder": "Ex: Réception commande grossiste, Fournitures d'officine...",
-        "imputation_label": "Imputation (Optionnel)",
-        "imputation_none": "-- Aucune --"
+        "title": "تسجيل حركة مالية جديدة",
+        "type_label": "نوع الحركة",
+        "type_in": "إيداع / إيراد (+)",
+        "type_out": "سحب / مصروف (-)",
+        "piece_label": "نوع المستند (اختياري)",
+        "piece_none": "-- بدون مستند --",
+        "piece_supplier": "سداد فاتورة مورد",
+        "piece_withdrawal": "سحب نقدي",
+        "piece_deposit": "إيداع نقدي",
+        "amount_label": "المبلغ (فرنك)",
+        "reason_label": "البيان (الوصف)",
+        "reason_placeholder": "مثال: استلام طلبية أدوية، مستلزمات مكتبية...",
+        "imputation_label": "بند التخصيص (اختياري)",
+        "imputation_none": "-- غير محدد --"
       }
     },
     "imputations": {
       "title": "بنود المصروفات التقديرية",
       "desc": "تصنيف مصاريف التشغيل (الكهرباء، الإيجار، المستلزمات، أجور المساعدين).",
-      "add_btn": "Nouvelle Imputation",
-      "admin_only_notice": "Seul l'administrateur de l'officine peut créer, modifier ou supprimer une imputation.",
+      "add_btn": "إضافة بند مالي جديد",
+      "admin_only_notice": "يسمح فقط لمدير الصيدلية بإنشاء أو تعديل أو حذف بنود التخصيص المالي.",
       "table": {
-        "libelle": "Rubrique",
-        "compte": "Sous-Rubrique / Poste",
-        "categorie": "Type",
-        "nature": "Nature",
-        "actions": "Actions",
-        "empty": "Aucune imputation créée pour le moment."
+        "libelle": "البند الرئيسي",
+        "compte": "البند الفرعي / الحساب",
+        "categorie": "نوع الميزانية",
+        "nature": "طبيعة البند",
+        "actions": "الإجراءات",
+        "empty": "لا يوجد أي بند تخصيص مسجل حتى الآن."
       },
       "modal": {
-        "create_title": "Créer une imputation",
-        "edit_title": "Modifier l'imputation",
-        "libelle": "Rubrique",
-        "libelle_placeholder": "Ex: Achats médicaments & parapharmacie",
-        "compte": "Sous-Rubrique / Poste",
-        "compte_placeholder": "Ex: Grossiste Laborex",
-        "categorie": "Type de budget",
-        "categorie_exploitation": "Exploitation",
-        "categorie_materiel": "Officine",
-        "nature": "Nature",
-        "nature_recette": "Recette",
-        "nature_depense": "Dépense",
-        "delete_title": "Supprimer l'imputation",
-        "delete_confirm_prefix": "Êtes-vous sûr de vouloir supprimer l'imputation",
+        "create_title": "إنشاء بند تخصيص مالي",
+        "edit_title": "تعديل بند التخصيص",
+        "libelle": "البند الرئيسي",
+        "libelle_placeholder": "مثال: مشتريات الأدوية والمستلزمات",
+        "compte": "البند الفرعي / الموزع",
+        "compte_placeholder": "مثال: شركة التوزيع الدوائي",
+        "categorie": "نوع الميزانية",
+        "categorie_exploitation": "التشغيل والاستغلال",
+        "categorie_materiel": "تجهيزات ومعدات الصيدلية",
+        "nature": "طبيعة الحركة",
+        "nature_recette": "إيراد",
+        "nature_depense": "مصروف",
+        "delete_title": "حذف بند التخصيص",
+        "delete_confirm_prefix": "هل أنت متأكد من رغبتك في حذف البند ",
         "delete_confirm_suffix": "?"
       }
     }
@@ -520,7 +524,7 @@
         ]
       },
       "standard": {
-        "name": "Pharmacie (Officine)",
+        "name": "صيدلية قياسية",
         "features": [
           "Point de Vente (POS) & scan code-barres",
           "Gestion des stocks & catalogue médicaments",
@@ -529,7 +533,7 @@
         ]
       },
       "medium": {
-        "name": "Pharmacie (Officine)",
+        "name": "صيدلية متوسطة",
         "features": [
           "Point de Vente (POS) & scan code-barres",
           "Gestion des stocks & catalogue médicaments",
@@ -538,7 +542,7 @@
         ]
       },
       "premium": {
-        "name": "Pharmacie (Officine)",
+        "name": "صيدلية متقدمة",
         "features": [
           "Toutes les fonctionnalités Pharmacie",
           "Comptabilité de trésorerie & imputations avancées",
@@ -549,28 +553,28 @@
   },
   "guide": {
     "meta": {
-      "back": "Retour à l’accueil",
-      "pageTitle": "Guide d’utilisation D-PHARMA",
-      "toc": "Sommaire du guide",
-      "menu": "Menu",
-      "important": "Important",
-      "edition": "Fonctionnalité avancée :",
-      "editionLink": "Voir les formules d’abonnement",
-      "needHelp": "Besoin d’aide pour démarrer votre officine ?",
-      "needHelpText": "Ce guide complet vous accompagne pas à pas dans l’utilisation de D-PHARMA : configuration de votre officine, ventes comptoir (POS), gestion stricte des stocks et dates de péremption, commandes aux répartiteurs et réconciliation de caisse.",
-      "readGuide": "Consulter le guide complet",
-      "guideNav": "Guide"
+      "back": "العودة إلى الصفحة الرئيسية",
+      "pageTitle": "دليل استخدام نظام D-PHARMA",
+      "toc": "فهرس الدليل",
+      "menu": "القائمة",
+      "important": "تنبيه هام",
+      "edition": "ميزة متقدمة:",
+      "editionLink": "عرض باقات الاشتراك",
+      "needHelp": "هل تحتاج مساعدة في إعداد صيدليتك؟",
+      "needHelpText": "يرافقك هذا الدليل الشامل خطوة بخطوة في استخدام نظام D-PHARMA: إعداد الصيدلية، مبيعات الكاشير، الإدارة الدقيقة للمخزون والصلاحيات، طلبات التوريد وإقفال الصندوق اليومي.",
+      "readGuide": "الاطلاع على الدليل كاملاً",
+      "guideNav": "الدليل"
     },
     "hero": {
-      "eyebrow": "Guide d’utilisation & Prise en main",
+      "eyebrow": "دليل الاستخدام وبدء العمل",
       "title": "دليل استخدام D-PHARMA خطوة بخطوة",
-      "subtitle": "Le logiciel tout-en-un pour pharmacies d’officine : Point de vente (POS) ultra-rapide, traçabilité des lots et péremptions, approvisionnements grossistes, trésorerie et recherche publique pour vos patients.",
-      "intro": "Ce guide pratique explique avec simplicité comment piloter votre officine au quotidien avec D-PHARMA. Il s’articule en trois parties claires : d’abord la configuration de l’officine ; puis les opérations courantes au comptoir et en réserve (ventes, commandes, péremptions) ; enfin le suivi financier et l’espace public patients."
+      "subtitle": "البرنامج المتكامل لإدارة الصيدليات: كاشير سريع، تتبع دقيق للدفعات والصلاحيات، توريدات الموزعين، الخزينة، ومنصة البحث لمرضاكم.",
+      "intro": "يشرح هذا الدليل العملي بوضوح كيفية قيادة صيدليتك يومياً بواسطة D-PHARMA عبر ثلاثة محاور واضحة: إعدادات الصيدلية، العمليات اليومية في الكاشير والمستودع، والمتابعة المالية."
     },
     "overview": {
-      "id": "dpharma-en-bref",
+      "id": "dpharma-ar-brief",
       "title": "نظرة عامة على النظام",
-      "lead": "Six piliers essentiels conçus sur mesure pour le pharmacien titulaire, ses adjoints et son équipe au comptoir :",
+      "lead": "ستة أركان أساسية مصممة خصيصاً للصيدلي المسؤول، مساعديه وفريق البيع:",
       "cards": [
         {
           "t": "Point de vente au comptoir (POS)",
@@ -1169,6 +1173,49 @@
       "reception": "الاستلام",
       "pending": "قيد الانتظار",
       "completed": "تم الاستلام"
+    },
+    "perimes": {
+      "title": "إدارة الأدوية منتهية الصلاحية ومحاضر الإتلاف",
+      "subtitle": "التتبع القانوني، تأشيرة المحضر القضائي / مصلحة الصحة، تسوية الضريبة والقيود المحاسبية سيسكوهادا.",
+      "new_pv": "محضر إتلاف جديد",
+      "kpi_pertes": "الخسائر المتراكمة (دون ضرائب)",
+      "kpi_pertes_sub": "مقيد في الحساب 6581 (أعباء استثنائية)",
+      "kpi_tva": "الضريبة القابلة للخصم المعتمدة",
+      "kpi_tva_sub": "ضريبة 18% على المستحضرات (محضر رسمي)",
+      "kpi_en_rayon": "الدفعات المنتهية المكتشفة",
+      "kpi_en_rayon_sub": "يجب سحبها فوراً من الرفوف",
+      "kpi_pv_count": "المحاضر الرسمية المنجزة",
+      "kpi_pv_count_sub": "ملفات مؤرشفة بتأشيرة رسمية",
+      "table": {
+        "num_pv": "رقم المحضر",
+        "date_pv": "تاريخ المحضر",
+        "motif": "السبب والتأشيرة",
+        "valeur_ht": "القيمة دون ضرائب",
+        "tva_recup": "الضريبة المسترجعة",
+        "statut": "الحالة",
+        "actions": "إجراءات"
+      }
+    },
+    "retours": {
+      "title": "المرتجعات وإشعارات الخصم لدى الموزعين",
+      "subtitle": "متابعة طرود المرتجعات (أدوية منتهية باتفاق استرجاع، أخطاء، تلف) وتسوية إشعارات الخصم المحاسبية.",
+      "new_retour": "طرد مرتجع جديد",
+      "kpi_avoirs": "إشعارات الخصم المحصلة / المقتطعة",
+      "kpi_avoirs_sub": "مقتطعة من ديون الموردين (الحساب 401)",
+      "kpi_en_attente": "مرتجعات قيد انتظار إشعار الخصم",
+      "kpi_en_attente_sub": "طرود مشحونة إلى الموزعين",
+      "kpi_total_expedie": "عدد الطرود المشحونة",
+      "kpi_total_expedie_sub": "اتفاقيات استرجاع نشطة",
+      "table": {
+        "num_colis": "رقم الطرد",
+        "fournisseur": "الموزع",
+        "date_expedition": "تاريخ الشحن",
+        "motif": "سبب الإرجاع",
+        "valeur_ht": "القيمة التقديرية",
+        "avoir_recu": "إشعار الخصم المستلم",
+        "statut": "الحالة",
+        "actions": "إجراءات"
+      }
     }
   },
   "comptabilite": {
@@ -1178,7 +1225,8 @@
       "journal": "دفتر اليومية العامة",
       "plan": "دليل الحسابات سيسكوهادا",
       "balance": "الأستاذ العام وميزان المراجعة",
-      "resultat": "قائمة الدخل والنتائج"
+      "resultat": "قائمة الدخل والنتائج",
+      "tva": "إقرار ضريبة القيمة المضافة (DGID)"
     },
     "journal": {
       "title": "دفتر يومية القيود المحاسبية",
@@ -1240,6 +1288,31 @@
       "resultat_net": "صافي النتيجة التشغيلية",
       "benefice": "صافي الربح",
       "deficit": "عجز في الاستغلال"
+    },
+    "tva": {
+      "title": "الإقرار الدوري لضريبة القيمة المضافة (DGID)",
+      "subtitle": "حساب تلقائي معتمد لدى إدارة الضرائب: أدوية معفاة، مستحضرات تجميل خاضعة 18%، تسوية التالف ورصيد الضريبة.",
+      "period_label": "فترة الخضوع للضريبة",
+      "print": "طباعة الإقرار",
+      "validate": "اعتماد الإقرار",
+      "validating": "جارٍ الحفظ...",
+      "validated_badge": "إقرار معتمد",
+      "status_draft": "مسودة (غير مغلقة)",
+      "sec_ca": "1. رقم المعاملات المحقق (الضريبة المحصلة)",
+      "sec_achats": "2. المشتريات والخصومات (الضريبة القابلة للخصم)",
+      "sec_synthese": "3. الخلاصة وصافي الضريبة المستحقة للخزينة",
+      "ca_medicaments": "مبيعات الأدوية المعفاة (0%)",
+      "ca_taxables": "مبيعات المنتجات الخاضعة (18%)",
+      "ca_taxables_ht": "الوعاء الخاضع للضريبة دون احتساب الرسوم",
+      "tva_collectee": "إجمالي الضريبة المحصلة",
+      "achats_medicaments": "مشتريات الأدوية المعفاة",
+      "achats_taxables": "مشتريات المنتجات الخاضعة (18%)",
+      "tva_deductible": "الضريبة القابلة للخصم على المشتريات",
+      "tva_regularisable": "تسوية ضريبة الأدوية المنتهية",
+      "total_deductions": "إجمالي الخصومات التراكمية",
+      "credit_precedent": "رصيد الضريبة للفترة السابقة",
+      "tva_nette": "صافي الضريبة الواجب أداؤها للخزينة",
+      "credit_reporter": "رصيد الضريبة المرحل"
     }
   },
   "clients": {
