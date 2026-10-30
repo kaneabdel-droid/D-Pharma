@@ -1,5 +1,6 @@
 import { getEcritures, getPlanComptable } from './actions'
 import NouvelleEcritureModal from './NouvelleEcritureModal'
+import PrintSectionButton from '@/components/PrintSectionButton'
 import Link from 'next/link'
 import { FileText, ArrowDownRight, ArrowUpRight, CheckCircle2, Filter, AlertCircle } from 'lucide-react'
 
@@ -43,10 +44,13 @@ export default async function ComptabilitePage(props: {
             Livre-Journal des Écritures
           </h2>
           <p className="text-xs text-foreground-muted">
-            Historique exhaustif de tous les mouvements comptables de la pharmacie.
+            Historique exhaustif de tous les mouvements comptables de la pharmacie selon les normes SYSCOHADA.
           </p>
         </div>
-        <NouvelleEcritureModal plan={plan || []} />
+        <div className="flex items-center gap-2">
+          <PrintSectionButton sectionId="journal-comptable-print" label="Imprimer le Journal" />
+          <NouvelleEcritureModal plan={plan || []} />
+        </div>
       </div>
 
       {/* Cartes KPI */}
@@ -108,7 +112,7 @@ export default async function ComptabilitePage(props: {
       )}
 
       {/* Tableau du Journal */}
-      <div className="bg-surface border border-surface-border rounded-2xl shadow-sm overflow-hidden">
+      <div id="journal-comptable-print" className="bg-surface border border-surface-border rounded-2xl shadow-sm overflow-hidden">
         {ecritures.length === 0 ? (
           <div className="p-12 text-center text-foreground-muted">
             <FileText className="w-12 h-12 mx-auto mb-3 opacity-30 text-primary" />
@@ -119,57 +123,122 @@ export default async function ComptabilitePage(props: {
           </div>
         ) : (
           <div className="overflow-x-auto">
-            <table className="w-full text-left text-sm">
+            <table className="w-full text-left text-sm border-collapse">
               <thead className="bg-surface-border/40 text-foreground-muted text-[11px] uppercase tracking-wider border-b border-surface-border">
                 <tr>
-                  <th className="py-3 px-4">Date</th>
-                  <th className="py-3 px-4">Journal</th>
-                  <th className="py-3 px-4">Réf / Pièce</th>
-                  <th className="py-3 px-4">Libellé de l&apos;écriture</th>
-                  <th className="py-3 px-4">Compte</th>
-                  <th className="py-3 px-4 text-right">Débit</th>
-                  <th className="py-3 px-4 text-right">Crédit</th>
+                  <th className="py-3 px-4 w-28 whitespace-nowrap">Date</th>
+                  <th className="py-3 px-4 w-28 whitespace-nowrap">Journal</th>
+                  <th className="py-3 px-4 w-40 whitespace-nowrap">Réf / Pièce</th>
+                  <th className="py-3 px-4 w-24 whitespace-nowrap">Compte</th>
+                  <th className="py-3 px-4 min-w-[240px]">Libellé de l&apos;Écriture</th>
+                  <th className="py-3 px-4 text-right w-36 whitespace-nowrap">Débit</th>
+                  <th className="py-3 px-4 text-right w-36 whitespace-nowrap">Crédit</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-surface-border/50">
+              <tbody className="divide-y divide-surface-border">
                 {ecritures.map((ec: any) => {
                   const lignes = ec.lignes_ecritures_comptables || []
-                  return (
-                    <tr key={ec.id} className="hover:bg-surface-border/20 transition-colors">
-                      <td className="py-3.5 px-4 font-mono text-xs text-foreground font-medium align-top whitespace-nowrap">
-                        {ec.date_ecriture}
-                      </td>
-                      <td className="py-3.5 px-4 align-top whitespace-nowrap">
-                        <span className="inline-block px-2 py-0.5 rounded-lg text-[10px] font-bold uppercase bg-primary/10 text-primary">
-                          {journalLabels[ec.journal] || ec.journal}
-                        </span>
-                      </td>
-                      <td className="py-3.5 px-4 font-mono text-xs text-foreground-muted align-top whitespace-nowrap">
-                        {ec.numero_piece || '—'}
-                      </td>
-                      <td className="py-3.5 px-4 text-foreground font-medium align-top">
-                        {ec.libelle}
-                      </td>
-                      <td className="py-3.5 px-4 align-top" colSpan={3}>
-                        <div className="space-y-1.5">
-                          {lignes.map((l: any) => (
-                            <div key={l.id} className="grid grid-cols-12 text-xs">
-                              <div className="col-span-6 font-mono text-foreground-muted">
-                                <span className="font-bold text-foreground mr-1.5">{l.compte}</span>
-                                <span className="text-[11px] truncate">{l.libelle}</span>
-                              </div>
-                              <div className="col-span-3 text-right font-mono font-medium text-primary">
-                                {Number(l.debit) > 0 ? formatCFA(Number(l.debit)) : '—'}
-                              </div>
-                              <div className="col-span-3 text-right font-mono font-medium text-secondary">
-                                {Number(l.credit) > 0 ? formatCFA(Number(l.credit)) : '—'}
-                              </div>
-                            </div>
-                          ))}
-                        </div>
-                      </td>
-                    </tr>
-                  )
+
+                  if (lignes.length === 0) {
+                    return (
+                      <tr key={ec.id} className="hover:bg-surface-border/20 transition-colors">
+                        <td className="py-3.5 px-4 font-mono text-xs text-foreground font-medium align-top whitespace-nowrap">
+                          {ec.date_ecriture}
+                        </td>
+                        <td className="py-3.5 px-4 align-top whitespace-nowrap">
+                          <span className="inline-block px-2 py-0.5 rounded-lg text-[10px] font-bold uppercase bg-primary/10 text-primary">
+                            {journalLabels[ec.journal] || ec.journal}
+                          </span>
+                        </td>
+                        <td className="py-3.5 px-4 font-mono text-xs text-foreground-muted align-top whitespace-nowrap">
+                          {ec.numero_piece || '—'}
+                        </td>
+                        <td className="py-3.5 px-4 text-xs font-mono text-foreground-muted align-top">—</td>
+                        <td className="py-3.5 px-4 text-xs text-foreground font-medium align-top">
+                          {ec.libelle}
+                        </td>
+                        <td className="py-3.5 px-4 text-xs text-right font-mono text-foreground-muted align-top">—</td>
+                        <td className="py-3.5 px-4 text-xs text-right font-mono text-foreground-muted align-top">—</td>
+                      </tr>
+                    )
+                  }
+
+                  // Ordonner les lignes : Débits d'abord, puis Crédits (norme SYSCOHADA)
+                  const lignesTriees = [...lignes].sort((a: any, b: any) => {
+                    const debitA = Number(a.debit) || 0
+                    const debitB = Number(b.debit) || 0
+                    if (debitA > 0 && debitB === 0) return -1
+                    if (debitA === 0 && debitB > 0) return 1
+                    return 0
+                  })
+
+                  return lignesTriees.map((l: any, idx: number) => {
+                    const isFirst = idx === 0
+
+                    return (
+                      <tr
+                        key={l.id || `${ec.id}-${idx}`}
+                        className={`hover:bg-surface-border/20 transition-colors ${
+                          isFirst ? 'border-t-2 border-surface-border bg-surface' : 'bg-surface/40'
+                        }`}
+                      >
+                        {/* Spanning des métadonnées de la pièce sur toutes ses lignes */}
+                        {isFirst && (
+                          <>
+                            <td
+                              rowSpan={lignesTriees.length}
+                              className="py-3.5 px-4 font-mono text-xs text-foreground font-medium align-top whitespace-nowrap border-r border-surface-border/50 bg-background/30"
+                            >
+                              {ec.date_ecriture}
+                            </td>
+                            <td
+                              rowSpan={lignesTriees.length}
+                              className="py-3.5 px-4 align-top whitespace-nowrap border-r border-surface-border/50 bg-background/30"
+                            >
+                              <span className="inline-block px-2 py-0.5 rounded-lg text-[10px] font-bold uppercase bg-primary/10 text-primary">
+                                {journalLabels[ec.journal] || ec.journal}
+                              </span>
+                            </td>
+                            <td
+                              rowSpan={lignesTriees.length}
+                              className="py-3.5 px-4 font-mono text-xs align-top border-r border-surface-border/50 bg-background/30"
+                            >
+                              <span className="font-bold text-foreground block">{ec.numero_piece || '—'}</span>
+                              {ec.libelle && (
+                                <span className="block text-[11px] text-foreground-muted mt-1 leading-snug break-words max-w-[170px]" title={ec.libelle}>
+                                  {ec.libelle}
+                                </span>
+                              )}
+                            </td>
+                          </>
+                        )}
+
+                        {/* Compte individuel */}
+                        <td className="py-3 px-4 font-mono text-xs align-top whitespace-nowrap">
+                          <span className="inline-flex items-center px-2 py-0.5 rounded-md bg-surface-border/60 text-foreground font-bold font-mono text-[11px]">
+                            {l.compte}
+                          </span>
+                        </td>
+
+                        {/* Libellé du mouvement */}
+                        <td className="py-3 px-4 text-xs align-top">
+                          <span className="text-foreground font-medium block">
+                            {l.libelle || ec.libelle}
+                          </span>
+                        </td>
+
+                        {/* Montant Débit */}
+                        <td className="py-3 px-4 text-right font-mono text-xs font-bold text-primary align-top whitespace-nowrap">
+                          {Number(l.debit) > 0 ? formatCFA(Number(l.debit)) : '—'}
+                        </td>
+
+                        {/* Montant Crédit */}
+                        <td className="py-3 px-4 text-right font-mono text-xs font-bold text-secondary align-top whitespace-nowrap">
+                          {Number(l.credit) > 0 ? formatCFA(Number(l.credit)) : '—'}
+                        </td>
+                      </tr>
+                    )
+                  })
                 })}
               </tbody>
             </table>

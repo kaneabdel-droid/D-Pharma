@@ -201,19 +201,9 @@ export async function submitVente(formData: FormData) {
 
       if (ecriture) {
         ecritureId = ecriture.id
-        const ecritureLignes: any[] = [
-          // Crédit compte 701 (Vente de médicaments au comptoir) pour le total TTC
-          {
-            ecriture_id: ecriture.id,
-            gie_id: tenant.gieId,
-            compte: '701',
-            libelle: `Vente médicaments ${numero_ticket}`,
-            debit: 0,
-            credit: montant_total,
-          }
-        ]
+        const ecritureLignes: any[] = []
 
-        // Débit compte trésorerie pour la part réglée au comptant
+        // 1. Débit compte trésorerie pour la part réglée au comptant
         if (part_patient > 0) {
           const numCompteTres = (moyen_paiement === 'especes') ? '571' : '521'
           ecritureLignes.push({
@@ -226,7 +216,7 @@ export async function submitVente(formData: FormData) {
           })
         }
 
-        // Débit compte 411 pour la part prise en charge à crédit
+        // 2. Débit compte 411 pour la part prise en charge à crédit
         if (part_credit > 0) {
           ecritureLignes.push({
             ecriture_id: ecriture.id,
@@ -237,6 +227,16 @@ export async function submitVente(formData: FormData) {
             credit: 0,
           })
         }
+
+        // 3. Crédit compte 701 (Vente de médicaments au comptoir) pour le total TTC
+        ecritureLignes.push({
+          ecriture_id: ecriture.id,
+          gie_id: tenant.gieId,
+          compte: '701',
+          libelle: `Vente médicaments ${numero_ticket}`,
+          debit: 0,
+          credit: montant_total,
+        })
 
         await adminClient.from('lignes_ecritures_comptables').insert(ecritureLignes)
 

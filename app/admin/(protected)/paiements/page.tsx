@@ -48,9 +48,8 @@ export default async function AdminPaiementsPage({
           <Link
             key={f.label}
             href={f.value ? `/admin/paiements?statut=${f.value}` : '/admin/paiements'}
-            className={`px-3 py-1.5 rounded-full text-sm font-medium border ${
-              statut === f.value ? 'bg-primary text-white border-primary' : 'border-surface-border text-foreground-muted hover:bg-surface'
-            }`}
+            className={`px-3 py-1.5 rounded-full text-sm font-medium border ${statut === f.value ? 'bg-primary text-white border-primary' : 'border-surface-border text-foreground-muted hover:bg-surface'
+              }`}
           >
             {f.label}
           </Link>
