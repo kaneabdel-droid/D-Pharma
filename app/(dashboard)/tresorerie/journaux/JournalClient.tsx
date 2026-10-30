@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect, useCallback } from 'react'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { getJournal } from '../actions'
 import AddTransactionModal from './AddTransactionModal'
 import TransactionRowActions from './TransactionRowActions'
@@ -11,18 +12,24 @@ import { Wallet, Landmark, BookOpen, Layers } from 'lucide-react'
 export default function JournalClient({ 
   comptes, 
   imputations, 
+  initialCompteId,
   dict, 
   locale, 
   gieName 
 }: { 
   comptes: any[], 
   imputations: any[], 
+  initialCompteId?: string,
   dict: any, 
   locale: string, 
   gieName: string 
 }) {
+  const router = useRouter()
+  const searchParams = useSearchParams()
+  const urlCompteId = searchParams.get('compteId')
+  const defaultCompte = initialCompteId || urlCompteId || 'tous'
   const [comptesList, setComptesList] = useState<any[]>(comptes || [])
-  const [selectedCompte, setSelectedCompte] = useState<string>('tous')
+  const [selectedCompte, setSelectedCompte] = useState<string>(defaultCompte)
   const [journal, setJournal] = useState<any[]>([])
   const [soldeInitial, setSoldeInitial] = useState(0)
   const [compteNom, setCompteNom] = useState('Tous les journaux')
@@ -32,6 +39,14 @@ export default function JournalClient({
   const t = dict.tresorerie_pages.journaux
   const dateLocale = locale === 'fr' ? 'fr-FR' : 'en-US'
   const imputationParId = new Map(imputations.map((imp) => [imp.id, imp.libelle]))
+
+  // Synchroniser selectedCompte si l'URL ou initialCompteId change
+  useEffect(() => {
+    const cid = searchParams.get('compteId')
+    if (cid && cid !== selectedCompte) {
+      setSelectedCompte(cid)
+    }
+  }, [searchParams])
 
   // Synchroniser comptesList si les props changent
   useEffect(() => {
@@ -82,7 +97,11 @@ export default function JournalClient({
           <select
             id="compte"
             value={selectedCompte}
-            onChange={(e) => setSelectedCompte(e.target.value)}
+            onChange={(e) => {
+              const val = e.target.value
+              setSelectedCompte(val)
+              router.replace(`/tresorerie/journaux?compteId=${val}`, { scroll: false })
+            }}
             className="block w-full rounded-xl border border-surface-border bg-background px-3.5 py-2.5 text-foreground shadow-sm focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary sm:text-sm font-medium"
           >
             <option value="tous">📚 Tous les journaux (Vue globale consolidée)</option>

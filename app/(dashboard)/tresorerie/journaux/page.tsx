@@ -6,7 +6,13 @@ import { getTenantContext } from '@/utils/supabase/tenant'
 
 export const dynamic = 'force-dynamic'
 
-export default async function JournauxPage() {
+export default async function JournauxPage({
+  searchParams,
+}: {
+  searchParams?: Promise<{ compteId?: string }>
+}) {
+  const resolvedParams = searchParams ? await searchParams : undefined
+  const initialCompteId = resolvedParams?.compteId
   const { comptes, error } = await getComptes()
   const { imputations } = await getImputations()
   const locale = await getLocale()
@@ -30,6 +36,7 @@ export default async function JournauxPage() {
       <JournalClient 
         comptes={comptes || []} 
         imputations={imputations || []} 
+        initialCompteId={initialCompteId}
         dict={dict} 
         locale={locale} 
         gieName={tenant?.gieName || 'Mon Officine'} 
