@@ -17,10 +17,10 @@ type InitiateResult =
   | { ok: false; error: string }
 
 const FORFAITS_PHARMA: Record<string, { niveau: string; prix_annuel: number }> = {
-  pharmacie: { niveau: 'pharmacie', prix_annuel: 100000 },
   standard: { niveau: 'standard', prix_annuel: 100000 },
-  medium: { niveau: 'medium', prix_annuel: 100000 },
-  premium: { niveau: 'premium', prix_annuel: 100000 },
+  premium: { niveau: 'premium', prix_annuel: 120000 },
+  pharmacie: { niveau: 'standard', prix_annuel: 100000 },
+  medium: { niveau: 'standard', prix_annuel: 100000 },
 }
 
 export async function initiateSubscriptionPayment(

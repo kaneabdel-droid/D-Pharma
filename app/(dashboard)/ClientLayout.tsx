@@ -82,8 +82,8 @@ export default function ClientLayout({
     { key: 'fournisseurs_pharma', label: dict.sidebar?.fournisseurs_pharma || 'Grossistes & Dettes', href: '/pharmacie/fournisseurs', icon: Building2 },
     { key: 'commandes_pharma', label: dict.sidebar?.commandes_pharma || 'Commandes d’Appro', href: '/pharmacie/commandes', icon: Truck },
     { key: 'tresorerie', label: dict.sidebar?.tresorerie || 'Trésorerie & Caisses', href: '/tresorerie', icon: Landmark },
-    { key: 'comptabilite', label: dict.sidebar?.comptabilite || 'Comptabilité (SYSCOHADA)', href: '/comptabilite', icon: BookOpen },
-    { key: 'tva_pharma', label: dict.sidebar?.tva_pharma || 'Déclaration TVA (DGID)', href: '/comptabilite/tva', icon: Receipt },
+    { key: 'comptabilite', label: dict.sidebar?.comptabilite || 'Comptabilité (SYSCOHADA)', href: '/comptabilite', icon: BookOpen, badge: 'Premium' },
+    { key: 'tva_pharma', label: dict.sidebar?.tva_pharma || 'Déclaration TVA (DGID)', href: '/comptabilite/tva', icon: Receipt, badge: 'Premium' },
     { key: 'import_donnees', label: dict.sidebar?.import_donnees || 'Importer des données', href: '/parametres/import', icon: UploadCloud },
     { key: 'parametres', label: dict.sidebar?.parametres || 'Paramètres & Équipe', href: '/parametres', icon: Settings },
     { key: 'abonnement', label: dict.sidebar?.abonnement || 'Abonnement', href: '/abonnement', icon: Shield },
@@ -115,8 +115,8 @@ export default function ClientLayout({
       titre: dict.sidebar?.section_finances || 'Finance & Compta',
       items: [
         { key: 'tresorerie', label: dict.sidebar?.tresorerie || 'Trésorerie & Caisses', href: '/tresorerie', icon: Landmark },
-        { key: 'comptabilite', label: dict.sidebar?.comptabilite || 'Comptabilité (SYSCOHADA)', href: '/comptabilite', icon: BookOpen },
-        { key: 'tva_pharma', label: dict.sidebar?.tva_pharma || 'Déclaration TVA (DGID)', href: '/comptabilite/tva', icon: Receipt },
+        { key: 'comptabilite', label: dict.sidebar?.comptabilite || 'Comptabilité (SYSCOHADA)', href: '/comptabilite', icon: BookOpen, badge: 'Premium' },
+        { key: 'tva_pharma', label: dict.sidebar?.tva_pharma || 'Déclaration TVA (DGID)', href: '/comptabilite/tva', icon: Receipt, badge: 'Premium' },
       ],
     },
     {
@@ -247,6 +247,20 @@ export default function ClientLayout({
                                 aria-hidden="true"
                               />
                               <span className="truncate">{(item as any).label || dict.sidebar?.[item.key] || item.key}</span>
+                            {(item as any).badge && (
+                              <span className={`ml-auto px-1.5 py-0.5 rounded-full text-[9px] font-bold ${
+                                actif ? 'bg-white/20 text-white' : 'bg-amber-500/10 text-amber-600 border border-amber-500/20'
+                              }`}>
+                                {(item as any).badge}
+                              </span>
+                            )}
+                              {(item as any).badge && (
+                                <span className={`ml-auto px-1.5 py-0.5 rounded-full text-[9px] font-bold ${
+                                  actif ? 'bg-white/20 text-white' : 'bg-amber-500/10 text-amber-600 border border-amber-500/20'
+                                }`}>
+                                  {(item as any).badge}
+                                </span>
+                              )}
                             </Link>
                           )
                         })}
@@ -383,6 +397,13 @@ export default function ClientLayout({
                               aria-hidden="true"
                             />
                             <span className="truncate">{(item as any).label || dict.sidebar?.[item.key] || item.key}</span>
+                            {(item as any).badge && (
+                              <span className={`ml-auto px-1.5 py-0.5 rounded-full text-[9px] font-bold ${
+                                actif ? 'bg-white/20 text-white' : 'bg-amber-500/10 text-amber-600 border border-amber-500/20'
+                              }`}>
+                                {(item as any).badge}
+                              </span>
+                            )}
                           </Link>
                         )
                       })}

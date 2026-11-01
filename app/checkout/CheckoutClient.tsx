@@ -50,13 +50,15 @@ export default function CheckoutClient({
   const [error, setError] = useState<string | null>(null)
   const [virementPending, setVirementPending] = useState(false)
 
-  // Formule annuelle unique Officine
+  // Formules annuelles Officine
   const plans: Record<string, { name: string; price: string; value: number }> = {
-    pharmacie: { name: 'Pharmacie (Officine)', price: '100.000 FCFA / an', value: 100000 },
+    standard: { name: 'Standard (Gestion Officine)', price: '100.000 FCFA / an', value: 100000 },
+    premium: { name: 'Premium (Comptabilité SYSCOHADA & TVA)', price: '120.000 FCFA / an', value: 120000 },
+    pharmacie: { name: 'Standard (Gestion Officine)', price: '100.000 FCFA / an', value: 100000 },
   }
 
-  const selectedPlan = plans[initialPlan] || plans.pharmacie
-  const currentPlan = plans[currentTier] || plans.pharmacie
+  const selectedPlan = plans[initialPlan] || plans.standard
+  const currentPlan = plans[currentTier] || plans.standard
 
   let priceToPay = selectedPlan.price
   let numericPrice = selectedPlan.value

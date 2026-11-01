@@ -32,11 +32,24 @@ export default async function DecouvrirDpharmaPage({
 
   const plans = [
     {
-      id: 'pharmacie',
-      nom: 'Formule Officine Complète',
+      id: 'standard',
+      nom: 'Niveau Standard (Gestion Officine)',
       prix: '100 000 FCFA / an',
-      resume: 'La suite logicielle complète pour informatiser et gérer votre officine de pharmacie au quotidien.',
+      resume: 'La suite logicielle essentielle pour le POS, stocks, péremptions, caisse et commandes.',
       inclus: modulesPharmacie,
+      color: 'border-surface-border',
+      populaire: false,
+    },
+    {
+      id: 'premium',
+      nom: 'Niveau Premium (Comptabilité SYSCOHADA & TVA)',
+      prix: '120 000 FCFA / an',
+      resume: 'Gestion totale de l’officine avec comptabilité intégrée SYSCOHADA et déclaration TVA DGID.',
+      inclus: [
+        ...modulesPharmacie,
+        { icon: BookOpen, label: 'Comptabilité générale SYSCOHADA (Livre-Journal, Grand Livre, Balance)' },
+        { icon: Receipt, label: 'Déclaration de TVA automatisée (DGID Sénégal)' },
+      ],
       color: 'border-primary',
       populaire: true,
     },

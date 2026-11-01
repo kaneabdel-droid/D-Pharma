@@ -524,16 +524,19 @@
         ]
       },
       "standard": {
-        "name": "Pharmacie (Officine)",
+        "name": "Standard (Gestion Officine)",
         "features": [
           "Point de Vente (POS) & scan code-barres",
           "Gestion des stocks & catalogue médicaments",
-          "Alertes péremptions & ruptures",
-          "Journal de caisse & clôture journalière"
+          "Alertes péremptions & ruptures par lots",
+          "Journal de caisse & clôture journalière",
+          "Clients en compte & Tiers-Payant",
+          "Liaison D-Santé & accords de substitution",
+          "Mode PWA hors-ligne résilient"
         ]
       },
       "medium": {
-        "name": "Pharmacie (Officine)",
+        "name": "Standard (Gestion Officine)",
         "features": [
           "Point de Vente (POS) & scan code-barres",
           "Gestion des stocks & catalogue médicaments",
@@ -542,11 +545,14 @@
         ]
       },
       "premium": {
-        "name": "Pharmacie (Officine)",
+        "name": "Premium (Comptabilité SYSCOHADA & TVA)",
         "features": [
-          "Toutes les fonctionnalités Pharmacie",
-          "Comptabilité de trésorerie & imputations avancées",
-          "Rapports financiers & marge officinale"
+          "Toutes les fonctionnalités du forfait Standard",
+          "Comptabilité Complète SYSCOHADA (Livre-Journal, Grand Livre, Balance)",
+          "Déclaration TVA (DGID Sénégal) & états fiscaux",
+          "Télétransmission dématérialisée bordereaux IPM / CMU",
+          "Rapports financiers & marge officinale en temps réel",
+          "Support prioritaire 7j/7"
         ]
       }
     }
