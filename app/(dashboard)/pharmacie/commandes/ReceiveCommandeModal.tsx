@@ -177,12 +177,18 @@ export default function ReceiveCommandeModal({
                   </div>
                 )}
 
-                {/* Explication claire */}
-                <div className="bg-primary/5 border border-primary/20 rounded-2xl p-3.5 flex items-start gap-2.5">
-                  <ShieldCheck className="w-5 h-5 text-primary shrink-0 mt-0.5" />
-                  <div className="text-xs text-foreground-muted leading-relaxed">
-                    <p className="font-semibold text-foreground mb-0.5">Mise en rayon & Constatation comptable :</p>
-                    Vérifiez les quantités reçues, confirmez le <strong>prix d'achat grossiste</strong> et le <strong>prix de vente au comptoir</strong>. Les articles seront immédiatement disponibles à la vente au POS, et la facture d'achat sera imputée en comptabilité (Journal des Achats).
+                {/* Explication claire et recadrée */}
+                <div className="bg-primary/5 border border-primary/20 rounded-2xl p-3.5 flex items-start gap-3">
+                  <div className="w-8 h-8 rounded-xl bg-primary/10 text-primary flex items-center justify-center shrink-0 mt-0.5">
+                    <ShieldCheck className="w-4 h-4" />
+                  </div>
+                  <div className="text-xs space-y-1">
+                    <p className="font-bold text-foreground">
+                      Mise en rayon & Constatation comptable
+                    </p>
+                    <p className="text-foreground-muted leading-relaxed">
+                      Vérifiez les quantités reçues, puis confirmez le <strong>prix d'achat grossiste</strong> et le <strong>prix de vente au comptoir</strong>. Les articles seront immédiatement disponibles à la vente au POS et la facture sera imputée automatiquement en comptabilité (Journal des Achats).
+                    </p>
                   </div>
                 </div>
 
