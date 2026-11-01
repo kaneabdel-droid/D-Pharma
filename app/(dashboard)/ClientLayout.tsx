@@ -6,10 +6,11 @@ import { usePathname } from 'next/navigation'
 import { ThemeSwitcher } from '../components/ThemeSwitcher'
 import LanguageSelector from '@/components/LanguageSelector'
 import { OfflineSyncBar } from '@/components/offline/OfflineSyncBar'
+import { warmAppOfflineCache } from '@/lib/offline/warmer'
 import { hasPermission, moduleForPath, type PermissionMap } from '@/lib/permissions'
-import { 
-  LayoutDashboard, 
-  Landmark, 
+import {
+  LayoutDashboard,
+  Landmark,
   Menu,
   X,
   LogOut,
@@ -25,7 +26,8 @@ import {
   Building2,
   FileWarning,
   RotateCcw,
-  Receipt
+  Receipt,
+  Network
 } from 'lucide-react'
 import { DeviseProvider } from '@/components/DeviseProvider'
 
@@ -64,8 +66,8 @@ export default function ClientLayout({
       caches.open('demba-offline-dpharma-v3').then((cache) => {
         fetch('/dashboard').then((res) => {
           if (res && res.ok) cache.put('/dashboard', res)
-        }).catch(() => {})
-      }).catch(() => {})
+        }).catch(() => { })
+      }).catch(() => { })
     }
   }, [])
 
@@ -76,6 +78,7 @@ export default function ClientLayout({
     { key: 'perimes_pharma', label: dict.sidebar?.perimes_pharma || 'Périmés & PV Destruction', href: '/pharmacie/perimes', icon: FileWarning },
     { key: 'retours_pharma', label: dict.sidebar?.retours_pharma || 'Retours & Avoirs Grossistes', href: '/pharmacie/retours-grossistes', icon: RotateCcw },
     { key: 'clients_pharma', label: dict.sidebar?.clients_pharma || 'Clients & Tiers-Payant', href: '/pharmacie/clients', icon: Users },
+    { key: 'interop_sante', label: 'Liaison D-Santé & IPM', href: '/pharmacie/interop', icon: Network },
     { key: 'fournisseurs_pharma', label: dict.sidebar?.fournisseurs_pharma || 'Grossistes & Dettes', href: '/pharmacie/fournisseurs', icon: Building2 },
     { key: 'commandes_pharma', label: dict.sidebar?.commandes_pharma || 'Commandes d’Appro', href: '/pharmacie/commandes', icon: Truck },
     { key: 'tresorerie', label: dict.sidebar?.tresorerie || 'Trésorerie & Caisses', href: '/tresorerie', icon: Landmark },
@@ -103,6 +106,7 @@ export default function ClientLayout({
         { key: 'perimes_pharma', label: dict.sidebar?.perimes_pharma || 'Périmés & PV Destruction', href: '/pharmacie/perimes', icon: FileWarning },
         { key: 'retours_pharma', label: dict.sidebar?.retours_pharma || 'Retours & Avoirs Grossistes', href: '/pharmacie/retours-grossistes', icon: RotateCcw },
         { key: 'clients_pharma', label: dict.sidebar?.clients_pharma || 'Clients & Tiers-Payant', href: '/pharmacie/clients', icon: Users },
+        { key: 'interop_sante', label: 'Liaison D-Santé & IPM', href: '/pharmacie/interop', icon: Network },
         { key: 'fournisseurs_pharma', label: dict.sidebar?.fournisseurs_pharma || 'Grossistes & Dettes', href: '/pharmacie/fournisseurs', icon: Building2 },
         { key: 'commandes_pharma', label: dict.sidebar?.commandes_pharma || 'Commandes d’Appro', href: '/pharmacie/commandes', icon: Truck },
       ],
@@ -130,6 +134,29 @@ export default function ClientLayout({
       ],
     },
   ]
+
+  useEffect(() => {
+    document.cookie = 'demba_offline_active=1; path=/; max-age=2592000; SameSite=Lax'
+
+    if (typeof navigator !== 'undefined' && navigator.serviceWorker?.controller) {
+      navigator.serviceWorker.controller.postMessage({ type: 'SET_OFFLINE_SESSION', active: true })
+    }
+
+    if (typeof navigator !== 'undefined' && navigator.onLine) {
+      const routesToWarm = [
+        '/dashboard',
+        '/pharmacie/pos',
+        '/pharmacie/stocks',
+        '/pharmacie/clients',
+        '/pharmacie/fournisseurs',
+        '/pharmacie/commandes',
+        '/tresorerie',
+        '/comptabilite',
+        '/parametres',
+      ]
+      warmAppOfflineCache(routesToWarm, 'demba-offline-dpharma-v4')
+    }
+  }, [])
 
   useEffect(() => {
     setSidebarOpen(false)
@@ -177,7 +204,7 @@ export default function ClientLayout({
       {/* Mobile sidebar */}
       <div className={`relative z-50 lg:hidden ${sidebarOpen ? '' : 'hidden'}`}>
         <div className="fixed inset-0 bg-background/80" onClick={() => setSidebarOpen(false)} />
-        
+
         <div className="fixed inset-0 flex">
           <div className="relative mr-16 flex w-full max-w-xs flex-1">
             <div className="absolute left-full top-0 flex w-16 justify-center pt-5">
@@ -186,7 +213,7 @@ export default function ClientLayout({
                 <X className="h-6 w-6 text-white" aria-hidden="true" />
               </button>
             </div>
-            
+
             {/* Sidebar component */}
             <div className="flex grow flex-col gap-y-4 overflow-y-auto bg-[var(--sidebar)] px-4 pb-4">
               <div className="flex h-16 shrink-0 items-center">
@@ -283,20 +310,18 @@ export default function ClientLayout({
                     type="button"
                     onClick={() => setMenuOuvert((actuel) => (actuel === section.titre ? null : section.titre))}
                     aria-expanded={estOuvert}
-                    className={`flex items-center gap-1.5 rounded-md px-3 py-1.5 text-xs font-semibold transition-colors whitespace-nowrap cursor-pointer ${
-                      aUnItemActif || estOuvert
+                    className={`flex items-center gap-1.5 rounded-md px-3 py-1.5 text-xs font-semibold transition-colors whitespace-nowrap cursor-pointer ${aUnItemActif || estOuvert
                         ? 'bg-primary text-white shadow-xs'
                         : 'text-foreground-muted hover:text-foreground hover:bg-surface'
-                    }`}
+                      }`}
                   >
                     <span>{section.titre}</span>
                     <span className={`text-[9px] opacity-70 transition-transform duration-150 ${estOuvert ? 'rotate-180' : ''}`}>▼</span>
                   </button>
 
                   <div
-                    className={`absolute left-0 top-full pt-1 z-50 transition-all duration-150 ${
-                      estOuvert ? 'block opacity-100 scale-100 pointer-events-auto' : 'hidden group-hover:block'
-                    }`}
+                    className={`absolute left-0 top-full pt-1 z-50 transition-all duration-150 ${estOuvert ? 'block opacity-100 scale-100 pointer-events-auto' : 'hidden group-hover:block'
+                      }`}
                   >
                     <div className="min-w-56 rounded-xl border border-surface-border bg-surface p-1.5 shadow-xl">
                       {section.items.map((item) => {
@@ -306,11 +331,10 @@ export default function ClientLayout({
                             key={item.key}
                             href={item.href}
                             onClick={() => setMenuOuvert(null)}
-                            className={`flex items-center gap-2.5 rounded-lg px-3 py-2 text-xs font-medium transition-colors ${
-                              actif
+                            className={`flex items-center gap-2.5 rounded-lg px-3 py-2 text-xs font-medium transition-colors ${actif
                                 ? 'bg-primary text-white'
                                 : 'text-foreground-muted hover:text-foreground hover:bg-black/5'
-                            }`}
+                              }`}
                           >
                             <item.icon className="h-4 w-4 shrink-0" />
                             <span>{(item as any).label || dict.sidebar?.[item.key] || item.key}</span>

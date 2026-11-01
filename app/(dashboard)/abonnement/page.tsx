@@ -46,30 +46,17 @@ export default async function AbonnementPage({
     {
       id: 'pharmacie',
       name: t.plans.pharmacie?.name || 'Pharmacie (Officine)',
-      price: `${prix(75000)} / an`,
-      value: 75000,
+      price: `${prix(100000)} / an`,
+      value: 100000,
       features: t.plans.pharmacie?.features || [
-        'Point de Vente (POS) & scan code-barres',
-        'Gestion des stocks & catalogue médicaments',
-        'Alertes péremptions & ruptures par lots',
+        'Point de Vente (POS) tactile & scan code-barres',
+        'Gestion des stocks, catalogue & alertes péremption',
+        'Commandes fournisseurs : impression & envoi direct par email',
         'Journal de caisse & clôture journalière',
-        'Commandes directes auprès des grossistes & labos'
+        'Clients en compte & prise en charge Tiers-Payant',
+        'Comptabilité SYSCOHADA & déclaration TVA'
       ],
       color: 'border-primary'
-    },
-    {
-      id: 'fournisseur',
-      name: t.plans.fournisseur?.name || 'Fournisseur / Laboratoire',
-      price: `${prix(50000)} / an`,
-      value: 50000,
-      features: t.plans.fournisseur?.features || [
-        'Catalogue médicaments & molécules en ligne',
-        'Réception & traitement des bons de commandes officines',
-        'Suivi des expéditions & accusés de réception',
-        'Historique des livraisons & statistiques de distribution',
-        'Support technique & assistance dédiée'
-      ],
-      color: 'border-surface-border'
     }
   ]
 

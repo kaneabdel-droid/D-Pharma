@@ -250,53 +250,31 @@ export default async function HomePage({
               </p>
             </div>
 
-            <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-              <div className="rounded-2xl border-2 border-primary bg-primary/5 p-8 flex flex-col justify-between relative shadow-xl">
-                <div className="absolute top-0 right-6 -translate-y-1/2 bg-primary text-white text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full">
-                  {lp.pricing_section?.pharma_badge || 'Officines & Pharmacies'}
+            <div className="max-w-xl mx-auto">
+              <div className="rounded-2xl border-2 border-primary bg-primary/5 p-8 sm:p-10 flex flex-col justify-between relative shadow-xl">
+                <div className="absolute top-0 right-6 -translate-y-1/2 bg-primary text-white text-xs font-bold uppercase tracking-wider px-3.5 py-1 rounded-full shadow">
+                  {lp.pricing_section?.pharma_badge || 'Formule Officine Complète'}
                 </div>
                 <div>
-                  <h3 className="text-xl font-bold text-primary mb-1">
-                    {lp.pricing_section?.pharma_title || 'Pharmacie'}
+                  <h3 className="text-2xl font-bold text-primary mb-1">
+                    {lp.pricing_section?.pharma_title || 'Pharmacie & Officine'}
                   </h3>
-                  <p className="text-3xl font-extrabold text-primary my-4">
-                    {lp.pricing_section?.pharma_price || '75.000'} <span className="text-sm font-normal text-foreground-muted">{lp.pricing_section?.pharma_unit || 'FCFA / an'}</span>
+                  <p className="text-4xl font-extrabold text-primary my-4">
+                    {lp.pricing_section?.pharma_price || '100.000'} <span className="text-sm font-normal text-foreground-muted">{lp.pricing_section?.pharma_unit || 'FCFA / an'}</span>
                   </p>
-                  <p className="text-xs text-foreground-muted mb-6">
-                    {lp.pricing_section?.pharma_desc || "Tout le système pour informatiser et gérer l'officine."}
+                  <p className="text-sm text-foreground-muted mb-6">
+                    {lp.pricing_section?.pharma_desc || "La suite logicielle complète pour informatiser, vendre et gérer votre pharmacie."}
                   </p>
-                  <ul className="space-y-3 mb-8 text-sm">
-                    <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-primary" /> {lp.pricing_section?.pharma_f1 || 'Vente POS & scan rapide code-barres'}</li>
-                    <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-primary" /> {lp.pricing_section?.pharma_f2 || 'Suivi des stocks & alertes de péremption'}</li>
-                    <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-primary" /> {lp.pricing_section?.pharma_f3 || 'Caisse quotidienne & contrôle des écarts'}</li>
-                    <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-primary" /> {lp.pricing_section?.pharma_f4 || 'Commandes directes fournisseurs & labos'}</li>
+                  <ul className="space-y-3.5 mb-8 text-sm">
+                    <li className="flex items-center gap-2.5"><CheckCircle2 className="w-4 h-4 text-primary shrink-0" /> {lp.pricing_section?.pharma_f1 || 'Point de Vente (POS) & scan code-barres ultrarapide'}</li>
+                    <li className="flex items-center gap-2.5"><CheckCircle2 className="w-4 h-4 text-primary shrink-0" /> {lp.pricing_section?.pharma_f2 || 'Gestion des stocks & alertes de péremption automatisées'}</li>
+                    <li className="flex items-center gap-2.5"><CheckCircle2 className="w-4 h-4 text-primary shrink-0" /> {lp.pricing_section?.pharma_f3 || 'Caisse quotidienne, clôtures & contrôle des écarts'}</li>
+                    <li className="flex items-center gap-2.5"><CheckCircle2 className="w-4 h-4 text-primary shrink-0" /> {lp.pricing_section?.pharma_f4 || 'Bons de commande labos avec impression PDF et envoi direct par email'}</li>
+                    <li className="flex items-center gap-2.5"><CheckCircle2 className="w-4 h-4 text-primary shrink-0" /> Tiers-payant, mutuelles & assurances</li>
                   </ul>
                 </div>
-                <Link href="/checkout?plan=pharmacie" className="w-full text-center py-2.5 rounded-lg bg-primary text-white font-semibold hover:bg-primary-hover transition-colors shadow-md">
-                  {lp.pricing_section?.pharma_btn || 'Souscrire Pharmacie'}
-                </Link>
-              </div>
-
-              <div className="rounded-2xl border border-surface-border bg-surface p-8 flex flex-col justify-between">
-                <div>
-                  <h3 className="text-xl font-bold mb-1">
-                    {lp.pricing_section?.supplier_title || 'Fournisseur / Labo'}
-                  </h3>
-                  <p className="text-3xl font-extrabold text-foreground my-4">
-                    {lp.pricing_section?.supplier_price || '50.000'} <span className="text-sm font-normal text-foreground-muted">{lp.pricing_section?.supplier_unit || 'FCFA / an'}</span>
-                  </p>
-                  <p className="text-xs text-foreground-muted mb-6">
-                    {lp.pricing_section?.supplier_desc || 'Pour les grossistes, répartiteurs et laboratoires.'}
-                  </p>
-                  <ul className="space-y-3 mb-8 text-sm">
-                    <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-emerald-600" /> {lp.pricing_section?.supplier_f1 || 'Catalogue médicaments & molécules'}</li>
-                    <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-emerald-600" /> {lp.pricing_section?.supplier_f2 || 'Réception des commandes officines'}</li>
-                    <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-emerald-600" /> {lp.pricing_section?.supplier_f3 || 'Suivi livraisons & accusés de réception'}</li>
-                    <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-emerald-600" /> {lp.pricing_section?.supplier_f4 || 'Support technique & accompagnement'}</li>
-                  </ul>
-                </div>
-                <Link href="/checkout?plan=fournisseur" className="w-full text-center py-2.5 rounded-lg border border-primary text-primary font-semibold hover:bg-primary hover:text-white transition-colors">
-                  {lp.pricing_section?.supplier_btn || 'Souscrire Fournisseur / Labo'}
+                <Link href="/checkout?plan=pharmacie" className="w-full text-center py-3.5 rounded-xl bg-primary text-white font-bold hover:bg-primary-hover transition-colors shadow-md text-base">
+                  {lp.pricing_section?.pharma_btn || 'Souscrire pour mon officine'}
                 </Link>
               </div>
             </div>

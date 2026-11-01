@@ -1,8 +1,10 @@
 import { createClient } from '@/utils/supabase/server'
 import { getTenantContext } from '@/utils/supabase/tenant'
-import { FileText, Send, CheckCircle2 } from 'lucide-react'
+import { FileText, Send, CheckCircle2, Mail } from 'lucide-react'
 import CreateCommandeButton from './CreateCommandeButton'
 import ReceiveCommandeModal from './ReceiveCommandeModal'
+import ImprimerCommandeModal from './ImprimerCommandeModal'
+import EnvoyerCommandeEmailModal from './EnvoyerCommandeEmailModal'
 
 import { getLocale, getDictionary } from '@/dictionaries'
 
@@ -26,7 +28,8 @@ export default async function CommandesLaboPage() {
         statut,
         date_commande,
         date_reception,
-        fournisseurs_labo!inner (id, nom),
+        email_envoye,
+        fournisseurs_labo!inner (id, nom, email, contact_email, contact_telephone, telephone),
         lignes_commande_labo (
           id,
           medicament_id,
@@ -153,20 +156,31 @@ export default async function CommandesLaboPage() {
                           </ul>
                         </td>
                         <td className="whitespace-nowrap px-3 py-4 text-sm">
-                          {cmd.statut === 'complete' ? (
-                            <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-success/10 text-success">
-                              Livré le {new Date(cmd.date_reception).toLocaleDateString('fr-FR')}
-                            </span>
-                          ) : (
-                            <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-warning/10 text-warning">
-                              En cours de livraison
-                            </span>
-                          )}
+                          <div className="flex flex-col gap-1">
+                            {cmd.statut === 'complete' ? (
+                              <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-success/10 text-success w-fit">
+                                Livré le {new Date(cmd.date_reception).toLocaleDateString('fr-FR')}
+                              </span>
+                            ) : (
+                              <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-warning/10 text-warning w-fit">
+                                En cours de livraison
+                              </span>
+                            )}
+                            {cmd.email_envoye && (
+                              <span className="inline-flex items-center gap-1 text-[11px] font-medium text-emerald-600">
+                                <Mail className="w-3 h-3" /> Transmis par email
+                              </span>
+                            )}
+                          </div>
                         </td>
                         <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
-                          {cmd.statut === 'envoyee' && (
-                            <ReceiveCommandeModal commande={cmd as any} stockMap={stockMap} />
-                          )}
+                          <div className="flex items-center justify-end gap-2">
+                            <ImprimerCommandeModal commande={cmd as any} pharmacieNom={tenant?.gieName} />
+                            <EnvoyerCommandeEmailModal commande={cmd as any} pharmacieNom={tenant?.gieName} />
+                            {cmd.statut === 'envoyee' && (
+                              <ReceiveCommandeModal commande={cmd as any} stockMap={stockMap} />
+                            )}
+                          </div>
                         </td>
                       </tr>
                     ))

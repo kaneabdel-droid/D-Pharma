@@ -1,12 +1,9 @@
 import Link from 'next/link'
-import { Building2, Wrench, Package, Wheat, GraduationCap, Handshake, ArrowUpRight, Clock, Bird } from 'lucide-react'
+import { Building2, Wrench, Package, Wheat, GraduationCap, Handshake, ArrowUpRight, Clock, Bird, BedDouble, Activity } from 'lucide-react'
 
-// Chaque produit DembaSolution a son propre projet Supabase et son propre espace
-// /admin — pas de portail unifié (une seule connexion, une seule session) pour
-// l'instant, cf. plan D-QUINCA §0. Cette page est l'accueil de Demba Admin : un
-// point d'entrée unique qui renvoie vers l'espace admin de chaque produit ; passer
-// à un produit externe demande de s'y connecter avec ses propres identifiants
-// admin (même email possible, session distincte).
+// Portail unifié Demba Admin : grâce à l'identité admin partagée (SSO inter-produits
+// via le cookie .dembasolution.com), une seule connexion SuperAdmin donne accès
+// instantanément à l'ensemble des tableaux de bord de l'écosystème.
 const produits = [
   {
     nom: 'D-PHARMA',
@@ -14,6 +11,22 @@ const produits = [
     href: '/admin/pharmacie',
     externe: false,
     icon: Package,
+    statut: 'en_ligne' as const,
+  },
+  {
+    nom: 'D-HOTEL',
+    description: 'Gestion hôtelière complète — PMS chambres, POS restaurant/bar, MICE séminaires et RevPAR.',
+    href: 'https://d-hotel.dembasolution.com/admin',
+    externe: true,
+    icon: BedDouble,
+    statut: 'en_ligne' as const,
+  },
+  {
+    nom: 'D-SANTÉ',
+    description: 'Système hospitalier et clinique — DPI, consultations, triage, ordonnances QR, lits et tiers-payant IPM.',
+    href: 'https://d-sante.dembasolution.com/admin',
+    externe: true,
+    icon: Activity,
     statut: 'en_ligne' as const,
   },
   {

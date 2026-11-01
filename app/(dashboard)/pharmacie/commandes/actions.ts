@@ -307,3 +307,29 @@ export async function accuserReception(input: string | FormData) {
     return { error: err.message || 'Erreur lors de l\'accusé de réception' }
   }
 }
+
+export async function marquerEmailEnvoye(commandeId: string, emailDestinataire?: string) {
+  const supabase = await createClient()
+  const tenant = await getTenantContext()
+
+  if (!tenant) return { error: 'Officine non trouvée.' }
+  if (!commandeId) return { error: 'Identifiant de commande manquant.' }
+
+  try {
+    const { error } = await supabase
+      .from('commandes_labo')
+      .update({
+        email_envoye: true,
+      })
+      .eq('id', commandeId)
+      .eq('gie_id', tenant.gieId)
+
+    if (error) throw error
+
+    revalidatePath('/pharmacie/commandes')
+    return { success: true }
+  } catch (err: any) {
+    console.error('Erreur marquerEmailEnvoye:', err)
+    return { error: err.message || 'Erreur lors de la mise à jour du statut d\'envoi' }
+  }
+}

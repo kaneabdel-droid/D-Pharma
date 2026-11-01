@@ -50,10 +50,9 @@ export default function CheckoutClient({
   const [error, setError] = useState<string | null>(null)
   const [virementPending, setVirementPending] = useState(false)
 
-  // Seules les 2 formules annuelles existent
+  // Formule annuelle unique Officine
   const plans: Record<string, { name: string; price: string; value: number }> = {
-    pharmacie: { name: 'Pharmacie (Officine)', price: '75.000 FCFA / an', value: 75000 },
-    fournisseur: { name: 'Fournisseur / Laboratoire', price: '50.000 FCFA / an', value: 50000 },
+    pharmacie: { name: 'Pharmacie (Officine)', price: '100.000 FCFA / an', value: 100000 },
   }
 
   const selectedPlan = plans[initialPlan] || plans.pharmacie

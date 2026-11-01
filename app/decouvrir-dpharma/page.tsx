@@ -27,33 +27,18 @@ export default async function DecouvrirDpharmaPage({
     { icon: PackageOpen, label: 'Catalogue Médicaments & Gestion des Stocks' },
     { icon: Clock, label: 'Contrôle automatique des dates de péremption' },
     { icon: Wallet, label: 'Caisse & Journal des encaissements' },
-    { icon: Truck, label: 'Commandes directes vers les laboratoires' },
-  ]
-
-  const modulesFournisseur = [
-    { icon: PackageOpen, label: 'Catalogue en ligne des médicaments & molécules' },
-    { icon: Truck, label: 'Réception & traitement des commandes officines' },
-    { icon: Receipt, label: 'Gestion des livraisons & accusés de réception' },
-    { icon: Activity, label: 'Historique des commandes et statistiques' },
+    { icon: Truck, label: 'Bons de commande labos avec impression PDF et envoi par email' },
   ]
 
   const plans = [
     {
       id: 'pharmacie',
-      nom: 'Pharmacie (Officine)',
-      prix: '75 000 FCFA / an',
-      resume: 'La suite logicielle complète pour gérer votre officine de pharmacie au quotidien.',
+      nom: 'Formule Officine Complète',
+      prix: '100 000 FCFA / an',
+      resume: 'La suite logicielle complète pour informatiser et gérer votre officine de pharmacie au quotidien.',
       inclus: modulesPharmacie,
       color: 'border-primary',
       populaire: true,
-    },
-    {
-      id: 'fournisseur',
-      nom: 'Fournisseur / Laboratoire',
-      prix: '50 000 FCFA / an',
-      resume: 'L’interface dédiée aux laboratoires et distributeurs pour recevoir et traiter les commandes.',
-      inclus: modulesFournisseur,
-      color: 'border-surface-border',
     },
   ]
 
@@ -183,32 +168,32 @@ export default async function DecouvrirDpharmaPage({
         <section className="py-20 bg-surface border-t border-surface-border">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-5xl">
             <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold font-heading mb-3">Les fonctionnalités selon votre forfait</h2>
+              <h2 className="text-3xl font-bold font-heading mb-3">Une formule claire et complète</h2>
               <p className="text-foreground-muted max-w-xl mx-auto">
-                Chaque forfait supérieur inclut l&apos;intégralité du forfait précédent, avec des fonctionnalités avancées d&apos;approvisionnement et de gestion.
+                Tout ce dont votre officine a besoin pour informatiser ses ventes, contrôler ses stocks et approvisionnements.
               </p>
             </div>
 
-            <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+            <div className="max-w-xl mx-auto">
               {plans.map((p) => (
                 <div
                   key={p.id}
-                  className={`rounded-2xl bg-background border-2 ${p.color} p-6 flex flex-col justify-between shadow-sm relative`}
+                  className={`rounded-2xl bg-background border-2 ${p.color} p-8 flex flex-col justify-between shadow-lg relative`}
                 >
                   {p.populaire && (
                     <div className="absolute top-0 right-6 transform -translate-y-1/2">
-                      <span className="bg-primary text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
-                        Recommandé
+                      <span className="bg-primary text-white text-xs font-bold px-3.5 py-1 rounded-full uppercase tracking-wider shadow">
+                        Formule Complète
                       </span>
                     </div>
                   )}
                   <div>
-                    <h3 className="text-xl font-bold mb-1">{p.nom}</h3>
-                    <p className="text-sm font-semibold text-primary mb-3">{p.prix}</p>
-                    <p className="text-xs text-foreground-muted mb-6">{p.resume}</p>
-                    <ul className="space-y-3 mb-6">
+                    <h3 className="text-2xl font-bold mb-1 text-primary">{p.nom}</h3>
+                    <p className="text-2xl font-extrabold text-foreground mb-3">{p.prix}</p>
+                    <p className="text-sm text-foreground-muted mb-6">{p.resume}</p>
+                    <ul className="space-y-3 mb-8">
                       {p.inclus.map((item, idx) => (
-                        <li key={idx} className="flex items-start gap-2.5 text-xs">
+                        <li key={idx} className="flex items-start gap-2.5 text-sm">
                           <CheckCircle2 className="w-4 h-4 text-success shrink-0 mt-0.5" />
                           <span>{item.label}</span>
                         </li>
@@ -217,7 +202,7 @@ export default async function DecouvrirDpharmaPage({
                   </div>
                   <Link
                     href={`/checkout?plan=${p.id}`}
-                    className="w-full text-center py-2.5 px-4 rounded-xl font-bold text-sm bg-primary text-white hover:bg-primary-hover transition-colors"
+                    className="w-full text-center py-3.5 px-4 rounded-xl font-bold text-base bg-primary text-white hover:bg-primary-hover transition-colors shadow-md"
                   >
                     Démarrer avec {p.nom}
                   </Link>
