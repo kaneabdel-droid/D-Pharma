@@ -1,5 +1,6 @@
 import { getEcritures, getPlanComptable } from './actions'
 import NouvelleEcritureModal from './NouvelleEcritureModal'
+import ImportJournauxModal from './ImportJournauxModal'
 import PrintSectionButton from '@/components/PrintSectionButton'
 import Link from 'next/link'
 import { FileText, ArrowDownRight, ArrowUpRight, CheckCircle2, Filter, AlertCircle } from 'lucide-react'
@@ -47,8 +48,9 @@ export default async function ComptabilitePage(props: {
             Historique exhaustif de tous les mouvements comptables de la pharmacie selon les normes SYSCOHADA.
           </p>
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center gap-2">
           <PrintSectionButton sectionId="journal-comptable-print" label="Imprimer le Journal" />
+          <ImportJournauxModal />
           <NouvelleEcritureModal plan={plan || []} />
         </div>
       </div>

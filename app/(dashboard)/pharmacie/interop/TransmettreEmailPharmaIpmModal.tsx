@@ -58,9 +58,6 @@ Le récapitulatif détaillé a été expédié. Merci de bien vouloir nous accus
     }
   }
 
-  const formatCFA = (montant: number) =>
-    new Intl.NumberFormat('fr-FR', { style: 'decimal', maximumFractionDigits: 0 }).format(montant) + ' FCFA'
-
   return (
     <div className="fixed inset-0 z-50 overflow-y-auto bg-black/60 backdrop-blur-xs flex items-center justify-center p-3 sm:p-6">
       <div className="relative w-full max-w-lg rounded-2xl bg-surface border border-surface-border shadow-2xl overflow-hidden flex flex-col">

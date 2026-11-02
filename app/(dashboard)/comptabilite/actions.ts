@@ -226,3 +226,72 @@ export async function getResultatOfficinal() {
     return { produits: [], charges: [], margeBrute: 0, resultatNet: 0, totalProduits: 0, totalCharges: 0 }
   }
 }
+
+// 6. Importation en lot d'écritures comptables depuis fichier (Excel/CSV/JSON/PDF)
+export type ImportEcriturePayload = {
+  date_ecriture: string
+  journal?: string
+  numero_piece?: string
+  libelle: string
+  lignes: Array<{
+    compte: string
+    libelle?: string
+    debit: number
+    credit: number
+  }>
+}
+
+export async function importerEcrituresBatch(ecritures: ImportEcriturePayload[]) {
+  const supabase = await createClient()
+  const tenant = await getTenantContext()
+  if (!tenant) return { error: 'Non authentifié' }
+  if (!ecritures || ecritures.length === 0) return { error: 'Aucune écriture à importer' }
+
+  let countImportees = 0
+
+  for (const ec of ecritures) {
+    const journal = ec.journal || 'od'
+    const dateEcriture = ec.date_ecriture || new Date().toISOString().split('T')[0]
+    const numeroPiece = (ec.numero_piece || '').trim()
+    const libelle = (ec.libelle || '').trim() || 'Écriture importée'
+
+    const { data: ecriture, error: errEcriture } = await supabase
+      .from('ecritures_comptables')
+      .insert({
+        gie_id: tenant.gieId,
+        journal,
+        date_ecriture: dateEcriture,
+        numero_piece: numeroPiece || null,
+        libelle,
+        validee: true,
+      })
+      .select('id')
+      .single()
+
+    if (errEcriture || !ecriture) {
+      console.warn('Erreur insertion en-tête import:', errEcriture?.message)
+      continue
+    }
+
+    const lignesToInsert = ec.lignes.map((l) => ({
+      ecriture_id: ecriture.id,
+      gie_id: tenant.gieId,
+      compte: l.compte,
+      libelle: (l.libelle || libelle).trim(),
+      debit: Number(l.debit || 0),
+      credit: Number(l.credit || 0),
+    }))
+
+    const { error: errLignes } = await supabase
+      .from('lignes_ecritures_comptables')
+      .insert(lignesToInsert)
+
+    if (!errLignes) {
+      countImportees++
+    }
+  }
+
+  revalidatePath('/comptabilite')
+  return { success: true, count: countImportees }
+}
+
