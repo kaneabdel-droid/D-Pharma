@@ -109,6 +109,7 @@ export async function soumettreDemandeSubstitution(formData: FormData) {
   const patientNom = formData.get('patient_nom') as string
   const patientIpp = formData.get('patient_ipp') as string
   const numeroOrdonnance = formData.get('numero_ordonnance') as string
+  const medecinNom = formData.get('medecin_nom') as string
   const medicamentPrescrit = formData.get('medicament_prescrit') as string
   const medicamentPropose = formData.get('medicament_propose') as string
   const motif = formData.get('motif') as string
@@ -118,13 +119,40 @@ export async function soumettreDemandeSubstitution(formData: FormData) {
     return { error: 'Veuillez renseigner le médicament prescrit et le substitut' }
   }
 
+  // Résolution automatique du médecin et de la clinique via l'ordonnance
+  let structureSanteId: string | null = null
+  let patientId: string | null = null
+  let consultationId: string | null = null
+
+  if (numeroOrdonnance && numeroOrdonnance.trim()) {
+    try {
+      const { data: presc } = await supabase
+        .from('prescriptions')
+        .select('id, structure_id, patient_id, consultation_id, praticien_id')
+        .eq('numero_ordonnance', numeroOrdonnance.trim())
+        .maybeSingle()
+
+      if (presc) {
+        structureSanteId = presc.structure_id
+        patientId = presc.patient_id
+        consultationId = presc.consultation_id
+      }
+    } catch {
+      // Ignorer si la table n'est pas encore synchronisée
+    }
+  }
+
   const { error } = await supabase.from('echanges_clinique_pharmacie').insert({
+    structure_sante_id: structureSanteId,
     pharmacie_id: gieId,
     pharmacie_nom: pharmaNom,
     type_echange: 'substitution',
+    patient_id: patientId,
     patient_nom: patientNom || 'Patient Guichet',
     patient_ipp: patientIpp || 'PAT-TEMP',
+    consultation_id: consultationId,
     numero_ordonnance: numeroOrdonnance || 'ORD-COMPTOIR',
+    valide_par_medecin_nom: medecinNom || null,
     medicament_prescrit: medicamentPrescrit,
     medicament_propose: medicamentPropose,
     motif: motif || 'Rupture fournisseur grossiste. Équivalent DCI disponible en rayon.',

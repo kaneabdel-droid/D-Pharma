@@ -19,6 +19,8 @@ export function DemandeSubstitutionPharmaModal({
   const [patientNom, setPatientNom] = useState('')
   const [patientIpp, setPatientIpp] = useState('')
   const [numeroOrdonnance, setNumeroOrdonnance] = useState('')
+  const [medecinNom, setMedecinNom] = useState('')
+  const [structureNom, setStructureNom] = useState('')
   const [prescrit, setPrescrit] = useState(initialMedicament || '')
   const [propose, setPropose] = useState('')
   const [motif, setMotif] = useState('')
@@ -32,6 +34,8 @@ export function DemandeSubstitutionPharmaModal({
     formData.append('patient_nom', patientNom)
     formData.append('patient_ipp', patientIpp)
     formData.append('numero_ordonnance', numeroOrdonnance)
+    formData.append('medecin_nom', medecinNom)
+    formData.append('structure_nom', structureNom)
     formData.append('medicament_prescrit', prescrit)
     formData.append('medicament_propose', propose)
     formData.append('motif', motif)
@@ -113,17 +117,39 @@ export function DemandeSubstitutionPharmaModal({
               </div>
             </div>
 
-            <div className="space-y-1.5">
-              <label className="font-semibold text-foreground-muted block">
-                N° Ordonnance (si disponible) :
-              </label>
-              <input
-                type="text"
-                value={numeroOrdonnance}
-                onChange={(e) => setNumeroOrdonnance(e.target.value)}
-                placeholder="ex: ORD-2610-0012"
-                className="w-full px-3.5 py-2 rounded-xl border border-surface-border bg-background text-foreground text-xs focus:outline-none focus:border-primary font-mono"
-              />
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div className="space-y-1.5">
+                <label className="font-semibold text-foreground-muted block">
+                  N° Ordonnance (si disponible) :
+                </label>
+                <input
+                  type="text"
+                  value={numeroOrdonnance}
+                  onChange={(e) => setNumeroOrdonnance(e.target.value)}
+                  placeholder="ex: ORD-2610-0012"
+                  className="w-full px-3.5 py-2 rounded-xl border border-surface-border bg-background text-foreground text-xs focus:outline-none focus:border-primary font-mono"
+                />
+              </div>
+
+              <div className="space-y-1.5">
+                <label className="font-semibold text-foreground-muted block">
+                  Médecin Prescripteur / Clinique :
+                </label>
+                <input
+                  type="text"
+                  value={medecinNom}
+                  onChange={(e) => setMedecinNom(e.target.value)}
+                  placeholder="ex: Dr. Diop (Clinique D-Santé)"
+                  className="w-full px-3.5 py-2 rounded-xl border border-surface-border bg-background text-foreground text-xs focus:outline-none focus:border-primary"
+                />
+              </div>
+            </div>
+
+            <div className="p-2.5 rounded-xl bg-primary/5 border border-primary/10 text-[11px] text-foreground-muted flex items-center gap-2">
+              <span className="font-bold text-primary shrink-0">Liaison :</span>
+              <span>
+                Le N° d&apos;ordonnance relie automatiquement la demande au médecin traitant sur D-Santé. Si l&apos;ordonnance est externe, son nom permet l&apos;audit au dossier.
+              </span>
             </div>
 
             {/* Comparatif Prescription vs Proposition */}
