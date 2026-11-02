@@ -30,6 +30,7 @@ export default async function TarifsDpharmaPage() {
     'Déclaration de TVA automatisée (DGID Sénégal) et états fiscaux préparatoires',
     'Télétransmission dématérialisée des bordereaux Tiers-Payant (IPM, CMU, Assurances)',
     'Compte de résultat & analyse de marge officinale en temps réel',
+    'Accès Démo en direct illimité pour tester immédiatement',
     'Support technique prioritaire dédié 7j/7',
   ]
 
@@ -170,12 +171,19 @@ export default async function TarifsDpharmaPage() {
                   </div>
                 </div>
 
-                <div className="pt-6 border-t border-surface-border">
+                <div className="pt-6 border-t border-surface-border space-y-2.5">
                   <Link
                     href="/checkout?plan=premium"
                     className="w-full block py-3.5 px-6 rounded-xl bg-primary text-white font-bold text-center text-sm hover:bg-primary-hover transition-all shadow-md shadow-primary/20"
                   >
                     Souscrire Premium (120.000 FCFA / an)
+                  </Link>
+                  <Link
+                    href="/decouvrir-dpharma"
+                    className="w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl border border-primary/30 text-primary font-bold text-center text-xs hover:bg-primary/10 transition-colors shadow-xs"
+                  >
+                    <Sparkles className="w-3.5 h-3.5 text-primary" />
+                    <span>Tester la Démo Premium en direct</span>
                   </Link>
                 </div>
               </div>

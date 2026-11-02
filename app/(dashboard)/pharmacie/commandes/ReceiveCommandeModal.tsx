@@ -493,19 +493,24 @@ export default function ReceiveCommandeModal({
                   </div>
                 )}
 
-                {/* Explication ergonomique */}
-                <div className="bg-surface border border-surface-border rounded-2xl p-3 flex items-start gap-3">
-                  <div className="w-8 h-8 rounded-xl bg-primary/10 text-primary flex items-center justify-center shrink-0 mt-0.5">
-                    <ShieldCheck className="w-4 h-4" />
+                {/* Encadré d'instructions réception recadré */}
+                <div className="bg-gradient-to-r from-primary/5 via-surface to-background border border-primary/20 rounded-2xl p-3.5 shadow-xs">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-surface-border/60 pb-2 mb-2">
+                    <div className="flex items-center gap-2">
+                      <div className="w-6 h-6 rounded-lg bg-primary/10 text-primary flex items-center justify-center">
+                        <ShieldCheck className="w-3.5 h-3.5" />
+                      </div>
+                      <span className="font-bold text-foreground text-xs font-heading">
+                        Contrôle par scan douchette & Gestion multi-lots
+                      </span>
+                    </div>
+                    <span className="text-[10px] font-bold text-emerald-600 bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded-full w-fit">
+                      Enregistrement automatique des codes-barres
+                    </span>
                   </div>
-                  <div className="text-xs space-y-1">
-                    <p className="font-bold text-foreground">
-                      Contrôle par scan douchette & Gestion multi-lots
-                    </p>
-                    <p className="text-foreground-muted leading-relaxed">
-                      Bipez chaque boîte pour alimenter directement le lot actif. Si un article est livré sous différents lots ou dates d'expiration, cliquez sur <strong>« + Ajouter un lot »</strong>. Les codes-barres sont automatiquement sauvegardés d'entrée dans le catalogue de l'officine.
-                    </p>
-                  </div>
+                  <p className="text-xs text-foreground-muted leading-relaxed">
+                    Bipez chaque boîte pour alimenter directement le lot actif. Si un article est livré sous différents lots ou dates d&apos;expiration, cliquez sur <strong className="text-primary font-semibold">« + Ajouter un lot »</strong>. Les codes-barres sont automatiquement sauvegardés d&apos;entrée dans le catalogue de l&apos;officine.
+                  </p>
                 </div>
 
                 {/* LISTE DES ARTICLES COMMANDÉS & LEURS LOTS */}
