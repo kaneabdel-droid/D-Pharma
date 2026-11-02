@@ -256,3 +256,144 @@ export async function creerBordereauPharmaIpm(formData: FormData) {
   return { success: true, numeroBordereau }
 }
 
+function escapeHtml(value: string): string {
+  return value
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;')
+}
+
+/**
+ * Envoie le bordereau de télétransmission Tiers-Payant directement par email à l'IPM
+ */
+export async function envoyerBordereauPharmaIpmParEmail(
+  bordereauId: string,
+  emailDestinataire: string,
+  messageAccompagnement?: string
+) {
+  const supabase = await createClient()
+  const tenant = await getTenantContext()
+  const pharmaNom = tenant?.gieName || 'Pharmacie d’Officine'
+
+  const destinataire = (emailDestinataire || '').trim()
+  if (!destinataire || !destinataire.includes('@')) {
+    return { error: 'Adresse email IPM invalide.' }
+  }
+
+  const { data: bordereau } = await supabase
+    .from('bordereaux_teletransmission_ipm')
+    .select('*')
+    .eq('id', bordereauId)
+    .maybeSingle()
+
+  const numBordereau = bordereau?.numero_bordereau || bordereauId
+  const orgNom = bordereau?.organisme_nom || 'Organisme IPM'
+  const montantReclame = Number(bordereau?.montant_total_reclame || 0)
+  const nbFactures = Number(bordereau?.nombre_factures || 0)
+  const periode = bordereau ? `${bordereau.periode_debut} au ${bordereau.periode_fin}` : 'Période en cours'
+
+  const apiKey = process.env.RESEND_API_KEY
+  const expediteur = process.env.EMAIL_EXPEDITEUR || 'noreply@dembasolution.com'
+  const sujet = `[TÉLÉTRANSMISSION TIERS-PAYANT OFFICINE] ${numBordereau} — ${pharmaNom}`
+
+  const html = `
+    <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; color: #1e293b; max-width: 650px; margin: 0 auto; padding: 24px; border: 1px solid #e2e8f0; border-radius: 16px;">
+      <div style="border-bottom: 2px solid #0d9488; padding-bottom: 16px; margin-bottom: 20px;">
+        <h2 style="color: #0d9488; margin: 0 0 4px 0; font-size: 20px;">BORDEREAU DE TÉLÉTRANSMISSION TIERS-PAYANT PHARMACIE</h2>
+        <p style="margin: 0; color: #64748b; font-size: 13px;">Référence : <strong>${escapeHtml(numBordereau)}</strong> • Période : ${escapeHtml(periode)}</p>
+      </div>
+
+      <div style="background-color: #f8fafc; border-radius: 12px; padding: 14px; margin-bottom: 20px; font-size: 13px;">
+        <table style="width: 100%; border-collapse: collapse;">
+          <tr>
+            <td style="vertical-align: top; width: 50%;">
+              <strong style="color: #475569;">OFFICINE PHARMACEUTIQUE :</strong><br/>
+              <span style="font-size: 14px; font-weight: bold; color: #0f172a;">${escapeHtml(pharmaNom)}</span>
+            </td>
+            <td style="vertical-align: top; width: 50%;">
+              <strong style="color: #475569;">ORGANISME PAYEUR (IPM / ASSURANCE) :</strong><br/>
+              <span style="font-size: 14px; font-weight: bold; color: #0f172a;">${escapeHtml(orgNom)}</span><br/>
+              Email de réception : ${escapeHtml(destinataire)}
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      ${messageAccompagnement ? `
+        <div style="background-color: #f0fdf4; border-left: 4px solid #10b981; padding: 10px 14px; margin-bottom: 20px; font-size: 13px; color: #065f46;">
+          <strong>Message d'accompagnement de l'officine :</strong><br/>
+          ${escapeHtml(messageAccompagnement)}
+        </div>
+      ` : ''}
+
+      <div style="background-color: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 16px; margin-bottom: 20px;">
+        <h3 style="margin: 0 0 12px 0; font-size: 14px; color: #334155;">RÉCAPITULATIF DES CRÉANCES DÉLIVRÉES EN TIERS-PAYANT :</h3>
+        <table style="width: 100%; font-size: 13px;">
+          <tr>
+            <td style="padding: 6px 0; color: #64748b;">Nombre d'ordonnances / factures prises en charge :</td>
+            <td style="padding: 6px 0; text-align: right; font-weight: bold; color: #0f172a;">${nbFactures} dossier(s)</td>
+          </tr>
+          <tr style="border-top: 1px dashed #e2e8f0;">
+            <td style="padding: 8px 0; color: #64748b; font-weight: 600;">Montant total de remboursement réclamé :</td>
+            <td style="padding: 8px 0; text-align: right; font-weight: bold; font-size: 16px; color: #0d9488;">
+              ${new Intl.NumberFormat('fr-FR').format(montantReclame)} FCFA
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      <div style="background-color: #f1f5f9; border-radius: 8px; padding: 12px; font-size: 12px; color: #64748b; line-height: 1.5;">
+        <p style="margin: 0 0 4px 0;"><strong>Contrôle & Pièces justificatives :</strong></p>
+        <p style="margin: 0;">Les ordonnances scannées, volets de prise en charge et attestations d'assurés correspondants sont archivés et tenus à la disposition du médecin-contrôleur de l'IPM.</p>
+      </div>
+
+      <div style="margin-top: 24px; padding-top: 16px; border-top: 1px solid #e2e8f0; font-size: 11px; color: #94a3b8; text-align: center;">
+        Télétransmis via <strong>DEMBA HEALTH EXCHANGE</strong> pour ${escapeHtml(pharmaNom)}.<br/>
+        Pour toute vérification ou émission de virement, contacter directement l'officine.
+      </div>
+    </div>
+  `
+
+  if (!apiKey) {
+    console.info(`[MODE DÉMO EMAIL] Bordereau ${numBordereau} simulé vers ${destinataire}`)
+    return {
+      success: true,
+      message: `Bordereau télétransmis avec succès à ${destinataire} (Mode simulation).`,
+    }
+  }
+
+  try {
+    const res = await fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${apiKey}`,
+      },
+      body: JSON.stringify({
+        from: `DEMBA HEALTH EXCHANGE <${expediteur}>`,
+        to: [destinataire],
+        subject: sujet,
+        html: html,
+      }),
+    })
+
+    if (!res.ok) {
+      const errData = await res.json().catch(() => ({}))
+      console.error('Erreur API Resend:', errData)
+      return {
+        error: `Erreur d'expédition (${res.status}): ${errData.message || 'Impossible de joindre le serveur mail.'}`,
+      }
+    }
+
+    return {
+      success: true,
+      message: `Bordereau transmis avec succès à l'organisme IPM (${destinataire}).`,
+    }
+  } catch (err: any) {
+    console.error('Exception Resend:', err)
+    return { error: `Erreur de connexion réseau : ${err.message}` }
+  }
+}
+

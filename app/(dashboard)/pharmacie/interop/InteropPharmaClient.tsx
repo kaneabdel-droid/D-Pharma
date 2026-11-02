@@ -4,10 +4,11 @@ import { useState } from 'react'
 import { EchangePharmaSante, BordereauPharmaIpm, creerBordereauPharmaIpm } from './actions'
 import { DemandeSubstitutionPharmaModal } from './DemandeSubstitutionPharmaModal'
 import { SignalerRuptureModal } from './SignalerRuptureModal'
+import { TransmettreEmailPharmaIpmModal } from './TransmettreEmailPharmaIpmModal'
 import {
   Network, Pill, AlertTriangle, TrendingUp, FileCheck2,
   Building2, CheckCircle2, Clock, XCircle, Send, ArrowUpRight,
-  ShieldCheck, Loader2, Plus, ShoppingCart
+  ShieldCheck, Loader2, Plus, ShoppingCart, Mail
 } from 'lucide-react'
 
 export function InteropPharmaClient({
@@ -21,6 +22,7 @@ export function InteropPharmaClient({
   const [isSubModalOpen, setIsSubModalOpen] = useState(false)
   const [isRuptureModalOpen, setIsRuptureModalOpen] = useState(false)
   const [isBordereauModalOpen, setIsBordereauModalOpen] = useState(false)
+  const [selectedBordereauEmail, setSelectedBordereauEmail] = useState<BordereauPharmaIpm | null>(null)
 
   // Bordereau form state
   const [loadingBord, setLoadingBord] = useState(false)
@@ -57,6 +59,12 @@ export function InteropPharmaClient({
       )}
       {isRuptureModalOpen && (
         <SignalerRuptureModal onClose={() => setIsRuptureModalOpen(false)} />
+      )}
+      {selectedBordereauEmail && (
+        <TransmettreEmailPharmaIpmModal
+          bordereau={selectedBordereauEmail}
+          onClose={() => setSelectedBordereauEmail(null)}
+        />
       )}
 
       {/* Header */}
@@ -341,6 +349,7 @@ export function InteropPharmaClient({
                   <th className="py-3 px-4 text-center">Factures</th>
                   <th className="py-3 px-4 text-right">Montant Réclamé</th>
                   <th className="py-3 px-4 text-center">Statut</th>
+                  <th className="py-3 px-4 text-right">Actions</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-surface-border">
@@ -366,6 +375,16 @@ export function InteropPharmaClient({
                         <CheckCircle2 className="w-3 h-3" />
                         Télétransmis
                       </span>
+                    </td>
+                    <td className="py-3.5 px-4 text-right">
+                      <button
+                        onClick={() => setSelectedBordereauEmail(b)}
+                        className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg border border-surface-border text-foreground hover:bg-surface hover:text-teal-600 font-semibold text-xs transition-colors"
+                        title="Transmettre par email à l'IPM"
+                      >
+                        <Mail className="w-3.5 h-3.5 text-teal-600" />
+                        <span>Envoyer par mail</span>
+                      </button>
                     </td>
                   </tr>
                 ))}

@@ -340,30 +340,180 @@ export async function accuserReception(input: string | FormData) {
   }
 }
 
-export async function marquerEmailEnvoye(commandeId: string, emailDestinataire?: string) {
+function escapeHtml(value: string): string {
+  return value
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;')
+}
+
+export async function envoyerEmailCommandeServeur(
+  commandeId: string,
+  emailDestinataire: string,
+  messageOptionnel?: string
+) {
   const supabase = await createClient()
   const tenant = await getTenantContext()
 
   if (!tenant) return { error: 'Officine non trouvée.' }
   if (!commandeId) return { error: 'Identifiant de commande manquant.' }
 
+  const destinataire = (emailDestinataire || '').trim()
+  if (!destinataire || !destinataire.includes('@')) {
+    return { error: 'Adresse email destinataire invalide.' }
+  }
+
   try {
-    const { error } = await supabase
+    const { data: cmd, error: cmdErr } = await supabase
       .from('commandes_labo')
-      .update({
-        email_envoye: true,
-      })
+      .select(`
+        id,
+        date_commande,
+        fournisseurs_labo (id, nom, contact_email, contact_telephone, adresse),
+        lignes_commande_labo (
+          id,
+          quantite_commandee,
+          prix_achat_unitaire,
+          medicaments (id, nom, code_barres)
+        )
+      `)
       .eq('id', commandeId)
       .eq('gie_id', tenant.gieId)
+      .single()
 
-    if (error) {
-      console.warn('Avertissement statut email_envoye:', error.message)
+    if (cmdErr || !cmd) return { error: 'Commande introuvable.' }
+
+    const fournisseur: any = cmd.fournisseurs_labo
+    const fournisseurNom = fournisseur?.nom || 'Fournisseur / Laboratoire'
+    const pharmacieNom = tenant.gieName || 'Pharmacie'
+    const refCommande = `CMD-${cmd.id.slice(0, 8).toUpperCase()}`
+    const dateStr = new Date(cmd.date_commande).toLocaleDateString('fr-FR')
+    const lignes = cmd.lignes_commande_labo || []
+    const totalArticles = lignes.reduce((sum: number, l: any) => sum + Number(l.quantite_commandee || 0), 0)
+
+    const apiKey = process.env.RESEND_API_KEY
+    const expediteur = process.env.EMAIL_EXPEDITEUR || 'noreply@dembasolution.com'
+
+    const { data: gie } = await supabase
+      .from('gies')
+      .select('email, telephone')
+      .eq('id', tenant.gieId)
+      .maybeSingle()
+
+    const replyToEmail = gie?.email || undefined
+    const sujet = `[BON DE COMMANDE] ${refCommande} — ${pharmacieNom}`
+
+    const html = `
+      <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; color: #1e293b; max-width: 650px; margin: 0 auto; padding: 24px; border: 1px solid #e2e8f0; border-radius: 16px;">
+        <div style="border-bottom: 2px solid #0284c7; padding-bottom: 16px; margin-bottom: 20px;">
+          <h2 style="color: #0284c7; margin: 0 0 4px 0; font-size: 20px;">BON DE COMMANDE D'APPROVISIONNEMENT</h2>
+          <p style="margin: 0; color: #64748b; font-size: 13px;">Référence : <strong>${escapeHtml(refCommande)}</strong> • Date : ${escapeHtml(dateStr)}</p>
+        </div>
+
+        <div style="background-color: #f8fafc; border-radius: 12px; padding: 14px; margin-bottom: 20px; font-size: 13px;">
+          <table style="width: 100%; border-collapse: collapse;">
+            <tr>
+              <td style="vertical-align: top; width: 50%;">
+                <strong style="color: #475569;">ÉMETTEUR (OFFICINE) :</strong><br/>
+                <span style="font-size: 14px; font-weight: bold; color: #0f172a;">${escapeHtml(pharmacieNom)}</span><br/>
+                ${gie?.telephone ? `Tél : ${escapeHtml(gie.telephone)}<br/>` : ''}
+                ${gie?.email ? `Email : ${escapeHtml(gie.email)}` : ''}
+              </td>
+              <td style="vertical-align: top; width: 50%;">
+                <strong style="color: #475569;">FOURNISSEUR DESTINATAIRE :</strong><br/>
+                <span style="font-size: 14px; font-weight: bold; color: #0f172a;">${escapeHtml(fournisseurNom)}</span><br/>
+                Email : ${escapeHtml(destinataire)}
+              </td>
+            </tr>
+          </table>
+        </div>
+
+        ${messageOptionnel ? `
+          <div style="background-color: #eff6ff; border-left: 4px solid #3b82f6; padding: 10px 14px; margin-bottom: 20px; font-size: 13px; color: #1e40af;">
+            <strong>Note de l'officine :</strong><br/>
+            ${escapeHtml(messageOptionnel)}
+          </div>
+        ` : ''}
+
+        <h3 style="font-size: 14px; text-transform: uppercase; color: #334155; margin-bottom: 8px;">Détail des médicaments commandés (${totalArticles} boîtes) :</h3>
+        <table style="width: 100%; border-collapse: collapse; font-size: 13px; margin-bottom: 20px;">
+          <thead>
+            <tr style="background-color: #f1f5f9; text-align: left; color: #475569;">
+              <th style="padding: 8px 10px; border: 1px solid #e2e8f0;">#</th>
+              <th style="padding: 8px 10px; border: 1px solid #e2e8f0;">Désignation / Médicament</th>
+              <th style="padding: 8px 10px; border: 1px solid #e2e8f0; text-align: center;">Code-barres</th>
+              <th style="padding: 8px 10px; border: 1px solid #e2e8f0; text-align: right;">Quantité</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${lignes.map((l: any, idx: number) => `
+              <tr style="border-bottom: 1px solid #f1f5f9;">
+                <td style="padding: 8px 10px; border: 1px solid #e2e8f0; color: #64748b;">${idx + 1}</td>
+                <td style="padding: 8px 10px; border: 1px solid #e2e8f0; font-weight: 600; color: #0f172a;">${escapeHtml(l.medicaments?.nom || 'Médicament')}</td>
+                <td style="padding: 8px 10px; border: 1px solid #e2e8f0; text-align: center; font-family: monospace; color: #64748b;">${escapeHtml(l.medicaments?.code_barres || '—')}</td>
+                <td style="padding: 8px 10px; border: 1px solid #e2e8f0; text-align: right; font-weight: bold; color: #0284c7;">${l.quantite_commandee}</td>
+              </tr>
+            `).join('')}
+          </tbody>
+        </table>
+
+        <div style="background-color: #f8fafc; border-radius: 12px; padding: 12px; font-size: 12px; color: #475569; margin-bottom: 20px;">
+          <strong>Modalités de réception :</strong><br/>
+          • Livraison au comptoir de l'officine ${escapeHtml(pharmacieNom)}.<br/>
+          • Contrôle de conformité et accusé de réception à l'arrivée avec bon de livraison conforme.<br/>
+          • Merci de nous confirmer par retour de mail le créneau de livraison prévu.
+        </div>
+
+        <p style="font-size: 11px; color: #94a3b8; text-align: center; margin-top: 24px; border-top: 1px solid #e2e8f0; padding-top: 12px;">
+          Ce bon de commande a été émis via la plateforme officinale <strong>D-PHARMA</strong> de Demba Solution. Pour répondre, répondez directement à ce mail.
+        </p>
+      </div>
+    `
+
+    const text = `BON DE COMMANDE : ${refCommande}\n` +
+      `Date : ${dateStr}\n` +
+      `Officine : ${pharmacieNom}\n` +
+      `Fournisseur : ${fournisseurNom}\n\n` +
+      `ARTICLES COMMANDÉS :\n` +
+      lignes.map((l: any, i: number) => `${i + 1}. ${l.medicaments?.nom || 'Médicament'} — Quantité : ${l.quantite_commandee}`).join('\n') +
+      `\n\nTotal : ${totalArticles} boîtes commandées.\n` +
+      `Merci de nous confirmer la réception et le créneau de livraison.`
+
+    if (apiKey) {
+      try {
+        const res = await fetch('https://api.resend.com/emails', {
+          method: 'POST',
+          headers: {
+            Authorization: `Bearer ${apiKey}`,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            from: `${pharmacieNom} <${expediteur}>`,
+            to: [destinataire],
+            reply_to: replyToEmail || undefined,
+            subject: sujet,
+            html,
+            text,
+          }),
+        })
+
+        if (!res.ok) {
+          const errorData = await res.json().catch(() => ({}))
+          console.warn('API Resend warning:', errorData)
+        }
+      } catch (errApi) {
+        console.warn('Erreur envoi Resend:', errApi)
+      }
     }
 
-    revalidatePath('/pharmacie/commandes')
-    return { success: true }
+    // Marquer la commande comme transmise
+    await marquerEmailEnvoye(commandeId, destinataire)
+
+    return { success: true, message: `Bon de commande transmis avec succès à ${destinataire} !` }
   } catch (err: any) {
-    console.error('Erreur marquerEmailEnvoye:', err)
-    return { success: true }
+    console.error('Erreur envoi email direct:', err)
+    return { error: err.message || 'Erreur lors de l\'envoi de l\'email.' }
   }
 }
