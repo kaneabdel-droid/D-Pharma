@@ -61,11 +61,11 @@ OFFICINE CLIENTE : ${pharmacieNom}
 
 DÉTAIL DES ARTICLES COMMANDÉS (${totalArticles} unités au total) :
 ${lignes
-  .map(
-    (l, i) =>
-      `${i + 1}. ${(l.medicaments as any)?.nom || 'Médicament'} — Quantité commandée : ${l.quantite_commandee}`
-  )
-  .join('\n')}
+      .map(
+        (l, i) =>
+          `${i + 1}. ${(l.medicaments as any)?.nom || 'Médicament'} — Quantité commandée : ${l.quantite_commandee}`
+      )
+      .join('\n')}
 
 LIVRAISON SOUHAITÉE :
 - Lieu de réception : Au comptoir de la pharmacie ${pharmacieNom}
@@ -134,11 +134,10 @@ ${pharmacieNom}
     <>
       <button
         onClick={() => setIsOpen(true)}
-        className={`inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg border transition-colors text-xs font-semibold ${
-          commande.email_envoye
+        className={`inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg border transition-colors text-xs font-semibold ${commande.email_envoye
             ? 'border-emerald-500/30 text-emerald-600 bg-emerald-500/10 hover:bg-emerald-500/20'
             : 'border-surface-border text-foreground hover:bg-surface hover:text-primary'
-        }`}
+          }`}
         title="Envoyer la commande par email au fournisseur"
       >
         <Mail className="w-3.5 h-3.5 text-primary" />

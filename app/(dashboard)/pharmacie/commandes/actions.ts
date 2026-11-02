@@ -349,6 +349,27 @@ function escapeHtml(value: string): string {
     .replace(/'/g, '&#39;')
 }
 
+export async function marquerEmailEnvoye(commandeId: string, emailDestinataire?: string) {
+  const supabase = await createClient()
+  const tenant = await getTenantContext()
+
+  if (!tenant) return { error: 'Officine non trouvée.' }
+
+  try {
+    await supabase
+      .from('commandes_labo')
+      .update({ statut: 'envoyee' })
+      .eq('id', commandeId)
+      .eq('gie_id', tenant.gieId)
+
+    revalidatePath('/pharmacie/commandes')
+    return { success: true }
+  } catch (err: any) {
+    console.error('Erreur marquerEmailEnvoye:', err)
+    return { error: err.message || 'Erreur lors de la mise à jour.' }
+  }
+}
+
 export async function envoyerEmailCommandeServeur(
   commandeId: string,
   emailDestinataire: string,
