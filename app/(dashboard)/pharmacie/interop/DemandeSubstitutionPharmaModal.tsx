@@ -20,11 +20,24 @@ export function DemandeSubstitutionPharmaModal({
   const [patientIpp, setPatientIpp] = useState('')
   const [numeroOrdonnance, setNumeroOrdonnance] = useState('')
   const [medecinNom, setMedecinNom] = useState('')
+  const [medecinTel, setMedecinTel] = useState('')
   const [structureNom, setStructureNom] = useState('')
   const [prescrit, setPrescrit] = useState(initialMedicament || '')
   const [propose, setPropose] = useState('')
   const [motif, setMotif] = useState('')
   const [posologie, setPosologie] = useState('')
+
+  const cleanPhone = medecinTel.replace(/[^0-9]/g, '')
+  const whatsappText = `Bonjour ${medecinNom || 'Docteur'},
+Officine Pharmacie : Demande d'accord de substitution DCI
+Patient : *${patientNom || 'Patient'}* ${numeroOrdonnance ? `(Ordonnance : *${numeroOrdonnance}*)` : ''}
+
+Médicament prescrit (indisponible) : *${prescrit}*
+Substitut proposé en stock : *${propose}*
+${posologie ? `Posologie suggérée : ${posologie}\n` : ''}${motif ? `Motif : ${motif}\n` : ''}
+Merci de bien vouloir nous confirmer votre accord pour cette délivrance.`
+
+  const whatsappUrl = `https://wa.me/${cleanPhone}?text=${encodeURIComponent(whatsappText)}`
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -47,6 +60,33 @@ export function DemandeSubstitutionPharmaModal({
     setTimeout(() => {
       onClose()
     }, 1200)
+  }
+
+  const handleEnvoyerWhatsApp = async (e: React.MouseEvent) => {
+    e.preventDefault()
+    if (!prescrit || !propose) {
+      alert('Veuillez renseigner le médicament prescrit et le substitut proposé.')
+      return
+    }
+    setLoading(true)
+    const formData = new FormData()
+    formData.append('patient_nom', patientNom)
+    formData.append('patient_ipp', patientIpp)
+    formData.append('numero_ordonnance', numeroOrdonnance)
+    formData.append('medecin_nom', medecinNom)
+    formData.append('structure_nom', structureNom)
+    formData.append('medicament_prescrit', prescrit)
+    formData.append('medicament_propose', propose)
+    formData.append('motif', motif)
+    formData.append('posologie_ajustee', posologie)
+
+    await soumettreDemandeSubstitution(formData)
+    setLoading(false)
+    setSuccess(true)
+    window.open(whatsappUrl, '_blank')
+    setTimeout(() => {
+      onClose()
+    }, 1500)
   }
 
   return (
@@ -145,10 +185,24 @@ export function DemandeSubstitutionPharmaModal({
               </div>
             </div>
 
+            <div className="space-y-1.5">
+              <label className="font-semibold text-foreground-muted block flex items-center justify-between">
+                <span>N° WhatsApp direct du médecin (optionnel) :</span>
+                <span className="text-[10px] text-emerald-600 font-bold">Avis instantané</span>
+              </label>
+              <input
+                type="tel"
+                value={medecinTel}
+                onChange={(e) => setMedecinTel(e.target.value)}
+                placeholder="ex: 221771234567"
+                className="w-full px-3.5 py-2 rounded-xl border border-surface-border bg-background text-foreground text-xs focus:outline-none focus:border-emerald-500 font-mono"
+              />
+            </div>
+
             <div className="p-2.5 rounded-xl bg-primary/5 border border-primary/10 text-[11px] text-foreground-muted flex items-center gap-2">
               <span className="font-bold text-primary shrink-0">Liaison :</span>
               <span>
-                Le N° d&apos;ordonnance relie automatiquement la demande au médecin traitant sur D-Santé. Si l&apos;ordonnance est externe, son nom permet l&apos;audit au dossier.
+                Le N° d&apos;ordonnance relie automatiquement la demande au médecin traitant sur D-Santé. Vous pouvez aussi notifier le médecin directement par WhatsApp.
               </span>
             </div>
 
@@ -209,22 +263,38 @@ export function DemandeSubstitutionPharmaModal({
               />
             </div>
 
-            <div className="flex justify-end gap-2 pt-2 border-t border-surface-border">
+            <div className="flex flex-wrap items-center justify-between gap-2 pt-2 border-t border-surface-border">
               <button
                 type="button"
                 onClick={onClose}
-                className="py-2.5 px-4 rounded-xl border border-surface-border text-foreground-muted hover:text-foreground font-semibold text-xs cursor-pointer"
+                className="py-2.5 px-3.5 rounded-xl border border-surface-border text-foreground-muted hover:text-foreground font-semibold text-xs cursor-pointer"
               >
                 Annuler
               </button>
-              <button
-                type="submit"
-                disabled={loading}
-                className="py-2.5 px-5 rounded-xl bg-primary hover:bg-primary-hover text-white font-bold text-xs flex items-center gap-1.5 shadow-sm cursor-pointer disabled:opacity-50"
-              >
-                {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Send className="w-4 h-4" />}
-                <span>Envoyer au Médecin D-Santé</span>
-              </button>
+
+              <div className="flex items-center gap-2">
+                <button
+                  type="button"
+                  onClick={handleEnvoyerWhatsApp}
+                  disabled={loading}
+                  className="py-2.5 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs flex items-center gap-1.5 shadow-sm cursor-pointer disabled:opacity-50"
+                  title="Enregistrer la demande et ouvrir WhatsApp avec le médecin"
+                >
+                  <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
+                    <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z" />
+                  </svg>
+                  <span>Notifier par WhatsApp</span>
+                </button>
+
+                <button
+                  type="submit"
+                  disabled={loading}
+                  className="py-2.5 px-4 rounded-xl bg-primary hover:bg-primary-hover text-white font-bold text-xs flex items-center gap-1.5 shadow-sm cursor-pointer disabled:opacity-50"
+                >
+                  {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Send className="w-4 h-4" />}
+                  <span>D-Santé Direct</span>
+                </button>
+              </div>
             </div>
           </form>
         )}
