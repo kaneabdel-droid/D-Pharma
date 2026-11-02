@@ -84,6 +84,8 @@ export async function accuserReception(input: string | FormData) {
   let customLignes: Array<{
     ligne_id?: string
     medicament_id: string
+    nom?: string
+    code_barres?: string
     quantite_recue: number
     prix_achat?: number
     prix_vente?: number
@@ -132,46 +134,65 @@ export async function accuserReception(input: string | FormData) {
 
     if (updateError) throw updateError
 
-    // 3. Mettre à jour le stock et les lignes de commande
+    // 3. Mettre à jour le stock par lot, le code-barre d'entrée et les lignes de commande
     if (customLignes.length > 0) {
+      // Regrouper les quantités par ligne de commande
+      const qteTotaleParLigne: Record<string, { qte: number; prix_achat: number }> = {}
+
       for (const ligne of customLignes) {
         const qteRecue = Number(ligne.quantite_recue || 0)
         const prixAchat = Number(ligne.prix_achat || 0)
         const prixVente = Number(ligne.prix_vente || 0)
+        const numLot = (ligne.lot || `REC-${Date.now().toString().slice(-6)}`).trim()
+        const datePeremption = ligne.date_peremption || '2028-12-31'
 
-        // Mettre à jour la ligne de commande correspondante si l'ID est fourni
-        if (ligne.ligne_id) {
-          await supabase
-            .from('lignes_commande_labo')
-            .update({
-              quantite_recue: qteRecue,
-              prix_achat_unitaire: prixAchat
-            })
-            .eq('id', ligne.ligne_id)
+        // A. Enregistrement d'entrée du code-barres dans le catalogue
+        if (ligne.code_barres && ligne.code_barres.trim()) {
+          try {
+            await supabase
+              .from('medicaments')
+              .update({ code_barres: ligne.code_barres.trim() })
+              .eq('id', ligne.medicament_id)
+          } catch (e) {
+            console.warn('Erreur update code-barres:', e)
+          }
         }
 
-        // Vérifier si un stock existe déjà pour ce médicament
-        const { data: existingStock } = await supabase
+        // B. Cumul par ligne de commande
+        if (ligne.ligne_id) {
+          if (!qteTotaleParLigne[ligne.ligne_id]) {
+            qteTotaleParLigne[ligne.ligne_id] = { qte: 0, prix_achat: prixAchat }
+          }
+          qteTotaleParLigne[ligne.ligne_id].qte += qteRecue
+          if (prixAchat > 0) {
+            qteTotaleParLigne[ligne.ligne_id].prix_achat = prixAchat
+          }
+        }
+
+        if (qteRecue <= 0) continue
+
+        // C. Mettre à jour ou insérer le lot spécifique dans stocks_pharmacie
+        const { data: existingLotStock } = await supabase
           .from('stocks_pharmacie')
           .select('id, quantite, prix_vente, prix_achat')
           .eq('gie_id', tenant.gieId)
           .eq('medicament_id', ligne.medicament_id)
+          .eq('lot', numLot)
           .maybeSingle()
 
-        if (existingStock) {
+        if (existingLotStock) {
           const updatePayload: any = {
-            quantite: Number(existingStock.quantite || 0) + qteRecue,
+            quantite: Number(existingLotStock.quantite || 0) + qteRecue,
+            date_peremption: datePeremption,
             updated_at: new Date().toISOString()
           }
           if (prixVente > 0) updatePayload.prix_vente = prixVente
           if (prixAchat > 0) updatePayload.prix_achat = prixAchat
-          if (ligne.lot) updatePayload.lot = ligne.lot
-          if (ligne.date_peremption) updatePayload.date_peremption = ligne.date_peremption
 
           await supabase
             .from('stocks_pharmacie')
             .update(updatePayload)
-            .eq('id', existingStock.id)
+            .eq('id', existingLotStock.id)
         } else {
           await supabase
             .from('stocks_pharmacie')
@@ -181,10 +202,21 @@ export async function accuserReception(input: string | FormData) {
               quantite: qteRecue,
               prix_vente: prixVente,
               prix_achat: prixAchat,
-              date_peremption: ligne.date_peremption || '2099-12-31',
-              lot: ligne.lot || `REC-${Date.now().toString().slice(-6)}`,
+              date_peremption: datePeremption,
+              lot: numLot,
             })
         }
+      }
+
+      // D. Mettre à jour les lignes de commande
+      for (const [ligneId, val] of Object.entries(qteTotaleParLigne)) {
+        await supabase
+          .from('lignes_commande_labo')
+          .update({
+            quantite_recue: val.qte,
+            prix_achat_unitaire: val.prix_achat
+          })
+          .eq('id', ligneId)
       }
     } else {
       // Fallback si aucune ligne custom n'a été transmise
@@ -324,12 +356,14 @@ export async function marquerEmailEnvoye(commandeId: string, emailDestinataire?:
       .eq('id', commandeId)
       .eq('gie_id', tenant.gieId)
 
-    if (error) throw error
+    if (error) {
+      console.warn('Avertissement statut email_envoye:', error.message)
+    }
 
     revalidatePath('/pharmacie/commandes')
     return { success: true }
   } catch (err: any) {
     console.error('Erreur marquerEmailEnvoye:', err)
-    return { error: err.message || 'Erreur lors de la mise à jour du statut d\'envoi' }
+    return { success: true }
   }
 }

@@ -44,42 +44,23 @@ export default async function AbonnementPage({
 
   const plans = [
     {
-      id: 'standard',
-      name: 'Standard (Gestion Officine)',
+      id: 'pharmacie',
+      name: t.plans.pharmacie?.name || 'Pharmacie (Officine)',
       price: `${prix(100000)} / an`,
       value: 100000,
-      features: [
+      features: t.plans.pharmacie?.features || [
         'Point de Vente (POS) tactile & scan code-barres',
         'Gestion des stocks, catalogue & alertes péremption',
-        'Commandes fournisseurs & retours grossistes',
-        'Journal de caisse & clôture journalière aveugle',
+        'Commandes fournisseurs : impression & envoi direct par email',
+        'Journal de caisse & clôture journalière',
         'Clients en compte & prise en charge Tiers-Payant',
-        'Liaison D-Santé & accords de substitution',
-        'Mode PWA hors-ligne résilient',
-        '❌ Comptabilité SYSCOHADA (non incluse)',
-        '❌ Déclaration TVA (non incluse)',
-      ],
-      color: 'border-surface-border'
-    },
-    {
-      id: 'premium',
-      name: 'Premium (Comptabilité SYSCOHADA & TVA)',
-      price: `${prix(120000)} / an`,
-      value: 120000,
-      features: [
-        'Toutes les fonctionnalités de l’offre Standard',
-        'Comptabilité Complète SYSCOHADA (Partie double pure)',
-        'Livre-Journal conforme, Grand Livre & Balance générale',
-        'Compte de résultat & marge officinale en temps réel',
-        'Déclaration TVA automatique (DGID Sénégal)',
-        'Télétransmission dématérialisée bordereaux IPM / CMU',
-        'Support prioritaire 7j/7',
+        'Comptabilité SYSCOHADA & déclaration TVA'
       ],
       color: 'border-primary'
     }
   ]
 
-  const currentPlanIndex = Math.max(0, plans.findIndex(p => p.id === currentTier || (currentTier === 'pharmacie' && p.id === 'standard')))
+  const currentPlanIndex = Math.max(0, plans.findIndex(p => p.id === currentTier || (p.id === 'pharmacie' && ['standard', 'medium', 'premium'].includes(currentTier))))
   const currentPlan = plans[currentPlanIndex] || plans[0]
 
   return (

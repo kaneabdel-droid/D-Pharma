@@ -28,23 +28,22 @@ export default async function CommandesLaboPage() {
         statut,
         date_commande,
         date_reception,
-        email_envoye,
-        fournisseurs_labo!inner (id, nom, email, contact_email, contact_telephone, telephone),
+        fournisseurs_labo (id, nom, contact_email, contact_telephone, adresse),
         lignes_commande_labo (
           id,
           medicament_id,
           quantite_commandee,
           quantite_recue,
           prix_achat_unitaire,
-          medicaments (id, nom)
+          medicaments (id, nom, code_barres)
         )
       `)
       .order('date_commande', { ascending: false }),
     supabase
       .from('stocks_pharmacie')
       .select('medicament_id, prix_vente, prix_achat, lot, date_peremption'),
-    supabase.from('fournisseurs_labo').select('id, nom'),
-    supabase.from('medicaments').select('id, nom').order('nom')
+    supabase.from('fournisseurs_labo').select('id, nom, contact_email, contact_telephone').order('nom'),
+    supabase.from('medicaments').select('id, nom, code_barres, prix_achat').order('nom')
   ])
 
   const commandes = commandesRes.data || []
@@ -159,14 +158,14 @@ export default async function CommandesLaboPage() {
                           <div className="flex flex-col gap-1">
                             {cmd.statut === 'complete' ? (
                               <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-success/10 text-success w-fit">
-                                Livré le {new Date(cmd.date_reception).toLocaleDateString('fr-FR')}
+                                Livré {cmd.date_reception ? `le ${new Date(cmd.date_reception).toLocaleDateString('fr-FR')}` : ''}
                               </span>
                             ) : (
                               <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-warning/10 text-warning w-fit">
                                 En cours de livraison
                               </span>
                             )}
-                            {cmd.email_envoye && (
+                            {(cmd as any).email_envoye && (
                               <span className="inline-flex items-center gap-1 text-[11px] font-medium text-emerald-600">
                                 <Mail className="w-3 h-3" /> Transmis par email
                               </span>
