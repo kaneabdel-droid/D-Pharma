@@ -1,6 +1,7 @@
 import { getEcritures, getPlanComptable } from './actions'
 import NouvelleEcritureModal from './NouvelleEcritureModal'
 import ImportJournauxModal from './ImportJournauxModal'
+import ArchiveComptableButton from './ArchiveComptableButton'
 import PrintSectionButton from '@/components/PrintSectionButton'
 import Link from 'next/link'
 import { FileText, ArrowDownRight, ArrowUpRight, CheckCircle2, Filter, AlertCircle } from 'lucide-react'
@@ -50,6 +51,12 @@ export default async function ComptabilitePage(props: {
         </div>
         <div className="flex flex-wrap items-center gap-2">
           <PrintSectionButton sectionId="journal-comptable-print" label="Imprimer le Journal" />
+          <ArchiveComptableButton
+            nomStructure="Pharmacie Centrale DEMBA"
+            ecritures={ecritures}
+            totalDebits={totalDebits}
+            totalCredits={totalCredits}
+          />
           <ImportJournauxModal />
           <NouvelleEcritureModal plan={plan || []} />
         </div>

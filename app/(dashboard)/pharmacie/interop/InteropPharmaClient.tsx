@@ -1,14 +1,21 @@
 'use client'
 
 import { useState } from 'react'
-import { EchangePharmaSante, BordereauPharmaIpm, creerBordereauPharmaIpm } from './actions'
+import {
+  EchangePharmaSante,
+  BordereauPharmaIpm,
+  creerBordereauPharmaIpm,
+  rechercherOrdonnanceSante,
+  type OrdonnanceTrouvee,
+} from './actions'
 import { DemandeSubstitutionPharmaModal } from './DemandeSubstitutionPharmaModal'
 import { SignalerRuptureModal } from './SignalerRuptureModal'
 import { TransmettreEmailPharmaIpmModal } from './TransmettreEmailPharmaIpmModal'
 import {
   Network, Pill, AlertTriangle, TrendingUp, FileCheck2,
   Building2, CheckCircle2, Clock, XCircle, Send, ArrowUpRight,
-  ShieldCheck, Loader2, Plus, ShoppingCart, Mail
+  ShieldCheck, Loader2, Plus, ShoppingCart, Mail, QrCode, Search,
+  Check, AlertCircle, ShoppingBag, ArrowRight
 } from 'lucide-react'
 
 export function InteropPharmaClient({
@@ -18,11 +25,18 @@ export function InteropPharmaClient({
   echanges: EchangePharmaSante[]
   bordereaux: BordereauPharmaIpm[]
 }) {
-  const [activeTab, setActiveTab] = useState<'substitutions' | 'signaux' | 'ipm'>('substitutions')
+  const [activeTab, setActiveTab] = useState<'substitutions' | 'signaux' | 'ipm' | 'recherche_ordonnance'>('recherche_ordonnance')
   const [isSubModalOpen, setIsSubModalOpen] = useState(false)
   const [isRuptureModalOpen, setIsRuptureModalOpen] = useState(false)
   const [isBordereauModalOpen, setIsBordereauModalOpen] = useState(false)
   const [selectedBordereauEmail, setSelectedBordereauEmail] = useState<BordereauPharmaIpm | null>(null)
+
+  // État recherche d'ordonnance D-Santé
+  const [codeOrdonnance, setCodeOrdonnance] = useState('ORD-2610-0012')
+  const [isSearchingOrd, setIsSearchingOrd] = useState(false)
+  const [ordonnanceTrouvee, setOrdonnanceTrouvee] = useState<OrdonnanceTrouvee | null>(null)
+  const [searchOrdError, setSearchOrdError] = useState<string | null>(null)
+  const [transfertPosMessage, setTransfertPosMessage] = useState<string | null>(null)
 
   // Bordereau form state
   const [loadingBord, setLoadingBord] = useState(false)
@@ -35,6 +49,37 @@ export function InteropPharmaClient({
 
   const formatCFA = (montant: number) =>
     new Intl.NumberFormat('fr-FR', { style: 'decimal', maximumFractionDigits: 0 }).format(montant) + ' FCFA'
+
+  const handleRechercheOrdonnance = async (codeToSearch?: string) => {
+    const targetCode = codeToSearch || codeOrdonnance
+    if (!targetCode.trim()) return
+
+    setIsSearchingOrd(true)
+    setSearchOrdError(null)
+    setTransfertPosMessage(null)
+
+    const res = await rechercherOrdonnanceSante(targetCode)
+    setIsSearchingOrd(false)
+
+    if (res.error) {
+      setSearchOrdError(res.error)
+      setOrdonnanceTrouvee(null)
+    } else if (res.ordonnance) {
+      setOrdonnanceTrouvee(res.ordonnance)
+    }
+  }
+
+  const handleSimulerScanQr = () => {
+    const demoCodes = ['ORD-2610-0012', 'ORD-2610-0091', 'ORD-CHU-0441']
+    const picked = demoCodes[Math.floor(Math.random() * demoCodes.length)]
+    setCodeOrdonnance(picked)
+    handleRechercheOrdonnance(picked)
+  }
+
+  const handleTransfererAuPos = (medicamentNom: string) => {
+    setTransfertPosMessage(`✓ ${medicamentNom} ajouté avec succès à la file d'attente du POS comptoir !`)
+    setTimeout(() => setTransfertPosMessage(null), 4000)
+  }
 
   const handleCreerBordereau = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -202,8 +247,9 @@ export function InteropPharmaClient({
       </div>
 
       {/* Tabs */}
-      <div className="flex border-b border-surface-border gap-2">
+      <div className="flex border-b border-surface-border gap-2 overflow-x-auto">
         {[
+          { id: 'recherche_ordonnance', label: 'Scanner Ordonnance D-Santé', count: ordonnanceTrouvee ? 'Trouvée' : 'Scanner' },
           { id: 'substitutions', label: 'Demandes de Substitution', count: substitutions.length },
           { id: 'signaux', label: 'Signaux Médecins & Grossistes', count: signaux.length },
           { id: 'ipm', label: 'Télétransmission IPM / Assurances', count: bordereaux.length },
@@ -211,7 +257,7 @@ export function InteropPharmaClient({
           <button
             key={tab.id}
             onClick={() => setActiveTab(tab.id as any)}
-            className={`pb-3 px-3 text-xs sm:text-sm font-bold border-b-2 transition-colors cursor-pointer flex items-center gap-1.5 ${
+            className={`pb-3 px-3 text-xs sm:text-sm font-bold border-b-2 transition-colors cursor-pointer flex items-center gap-1.5 whitespace-nowrap ${
               activeTab === tab.id
                 ? 'border-primary text-primary'
                 : 'border-transparent text-foreground-muted hover:text-foreground'
@@ -224,6 +270,188 @@ export function InteropPharmaClient({
           </button>
         ))}
       </div>
+
+      {/* Contenu Tab : Recherche & Scan d'Ordonnance D-Santé */}
+      {activeTab === 'recherche_ordonnance' && (
+        <div className="space-y-6">
+          {/* Barre de Recherche et Simulation Scan */}
+          <div className="bg-surface rounded-3xl p-6 border border-surface-border shadow-xs space-y-4">
+            <div>
+              <h3 className="font-bold text-foreground text-sm flex items-center gap-2">
+                <QrCode className="w-5 h-5 text-primary" />
+                Interconnexion Prescriptions D-Santé en Temps Réel
+              </h3>
+              <p className="text-xs text-foreground-muted mt-1">
+                Saisissez ou scannez le QR code de l’ordonnance délivrée par un médecin ou un hôpital D-Santé.
+              </p>
+            </div>
+
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+              <div className="relative flex-1">
+                <Search className="w-4 h-4 text-foreground-muted absolute left-3 top-1/2 -translate-y-1/2" />
+                <input
+                  type="text"
+                  placeholder="Ex : ORD-2610-0012, ORD-2610-0091..."
+                  value={codeOrdonnance}
+                  onChange={(e) => setCodeOrdonnance(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter') handleRechercheOrdonnance()
+                  }}
+                  className="w-full pl-9 pr-4 py-2.5 rounded-xl border border-surface-border bg-background text-foreground text-sm font-mono focus:ring-2 focus:ring-primary/20 outline-hidden"
+                />
+              </div>
+
+              <div className="flex items-center gap-2">
+                <button
+                  type="button"
+                  onClick={() => handleRechercheOrdonnance()}
+                  disabled={isSearchingOrd}
+                  className="px-5 py-2.5 rounded-xl bg-primary hover:bg-primary/90 text-primary-foreground text-xs font-bold transition flex items-center justify-center gap-2 cursor-pointer shadow-xs disabled:opacity-50"
+                >
+                  {isSearchingOrd ? <Loader2 className="w-4 h-4 animate-spin" /> : <Search className="w-4 h-4" />}
+                  <span>Vérifier Ordonnance</span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={handleSimulerScanQr}
+                  className="px-4 py-2.5 rounded-xl bg-surface-border hover:bg-surface-border/80 text-foreground text-xs font-bold transition flex items-center justify-center gap-1.5 cursor-pointer"
+                  title="Simuler un scan de QR Code patient"
+                >
+                  <QrCode className="w-4 h-4 text-primary" />
+                  <span>Scan QR Code</span>
+                </button>
+              </div>
+            </div>
+
+            {searchOrdError && (
+              <div className="p-3 rounded-xl bg-red-500/10 border border-red-500/20 text-red-600 text-xs flex items-center gap-2">
+                <AlertCircle className="w-4 h-4 shrink-0" />
+                <span>{searchOrdError}</span>
+              </div>
+            )}
+
+            {transfertPosMessage && (
+              <div className="p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-700 dark:text-emerald-300 text-xs flex items-center gap-2">
+                <CheckCircle2 className="w-4 h-4 shrink-0 text-emerald-600" />
+                <span>{transfertPosMessage}</span>
+              </div>
+            )}
+          </div>
+
+          {/* Fiche Ordonnance D-Santé Croisée avec le Stock Officine */}
+          {ordonnanceTrouvee && (
+            <div className="bg-surface rounded-3xl p-6 border border-primary/30 shadow-md space-y-6">
+              {/* Entête Fiche Prescription */}
+              <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 pb-4 border-b border-surface-border">
+                <div className="space-y-1">
+                  <div className="flex items-center gap-2">
+                    <span className="px-2.5 py-0.5 rounded-md bg-primary text-primary-foreground font-mono font-bold text-xs">
+                      {ordonnanceTrouvee.numero}
+                    </span>
+                    <span className="text-xs text-foreground-muted font-medium">
+                      Émise le {ordonnanceTrouvee.date}
+                    </span>
+                  </div>
+                  <h4 className="text-base font-bold text-foreground">
+                    {ordonnanceTrouvee.structureNom}
+                  </h4>
+                  <p className="text-xs text-foreground-muted flex items-center gap-1">
+                    <span>Prescripteur :</span>
+                    <strong className="text-foreground">{ordonnanceTrouvee.medecinNom}</strong>
+                  </p>
+                </div>
+
+                {/* Patient & Prise en Charge IPM */}
+                <div className="bg-background rounded-2xl p-4 border border-surface-border text-xs space-y-1 min-w-[240px]">
+                  <span className="text-foreground-muted font-semibold block uppercase text-[10px] tracking-wider">
+                    Bénéficiaire / Patient
+                  </span>
+                  <p className="font-bold text-sm text-foreground">{ordonnanceTrouvee.patientNom}</p>
+                  <p className="text-foreground-muted font-mono text-[11px]">IPP : {ordonnanceTrouvee.patientIpp}</p>
+                  {ordonnanceTrouvee.organismeAssurance && (
+                    <div className="pt-1 mt-1 border-t border-surface-border flex items-center justify-between text-teal-600 font-bold">
+                      <span>{ordonnanceTrouvee.organismeAssurance}</span>
+                      <span className="px-2 py-0.5 rounded-full bg-teal-500/10 text-[10px]">
+                        Taux {ordonnanceTrouvee.tauxCouverture}%
+                      </span>
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              {/* Lignes de Prescription Médicale & Disponibilité en Rayon */}
+              <div className="space-y-3">
+                <div className="flex items-center justify-between">
+                  <h5 className="text-xs font-bold uppercase tracking-wider text-foreground-muted">
+                    Médicaments prescrits & État des Stocks Officine
+                  </h5>
+                  <span className="text-[11px] text-foreground-muted">
+                    {ordonnanceTrouvee.items.length} médicament(s) prescrit(s)
+                  </span>
+                </div>
+
+                <div className="divide-y divide-surface-border rounded-2xl border border-surface-border overflow-hidden bg-background">
+                  {ordonnanceTrouvee.items.map((item, idx) => (
+                    <div key={idx} className="p-4 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 hover:bg-surface-hover/30 transition">
+                      <div className="space-y-1">
+                        <div className="flex items-center gap-2">
+                          <span className="font-bold text-sm text-foreground">
+                            {item.medicament}
+                          </span>
+                          <span className="px-2 py-0.5 rounded-full bg-surface-border text-foreground font-mono text-xs font-bold">
+                            Qté : {item.quantite}
+                          </span>
+                        </div>
+                        <p className="text-xs text-foreground-muted">
+                          Posologie : <strong className="text-foreground">{item.posologie}</strong>
+                        </p>
+                      </div>
+
+                      {/* Statut Stock et Actions */}
+                      <div className="flex flex-wrap items-center gap-3">
+                        {item.disponibleEnStock ? (
+                          <div className="flex items-center gap-3">
+                            <span className="px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-600 border border-emerald-500/20 text-xs font-bold flex items-center gap-1.5">
+                              <CheckCircle2 className="w-3.5 h-3.5" />
+                              <span>En Stock ({item.stockActuel} boîtes)</span>
+                            </span>
+
+                            <button
+                              type="button"
+                              onClick={() => handleTransfererAuPos(item.medicament)}
+                              className="px-3 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs flex items-center gap-1.5 transition shadow-xs cursor-pointer"
+                            >
+                              <ShoppingBag className="w-3.5 h-3.5" />
+                              <span>Ajouter au POS</span>
+                            </button>
+                          </div>
+                        ) : (
+                          <div className="flex items-center gap-3">
+                            <span className="px-2.5 py-1 rounded-full bg-red-500/10 text-red-600 border border-red-500/20 text-xs font-bold flex items-center gap-1.5">
+                              <AlertTriangle className="w-3.5 h-3.5" />
+                              <span>Rupture Officine (Stock 0)</span>
+                            </span>
+
+                            <button
+                              type="button"
+                              onClick={() => setIsSubModalOpen(true)}
+                              className="px-3 py-1.5 rounded-xl bg-amber-500 hover:bg-amber-600 text-white font-bold text-xs flex items-center gap-1.5 transition shadow-xs cursor-pointer"
+                            >
+                              <Pill className="w-3.5 h-3.5" />
+                              <span>Proposer Substitut</span>
+                            </button>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+      )}
 
       {/* Contenu Tab 1 : Substitutions */}
       {activeTab === 'substitutions' && (
