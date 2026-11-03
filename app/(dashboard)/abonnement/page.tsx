@@ -25,10 +25,10 @@ export default async function AbonnementPage({
   const essaiVerrouille = params?.essai_expire === '1'
 
   const { data: userData } = await supabase
-    .from('utilisateurs')
-    .select('gies(nom, subscription_tier, essai_expire_le, devise)')
-    .eq('id', user.id)
-    .single()
+  .from('utilisateurs')
+  .select('gies(nom, subscription_tier, essai_expire_le, devise)')
+  .eq('id', user.id)
+  .single()
 
   const gie = Array.isArray(userData?.gies) ? userData.gies[0] : userData?.gies
   const currentTier = gie?.subscription_tier || 'standard'
@@ -44,23 +44,36 @@ export default async function AbonnementPage({
 
   const plans = [
     {
-      id: 'pharmacie',
-      name: t.plans.pharmacie?.name || 'Pharmacie (Officine)',
+      id: 'standard',
+      name: 'Niveau Standard (Gestion d’Officine)',
       price: `${prix(100000)} / an`,
       value: 100000,
-      features: t.plans.pharmacie?.features || [
-        'Point de Vente (POS) tactile & scan code-barres',
-        'Gestion des stocks, catalogue & alertes péremption',
-        'Commandes fournisseurs : impression & envoi direct par email',
-        'Journal de caisse & clôture journalière',
-        'Clients en compte & prise en charge Tiers-Payant',
-        'Comptabilité SYSCOHADA & déclaration TVA'
+      features: [
+        'Point de Vente (POS) tactile & scan code-barres ultrarapide',
+        'Gestion des stocks, catalogue médicaments & alertes péremption',
+        'Commandes directes fournisseurs : impression PDF & envoi email',
+        'Journal de caisse, clôtures & contrôle des écarts',
+        'Clients en compte, mutuelles & prise en charge Tiers-Payant',
+      ],
+      color: 'border-surface-border'
+    },
+    {
+      id: 'premium',
+      name: 'Niveau Premium (Comptabilité SYSCOHADA & Fiscal)',
+      price: `${prix(120000)} / an`,
+      value: 120000,
+      features: [
+        'Tout ce qui est inclus dans le niveau Standard',
+        'Comptabilité générale SYSCOHADA informatisée',
+        'Déclaration TVA DGID (Annexe fiscale & exports)',
+        'Grand Livre, Balance générale & Bilan / Compte de résultat',
+        'Rapprochement bancaire & assistance prioritaire 7j/7'
       ],
       color: 'border-primary'
     }
   ]
 
-  const currentPlanIndex = Math.max(0, plans.findIndex(p => p.id === currentTier || (p.id === 'pharmacie' && ['standard', 'medium', 'premium'].includes(currentTier))))
+  const currentPlanIndex = Math.max(0, plans.findIndex(p => p.id === currentTier || (currentTier === 'pharmacie' && p.id === 'standard')))
   const currentPlan = plans[currentPlanIndex] || plans[0]
 
   return (
@@ -107,7 +120,7 @@ export default async function AbonnementPage({
 
       <div className="grid md:grid-cols-2 gap-6 max-w-4xl">
         {plans.map((plan, index) => {
-          const isCurrent = plan.id === currentTier
+          const isCurrent = plan.id === currentTier || (currentTier === 'pharmacie' && plan.id === 'standard')
           const isDowngrade = index < currentPlanIndex
           let upgradeCost = plan.value - currentPlan.value
           if (upgradeCost < 0) upgradeCost = 0

@@ -250,32 +250,144 @@ export default async function HomePage({
               </p>
             </div>
 
-            <div className="max-w-xl mx-auto">
-              <div className="rounded-2xl border-2 border-primary bg-primary/5 p-8 sm:p-10 flex flex-col justify-between relative shadow-xl">
-                <div className="absolute top-0 right-6 -translate-y-1/2 bg-primary text-white text-xs font-bold uppercase tracking-wider px-3.5 py-1 rounded-full shadow">
-                  {lp.pricing_section?.pharma_badge || 'Formule Officine Complète'}
-                </div>
+            <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-8 items-stretch">
+              {/* Carte Standard */}
+              <div className="rounded-3xl border border-surface-border bg-surface p-8 sm:p-10 flex flex-col justify-between relative shadow-sm hover:shadow-md transition-shadow">
                 <div>
-                  <h3 className="text-2xl font-bold text-primary mb-1">
-                    {lp.pricing_section?.pharma_title || 'Pharmacie & Officine'}
-                  </h3>
-                  <p className="text-4xl font-extrabold text-primary my-4">
-                    {lp.pricing_section?.pharma_price || '100.000'} <span className="text-sm font-normal text-foreground-muted">{lp.pricing_section?.pharma_unit || 'FCFA / an'}</span>
-                  </p>
-                  <p className="text-sm text-foreground-muted mb-6">
-                    {lp.pricing_section?.pharma_desc || "La suite logicielle complète pour informatiser, vendre et gérer votre pharmacie."}
-                  </p>
-                  <ul className="space-y-3.5 mb-8 text-sm">
-                    <li className="flex items-center gap-2.5"><CheckCircle2 className="w-4 h-4 text-primary shrink-0" /> {lp.pricing_section?.pharma_f1 || 'Point de Vente (POS) & scan code-barres ultrarapide'}</li>
-                    <li className="flex items-center gap-2.5"><CheckCircle2 className="w-4 h-4 text-primary shrink-0" /> {lp.pricing_section?.pharma_f2 || 'Gestion des stocks & alertes de péremption automatisées'}</li>
-                    <li className="flex items-center gap-2.5"><CheckCircle2 className="w-4 h-4 text-primary shrink-0" /> {lp.pricing_section?.pharma_f3 || 'Caisse quotidienne, clôtures & contrôle des écarts'}</li>
-                    <li className="flex items-center gap-2.5"><CheckCircle2 className="w-4 h-4 text-primary shrink-0" /> {lp.pricing_section?.pharma_f4 || 'Bons de commande labos avec impression PDF et envoi direct par email'}</li>
-                    <li className="flex items-center gap-2.5"><CheckCircle2 className="w-4 h-4 text-primary shrink-0" /> Tiers-payant, mutuelles & assurances</li>
+                  <div className="mb-4">
+                    <span className="px-3 py-1 rounded-full bg-surface-border text-foreground text-xs font-bold uppercase tracking-wider">
+                      {lp.pricing_section?.standard_badge || "Gestion d’Officine"}
+                    </span>
+                    <h3 className="text-2xl font-extrabold text-foreground font-heading mt-3">
+                      {lp.pricing_section?.standard_title || "Niveau Standard"}
+                    </h3>
+                    <p className="text-xs text-foreground-muted mt-1">
+                      {lp.pricing_section?.standard_desc || "Idéal pour informatiser les ventes, le stock, la caisse et les commandes."}
+                    </p>
+                  </div>
+
+                  <div className="my-6 p-5 rounded-2xl bg-surface-hover border border-surface-border">
+                    <div className="flex items-baseline gap-2">
+                      <span className="text-4xl font-black text-foreground tracking-tight">
+                        {lp.pricing_section?.standard_price || "100.000"}
+                      </span>
+                      <span className="text-sm font-bold text-foreground-muted">
+                        {lp.pricing_section?.standard_unit || "FCFA / an"}
+                      </span>
+                    </div>
+                    <p className="text-xs text-foreground-muted mt-1">
+                      Facturé annuellement • 7 jours d&apos;essai gratuit
+                    </p>
+                  </div>
+
+                  <ul className="space-y-3.5 mb-8 text-xs text-foreground">
+                    <li className="flex items-start gap-2.5">
+                      <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+                      <span>{lp.pricing_section?.standard_f1 || "Point de Vente (POS) & scan rapide code-barres"}</span>
+                    </li>
+                    <li className="flex items-start gap-2.5">
+                      <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+                      <span>{lp.pricing_section?.standard_f2 || "Suivi des stocks & alertes de péremption automatisées"}</span>
+                    </li>
+                    <li className="flex items-start gap-2.5">
+                      <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+                      <span>{lp.pricing_section?.standard_f3 || "Caisse quotidienne, clôtures & contrôle des écarts"}</span>
+                    </li>
+                    <li className="flex items-start gap-2.5">
+                      <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+                      <span>{lp.pricing_section?.standard_f4 || "Commandes directes fournisseurs & labos (PDF / Email)"}</span>
+                    </li>
+                    <li className="flex items-start gap-2.5">
+                      <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+                      <span>{lp.pricing_section?.standard_f5 || "Tiers-payant, mutuelles & assurances"}</span>
+                    </li>
                   </ul>
                 </div>
-                <Link href="/checkout?plan=pharmacie" className="w-full text-center py-3.5 rounded-xl bg-primary text-white font-bold hover:bg-primary-hover transition-colors shadow-md text-base">
-                  {lp.pricing_section?.pharma_btn || 'Souscrire pour mon officine'}
-                </Link>
+
+                <div className="pt-6 border-t border-surface-border">
+                  <Link
+                    href="/checkout?plan=standard"
+                    className="w-full block py-3.5 px-6 rounded-xl border-2 border-primary text-primary font-bold text-center text-sm hover:bg-primary hover:text-white transition-all shadow-xs"
+                  >
+                    {lp.pricing_section?.standard_btn || "Choisir Standard (100.000 FCFA / an)"}
+                  </Link>
+                </div>
+              </div>
+
+              {/* Carte Premium */}
+              <div className="rounded-3xl border-2 border-primary bg-surface p-8 sm:p-10 flex flex-col justify-between relative shadow-xl overflow-hidden">
+                <div className="absolute top-0 right-8 -translate-y-1/2 bg-primary text-white text-xs font-bold uppercase tracking-wider px-4 py-1 rounded-full shadow-md">
+                  {lp.pricing_section?.premium_badge || "Recommandé • Compta & Fiscal"}
+                </div>
+
+                <div>
+                  <div className="mb-4">
+                    <span className="px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-bold uppercase tracking-wider">
+                      Gestion Intégrale + SYSCOHADA
+                    </span>
+                    <h3 className="text-2xl font-extrabold text-foreground font-heading mt-3">
+                      {lp.pricing_section?.premium_title || "Niveau Premium"}
+                    </h3>
+                    <p className="text-xs text-foreground-muted mt-1">
+                      {lp.pricing_section?.premium_desc || "Gestion totale avec comptabilité à partie double et liasse TVA conforme DGID."}
+                    </p>
+                  </div>
+
+                  <div className="my-6 p-5 rounded-2xl bg-primary/5 border border-primary/20">
+                    <div className="flex items-baseline gap-2">
+                      <span className="text-4xl font-black text-primary tracking-tight">
+                        {lp.pricing_section?.premium_price || "120.000"}
+                      </span>
+                      <span className="text-sm font-bold text-foreground-muted">
+                        {lp.pricing_section?.premium_unit || "FCFA / an"}
+                      </span>
+                    </div>
+                    <p className="text-xs text-foreground-muted mt-1">
+                      Facturé annuellement • Soit seulement 10.000 FCFA / mois
+                    </p>
+                  </div>
+
+                  <ul className="space-y-3.5 mb-8 text-xs text-foreground">
+                    <li className="flex items-start gap-2.5">
+                      <CheckCircle2 className="w-4 h-4 text-primary shrink-0 mt-0.5" />
+                      <span>{lp.pricing_section?.premium_f1 || "Tout ce qui est inclus dans le niveau Standard"}</span>
+                    </li>
+                    <li className="flex items-start gap-2.5">
+                      <CheckCircle2 className="w-4 h-4 text-primary shrink-0 mt-0.5" />
+                      <span className="font-bold text-primary">{lp.pricing_section?.premium_f2 || "Comptabilité générale SYSCOHADA informatisée"}</span>
+                    </li>
+                    <li className="flex items-start gap-2.5">
+                      <CheckCircle2 className="w-4 h-4 text-primary shrink-0 mt-0.5" />
+                      <span className="font-bold text-primary">{lp.pricing_section?.premium_f3 || "Déclaration TVA DGID (Annexe fiscale & exports)"}</span>
+                    </li>
+                    <li className="flex items-start gap-2.5">
+                      <CheckCircle2 className="w-4 h-4 text-primary shrink-0 mt-0.5" />
+                      <span className="font-bold text-primary">{lp.pricing_section?.premium_f4 || "Bilan, Compte de Résultat & Balance générale"}</span>
+                    </li>
+                    <li className="flex items-start gap-2.5">
+                      <CheckCircle2 className="w-4 h-4 text-primary shrink-0 mt-0.5" />
+                      <span>{lp.pricing_section?.premium_f5 || "Rapprochement bancaire & assistance prioritaire 7j/7"}</span>
+                    </li>
+                  </ul>
+                </div>
+
+                <div className="pt-6 border-t border-surface-border space-y-2.5">
+                  <Link
+                    href="/checkout?plan=premium"
+                    className="w-full block py-3.5 px-6 rounded-xl bg-primary text-white font-bold text-center text-sm hover:bg-primary-hover transition-all shadow-md shadow-primary/20"
+                  >
+                    {lp.pricing_section?.premium_btn || "Souscrire Premium (120.000 FCFA / an)"}
+                  </Link>
+
+                  {/* Bouton Démo interactive sur la ligne Premium */}
+                  <Link
+                    href="/decouvrir-dpharma"
+                    className="w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl border border-primary/30 text-primary font-bold text-center text-xs hover:bg-primary/10 transition-colors shadow-xs"
+                  >
+                    <Sparkles className="w-3.5 h-3.5 text-primary" />
+                    <span>{lp.pricing_section?.premium_demo_btn || "Tester la Démo Premium en direct"}</span>
+                  </Link>
+                </div>
               </div>
             </div>
 

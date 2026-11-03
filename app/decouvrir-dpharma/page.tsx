@@ -32,11 +32,26 @@ export default async function DecouvrirDpharmaPage({
 
   const plans = [
     {
-      id: 'pharmacie',
-      nom: 'Formule Officine Complète',
+      id: 'standard',
+      nom: 'Niveau Standard',
+      badge: 'Gestion d’Officine',
       prix: '100 000 FCFA / an',
-      resume: 'La suite logicielle complète pour informatiser et gérer votre officine de pharmacie au quotidien.',
+      resume: 'Idéal pour informatiser les ventes, le stock, la caisse et les commandes.',
       inclus: modulesPharmacie,
+      color: 'border-surface-border',
+      populaire: false,
+    },
+    {
+      id: 'premium',
+      nom: 'Niveau Premium',
+      badge: 'Recommandé • Compta & Fiscal',
+      prix: '120 000 FCFA / an',
+      resume: 'Gestion totale avec comptabilité à partie double SYSCOHADA et liasse TVA conforme DGID.',
+      inclus: [
+        ...modulesPharmacie,
+        { icon: Landmark, label: 'Comptabilité générale SYSCOHADA informatisée' },
+        { icon: Receipt, label: 'Déclaration TVA DGID & états financiers officiels' },
+      ],
       color: 'border-primary',
       populaire: true,
     },
@@ -168,28 +183,26 @@ export default async function DecouvrirDpharmaPage({
         <section className="py-20 bg-surface border-t border-surface-border">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-5xl">
             <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold font-heading mb-3">Une formule claire et complète</h2>
+              <h2 className="text-3xl font-bold font-heading mb-3">Deux formules claires et transparentes</h2>
               <p className="text-foreground-muted max-w-xl mx-auto">
-                Tout ce dont votre officine a besoin pour informatiser ses ventes, contrôler ses stocks et approvisionnements.
+                Choisissez entre l&apos;informatisation standard de votre officine et la gestion intégrale avec comptabilité SYSCOHADA.
               </p>
             </div>
 
-            <div className="max-w-xl mx-auto">
+            <div className="max-w-4xl mx-auto grid md:grid-cols-2 gap-8 items-stretch">
               {plans.map((p) => (
                 <div
                   key={p.id}
-                  className={`rounded-2xl bg-background border-2 ${p.color} p-8 flex flex-col justify-between shadow-lg relative`}
+                  className={`rounded-3xl bg-background border-2 ${p.color} p-8 flex flex-col justify-between shadow-lg relative`}
                 >
-                  {p.populaire && (
-                    <div className="absolute top-0 right-6 transform -translate-y-1/2">
-                      <span className="bg-primary text-white text-xs font-bold px-3.5 py-1 rounded-full uppercase tracking-wider shadow">
-                        Formule Complète
-                      </span>
-                    </div>
-                  )}
+                  <div className="absolute top-0 right-6 transform -translate-y-1/2">
+                    <span className={`${p.populaire ? 'bg-primary text-white shadow-md' : 'bg-surface-border text-foreground'} text-xs font-bold px-3.5 py-1 rounded-full uppercase tracking-wider`}>
+                      {p.badge}
+                    </span>
+                  </div>
                   <div>
-                    <h3 className="text-2xl font-bold mb-1 text-primary">{p.nom}</h3>
-                    <p className="text-2xl font-extrabold text-foreground mb-3">{p.prix}</p>
+                    <h3 className={`text-2xl font-bold mb-1 ${p.populaire ? 'text-primary' : 'text-foreground'}`}>{p.nom}</h3>
+                    <p className={`text-2xl font-extrabold mb-3 ${p.populaire ? 'text-primary' : 'text-foreground'}`}>{p.prix}</p>
                     <p className="text-sm text-foreground-muted mb-6">{p.resume}</p>
                     <ul className="space-y-3 mb-8">
                       {p.inclus.map((item, idx) => (
@@ -202,7 +215,9 @@ export default async function DecouvrirDpharmaPage({
                   </div>
                   <Link
                     href={`/checkout?plan=${p.id}`}
-                    className="w-full text-center py-3.5 px-4 rounded-xl font-bold text-base bg-primary text-white hover:bg-primary-hover transition-colors shadow-md"
+                    className={`w-full text-center py-3.5 px-4 rounded-xl font-bold text-base transition-colors shadow-md ${
+                      p.populaire ? 'bg-primary text-white hover:bg-primary-hover' : 'border-2 border-primary text-primary hover:bg-primary hover:text-white'
+                    }`}
                   >
                     Démarrer avec {p.nom}
                   </Link>
