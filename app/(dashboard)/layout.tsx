@@ -14,7 +14,8 @@ export default async function DashboardLayout({
     redirect('/login')
   }
 
-  if (tenant.compteVerrouille || tenant.essaiExpire) {
+  // Ne pas bloquer la démo même si l'essai d'origine était échu
+  if (!tenant.isDemo && (tenant.compteVerrouille || tenant.essaiExpire)) {
     redirect('/abonnement?essai_expire=1')
   }
 
@@ -35,6 +36,7 @@ export default async function DashboardLayout({
       dict={dict}
       locale={locale}
       menuLayout={menuLayout}
+      isDemo={tenant.isDemo}
     >
       {children}
     </ClientLayout>

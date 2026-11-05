@@ -41,6 +41,7 @@ export default function ClientLayout({
   dict,
   locale,
   menuLayout = 'sidebar',
+  isDemo = false,
 }: {
   children: React.ReactNode
   subscriptionTier: string
@@ -51,6 +52,7 @@ export default function ClientLayout({
   dict: any
   locale: string
   menuLayout?: 'sidebar' | 'horizontal'
+  isDemo?: boolean
 }) {
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const [menuOuvert, setMenuOuvert] = useState<string | null>(null)
@@ -249,18 +251,15 @@ export default function ClientLayout({
                               <span className="truncate">{(item as any).label || dict.sidebar?.[item.key] || item.key}</span>
                             {(item as any).badge && (
                               <span className={`ml-auto px-1.5 py-0.5 rounded-full text-[9px] font-bold ${
-                                actif ? 'bg-white/20 text-white' : 'bg-amber-500/10 text-amber-600 border border-amber-500/20'
+                                actif
+                                  ? 'bg-white/20 text-white'
+                                  : isDemo || subscriptionTier === 'premium'
+                                  ? 'bg-emerald-500/10 text-emerald-600 border border-emerald-500/20'
+                                  : 'bg-amber-500/10 text-amber-600 border border-amber-500/20'
                               }`}>
-                                {(item as any).badge}
+                                {isDemo || subscriptionTier === 'premium' ? 'Inclus' : (item as any).badge}
                               </span>
                             )}
-                              {(item as any).badge && (
-                                <span className={`ml-auto px-1.5 py-0.5 rounded-full text-[9px] font-bold ${
-                                  actif ? 'bg-white/20 text-white' : 'bg-amber-500/10 text-amber-600 border border-amber-500/20'
-                                }`}>
-                                  {(item as any).badge}
-                                </span>
-                              )}
                             </Link>
                           )
                         })}
@@ -292,6 +291,11 @@ export default function ClientLayout({
               <h1 className="text-2xl font-bold text-primary font-heading tracking-wide">D-PHARMA</h1>
               <span className="text-surface-border">|</span>
               <span className="text-sm font-semibold text-foreground truncate max-w-xs">{gieName}</span>
+              {isDemo && (
+                <span className="hidden sm:inline-flex items-center px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-600 border border-emerald-500/20 text-[10px] font-bold">
+                  Démo Premium
+                </span>
+              )}
             </div>
             <div className="flex items-center gap-4">
               <OfflineSyncBar />
@@ -399,9 +403,13 @@ export default function ClientLayout({
                             <span className="truncate">{(item as any).label || dict.sidebar?.[item.key] || item.key}</span>
                             {(item as any).badge && (
                               <span className={`ml-auto px-1.5 py-0.5 rounded-full text-[9px] font-bold ${
-                                actif ? 'bg-white/20 text-white' : 'bg-amber-500/10 text-amber-600 border border-amber-500/20'
+                                actif
+                                  ? 'bg-white/20 text-white'
+                                  : isDemo || subscriptionTier === 'premium'
+                                  ? 'bg-emerald-500/10 text-emerald-600 border border-emerald-500/20'
+                                  : 'bg-amber-500/10 text-amber-600 border border-amber-500/20'
                               }`}>
-                                {(item as any).badge}
+                                {isDemo || subscriptionTier === 'premium' ? 'Inclus' : (item as any).badge}
                               </span>
                             )}
                           </Link>
@@ -443,8 +451,13 @@ export default function ClientLayout({
               <LanguageSelector currentLang={locale} />
               <ThemeSwitcher />
               {/* Profile dropdown or simple user info could go here */}
-              <div className="min-w-0 max-w-[6rem] truncate text-sm font-semibold leading-6 text-foreground sm:max-w-[10rem] sm:text-base md:max-w-xs">
-                {gieName} <span className="hidden sm:inline">({dict.header.admin})</span>
+              <div className="min-w-0 max-w-[8rem] truncate text-sm font-semibold leading-6 text-foreground sm:max-w-[14rem] sm:text-base md:max-w-xs flex items-center gap-1.5">
+                <span>{gieName}</span>
+                {isDemo && (
+                  <span className="hidden md:inline-flex items-center px-1.5 py-0.5 rounded text-[9px] font-bold bg-emerald-500/10 text-emerald-600 border border-emerald-500/20">
+                    Démo Premium
+                  </span>
+                )}
               </div>
             </div>
           </div>

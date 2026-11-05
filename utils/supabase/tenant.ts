@@ -13,6 +13,7 @@ export type TenantContext = {
   devise: string
   compteVerrouille?: boolean
   essaiExpire?: boolean
+  isDemo?: boolean
 }
 
 // Le rôle, le gie_id et l'abonnement du GIE de l'utilisateur connecté sont
@@ -37,18 +38,41 @@ export const getTenantContext = cache(async (): Promise<TenantContext | null> =>
   if (!data) return null
 
   const gie = Array.isArray(data.gies) ? data.gies[0] : data.gies
+
+  // Détection du mode démo
+  let isDemoCookie = false
+  try {
+    const { cookies } = await import('next/headers')
+    const cookieStore = await cookies()
+    isDemoCookie = cookieStore.get('dpharma_demo_session')?.value === '1'
+  } catch {
+    // Contexte sans cookies
+  }
+
+  const demoEmail = process.env.DEMO_PHARMA_EMAIL || 'kaneabdou@yahoo.fr'
+  const isDemo =
+    isDemoCookie ||
+    user.email === demoEmail ||
+    gie?.nom?.toLowerCase().includes('centrale de dakar') ||
+    gie?.nom?.toLowerCase().includes('démonstration') ||
+    gie?.nom?.toLowerCase().includes('demonstration')
+
   const essaiExpireLe = gie?.essai_expire_le as string | null | undefined
-  const essaiExpire = essaiExpireLe ? new Date(essaiExpireLe) < new Date() : false
+  const essaiExpire = isDemo ? false : (essaiExpireLe ? new Date(essaiExpireLe) < new Date() : false)
+
+  // En mode démo, la version est intégralement débloquée en Premium
+  const subscriptionTier = isDemo ? 'premium' : (gie?.subscription_tier || 'standard')
 
   return {
     userId: user.id,
     gieId: data.gie_id,
     role: data.role,
     permissions: (data.permissions as PermissionMap | null) ?? null,
-    gieName: gie?.nom || 'Ma Pharmacie',
-    subscriptionTier: gie?.subscription_tier || 'standard',
+    gieName: gie?.nom || (isDemo ? 'Pharmacie Centrale de Dakar' : 'Ma Pharmacie'),
+    subscriptionTier,
     devise: gie?.devise || 'XOF',
-    compteVerrouille: !!gie?.compte_verrouille,
+    compteVerrouille: isDemo ? false : !!gie?.compte_verrouille,
     essaiExpire,
+    isDemo,
   }
 })

@@ -1,7 +1,7 @@
 import { createClient } from '@/utils/supabase/server'
 import { redirect } from 'next/navigation'
 import Link from 'next/link'
-import { Shield, CheckCircle2, ArrowRight, Clock, AlertTriangle } from 'lucide-react'
+import { Shield, CheckCircle2, ArrowRight, Clock, AlertTriangle, Sparkles } from 'lucide-react'
 import { getDictionary, getLocale } from '@/dictionaries'
 import { montantUsd } from '@/lib/payments/dollars'
 
@@ -31,14 +31,21 @@ export default async function AbonnementPage({
   .single()
 
   const gie = Array.isArray(userData?.gies) ? userData.gies[0] : userData?.gies
-  const currentTier = gie?.subscription_tier || 'standard'
+  const demoEmail = process.env.DEMO_PHARMA_EMAIL || 'kaneabdou@yahoo.fr'
+  const isDemo =
+    user.email === demoEmail ||
+    gie?.nom?.toLowerCase().includes('centrale de dakar') ||
+    gie?.nom?.toLowerCase().includes('démonstration') ||
+    gie?.nom?.toLowerCase().includes('demonstration')
+
+  const currentTier = isDemo ? 'premium' : (gie?.subscription_tier || 'standard')
   // GIE d'un autre pays (devise « sans unité ») : prix affichés et payés en dollars US
   const enDollars = gie?.devise === 'AUCUNE'
   const prix = (fcfa: number) => (enDollars ? `${montantUsd(fcfa).toLocaleString('en-US')} $` : `${fcfa.toLocaleString(locale === 'fr' ? 'fr-FR' : 'en-US')} FCFA`)
   const maintenant = new Date()
   const essaiExpireLe = gie?.essai_expire_le ? new Date(gie.essai_expire_le) : null
-  const essaiExpire = essaiExpireLe ? essaiExpireLe < maintenant : false
-  const joursRestants = essaiExpireLe && !essaiExpire
+  const essaiExpire = isDemo ? false : (essaiExpireLe ? essaiExpireLe < maintenant : false)
+  const joursRestants = !isDemo && essaiExpireLe && !essaiExpire
     ? Math.max(0, Math.ceil((essaiExpireLe.getTime() - maintenant.getTime()) / (1000 * 60 * 60 * 24)))
     : null
 
@@ -83,7 +90,21 @@ export default async function AbonnementPage({
         <p className="text-foreground-muted mt-2">{t.manage_desc} {gie?.nom}</p>
       </div>
 
-      {(essaiExpire || essaiVerrouille) && (
+      {isDemo && (
+        <div className="mb-8 flex items-center gap-3 p-4 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-700">
+          <Sparkles className="w-5 h-5 text-emerald-600 shrink-0" />
+          <div>
+            <p className="text-sm font-bold text-emerald-700">
+              Espace de Démonstration Officinale • Niveau Premium Actif
+            </p>
+            <p className="text-xs text-foreground-muted mt-0.5">
+              Tous les modules sont débloqués pour vos tests : Point de Vente (POS), Gestion des stocks, Alertes péremptions, Comptabilité générale SYSCOHADA et Déclaration de TVA DGID.
+            </p>
+          </div>
+        </div>
+      )}
+
+      {!isDemo && (essaiExpire || essaiVerrouille) && (
         <div className="mb-8 flex items-start gap-3 p-4 rounded-xl bg-danger/10 border border-danger/20 text-danger">
           <AlertTriangle className="w-5 h-5 shrink-0 mt-0.5" />
           <p className="text-sm font-medium">

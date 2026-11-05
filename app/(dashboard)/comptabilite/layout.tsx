@@ -18,9 +18,10 @@ export default async function ComptabiliteLayout({
   const tabs = t.tabs || {}
 
   const currentTier = tenant?.subscriptionTier || 'standard'
-  const isPremium = currentTier === 'premium'
+  const isDemo = !!tenant?.isDemo
+  const isPremium = currentTier === 'premium' || isDemo
 
-  // Si l'officine n'est pas au niveau Premium, accès verrouillé avec paywall d'upgrade
+  // Si l'officine n'est pas au niveau Premium (et hors mode démo), accès verrouillé avec paywall d'upgrade
   if (!isPremium) {
     return (
       <div className="space-y-6 max-w-4xl mx-auto py-4">
@@ -147,7 +148,7 @@ export default async function ComptabiliteLayout({
                   {t.title || 'Comptabilité Officinale'}
                 </h1>
                 <span className="px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-600 border border-emerald-500/20 text-xs font-bold uppercase tracking-wider">
-                  Premium Actif
+                  {isDemo ? 'Démo Version Premium Débloquée' : 'Premium Actif'}
                 </span>
               </div>
               <p className="text-sm text-foreground-muted">

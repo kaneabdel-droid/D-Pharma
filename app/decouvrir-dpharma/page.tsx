@@ -100,10 +100,10 @@ export default async function DecouvrirDpharmaPage({
         <section className="py-12 bg-primary/5 border-y border-surface-border">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-2xl text-center">
             <h2 className="text-2xl md:text-3xl font-bold font-heading mb-3">
-              Essayez D-PHARMA en direct
+              Essayez D-PHARMA en direct (Version Premium Intégrale)
             </h2>
             <p className="text-foreground-muted mb-6">
-              Accédez en un clic à l&apos;officine de démonstration pour tester la vente par scan, l&apos;inventaire et la caisse en conditions réelles, sans créer de compte.
+              Accédez en un clic à l&apos;officine de démonstration avec toutes les fonctionnalités débloquées : Point de Vente par scan, inventaire, caisse, comptabilité générale SYSCOHADA et déclaration TVA DGID, sans créer de compte.
             </p>
             {demoError && (
               <p className="mb-6 text-sm bg-danger/10 text-danger p-3 rounded-md max-w-md mx-auto">
