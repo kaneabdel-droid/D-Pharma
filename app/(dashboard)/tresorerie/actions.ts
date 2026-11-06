@@ -280,5 +280,83 @@ export async function getJournal(compteId: string) {
   }
 }
 
+export async function transfertFonds(data: {
+  compte_source_id: string
+  compte_dest_id: string
+  montant: number
+  motif: string
+}) {
+  const denied = await requirePermission('tresorerie', 'create')
+  if (denied) return denied as never
+  const supabase = await createClient()
+
+  const { data: { user } } = await supabase.auth.getUser()
+  if (!user) return { error: "Non authentifié" }
+
+  const { data: userData } = await supabase
+    .from('utilisateurs')
+    .select('gie_id')
+    .eq('id', user.id)
+    .single()
+
+  if (!userData) return { error: "Utilisateur introuvable" }
+
+  if (!data.compte_source_id || !data.compte_dest_id) {
+    return { error: "Veuillez sélectionner le compte source et le compte destinataire." }
+  }
+
+  if (data.compte_source_id === data.compte_dest_id) {
+    return { error: "Le compte source et le compte de destination doivent être différents." }
+  }
+
+  const montant = Number(data.montant)
+  if (isNaN(montant) || montant <= 0) {
+    return { error: "Montant de transfert invalide." }
+  }
+
+  // Récupérer les noms des comptes pour un libellé clair
+  const { data: comptes } = await supabase
+    .from('comptes')
+    .select('id, nom')
+    .in('id', [data.compte_source_id, data.compte_dest_id])
+
+  const sourceNom = comptes?.find(c => c.id === data.compte_source_id)?.nom || 'Compte source'
+  const destNom = comptes?.find(c => c.id === data.compte_dest_id)?.nom || 'Compte destination'
+
+  const dateJour = new Date().toISOString().split('T')[0]
+  const motifBase = data.motif?.trim() || 'Virement interne / Décharge de caisse'
+
+  // 1. Sortie du compte source
+  const { error: errSortie } = await supabase.from('transactions').insert({
+    gie_id: userData.gie_id,
+    compte_id: data.compte_source_id,
+    type_transaction: 'sortie',
+    montant: montant,
+    motif: `${motifBase} (vers ${destNom})`,
+    type_piece: 'virement_interne',
+    date_transaction: dateJour
+  })
+
+  if (errSortie) return { error: errSortie.message }
+
+  // 2. Entrée dans le compte destinataire
+  const { error: errEntree } = await supabase.from('transactions').insert({
+    gie_id: userData.gie_id,
+    compte_id: data.compte_dest_id,
+    type_transaction: 'entree',
+    montant: montant,
+    motif: `${motifBase} (depuis ${sourceNom})`,
+    type_piece: 'virement_interne',
+    date_transaction: dateJour
+  })
+
+  if (errEntree) return { error: errEntree.message }
+
+  revalidatePath('/tresorerie')
+  revalidatePath('/tresorerie/journaux')
+  revalidatePath('/pharmacie/pos')
+  return { success: true }
+}
+
 
 

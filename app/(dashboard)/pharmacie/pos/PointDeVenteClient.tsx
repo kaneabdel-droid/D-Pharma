@@ -1,14 +1,16 @@
 'use client'
 
-import { useState, useRef, useTransition } from 'react'
+import { useState, useRef, useEffect, useTransition } from 'react'
 import { 
   Search, ShoppingCart, Plus, Minus, Trash2, CreditCard, Banknote, 
   Smartphone, ScanLine, Stethoscope, Pill, Sparkles, Filter, 
   RotateCcw, AlertTriangle, CheckCircle2, History, UserCheck, 
-  Building2, Landmark, Wallet, ArrowUpRight, ArrowDownRight, X, Clock
+  Building2, Landmark, Wallet, ArrowUpRight, ArrowDownRight, X, Clock,
+  Store, Monitor
 } from 'lucide-react'
 import { submitVente, annulerVente } from './actions'
 import { executeOfflineSafe } from '@/lib/offline/offline-action-helper'
+import BilanCaisseModal from './BilanCaisseModal'
 
 export type Medicament = {
   id: string
@@ -32,6 +34,7 @@ export type Compte = {
   nom: string
   type?: string
   type_compte?: string
+  solde?: number
 }
 
 export type ClientExterne = {
@@ -64,12 +67,52 @@ export default function PointDeVenteClient({
   const [selectedCategory, setSelectedCategory] = useState<'tous' | 'medicament' | 'materiel' | 'service'>('tous')
   const [cart, setCart] = useState<LigneCart[]>([])
   
+  // Liste des caisses / postes physiques de vente disponibles
+  const caissesDisponibles = comptes.filter(c => 
+    c.type === 'caisse' || 
+    c.type_compte === 'caisse' || 
+    c.nom?.toLowerCase().includes('caisse') ||
+    c.nom?.toLowerCase().includes('poste')
+  )
+
+  // Caisse / Poste actif sur ce terminal physique (persistance localStorage)
+  const [activeCaisseId, setActiveCaisseId] = useState<string>(() => {
+    const defaultCaisse = caissesDisponibles[0] || comptes.find(c => c.nom?.toLowerCase().includes('caisse') || c.type === 'caisse')
+    return defaultCaisse ? defaultCaisse.id : (comptes[0]?.id || '')
+  })
+
+  // Charger le poste de caisse enregistré localement sur ce terminal physique
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const savedCaisseId = localStorage.getItem('dpharma_active_caisse_id')
+      if (savedCaisseId && caissesDisponibles.some(c => c.id === savedCaisseId)) {
+        setActiveCaisseId(savedCaisseId)
+        setCompteTresorerieId(savedCaisseId)
+      }
+    }
+  }, [])
+
+  const handleSelectActiveCaisse = (id: string) => {
+    setActiveCaisseId(id)
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('dpharma_active_caisse_id', id)
+    }
+    if (moyenPaiement === 'especes') {
+      setCompteTresorerieId(id)
+    }
+  }
+
+  const activeCaisseObj = caissesDisponibles.find(c => c.id === activeCaisseId) || {
+    id: activeCaisseId,
+    nom: comptes.find(c => c.id === activeCaisseId)?.nom || 'Caisse Principale'
+  }
+
   // Modes de règlement: especes, mobile_money, carte, credit
   const [moyenPaiement, setMoyenPaiement] = useState<'especes' | 'mobile_money' | 'carte' | 'credit'>('especes')
   
-  // Sélection du compte de trésorerie précis (Caisse, Wave, Orange Money, Banque)
+  // Sélection du compte de trésorerie précis (Caisse du poste, Wave, Orange Money, Banque)
   const [compteTresorerieId, setCompteTresorerieId] = useState<string>(() => {
-    const defaultCaisse = comptes.find(c => c.nom?.toLowerCase().includes('caisse') || c.type === 'caisse')
+    const defaultCaisse = caissesDisponibles[0] || comptes.find(c => c.nom?.toLowerCase().includes('caisse') || c.type === 'caisse')
     return defaultCaisse ? defaultCaisse.id : (comptes[0]?.id || '')
   })
 
@@ -173,8 +216,7 @@ export default function PointDeVenteClient({
   const handleSelectMoyenPaiement = (mode: 'especes' | 'mobile_money' | 'carte' | 'credit') => {
     setMoyenPaiement(mode)
     if (mode === 'especes') {
-      const c = comptes.find(c => c.nom?.toLowerCase().includes('caisse') || c.type === 'caisse')
-      if (c) setCompteTresorerieId(c.id)
+      setCompteTresorerieId(activeCaisseId || caissesDisponibles[0]?.id || '')
     } else if (mode === 'mobile_money') {
       // Si un compte mobile money existe, le pré-sélectionner
       if (mobileMoneyAccounts.length > 0) {
@@ -255,14 +297,20 @@ export default function PointDeVenteClient({
     }
   }
 
+  const [filtreCaisseHistorique, setFiltreCaisseHistorique] = useState<string>('tous')
+
   // Filtrage de l'historique des ventes
   const ventesFiltrees = recentVentes.filter(v => {
+    if (filtreCaisseHistorique !== 'tous' && v.compte_tresorerie_id !== filtreCaisseHistorique) {
+      return false
+    }
     const q = rechercheHistorique.toLowerCase().trim()
     if (!q) return true
     const ticketMatch = v.numero_ticket?.toLowerCase().includes(q)
     const clientMatch = v.clients_externes?.nom?.toLowerCase().includes(q)
     const modeMatch = v.moyen_paiement?.toLowerCase().includes(q)
-    return ticketMatch || clientMatch || modeMatch
+    const caisseMatch = v.comptes?.nom?.toLowerCase().includes(q)
+    return ticketMatch || clientMatch || modeMatch || caisseMatch
   })
 
   return (
@@ -300,9 +348,31 @@ export default function PointDeVenteClient({
           </button>
         </div>
 
-        <div className="text-xs text-foreground-muted flex items-center gap-2">
-          <div className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
-          <span>Comptabilité & Trésorerie synchronisées en temps réel</span>
+        {/* Sélecteur de Poste / Caisse & Bilan de session */}
+        <div className="flex items-center gap-2 flex-wrap">
+          <div className="flex items-center gap-2 bg-surface px-3 py-1.5 rounded-xl border border-surface-border shadow-2xs">
+            <Store className="w-4 h-4 text-emerald-600 shrink-0" />
+            <span className="text-xs font-bold text-foreground-muted hidden sm:inline">Poste :</span>
+            <select
+              value={activeCaisseId}
+              onChange={(e) => handleSelectActiveCaisse(e.target.value)}
+              className="text-xs font-bold bg-transparent text-foreground border-none focus:ring-0 cursor-pointer pr-1"
+              title="Poste de caisse actif sur ce terminal physique (mémorisé sur ce navigateur)"
+            >
+              {caissesDisponibles.map((c) => (
+                <option key={c.id} value={c.id}>
+                  {c.nom}
+                </option>
+              ))}
+            </select>
+            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse shrink-0" title="Poste actif & connecté" />
+          </div>
+
+          <BilanCaisseModal
+            activeCaisse={activeCaisseObj}
+            recentVentes={recentVentes}
+            locale={locale}
+          />
         </div>
       </div>
 
@@ -662,27 +732,60 @@ export default function PointDeVenteClient({
                 </div>
               )}
 
-              {/* Si Espèces ou Carte : Affichage du journal récepteur */}
-              {(moyenPaiement === 'especes' || moyenPaiement === 'carte') && (
+              {/* Si Espèces : Caisse rattachée au poste de vente actif */}
+              {moyenPaiement === 'especes' && (
+                <div className="bg-emerald-500/10 border border-emerald-500/30 p-2.5 rounded-xl space-y-1.5">
+                  <div className="flex items-center justify-between">
+                    <label htmlFor="compte_caisse_poste" className="text-xs font-bold text-emerald-800 dark:text-emerald-300 flex items-center gap-1.5">
+                      <Wallet className="w-3.5 h-3.5 text-emerald-600" />
+                      <span>Caisse du poste d&apos;encaissement *</span>
+                    </label>
+                    <span className="text-[10px] font-bold text-emerald-700 bg-emerald-500/20 px-2 py-0.5 rounded-full">
+                      Poste actif
+                    </span>
+                  </div>
+                  <select
+                    id="compte_caisse_poste"
+                    value={compteTresorerieId}
+                    onChange={(e) => {
+                      setCompteTresorerieId(e.target.value)
+                      handleSelectActiveCaisse(e.target.value)
+                    }}
+                    className="block w-full rounded-lg border border-emerald-500/40 bg-background px-2.5 py-1.5 text-xs font-bold text-foreground focus:ring-1 focus:ring-emerald-500"
+                  >
+                    {caissesDisponibles.map((c) => (
+                      <option key={c.id} value={c.id}>
+                        🪙 {c.nom} {c.id === activeCaisseId ? '● (Poste Actif)' : ''}
+                      </option>
+                    ))}
+                  </select>
+                  <p className="text-[10px] text-emerald-700/80 dark:text-emerald-400">
+                    Les espèces seront automatiquement créditées sur le journal de <strong>{activeCaisseObj.nom}</strong>.
+                  </p>
+                </div>
+              )}
+
+              {/* Si Carte Bancaire : Affichage des banques */}
+              {moyenPaiement === 'carte' && (
                 <div className="bg-surface p-2.5 rounded-xl border border-surface-border">
-                  <label htmlFor="compte_tresorerie" className="block text-xs font-semibold text-foreground mb-1 flex items-center gap-1.5">
-                    <Wallet className="w-3.5 h-3.5 text-primary" />
-                    <span>Journal de trésorerie récepteur *</span>
+                  <label htmlFor="compte_carte" className="block text-xs font-semibold text-foreground mb-1 flex items-center gap-1.5">
+                    <CreditCard className="w-3.5 h-3.5 text-primary" />
+                    <span>Compte Bancaire récepteur *</span>
                   </label>
                   <select
-                    id="compte_tresorerie"
+                    id="compte_carte"
                     value={compteTresorerieId}
                     onChange={(e) => setCompteTresorerieId(e.target.value)}
                     className="block w-full rounded-lg border border-surface-border bg-background px-2.5 py-1.5 text-xs font-semibold text-foreground focus:ring-1 focus:ring-primary focus:border-primary"
                   >
-                    {comptes.map((c) => (
+                    {comptes.filter(c => c.type === 'banque' || c.nom?.toLowerCase().includes('banque') || c.nom?.toLowerCase().includes('cbao')).map((c) => (
                       <option key={c.id} value={c.id}>
-                        {c.nom} ({c.type || c.type_compte || 'compte'})
+                        🏛️ {c.nom}
                       </option>
                     ))}
                   </select>
                   <p className="text-[10px] text-foreground-muted mt-1">
-                    L&apos;encaissement sera automatiquement crédité dans ce journal.
+                    L&apos;encaissement carte / virement sera directement crédité sur ce compte bancaire.
                   </p>
                 </div>
               )}
@@ -797,15 +900,33 @@ export default function PointDeVenteClient({
               </p>
             </div>
 
-            <div className="relative w-full sm:w-64">
-              <Search className="w-4 h-4 absolute left-3 top-2.5 text-foreground-muted" />
-              <input
-                type="text"
-                value={rechercheHistorique}
-                onChange={(e) => setRechercheHistorique(e.target.value)}
-                placeholder="N° ticket, client, mode..."
-                className="w-full pl-9 pr-3 py-1.5 text-xs rounded-xl border border-surface-border bg-background text-foreground"
-              />
+            <div className="flex items-center gap-2 flex-wrap w-full sm:w-auto">
+              <div className="flex items-center gap-1.5 bg-background px-2.5 py-1.5 rounded-xl border border-surface-border text-xs">
+                <Store className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+                <select
+                  value={filtreCaisseHistorique}
+                  onChange={(e) => setFiltreCaisseHistorique(e.target.value)}
+                  className="bg-transparent text-foreground font-semibold border-none focus:ring-0 cursor-pointer pr-1"
+                >
+                  <option value="tous">Toutes les caisses ({recentVentes.length})</option>
+                  {caissesDisponibles.map((c) => (
+                    <option key={c.id} value={c.id}>
+                      {c.nom}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <div className="relative w-full sm:w-60">
+                <Search className="w-4 h-4 absolute left-3 top-2.5 text-foreground-muted" />
+                <input
+                  type="text"
+                  value={rechercheHistorique}
+                  onChange={(e) => setRechercheHistorique(e.target.value)}
+                  placeholder="N° ticket, client, mode..."
+                  className="w-full pl-9 pr-3 py-1.5 text-xs rounded-xl border border-surface-border bg-background text-foreground"
+                />
+              </div>
             </div>
           </div>
 
@@ -873,8 +994,9 @@ export default function PointDeVenteClient({
                               {v.moyen_paiement}
                             </span>
                             {v.comptes?.nom && (
-                              <span className="block text-[10px] text-foreground-muted font-medium">
-                                Journal: {v.comptes.nom}
+                              <span className="inline-flex items-center gap-1 text-[10px] text-emerald-700 dark:text-emerald-300 font-semibold bg-emerald-500/10 px-2 py-0.5 rounded-full block w-fit">
+                                <Store className="w-2.5 h-2.5 shrink-0" />
+                                <span className="truncate max-w-[140px]">{v.comptes.nom}</span>
                               </span>
                             )}
                           </div>

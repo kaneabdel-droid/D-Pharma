@@ -39,7 +39,7 @@ export default async function POSPage() {
       .order('date_peremption', { ascending: true }),
     supabase
       .from('comptes')
-      .select('id, nom, type')
+      .select('id, nom, type, solde')
       .eq('gie_id', tenant.gieId)
       .order('nom'),
     supabase
