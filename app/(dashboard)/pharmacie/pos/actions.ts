@@ -205,7 +205,7 @@ export async function submitVente(formData: FormData) {
 
         // 1. Débit compte trésorerie pour la part réglée au comptant
         if (part_patient > 0) {
-          const numCompteTres = (moyen_paiement === 'especes') ? '571' : '521'
+          const numCompteTres = (moyen_paiement === 'especes') ? '571' : (moyen_paiement === 'mobile_money' ? '551' : '521')
           ecritureLignes.push({
             ecriture_id: ecriture.id,
             gie_id: tenant.gieId,
@@ -216,13 +216,14 @@ export async function submitVente(formData: FormData) {
           })
         }
 
-        // 2. Débit compte 411 pour la part prise en charge à crédit
+        // 2. Débit compte 412 (Tiers payant) ou 411 pour la part prise en charge à crédit
         if (part_credit > 0) {
+          const numCompteCreance = (clientData?.type_client && clientData.type_client !== 'particulier') ? '412' : '411'
           ecritureLignes.push({
             ecriture_id: ecriture.id,
             gie_id: tenant.gieId,
-            compte: '411',
-            libelle: `Créance client ticket ${numero_ticket} (${clientData?.nom || 'Client'})`,
+            compte: numCompteCreance,
+            libelle: `Créance client/mutuelle ticket ${numero_ticket} (${clientData?.nom || 'Client'})`,
             debit: part_credit,
             credit: 0,
           })
@@ -413,7 +414,7 @@ export async function annulerVente(venteId: string, motif?: string) {
         // Crédit trésorerie si un paiement comptant a été encaissé
         const partPatient = Number(vente.part_patient || 0)
         if (partPatient > 0) {
-          const numCompteTres = (vente.moyen_paiement === 'especes') ? '571' : '521'
+          const numCompteTres = (vente.moyen_paiement === 'especes') ? '571' : (vente.moyen_paiement === 'mobile_money' ? '551' : '521')
           lignesContrepassation.push({
             ecriture_id: ecritureAnnul.id,
             gie_id: tenant.gieId,
@@ -424,13 +425,14 @@ export async function annulerVente(venteId: string, motif?: string) {
           })
         }
 
-        // Crédit 411 si une créance client avait été enregistrée
+        // Crédit 412/411 si une créance client avait été enregistrée
         const partCredit = Number(vente.part_credit || 0)
         if (partCredit > 0) {
+          const numCompteCreance = (vente.client_id) ? '412' : '411'
           lignesContrepassation.push({
             ecriture_id: ecritureAnnul.id,
             gie_id: tenant.gieId,
-            compte: '411',
+            compte: numCompteCreance,
             libelle: `Annulation créance ticket ${numero_ticket}`,
             debit: 0,
             credit: partCredit,

@@ -1,10 +1,10 @@
 'use client'
 
 import { useState, useRef, useEffect, useTransition } from 'react'
-import { 
-  Search, ShoppingCart, Plus, Minus, Trash2, CreditCard, Banknote, 
-  Smartphone, ScanLine, Stethoscope, Pill, Sparkles, Filter, 
-  RotateCcw, AlertTriangle, CheckCircle2, History, UserCheck, 
+import {
+  Search, ShoppingCart, Plus, Minus, Trash2, CreditCard, Banknote,
+  Smartphone, ScanLine, Stethoscope, Pill, Sparkles, Filter,
+  RotateCcw, AlertTriangle, CheckCircle2, History, UserCheck,
   Building2, Landmark, Wallet, ArrowUpRight, ArrowDownRight, X, Clock,
   Store, Monitor
 } from 'lucide-react'
@@ -47,14 +47,14 @@ export type ClientExterne = {
   solde_creance?: number
 }
 
-export default function PointDeVenteClient({ 
+export default function PointDeVenteClient({
   initialMedicaments,
   comptes = [],
   clients = [],
   recentVentes = [],
   t = {},
   locale = 'fr'
-}: { 
+}: {
   initialMedicaments: Medicament[]
   comptes?: Compte[]
   clients?: ClientExterne[]
@@ -66,11 +66,11 @@ export default function PointDeVenteClient({
   const [searchTerm, setSearchTerm] = useState('')
   const [selectedCategory, setSelectedCategory] = useState<'tous' | 'medicament' | 'materiel' | 'service'>('tous')
   const [cart, setCart] = useState<LigneCart[]>([])
-  
+
   // Liste des caisses / postes physiques de vente disponibles
-  const caissesDisponibles = comptes.filter(c => 
-    c.type === 'caisse' || 
-    c.type_compte === 'caisse' || 
+  const caissesDisponibles = comptes.filter(c =>
+    c.type === 'caisse' ||
+    c.type_compte === 'caisse' ||
     c.nom?.toLowerCase().includes('caisse') ||
     c.nom?.toLowerCase().includes('poste')
   )
@@ -109,7 +109,7 @@ export default function PointDeVenteClient({
 
   // Modes de règlement: especes, mobile_money, carte, credit
   const [moyenPaiement, setMoyenPaiement] = useState<'especes' | 'mobile_money' | 'carte' | 'credit'>('especes')
-  
+
   // Sélection du compte de trésorerie précis (Caisse du poste, Wave, Orange Money, Banque)
   const [compteTresorerieId, setCompteTresorerieId] = useState<string>(() => {
     const defaultCaisse = caissesDisponibles[0] || comptes.find(c => c.nom?.toLowerCase().includes('caisse') || c.type === 'caisse')
@@ -118,10 +118,10 @@ export default function PointDeVenteClient({
 
   // Sélection du client pour la vente à crédit
   const [selectedClientId, setSelectedClientId] = useState<string>('')
-  
+
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [message, setMessage] = useState<{ type: 'success' | 'error', text: string } | null>(null)
-  
+
   // État d'annulation de vente
   const [venteAAnnuler, setVenteAAnnuler] = useState<any | null>(null)
   const [motifAnnulation, setMotifAnnulation] = useState('')
@@ -132,9 +132,9 @@ export default function PointDeVenteClient({
 
   // Filtrage du catalogue
   const filteredMedicaments = initialMedicaments.filter(m => {
-    const matchesSearch = m.nom.toLowerCase().includes(searchTerm.toLowerCase()) || 
+    const matchesSearch = m.nom.toLowerCase().includes(searchTerm.toLowerCase()) ||
       (m.code_barres && m.code_barres.toLowerCase().includes(searchTerm.toLowerCase()))
-    
+
     if (!matchesSearch) return false
 
     if (selectedCategory === 'tous') return true
@@ -187,7 +187,7 @@ export default function PointDeVenteClient({
   // Données du client sélectionné
   const selectedClient = clients.find(c => c.id === selectedClientId)
   const tauxCouverture = Number(selectedClient?.taux_couverture || 0)
-  
+
   // Calcul part patient / part crédit
   let partCreditCalculee = 0
   let partPatientCalculee = totalAmount
@@ -203,12 +203,12 @@ export default function PointDeVenteClient({
   }
 
   // Liste filtrée des comptes Mobile Money disponibles
-  const mobileMoneyAccounts = comptes.filter(c => 
-    c.type === 'mobile_money' || 
-    c.type_compte === 'mobile_money' || 
-    c.nom?.toLowerCase().includes('wave') || 
-    c.nom?.toLowerCase().includes('orange') || 
-    c.nom?.toLowerCase().includes('free') || 
+  const mobileMoneyAccounts = comptes.filter(c =>
+    c.type === 'mobile_money' ||
+    c.type_compte === 'mobile_money' ||
+    c.nom?.toLowerCase().includes('wave') ||
+    c.nom?.toLowerCase().includes('orange') ||
+    c.nom?.toLowerCase().includes('free') ||
     c.nom?.toLowerCase().includes('mobile')
   )
 
@@ -321,11 +321,10 @@ export default function PointDeVenteClient({
           <button
             type="button"
             onClick={() => setActiveTab('pos')}
-            className={`px-4 py-2 rounded-xl text-sm font-bold flex items-center gap-2 transition-all ${
-              activeTab === 'pos'
+            className={`px-4 py-2 rounded-xl text-sm font-bold flex items-center gap-2 transition-all ${activeTab === 'pos'
                 ? 'bg-primary text-white shadow-md'
                 : 'bg-surface text-foreground-muted hover:text-foreground border border-surface-border'
-            }`}
+              }`}
           >
             <ShoppingCart className="w-4 h-4" />
             <span>Point de Vente (Caisse)</span>
@@ -334,11 +333,10 @@ export default function PointDeVenteClient({
           <button
             type="button"
             onClick={() => setActiveTab('historique')}
-            className={`px-4 py-2 rounded-xl text-sm font-bold flex items-center gap-2 transition-all ${
-              activeTab === 'historique'
+            className={`px-4 py-2 rounded-xl text-sm font-bold flex items-center gap-2 transition-all ${activeTab === 'historique'
                 ? 'bg-primary text-white shadow-md'
                 : 'bg-surface text-foreground-muted hover:text-foreground border border-surface-border'
-            }`}
+              }`}
           >
             <History className="w-4 h-4" />
             <span>Historique & Annulation des Ventes</span>
@@ -387,7 +385,7 @@ export default function PointDeVenteClient({
                   <h2 className="text-lg font-bold font-heading text-foreground">{t.title || 'Catalogue Officinal'}</h2>
                   <p className="text-xs text-foreground-muted">Médicaments, matériels médicaux et services</p>
                 </div>
-                
+
                 <div className="flex items-center gap-2">
                   <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-emerald-500/10 text-emerald-600 border border-emerald-500/20 text-xs font-semibold">
                     <ScanLine className="w-3.5 h-3.5" />
@@ -395,7 +393,7 @@ export default function PointDeVenteClient({
                     <span className="sm:hidden">Scan Actif</span>
                   </div>
                   {initialMedicaments.length > 0 && (
-                    <button 
+                    <button
                       type="button"
                       title="Ajouter un article pour tester le scan sans douchette"
                       onClick={() => addToCart(initialMedicaments[0])}
@@ -422,11 +420,10 @@ export default function PointDeVenteClient({
                     <button
                       key={tab.id}
                       onClick={() => setSelectedCategory(tab.id as any)}
-                      className={`px-3 py-1 rounded-xl text-xs font-semibold flex items-center gap-1.5 transition-all ${
-                        isActive
+                      className={`px-3 py-1 rounded-xl text-xs font-semibold flex items-center gap-1.5 transition-all ${isActive
                           ? 'bg-primary text-white shadow-sm'
                           : 'bg-background text-foreground-muted hover:text-foreground border border-surface-border'
-                      }`}
+                        }`}
                     >
                       {Icon && <Icon className="w-3.5 h-3.5" />}
                       <span>{tab.label}</span>
@@ -434,7 +431,7 @@ export default function PointDeVenteClient({
                   )
                 })}
               </div>
-              
+
               {/* Barre de recherche */}
               <div className="relative mb-3">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -466,11 +463,10 @@ export default function PointDeVenteClient({
                       <div
                         key={med.id}
                         onClick={() => !rupture && addToCart(med)}
-                        className={`group relative flex flex-col justify-between p-3 rounded-2xl border transition-all text-left ${
-                          rupture
+                        className={`group relative flex flex-col justify-between p-3 rounded-2xl border transition-all text-left ${rupture
                             ? 'opacity-40 bg-background/50 border-surface-border cursor-not-allowed'
                             : 'bg-background hover:bg-surface-hover hover:border-primary/50 cursor-pointer shadow-sm hover:shadow'
-                        }`}
+                          }`}
                       >
                         <div>
                           <div className="flex items-start justify-between gap-1 mb-1">
@@ -478,11 +474,10 @@ export default function PointDeVenteClient({
                               {med.type_produit === 'service' ? 'Service' : med.type_produit === 'materiel' ? 'Matériel' : 'Médicament'}
                             </span>
                             {med.type_produit !== 'service' && (
-                              <span className={`text-[10px] font-extrabold px-1.5 py-0.5 rounded-md ${
-                                med.quantite_stock <= 5 
-                                  ? 'bg-danger/10 text-danger' 
+                              <span className={`text-[10px] font-extrabold px-1.5 py-0.5 rounded-md ${med.quantite_stock <= 5
+                                  ? 'bg-danger/10 text-danger'
                                   : 'bg-emerald-500/10 text-emerald-600'
-                              }`}>
+                                }`}>
                                 {med.quantite_stock} dispo
                               </span>
                             )}
@@ -605,11 +600,10 @@ export default function PointDeVenteClient({
                   <button
                     type="button"
                     onClick={() => handleSelectMoyenPaiement('especes')}
-                    className={`py-2 px-2 rounded-lg text-xs font-bold flex items-center justify-center gap-1.5 transition-all ${
-                      moyenPaiement !== 'credit'
+                    className={`py-2 px-2 rounded-lg text-xs font-bold flex items-center justify-center gap-1.5 transition-all ${moyenPaiement !== 'credit'
                         ? 'bg-primary text-white shadow-xs'
                         : 'text-foreground-muted hover:text-foreground hover:bg-black/5'
-                    }`}
+                      }`}
                   >
                     <Banknote className="w-3.5 h-3.5" />
                     <span>Paiement Comptant</span>
@@ -618,11 +612,10 @@ export default function PointDeVenteClient({
                   <button
                     type="button"
                     onClick={() => handleSelectMoyenPaiement('credit')}
-                    className={`py-2 px-2 rounded-lg text-xs font-bold flex items-center justify-center gap-1.5 transition-all ${
-                      moyenPaiement === 'credit'
+                    className={`py-2 px-2 rounded-lg text-xs font-bold flex items-center justify-center gap-1.5 transition-all ${moyenPaiement === 'credit'
                         ? 'bg-amber-600 text-white shadow-xs'
                         : 'text-foreground-muted hover:text-foreground hover:bg-black/5'
-                    }`}
+                      }`}
                   >
                     <UserCheck className="w-3.5 h-3.5" />
                     <span>Vente à Crédit / Mutuelle</span>
@@ -640,11 +633,10 @@ export default function PointDeVenteClient({
                     <button
                       type="button"
                       onClick={() => handleSelectMoyenPaiement('especes')}
-                      className={`py-2 px-2 rounded-xl border text-center transition-all ${
-                        moyenPaiement === 'especes'
+                      className={`py-2 px-2 rounded-xl border text-center transition-all ${moyenPaiement === 'especes'
                           ? 'bg-primary text-white border-primary shadow-sm font-bold'
                           : 'bg-surface border-surface-border text-foreground-muted hover:text-foreground text-xs'
-                      }`}
+                        }`}
                     >
                       <Banknote className="w-3.5 h-3.5 mx-auto mb-1" />
                       <span className="text-[10px] block">Espèces</span>
@@ -653,11 +645,10 @@ export default function PointDeVenteClient({
                     <button
                       type="button"
                       onClick={() => handleSelectMoyenPaiement('mobile_money')}
-                      className={`py-2 px-2 rounded-xl border text-center transition-all ${
-                        moyenPaiement === 'mobile_money'
+                      className={`py-2 px-2 rounded-xl border text-center transition-all ${moyenPaiement === 'mobile_money'
                           ? 'bg-primary text-white border-primary shadow-sm font-bold'
                           : 'bg-surface border-surface-border text-foreground-muted hover:text-foreground text-xs'
-                      }`}
+                        }`}
                     >
                       <Smartphone className="w-3.5 h-3.5 mx-auto mb-1" />
                       <span className="text-[10px] block">Mobile Money</span>
@@ -666,11 +657,10 @@ export default function PointDeVenteClient({
                     <button
                       type="button"
                       onClick={() => handleSelectMoyenPaiement('carte')}
-                      className={`py-2 px-2 rounded-xl border text-center transition-all ${
-                        moyenPaiement === 'carte'
+                      className={`py-2 px-2 rounded-xl border text-center transition-all ${moyenPaiement === 'carte'
                           ? 'bg-primary text-white border-primary shadow-sm font-bold'
                           : 'bg-surface border-surface-border text-foreground-muted hover:text-foreground text-xs'
-                      }`}
+                        }`}
                     >
                       <CreditCard className="w-3.5 h-3.5 mx-auto mb-1" />
                       <span className="text-[10px] block">Carte/Bque</span>
@@ -701,11 +691,10 @@ export default function PointDeVenteClient({
                             key={acc.id}
                             type="button"
                             onClick={() => setCompteTresorerieId(acc.id)}
-                            className={`p-2.5 rounded-xl border text-left transition-all flex items-center justify-between ${
-                              isSel
+                            className={`p-2.5 rounded-xl border text-left transition-all flex items-center justify-between ${isSel
                                 ? 'border-primary bg-primary/10 text-primary font-bold shadow-xs ring-2 ring-primary/30'
                                 : 'border-surface-border bg-background text-foreground hover:border-primary/50'
-                            }`}
+                              }`}
                           >
                             <span className="text-xs truncate">{acc.nom}</span>
                             {isSel && <span className="text-[10px] text-primary font-bold">✓</span>}
@@ -810,11 +799,10 @@ export default function PointDeVenteClient({
                     value={selectedClientId}
                     onChange={(e) => setSelectedClientId(e.target.value)}
                     required
-                    className={`block w-full rounded-lg bg-background px-2.5 py-2 text-xs font-bold text-foreground focus:ring-2 focus:ring-amber-500 transition-all ${
-                      !selectedClientId
+                    className={`block w-full rounded-lg bg-background px-2.5 py-2 text-xs font-bold text-foreground focus:ring-2 focus:ring-amber-500 transition-all ${!selectedClientId
                         ? 'border-2 border-amber-500 ring-2 ring-amber-500/20'
                         : 'border border-surface-border'
-                    }`}
+                      }`}
                   >
                     <option value="">-- Sélectionner obligatoirement le client --</option>
                     {clients.map(c => (
@@ -854,9 +842,8 @@ export default function PointDeVenteClient({
               )}
 
               {message && (
-                <div className={`p-2.5 rounded-xl text-xs font-semibold flex items-center gap-2 ${
-                  message.type === 'success' ? 'bg-success/15 text-success border border-success/30' : 'bg-danger/15 text-danger border border-danger/30'
-                }`}>
+                <div className={`p-2.5 rounded-xl text-xs font-semibold flex items-center gap-2 ${message.type === 'success' ? 'bg-success/15 text-success border border-success/30' : 'bg-danger/15 text-danger border border-danger/30'
+                  }`}>
                   {message.type === 'success' ? <CheckCircle2 className="w-4 h-4 shrink-0" /> : <AlertTriangle className="w-4 h-4 shrink-0" />}
                   <span>{message.text}</span>
                 </div>
@@ -866,11 +853,10 @@ export default function PointDeVenteClient({
                 type="button"
                 onClick={handleCheckout}
                 disabled={cart.length === 0 || isSubmitting || (moyenPaiement === 'credit' && !selectedClientId)}
-                className={`w-full py-2.5 rounded-xl font-bold text-sm transition-all shadow-md active:scale-[0.99] flex items-center justify-center gap-2 ${
-                  moyenPaiement === 'credit' && !selectedClientId
+                className={`w-full py-2.5 rounded-xl font-bold text-sm transition-all shadow-md active:scale-[0.99] flex items-center justify-center gap-2 ${moyenPaiement === 'credit' && !selectedClientId
                     ? 'bg-amber-500/30 text-amber-800 dark:text-amber-300 cursor-not-allowed border border-amber-500/40'
                     : 'bg-primary text-white hover:bg-primary-hover disabled:opacity-50 disabled:cursor-not-allowed'
-                }`}
+                  }`}
               >
                 {isSubmitting ? (
                   'Enregistrement en cours...'

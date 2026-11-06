@@ -39,10 +39,10 @@ export default async function TresoreriePage() {
         </div>
         <div className="mt-4 sm:mt-0 flex items-center gap-2 flex-wrap">
           <TransfertCaisseModal comptes={comptes || []} />
-          <AddCompteModal 
-            dict={dict} 
+          <AddCompteModal
+            dict={dict}
             defaultType="caisse"
-            buttonLabel="Nouveau Poste / Caisse" 
+            buttonLabel="Nouveau Poste / Caisse"
           />
         </div>
       </div>
@@ -201,11 +201,10 @@ export default async function TresoreriePage() {
                 title="Consulter le journal de ce compte"
               >
                 <div className="flex items-center gap-3.5 min-w-0">
-                  <div className={`p-3 rounded-xl transition-colors ${
-                    isMM 
-                      ? 'bg-amber-500/10 text-amber-600 group-hover:bg-amber-500/20' 
+                  <div className={`p-3 rounded-xl transition-colors ${isMM
+                      ? 'bg-amber-500/10 text-amber-600 group-hover:bg-amber-500/20'
                       : 'bg-primary/10 text-primary group-hover:bg-primary/20'
-                  }`}>
+                    }`}>
                     <Icon className="h-6 w-6" />
                   </div>
                   <div className="min-w-0">
