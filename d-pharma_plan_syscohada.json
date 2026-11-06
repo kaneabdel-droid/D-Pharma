@@ -1,0 +1,3887 @@
+[
+  {
+    "compte": "101",
+    "libelle": "Capital social (ou Capital individuel pour une officine en nom propre)",
+    "classe": 1,
+    "type": "passif",
+    "est_officine": true
+  },
+  {
+    "compte": "1011",
+    "libelle": "Capital souscrit, non appelé",
+    "classe": 1,
+    "type": "passif",
+    "est_officine": false
+  },
+  {
+    "compte": "1012",
+    "libelle": "Capital souscrit, appelé, non versé",
+    "classe": 1,
+    "type": "passif",
+    "est_officine": false
+  },
+  {
+    "compte": "1013",
+    "libelle": "Capital souscrit, appelé, versé, non amorti",
+    "classe": 1,
+    "type": "passif",
+    "est_officine": false
+  },
+  {
+    "compte": "1014",
+    "libelle": "Capital souscrit, appelé, versé, amorti",
+    "classe": 1,
+    "type": "passif",
+    "est_officine": false
+  },
+  {
+    "compte": "102",
+    "libelle": "Capital par dotation",
+    "classe": 1,
+    "type": "passif",
+    "est_officine": false
+  },
+  {
+    "compte": "103",
+    "libelle": "Capital personnel (exploitant individuel officine)",
+    "classe": 1,
+    "type": "passif",
+    "est_officine": true
+  },
+  {
+    "compte": "104",
+    "libelle": "Compte de l'exploitant",
+    "classe": 1,
+    "type": "passif",
+    "est_officine": false
+  },
+  {
+    "compte": "105",
+    "libelle": "Primes liées aux capitaux propres",
+    "classe": 1,
+    "type": "passif",
+    "est_officine": true
+  },
+  {
+    "compte": "106",
+    "libelle": "Écarts de réévaluation",
+    "classe": 1,
+    "type": "passif",
+    "est_officine": true
+  },
+  {
+    "compte": "109",
+    "libelle": "Apporteurs, capital souscrit, non appelé",
+    "classe": 1,
+    "type": "passif",
+    "est_officine": false
+  },
+  {
+    "compte": "11",
+    "libelle": "Réserves",
+    "classe": 1,
+    "type": "passif",
+    "est_officine": false
+  },
+  {
+    "compte": "111",
+    "libelle": "Réserve légale",
+    "classe": 1,
+    "type": "passif",
+    "est_officine": true
+  },
+  {
+    "compte": "112",
+    "libelle": "Réserves statutaires ou contractuelles",
+    "classe": 1,
+    "type": "passif",
+    "est_officine": true
+  },
+  {
+    "compte": "113",
+    "libelle": "Réserves réglementées",
+    "classe": 1,
+    "type": "passif",
+    "est_officine": true
+  },
+  {
+    "compte": "1131",
+    "libelle": "Réserves de plus-values nettes à long terme",
+    "classe": 1,
+    "type": "passif",
+    "est_officine": false
+  },
+  {
+    "compte": "1132",
+    "libelle": "Réserves d'attribution gratuite d'actions au personnel salarié et aux dirigeants",
+    "classe": 1,
+    "type": "passif",
+    "est_officine": false
+  },
+  {
+    "compte": "1133",
+    "libelle": "Réserves consécutives à l'octroi de subventions d'investissement",
+    "classe": 1,
+    "type": "passif",
+    "est_officine": false
+  },
+  {
+    "compte": "1138",
+    "libelle": "Autres réserves réglementées",
+    "classe": 1,
+    "type": "passif",
+    "est_officine": false
+  },
+  {
+    "compte": "118",
+    "libelle": "Autres réserves",
+    "classe": 1,
+    "type": "passif",
+    "est_officine": true
+  },
+  {
+    "compte": "12",
+    "libelle": "Report à nouveau",
+    "classe": 1,
+    "type": "passif",
+    "est_officine": false
+  },
+  {
+    "compte": "121",
+    "libelle": "Report à nouveau créditeur",
+    "classe": 1,
+    "type": "passif",
+    "est_officine": true
+  },
+  {
+    "compte": "129",
+    "libelle": "Report à nouveau débiteur (pertes antérieures)",
+    "classe": 1,
+    "type": "passif",
+    "est_officine": true
+  },
+  {
+    "compte": "1291",
+    "libelle": "Perte nette à reporter",
+    "classe": 1,
+    "type": "passif",
+    "est_officine": false
+  },
+  {
+    "compte": "1292",
+    "libelle": "Perte-Amortissements réputés différés",
+    "classe": 1,
+    "type": "passif",
+    "est_officine": false
+  },
+  {
+    "compte": "13",
+    "libelle": "Résultat net de l'exercice",
+    "classe": 1,
+    "type": "passif",
+    "est_officine": false
+  },
+  {
+    "compte": "130",
+    "libelle": "Resultat en instance d'affectation",
+    "classe": 1,
+    "type": "passif",
+    "est_officine": false
+  },
+  {
+    "compte": "131",
+    "libelle": "Résultat net de l'exercice (Bénéfice de l'officine)",
+    "classe": 1,
+    "type": "passif",
+    "est_officine": true
+  },
+  {
+    "compte": "132",
+    "libelle": "Marge commerciale (m.c.)",
+    "classe": 1,
+    "type": "passif",
+    "est_officine": false
+  },
+  {
+    "compte": "133",
+    "libelle": "Valeur ajoutee (v.a.)",
+    "classe": 1,
+    "type": "passif",
+    "est_officine": false
+  },
+  {
+    "compte": "134",
+    "libelle": "Excedent brut d'exploitation (e.b.e.)",
+    "classe": 1,
+    "type": "passif",
+    "est_officine": false
+  },
+  {
+    "compte": "135",
+    "libelle": "Resultat d'exploitation (r.e.)",
+    "classe": 1,
+    "type": "passif",
+    "est_officine": false
+  },
+  {
+    "compte": "136",
+    "libelle": "Resultat financier (r.f.)",
+    "classe": 1,
+    "type": "passif",
+    "est_officine": false
+  },
+  {
+    "compte": "137",
+    "libelle": "Resultat des activites ordinaires (r.a.o.)",
+    "classe": 1,
+    "type": "passif",
+    "est_officine": false
+  },
+  {
+    "compte": "138",
+    "libelle": "Resultat hors activites ordinaires (r.h.a.o.)",
+    "classe": 1,
+    "type": "passif",
+    "est_officine": false
+  },
+  {
+    "compte": "139",
+    "libelle": "Résultat net de l'exercice (Perte de l'officine)",
+    "classe": 1,
+    "type": "passif",
+    "est_officine": true
+  },
+  {
+    "compte": "14",
+    "libelle": "Subventions d'investissement",
+    "classe": 1,
+    "type": "passif",
+    "est_officine": false
+  },
+  {
+    "compte": "141",
+    "libelle": "Subventions d'équipement et d'investissement",
+    "classe": 1,
+    "type": "passif",
+    "est_officine": true
+  },
+  {
+    "compte": "1411",
+    "libelle": "Etat",
+    "classe": 1,
+    "type": "passif",
+    "est_officine": false
+  },
+  {
+    "compte": "1418",
+    "libelle": "Autres",
+    "classe": 1,
+    "type": "passif",
+    "est_officine": false
+  },
+  {
+    "compte": "148",
+    "libelle": "Autres subventions d'investissement",
+    "classe": 1,
+    "type": "passif",
+    "est_officine": false
+  },
+  {
+    "compte": "15",
+    "libelle": "Provisions réglementées et fonds assimilés",
+    "classe": 1,
+    "type": "passif",
+    "est_officine": false
+  },
+  {
+    "compte": "151",
+    "libelle": "Amortissements derogatoires",
+    "classe": 1,
+    "type": "passif",
+    "est_officine": false
+  },
+  {
+    "compte": "152",
+    "libelle": "Plus-values de cession a reinvestir",
+    "classe": 1,
+    "type": "passif",
+    "est_officine": false
+  },
+  {
+    "compte": "153",
+    "libelle": "Fonds reglementes",
+    "classe": 1,
+    "type": "passif",
+    "est_officine": false
+  },
+  {
+    "compte": "154",
+    "libelle": "Provision speciale de reevaluation",
+    "classe": 1,
+    "type": "passif",
+    "est_officine": false
+  },
+  {
+    "compte": "155",
+    "libelle": "Provisions reglementees relatives aux immobilisations",
+    "classe": 1,
+    "type": "passif",
+    "est_officine": false
+  },
+  {
+    "compte": "156",
+    "libelle": "Provisions reglementees relatives aux stocks",
+    "classe": 1,
+    "type": "passif",
+    "est_officine": false
+  },
+  {
+    "compte": "157",
+    "libelle": "Provisions pour investissement",
+    "classe": 1,
+    "type": "passif",
+    "est_officine": false
+  },
+  {
+    "compte": "158",
+    "libelle": "Autres provisions et fonds reglementes",
+    "classe": 1,
+    "type": "passif",
+    "est_officine": false
+  },
+  {
+    "compte": "16",
+    "libelle": "Emprunts et dettes assimilées",
+    "classe": 1,
+    "type": "passif",
+    "est_officine": false
+  },
+  {
+    "compte": "161",
+    "libelle": "Emprunts obligataires",
+    "classe": 1,
+    "type": "passif",
+    "est_officine": false
+  },
+  {
+    "compte": "1611",
+    "libelle": "Emprunts obligataires ordinaires",
+    "classe": 1,
+    "type": "passif",
+    "est_officine": false
+  },
+  {
+    "compte": "162",
+    "libelle": "Emprunts auprès des établissements de crédit (financement fonds de commerce officine)",
+    "classe": 1,
+    "type": "passif",
+    "est_officine": true
+  },
+  {
+    "compte": "163",
+    "libelle": "Avances reçues de l'etat",
+    "classe": 1,
+    "type": "passif",
+    "est_officine": false
+  },
+  {
+    "compte": "164",
+    "libelle": "Avances reçues et comptes courants bloques",
+    "classe": 1,
+    "type": "passif",
+    "est_officine": false
+  },
+  {
+    "compte": "165",
+    "libelle": "Dépôts et cautionnements reçus",
+    "classe": 1,
+    "type": "passif",
+    "est_officine": true
+  },
+  {
+    "compte": "1651",
+    "libelle": "Dépôts",
+    "classe": 1,
+    "type": "passif",
+    "est_officine": false
+  },
+  {
+    "compte": "166",
+    "libelle": "Interêts courus",
+    "classe": 1,
+    "type": "passif",
+    "est_officine": false
+  },
+  {
+    "compte": "167",
+    "libelle": "Avances assorties de conditions particulieres",
+    "classe": 1,
+    "type": "passif",
+    "est_officine": false
+  },
+  {
+    "compte": "168",
+    "libelle": "Autres emprunts et dettes",
+    "classe": 1,
+    "type": "passif",
+    "est_officine": false
+  },
+  {
+    "compte": "17",
+    "libelle": "Dettes de location acquisition",
+    "classe": 1,
+    "type": "passif",
+    "est_officine": false
+  },
+  {
+    "compte": "172",
+    "libelle": "Dettes de location acquisition/credit- bail immobilier",
+    "classe": 1,
+    "type": "passif",
+    "est_officine": false
+  },
+  {
+    "compte": "173",
+    "libelle": "Dettes de location acquisition/ credit- bail mobilier",
+    "classe": 1,
+    "type": "passif",
+    "est_officine": false
+  },
+  {
+    "compte": "174",
+    "libelle": "Dettes de location acquisition /location vente",
+    "classe": 1,
+    "type": "passif",
+    "est_officine": false
+  },
+  {
+    "compte": "176",
+    "libelle": "Interêts courus",
+    "classe": 1,
+    "type": "passif",
+    "est_officine": false
+  },
+  {
+    "compte": "178",
+    "libelle": "Dettes d'autres contrats de location acquisition",
+    "classe": 1,
+    "type": "passif",
+    "est_officine": false
+  },
+  {
+    "compte": "18",
+    "libelle": "Dettes liées à des participations et comptes de liaison des établissements et sociétés en participation",
+    "classe": 1,
+    "type": "passif",
+    "est_officine": false
+  },
+  {
+    "compte": "181",
+    "libelle": "Dettes liees a des participations",
+    "classe": 1,
+    "type": "passif",
+    "est_officine": false
+  },
+  {
+    "compte": "182",
+    "libelle": "Dettes liees a des societes en participation",
+    "classe": 1,
+    "type": "passif",
+    "est_officine": false
+  },
+  {
+    "compte": "183",
+    "libelle": "Interêts courus sur dettes liees a des participations",
+    "classe": 1,
+    "type": "passif",
+    "est_officine": false
+  },
+  {
+    "compte": "184",
+    "libelle": "Comptes permanents bloques des etablissements et succursales",
+    "classe": 1,
+    "type": "passif",
+    "est_officine": false
+  },
+  {
+    "compte": "185",
+    "libelle": "Comptes permanents non bloques des etablissements et succursales",
+    "classe": 1,
+    "type": "passif",
+    "est_officine": false
+  },
+  {
+    "compte": "186",
+    "libelle": "Comptes de liaison charges",
+    "classe": 1,
+    "type": "passif",
+    "est_officine": false
+  },
+  {
+    "compte": "187",
+    "libelle": "Comptes de liaison produits",
+    "classe": 1,
+    "type": "passif",
+    "est_officine": false
+  },
+  {
+    "compte": "188",
+    "libelle": "est exclusivement limitée aux opérations financières entre les entités liées.",
+    "classe": 1,
+    "type": "passif",
+    "est_officine": false
+  },
+  {
+    "compte": "19",
+    "libelle": "Provisions pour risques et charges",
+    "classe": 1,
+    "type": "passif",
+    "est_officine": false
+  },
+  {
+    "compte": "191",
+    "libelle": "– Provisions pour litiges : à constituer lorsque l'entité engagée dans un procès risque d'être condamnée au versement de dommages et intérêts ou autres indemnités.",
+    "classe": 1,
+    "type": "passif",
+    "est_officine": false
+  },
+  {
+    "compte": "192",
+    "libelle": "Provisions pour garanties données aux clients",
+    "classe": 1,
+    "type": "passif",
+    "est_officine": false
+  },
+  {
+    "compte": "193",
+    "libelle": "Provisions pour pertes sur marches a achevement futur",
+    "classe": 1,
+    "type": "passif",
+    "est_officine": false
+  },
+  {
+    "compte": "194",
+    "libelle": "Provisions pour pertes de change",
+    "classe": 1,
+    "type": "passif",
+    "est_officine": false
+  },
+  {
+    "compte": "195",
+    "libelle": "– Provisions pour impôt : le principe de base étant la méthode de l'impôt exigible, les impôts différés ne sont pas mis en évidence dans les comptes.",
+    "classe": 1,
+    "type": "passif",
+    "est_officine": false
+  },
+  {
+    "compte": "196",
+    "libelle": "– Provisions pour pensions et obligations similaires (voir titre VIII Opérations spécifiques, Chapitre 21):",
+    "classe": 1,
+    "type": "passif",
+    "est_officine": false
+  },
+  {
+    "compte": "197",
+    "libelle": "Provisions pour restructuration",
+    "classe": 1,
+    "type": "passif",
+    "est_officine": false
+  },
+  {
+    "compte": "198",
+    "libelle": "Autres provisions pour risques et charges",
+    "classe": 1,
+    "type": "passif",
+    "est_officine": false
+  },
+  {
+    "compte": "21",
+    "libelle": "Immobilisations incorporelles",
+    "classe": 2,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "211",
+    "libelle": "Frais de développement (progiciel de gestion d'officine)",
+    "classe": 2,
+    "type": "actif",
+    "est_officine": true
+  },
+  {
+    "compte": "212",
+    "libelle": "Brevets, licences, concessions et droits similaires",
+    "classe": 2,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "2121",
+    "libelle": "Brevets",
+    "classe": 2,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "2122",
+    "libelle": "Licences",
+    "classe": 2,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "213",
+    "libelle": "Logiciels informatiques et licences officinales",
+    "classe": 2,
+    "type": "actif",
+    "est_officine": true
+  },
+  {
+    "compte": "2131",
+    "libelle": "Logiciels",
+    "classe": 2,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "214",
+    "libelle": "Marques",
+    "classe": 2,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "215",
+    "libelle": "Fonds commercial (valeur d'achat de la patientèle et emplacement officine)",
+    "classe": 2,
+    "type": "actif",
+    "est_officine": true
+  },
+  {
+    "compte": "216",
+    "libelle": "Droit au bail",
+    "classe": 2,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "217",
+    "libelle": "Investissements de creation",
+    "classe": 2,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "218",
+    "libelle": "Autres droits et valeurs incorporels",
+    "classe": 2,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "2181",
+    "libelle": "Frais de prospection et d'évaluation de ressources minérales",
+    "classe": 2,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "219",
+    "libelle": "Immobilisations incorporelles en cours",
+    "classe": 2,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "22",
+    "libelle": "Terrains",
+    "classe": 2,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "221",
+    "libelle": "Terrains (assiette foncière de l'officine)",
+    "classe": 2,
+    "type": "actif",
+    "est_officine": true
+  },
+  {
+    "compte": "222",
+    "libelle": "Terrains nus",
+    "classe": 2,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "223",
+    "libelle": "Terrains bâtis",
+    "classe": 2,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "224",
+    "libelle": "Travaux de mise en valeur des terrains",
+    "classe": 2,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "225",
+    "libelle": "Terrains carrieres trefonds",
+    "classe": 2,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "226",
+    "libelle": "Terrains amenages",
+    "classe": 2,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "227",
+    "libelle": "Terrains mis en concession",
+    "classe": 2,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "228",
+    "libelle": "Autres terrains",
+    "classe": 2,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "229",
+    "libelle": "Amenagements de terrains en cours",
+    "classe": 2,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "23",
+    "libelle": "Bâtiments, installations techniques et agencements",
+    "classe": 2,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "231",
+    "libelle": "Bâtiments (locaux commerciaux de la pharmacie)",
+    "classe": 2,
+    "type": "actif",
+    "est_officine": true
+  },
+  {
+    "compte": "232",
+    "libelle": "Bâtiments industriels agricoles, administratifs et commerciaux sur sol d'autrui",
+    "classe": 2,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "233",
+    "libelle": "Ouvrages d'infrastructure",
+    "classe": 2,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "234",
+    "libelle": "Installations techniques",
+    "classe": 2,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "235",
+    "libelle": "Amenagements de bureaux",
+    "classe": 2,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "237",
+    "libelle": "Bâtiments industriels, agricoles et commerciaux mis en concession",
+    "classe": 2,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "238",
+    "libelle": "Autres installations et agencements",
+    "classe": 2,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "239",
+    "libelle": "Bâtiments et installations en cours",
+    "classe": 2,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "24",
+    "libelle": "Matériel, Mobilier et Actifs biologiques",
+    "classe": 2,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "241",
+    "libelle": "Matériel et outillage (automates de dispensation, balances de précision, frigos vaccins)",
+    "classe": 2,
+    "type": "actif",
+    "est_officine": true
+  },
+  {
+    "compte": "2411",
+    "libelle": "Matériel industriel",
+    "classe": 2,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "242",
+    "libelle": "Matériel de transport (véhicules et scooters de livraison de médicaments)",
+    "classe": 2,
+    "type": "actif",
+    "est_officine": true
+  },
+  {
+    "compte": "243",
+    "libelle": "Matériel et mobilier de bureau",
+    "classe": 2,
+    "type": "actif",
+    "est_officine": true
+  },
+  {
+    "compte": "244",
+    "libelle": "Matériel informatique (postes de vente comptoir, serveurs officine, lecteurs code-barres)",
+    "classe": 2,
+    "type": "actif",
+    "est_officine": true
+  },
+  {
+    "compte": "2441",
+    "libelle": "Matériel de bureau",
+    "classe": 2,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "245",
+    "libelle": "Agencements, aménagements et installations (rayonnages, comptoirs, enseigne lumineuse, croix verte)",
+    "classe": 2,
+    "type": "actif",
+    "est_officine": true
+  },
+  {
+    "compte": "2451",
+    "libelle": "Matériel automobile",
+    "classe": 2,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "246",
+    "libelle": "Actifs biologiques",
+    "classe": 2,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "247",
+    "libelle": "Agencements, amenagements du materiel et actifs biologiques",
+    "classe": 2,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "248",
+    "libelle": "Autres materiels et mobiliers",
+    "classe": 2,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "249",
+    "libelle": "Materiel et actifs biologiques en cours",
+    "classe": 2,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "25",
+    "libelle": "Avances et acomptes versés sur immobilisations",
+    "classe": 2,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "251",
+    "libelle": "Avances et acomptes versés sur immobilisations incorporelles",
+    "classe": 2,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "252",
+    "libelle": "Avances et acomptes versés sur immobilisations corporelles",
+    "classe": 2,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "26",
+    "libelle": "Titres de participation",
+    "classe": 2,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "261",
+    "libelle": "Titres de participation dans des societes sous contrôle exclusif",
+    "classe": 2,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "262",
+    "libelle": "Titres de participation dans des societes sous contrôle conjoint",
+    "classe": 2,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "263",
+    "libelle": "Titres de participation dans des societes conferant une influence notable",
+    "classe": 2,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "265",
+    "libelle": "Participations dans des organismes professionnels",
+    "classe": 2,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "266",
+    "libelle": "Parts dans des groupements d'interêt economique (g.i.e.)",
+    "classe": 2,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "268",
+    "libelle": "Autres titres de participation",
+    "classe": 2,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "27",
+    "libelle": "Autres immobilisations financières",
+    "classe": 2,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "271",
+    "libelle": "Prêts et creances",
+    "classe": 2,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "272",
+    "libelle": "Prêts accordés au personnel de l'officine",
+    "classe": 2,
+    "type": "actif",
+    "est_officine": true
+  },
+  {
+    "compte": "273",
+    "libelle": "Creances sur l'etat",
+    "classe": 2,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "274",
+    "libelle": "Titres immobilises",
+    "classe": 2,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "275",
+    "libelle": "Dépôts et cautionnements versés (caution bail commercial officine)",
+    "classe": 2,
+    "type": "actif",
+    "est_officine": true
+  },
+  {
+    "compte": "276",
+    "libelle": "Interêts courus",
+    "classe": 2,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "277",
+    "libelle": "Creances rattachees a des participations et avances a des g.i.e.",
+    "classe": 2,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "278",
+    "libelle": "Immobilisations financieres diverses",
+    "classe": 2,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "28",
+    "libelle": "Amortissements",
+    "classe": 2,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "281",
+    "libelle": "Amortissements des immobilisations corporelles officinales",
+    "classe": 2,
+    "type": "passif",
+    "est_officine": true
+  },
+  {
+    "compte": "2811",
+    "libelle": "Amortissements des frais de développement",
+    "classe": 2,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "282",
+    "libelle": "Amortissements des terrains",
+    "classe": 2,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "283",
+    "libelle": "Amortissements des bâtiments, installations techniques et agencements",
+    "classe": 2,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "284",
+    "libelle": "Amortissements du matériel informatique et agencements",
+    "classe": 2,
+    "type": "passif",
+    "est_officine": true
+  },
+  {
+    "compte": "2841",
+    "libelle": "Amortissements du matériel et outillage industriel et commercial",
+    "classe": 2,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "29",
+    "libelle": "Dépréciations",
+    "classe": 2,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "291",
+    "libelle": "Depreciations des immobilisations ncorporelles",
+    "classe": 2,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "292",
+    "libelle": "Depreciations des terrains",
+    "classe": 2,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "293",
+    "libelle": "Depreciations des bâtiments, installations techniques et agencements",
+    "classe": 2,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "294",
+    "libelle": "Depreciations du materiel, du mobilier et de l'actif biologique",
+    "classe": 2,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "295",
+    "libelle": "Depreciations des avances et acomptes verses sur immobilisations",
+    "classe": 2,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "296",
+    "libelle": "Depreciations des titres de participation",
+    "classe": 2,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "297",
+    "libelle": "Depreciations des autres immobilisations financieres",
+    "classe": 2,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "31",
+    "libelle": "Marchandises",
+    "classe": 3,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "311",
+    "libelle": "Stocks de marchandises – Médicaments éthiques / Princeps (sous ordonnance)",
+    "classe": 3,
+    "type": "actif",
+    "est_officine": true
+  },
+  {
+    "compte": "3111",
+    "libelle": "Marchandises A1",
+    "classe": 3,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "3112",
+    "libelle": "Marchandises A2",
+    "classe": 3,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "312",
+    "libelle": "Stocks de marchandises – Médicaments Génériques (DCI)",
+    "classe": 3,
+    "type": "actif",
+    "est_officine": true
+  },
+  {
+    "compte": "3121",
+    "libelle": "Marchandises B1",
+    "classe": 3,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "313",
+    "libelle": "Stocks de marchandises – Parapharmacie, dermo-cosmétique et hygiène",
+    "classe": 3,
+    "type": "actif",
+    "est_officine": true
+  },
+  {
+    "compte": "314",
+    "libelle": "Stocks de marchandises – Matériel médical, orthopédie et maintien à domicile",
+    "classe": 3,
+    "type": "actif",
+    "est_officine": true
+  },
+  {
+    "compte": "315",
+    "libelle": "Stocks de marchandises – Préparations magistrales et officinales",
+    "classe": 3,
+    "type": "actif",
+    "est_officine": true
+  },
+  {
+    "compte": "318",
+    "libelle": "Marchandises hors activites ordinaires (h.a.o.)",
+    "classe": 3,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "32",
+    "libelle": "Matières premières et fournitures liées",
+    "classe": 3,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "321",
+    "libelle": "Matières premières et principes actifs pour préparations magistrales",
+    "classe": 3,
+    "type": "actif",
+    "est_officine": true
+  },
+  {
+    "compte": "322",
+    "libelle": "Matieres b",
+    "classe": 3,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "323",
+    "libelle": "Fournitures (a, b)",
+    "classe": 3,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "33",
+    "libelle": "Fournitures d'atelier et d'usine",
+    "classe": 3,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "331",
+    "libelle": "Matieres consommables",
+    "classe": 3,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "333",
+    "libelle": "Fournitures de magasin",
+    "classe": 3,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "334",
+    "libelle": "Fournitures de bureau",
+    "classe": 3,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "335",
+    "libelle": "Emballages, flacons, sachets et consommables de conditionnement",
+    "classe": 3,
+    "type": "actif",
+    "est_officine": true
+  },
+  {
+    "compte": "338",
+    "libelle": "Autres matieres",
+    "classe": 3,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "34",
+    "libelle": "Produits en cours",
+    "classe": 3,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "341",
+    "libelle": "Produits en cours",
+    "classe": 3,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "342",
+    "libelle": "Travaux en cours",
+    "classe": 3,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "343",
+    "libelle": "Produits intermediaires en cours",
+    "classe": 3,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "344",
+    "libelle": "Produits residuels en cours",
+    "classe": 3,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "35",
+    "libelle": "Services en cours",
+    "classe": 3,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "351",
+    "libelle": "Etudes en cours",
+    "classe": 3,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "352",
+    "libelle": "Prestations de services en cours",
+    "classe": 3,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "36",
+    "libelle": "Produits finis",
+    "classe": 3,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "361",
+    "libelle": "Produits finis a",
+    "classe": 3,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "362",
+    "libelle": "Produits finis b",
+    "classe": 3,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "37",
+    "libelle": "Produits intermédiaires et résiduels",
+    "classe": 3,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "371",
+    "libelle": "Produits intermediaires",
+    "classe": 3,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "372",
+    "libelle": "Produits residuels",
+    "classe": 3,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "38",
+    "libelle": "Stocks en cours de route, en consignation ou en dépôt",
+    "classe": 3,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "381",
+    "libelle": "Marchandises en cours de route",
+    "classe": 3,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "382",
+    "libelle": "Matieres premieres et fournitures liees en cours de route",
+    "classe": 3,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "383",
+    "libelle": "Autres approvisionnements en cours de route",
+    "classe": 3,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "386",
+    "libelle": "Produits finis en cours de route",
+    "classe": 3,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "387",
+    "libelle": "Stock en consignation ou en depôt",
+    "classe": 3,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "388",
+    "libelle": "Stock provenant d'immobilisations mises hors service ou au rebut",
+    "classe": 3,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "39",
+    "libelle": "et 49 et du compte 499 – Provisions pour risques à court terme (passif)",
+    "classe": 3,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "391",
+    "libelle": "Dépréciations des stocks de marchandises (produits périmés, avariés ou obsolètes)",
+    "classe": 3,
+    "type": "actif",
+    "est_officine": true
+  },
+  {
+    "compte": "392",
+    "libelle": "Depreciations des stocks de matieres premieres et fournitures liees",
+    "classe": 3,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "393",
+    "libelle": "Depreciations des stocks d'autres approvisionnements",
+    "classe": 3,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "394",
+    "libelle": "Depreciations des produits en cours",
+    "classe": 3,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "395",
+    "libelle": "Depreciations des services en cours",
+    "classe": 3,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "396",
+    "libelle": "Depreciations des stocks de produits finis",
+    "classe": 3,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "397",
+    "libelle": "Depreciations des stocks de produits intermediaires et residuels",
+    "classe": 3,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "398",
+    "libelle": "Depreciations des stocks en cours de route, en consignation ou en depôt",
+    "classe": 3,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "40",
+    "libelle": "Fournisseurs et comptes rattachés",
+    "classe": 4,
+    "type": "passif",
+    "est_officine": false
+  },
+  {
+    "compte": "401",
+    "libelle": "Fournisseurs Grossistes-Répartiteurs (Laborex, Ubipharm, Cophase, Sodipharm...)",
+    "classe": 4,
+    "type": "passif",
+    "est_officine": true
+  },
+  {
+    "compte": "4011",
+    "libelle": "Fournisseurs",
+    "classe": 4,
+    "type": "passif",
+    "est_officine": false
+  },
+  {
+    "compte": "4012",
+    "libelle": "Fournisseurs-Groupe",
+    "classe": 4,
+    "type": "passif",
+    "est_officine": false
+  },
+  {
+    "compte": "402",
+    "libelle": "Fournisseurs, effets a payer",
+    "classe": 4,
+    "type": "passif",
+    "est_officine": false
+  },
+  {
+    "compte": "404",
+    "libelle": "Fournisseurs d'immobilisations et matériels officinaux",
+    "classe": 4,
+    "type": "passif",
+    "est_officine": true
+  },
+  {
+    "compte": "408",
+    "libelle": "Fournisseurs, factures non parvenues",
+    "classe": 4,
+    "type": "passif",
+    "est_officine": true
+  },
+  {
+    "compte": "4081",
+    "libelle": "Fournisseurs",
+    "classe": 4,
+    "type": "passif",
+    "est_officine": false
+  },
+  {
+    "compte": "409",
+    "libelle": "Fournisseurs debiteurs",
+    "classe": 4,
+    "type": "passif",
+    "est_officine": false
+  },
+  {
+    "compte": "4094",
+    "libelle": "Fournisseurs - Créances pour retours et avoirs à recevoir",
+    "classe": 4,
+    "type": "actif",
+    "est_officine": true
+  },
+  {
+    "compte": "41",
+    "libelle": "Clients et comptes rattachés",
+    "classe": 4,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "411",
+    "libelle": "Clients – Ventes au comptoir (Espèces, Carte, Mobile Money)",
+    "classe": 4,
+    "type": "actif",
+    "est_officine": true
+  },
+  {
+    "compte": "4111",
+    "libelle": "Clients",
+    "classe": 4,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "412",
+    "libelle": "Clients – Organismes de Tiers Payant (Mutuelles, Assurances, IPM, CNAM)",
+    "classe": 4,
+    "type": "actif",
+    "est_officine": true
+  },
+  {
+    "compte": "4121",
+    "libelle": "Clients, Effets à recevoir",
+    "classe": 4,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "414",
+    "libelle": "Creances sur cessions courantes d'immobilisations",
+    "classe": 4,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "415",
+    "libelle": "Clients, effets escomptes non echus",
+    "classe": 4,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "416",
+    "libelle": "Clients créances douteuses ou litiges Tiers Payant",
+    "classe": 4,
+    "type": "actif",
+    "est_officine": true
+  },
+  {
+    "compte": "4161",
+    "libelle": "Créances litigieuses",
+    "classe": 4,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "418",
+    "libelle": "Clients, produits a recevoir",
+    "classe": 4,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "419",
+    "libelle": "Clients crediteurs",
+    "classe": 4,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "42",
+    "libelle": "Personnel",
+    "classe": 4,
+    "type": "passif",
+    "est_officine": false
+  },
+  {
+    "compte": "421",
+    "libelle": "Personnel, rémunérations dues (pharmaciens assistants, préparateurs, caissiers)",
+    "classe": 4,
+    "type": "passif",
+    "est_officine": true
+  },
+  {
+    "compte": "4211",
+    "libelle": "Personnel, avances",
+    "classe": 4,
+    "type": "passif",
+    "est_officine": false
+  },
+  {
+    "compte": "422",
+    "libelle": "Personnel, avances et acomptes sur salaires",
+    "classe": 4,
+    "type": "actif",
+    "est_officine": true
+  },
+  {
+    "compte": "423",
+    "libelle": "Personnel, oppositions, saisies-arrêts",
+    "classe": 4,
+    "type": "passif",
+    "est_officine": false
+  },
+  {
+    "compte": "424",
+    "libelle": "Personnel,œuvres sociales internes",
+    "classe": 4,
+    "type": "passif",
+    "est_officine": false
+  },
+  {
+    "compte": "425",
+    "libelle": "Representants du personnel",
+    "classe": 4,
+    "type": "passif",
+    "est_officine": false
+  },
+  {
+    "compte": "426",
+    "libelle": "Personnel, participation aux benefices et au capital",
+    "classe": 4,
+    "type": "passif",
+    "est_officine": false
+  },
+  {
+    "compte": "427",
+    "libelle": "Personnel-depôts",
+    "classe": 4,
+    "type": "passif",
+    "est_officine": false
+  },
+  {
+    "compte": "428",
+    "libelle": "Personnel, charges a payer et produits a recevoir",
+    "classe": 4,
+    "type": "passif",
+    "est_officine": false
+  },
+  {
+    "compte": "43",
+    "libelle": "Organismes sociaux",
+    "classe": 4,
+    "type": "passif",
+    "est_officine": false
+  },
+  {
+    "compte": "431",
+    "libelle": "Sécurité sociale et Caisses de prévoyance (CSS, IPRES, CNSS)",
+    "classe": 4,
+    "type": "passif",
+    "est_officine": true
+  },
+  {
+    "compte": "4311",
+    "libelle": "Prestations familiales",
+    "classe": 4,
+    "type": "passif",
+    "est_officine": false
+  },
+  {
+    "compte": "432",
+    "libelle": "Caisses de retraite complementaire",
+    "classe": 4,
+    "type": "passif",
+    "est_officine": false
+  },
+  {
+    "compte": "433",
+    "libelle": "Autres organismes sociaux",
+    "classe": 4,
+    "type": "passif",
+    "est_officine": false
+  },
+  {
+    "compte": "438",
+    "libelle": "Organismes sociaux, charges a payer et produits a recevoir",
+    "classe": 4,
+    "type": "passif",
+    "est_officine": false
+  },
+  {
+    "compte": "44",
+    "libelle": "Etat et Collectivités publiques",
+    "classe": 4,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "441",
+    "libelle": "État, impôts sur les bénéfices (BIC / IS)",
+    "classe": 4,
+    "type": "passif",
+    "est_officine": true
+  },
+  {
+    "compte": "442",
+    "libelle": "Etat, autres impôts et taxes",
+    "classe": 4,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "443",
+    "libelle": "Etat, t.v.a. facturee",
+    "classe": 4,
+    "type": "passif",
+    "est_officine": false
+  },
+  {
+    "compte": "4431",
+    "libelle": "État, TVA facturée / collectée sur cosmétiques & parapharmacie (18%)",
+    "classe": 4,
+    "type": "passif",
+    "est_officine": true
+  },
+  {
+    "compte": "444",
+    "libelle": "Etat, t.v.a. due ou credit de t.v.a.",
+    "classe": 4,
+    "type": "passif",
+    "est_officine": false
+  },
+  {
+    "compte": "4441",
+    "libelle": "État, TVA nette due / à décaisser",
+    "classe": 4,
+    "type": "passif",
+    "est_officine": true
+  },
+  {
+    "compte": "445",
+    "libelle": "Etat, t.v.a. recuperable",
+    "classe": 4,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "4452",
+    "libelle": "État, TVA déductible sur achats de cosmétiques & parapharmacie (18%)",
+    "classe": 4,
+    "type": "actif",
+    "est_officine": true
+  },
+  {
+    "compte": "4454",
+    "libelle": "T.V.A. récupérable sur services extérieurs et autres charges",
+    "classe": 4,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "4456",
+    "libelle": "État, crédit de TVA à reporter",
+    "classe": 4,
+    "type": "actif",
+    "est_officine": true
+  },
+  {
+    "compte": "446",
+    "libelle": "Etat, autres taxes sur le chiffre d'affaires",
+    "classe": 4,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "447",
+    "libelle": "Etat, impôts retenus a la source",
+    "classe": 4,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "448",
+    "libelle": "Etat, charges a payer et produits a recevoir",
+    "classe": 4,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "449",
+    "libelle": "Etat, creances et dettes diverses",
+    "classe": 4,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "45",
+    "libelle": "Organismes internationaux",
+    "classe": 4,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "451",
+    "libelle": "Operations avec les organismes africains",
+    "classe": 4,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "452",
+    "libelle": "Operations avec les autres organismes internationaux",
+    "classe": 4,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "458",
+    "libelle": "Organismes internationaux, fonds de dotation et subventions a recevoir",
+    "classe": 4,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "46",
+    "libelle": "Apporteurs, Associés et Groupe",
+    "classe": 4,
+    "type": "passif",
+    "est_officine": false
+  },
+  {
+    "compte": "461",
+    "libelle": "Apporteurs, operations sur le capital",
+    "classe": 4,
+    "type": "passif",
+    "est_officine": false
+  },
+  {
+    "compte": "462",
+    "libelle": "Apporteurs, Associés, comptes courants d'associés",
+    "classe": 4,
+    "type": "passif",
+    "est_officine": true
+  },
+  {
+    "compte": "463",
+    "libelle": "Associés, opérations faites en commun.",
+    "classe": 4,
+    "type": "passif",
+    "est_officine": false
+  },
+  {
+    "compte": "465",
+    "libelle": "Associes(1), dividendes a payer",
+    "classe": 4,
+    "type": "passif",
+    "est_officine": false
+  },
+  {
+    "compte": "466",
+    "libelle": "Groupe, comptes courants",
+    "classe": 4,
+    "type": "passif",
+    "est_officine": false
+  },
+  {
+    "compte": "467",
+    "libelle": "Débiteurs ou créditeurs divers",
+    "classe": 4,
+    "type": "passif",
+    "est_officine": true
+  },
+  {
+    "compte": "47",
+    "libelle": "Débiteurs et créditeurs divers",
+    "classe": 4,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "471",
+    "libelle": "Debiteurs et crediteurs divers",
+    "classe": 4,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "472",
+    "libelle": "Versements restant a effectuer sur titres de placement non liberes",
+    "classe": 4,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "473",
+    "libelle": "Intermediaires – operations faites pour le compte de tiers",
+    "classe": 4,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "474",
+    "libelle": "Repartition periodique des charges et des produits",
+    "classe": 4,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "475",
+    "libelle": "Compte transitoire, ajustement special lie a la revision syscohada",
+    "classe": 4,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "476",
+    "libelle": "Charges constatees d'avance",
+    "classe": 4,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "477",
+    "libelle": "Produits constates d'avance",
+    "classe": 4,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "478",
+    "libelle": "Ecarts de conversion-actif",
+    "classe": 4,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "479",
+    "libelle": "Ecarts de conversion- passif",
+    "classe": 4,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "48",
+    "libelle": "Créances et dettes hors activités ordinaires",
+    "classe": 4,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "481",
+    "libelle": "Fournisseurs d'investissements",
+    "classe": 4,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "482",
+    "libelle": "Fournisseurs d'investissements effets a payer",
+    "classe": 4,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "484",
+    "libelle": "Autres dettes hors activites ordinaires (h.a.o.)",
+    "classe": 4,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "485",
+    "libelle": "Creances sur cessions d'immobilisations",
+    "classe": 4,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "488",
+    "libelle": "Autres creances hors activites ordinaires (h.a.o.)",
+    "classe": 4,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "49",
+    "libelle": "Dépréciations et provisions pour risques à court terme (Tiers)",
+    "classe": 4,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "490",
+    "libelle": "Dépréciations des comptes fournisseurs",
+    "classe": 4,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "491",
+    "libelle": "Depreciations des comptes clients",
+    "classe": 4,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "492",
+    "libelle": "Depreciations des comptes personnel",
+    "classe": 4,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "493",
+    "libelle": "Depreciations des comptes organismes sociaux",
+    "classe": 4,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "494",
+    "libelle": "Dépréciations des comptes état et collectivités publiques",
+    "classe": 4,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "495",
+    "libelle": "Depreciations des comptes organismes internationaux",
+    "classe": 4,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "496",
+    "libelle": "Depreciations des comptes apporteurs associes et groupe",
+    "classe": 4,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "497",
+    "libelle": "Depreciations des comptes debiteurs divers",
+    "classe": 4,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "498",
+    "libelle": "Depreciations des comptes de creances h.a.o.",
+    "classe": 4,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "499",
+    "libelle": "Provisions pour risques a court terme",
+    "classe": 4,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "50",
+    "libelle": "Titres de placement",
+    "classe": 5,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "501",
+    "libelle": "Titres du tresor et bons de caisse a court terme",
+    "classe": 5,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "5011",
+    "libelle": "Titres du Trésor à court terme",
+    "classe": 5,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "502",
+    "libelle": "Actions",
+    "classe": 5,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "503",
+    "libelle": "Obligations",
+    "classe": 5,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "504",
+    "libelle": "Bons de souscription",
+    "classe": 5,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "505",
+    "libelle": "Titres negociables hors region",
+    "classe": 5,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "506",
+    "libelle": "Interêts courus",
+    "classe": 5,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "508",
+    "libelle": "Autres valeurs assimilees",
+    "classe": 5,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "51",
+    "libelle": "– Valeurs à encaisser",
+    "classe": 5,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "511",
+    "libelle": "Effets a encaisser",
+    "classe": 5,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "512",
+    "libelle": "Banques locales (comptes d'exploitation officinale)",
+    "classe": 5,
+    "type": "actif",
+    "est_officine": true
+  },
+  {
+    "compte": "513",
+    "libelle": "Cheques a encaisser",
+    "classe": 5,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "514",
+    "libelle": "Cheques a l'encaissement",
+    "classe": 5,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "515",
+    "libelle": "Cartes de credit a encaisser",
+    "classe": 5,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "518",
+    "libelle": "Autres valeurs a l'encaissement",
+    "classe": 5,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "52",
+    "libelle": "Banques",
+    "classe": 5,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "521",
+    "libelle": "Banques locales (compte courant d'exploitation de la pharmacie)",
+    "classe": 5,
+    "type": "actif",
+    "est_officine": true
+  },
+  {
+    "compte": "5211",
+    "libelle": "Banque X",
+    "classe": 5,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "522",
+    "libelle": "Banques autres etats region",
+    "classe": 5,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "523",
+    "libelle": "Banques autres etats zone monetaire",
+    "classe": 5,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "524",
+    "libelle": "Banques hors zone monetaire",
+    "classe": 5,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "525",
+    "libelle": "Banques depot a terme",
+    "classe": 5,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "526",
+    "libelle": "Banques, interet courus",
+    "classe": 5,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "53",
+    "libelle": "Etablissements financiers et assimilés",
+    "classe": 5,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "531",
+    "libelle": "Chèques postaux et chèques clients à encaisser",
+    "classe": 5,
+    "type": "actif",
+    "est_officine": true
+  },
+  {
+    "compte": "532",
+    "libelle": "Tresor",
+    "classe": 5,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "533",
+    "libelle": "Societes de gestion et d'intermediation (s.g.i.)",
+    "classe": 5,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "536",
+    "libelle": "Etablissements financiers, interets courus",
+    "classe": 5,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "538",
+    "libelle": "Autres organismes financiers",
+    "classe": 5,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "54",
+    "libelle": "Instrument de trésorerie est crédité par le débit du compte de la classe 6. Cette perte est étalée au prorata de la comptabilisation des produits et charges de l'élément couvert par le biais du compte 476",
+    "classe": 5,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "541",
+    "libelle": "Options de taux d'interêt",
+    "classe": 5,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "542",
+    "libelle": "Options de taux de change",
+    "classe": 5,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "543",
+    "libelle": "Options de taux boursiers",
+    "classe": 5,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "544",
+    "libelle": "Instruments de marches a terme",
+    "classe": 5,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "545",
+    "libelle": "Avoirs d'or et autres metaux precieux(1)",
+    "classe": 5,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "55",
+    "libelle": "Instruments de monnaie électronique",
+    "classe": 5,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "551",
+    "libelle": "Monnaie électronique (Comptes Mobile Money : Wave, Orange Money, Free Money)",
+    "classe": 5,
+    "type": "actif",
+    "est_officine": true
+  },
+  {
+    "compte": "552",
+    "libelle": "Monnaie electronique- telephone portable",
+    "classe": 5,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "553",
+    "libelle": "Monnaie electronique- carte peage",
+    "classe": 5,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "554",
+    "libelle": "Porte-monnaie electronique",
+    "classe": 5,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "558",
+    "libelle": "Autres instruments de monnaie electronique",
+    "classe": 5,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "56",
+    "libelle": "– Banques, crédits de trésorerie et d'escompte",
+    "classe": 5,
+    "type": "passif",
+    "est_officine": false
+  },
+  {
+    "compte": "561",
+    "libelle": "Banques, crédits de trésorerie (découverts bancaires courants)",
+    "classe": 5,
+    "type": "passif",
+    "est_officine": true
+  },
+  {
+    "compte": "564",
+    "libelle": "Escompte de credits de campagne",
+    "classe": 5,
+    "type": "passif",
+    "est_officine": false
+  },
+  {
+    "compte": "565",
+    "libelle": "Escompte de credits ordinaires",
+    "classe": 5,
+    "type": "passif",
+    "est_officine": false
+  },
+  {
+    "compte": "566",
+    "libelle": "Credits de tresorerie, interets courus",
+    "classe": 5,
+    "type": "passif",
+    "est_officine": false
+  },
+  {
+    "compte": "57",
+    "libelle": "Caisse",
+    "classe": 5,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "571",
+    "libelle": "Caisse principale de l'officine (comptoir central espèces)",
+    "classe": 5,
+    "type": "actif",
+    "est_officine": true
+  },
+  {
+    "compte": "5711",
+    "libelle": "dans l'unité monétaires légales des pays (UML)",
+    "classe": 5,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "572",
+    "libelle": "Caisses secondaires (fonds de roulement des différents postes de vente / comptoirs)",
+    "classe": 5,
+    "type": "actif",
+    "est_officine": true
+  },
+  {
+    "compte": "5721",
+    "libelle": "en UML",
+    "classe": 5,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "573",
+    "libelle": "Caisse succursale b",
+    "classe": 5,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "58",
+    "libelle": "Régies d'avances, accréditifs et virements internes",
+    "classe": 5,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "581",
+    "libelle": "Regies d'avance",
+    "classe": 5,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "582",
+    "libelle": "Accreditifs",
+    "classe": 5,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "585",
+    "libelle": "Virements de fonds (virements internes caisses vers banque)",
+    "classe": 5,
+    "type": "actif",
+    "est_officine": true
+  },
+  {
+    "compte": "588",
+    "libelle": "Autres virements internes",
+    "classe": 5,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "59",
+    "libelle": "Dépréciations et provisions pour risques à court terme (Trésorerie)",
+    "classe": 5,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "590",
+    "libelle": "Dépréciations des titres de placement",
+    "classe": 5,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "591",
+    "libelle": "Depreciations des titres et valeurs a encaisser",
+    "classe": 5,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "592",
+    "libelle": "Depreciations des comptes banques",
+    "classe": 5,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "593",
+    "libelle": "Depreciations des comptes etablissements financiers et assimiles",
+    "classe": 5,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "594",
+    "libelle": "Depreciations des comptes d'instruments de tresorerie",
+    "classe": 5,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "599",
+    "libelle": "Provisions pour risrques a court terme a caractere financier",
+    "classe": 5,
+    "type": "actif",
+    "est_officine": false
+  },
+  {
+    "compte": "60",
+    "libelle": "(sauf 603) Achats",
+    "classe": 6,
+    "type": "charge",
+    "est_officine": false
+  },
+  {
+    "compte": "601",
+    "libelle": "Achats de marchandises (médicaments éthiques, génériques et vaccins)",
+    "classe": 6,
+    "type": "charge",
+    "est_officine": true
+  },
+  {
+    "compte": "6011",
+    "libelle": "dans la Région",
+    "classe": 6,
+    "type": "charge",
+    "est_officine": false
+  },
+  {
+    "compte": "6012",
+    "libelle": "hors Région (1)",
+    "classe": 6,
+    "type": "charge",
+    "est_officine": false
+  },
+  {
+    "compte": "602",
+    "libelle": "Achats de matières premières (principes actifs pour préparations magistrales)",
+    "classe": 6,
+    "type": "charge",
+    "est_officine": true
+  },
+  {
+    "compte": "6021",
+    "libelle": "dans la Région (1)",
+    "classe": 6,
+    "type": "charge",
+    "est_officine": false
+  },
+  {
+    "compte": "603",
+    "libelle": "Variations des stocks de marchandises",
+    "classe": 6,
+    "type": "charge",
+    "est_officine": true
+  },
+  {
+    "compte": "6031",
+    "libelle": "Variations des stocks de marchandises",
+    "classe": 6,
+    "type": "charge",
+    "est_officine": false
+  },
+  {
+    "compte": "604",
+    "libelle": "Achats stockes de matieres et fournitures consommables",
+    "classe": 6,
+    "type": "charge",
+    "est_officine": false
+  },
+  {
+    "compte": "605",
+    "libelle": "Achats de fournitures non stockables (eau, électricité pour réfrigérateurs chaîne du froid)",
+    "classe": 6,
+    "type": "charge",
+    "est_officine": true
+  },
+  {
+    "compte": "6051",
+    "libelle": "Fournitures non stockables-Eau",
+    "classe": 6,
+    "type": "charge",
+    "est_officine": false
+  },
+  {
+    "compte": "608",
+    "libelle": "Fournitures de bureau, rouleaux thermiques et consommables informatiques",
+    "classe": 6,
+    "type": "charge",
+    "est_officine": true
+  },
+  {
+    "compte": "6081",
+    "libelle": "Emballages perdus",
+    "classe": 6,
+    "type": "charge",
+    "est_officine": false
+  },
+  {
+    "compte": "61",
+    "libelle": "Transports",
+    "classe": 6,
+    "type": "charge",
+    "est_officine": false
+  },
+  {
+    "compte": "611",
+    "libelle": "Transports sur achats (frais de livraison urgent des médicaments)",
+    "classe": 6,
+    "type": "charge",
+    "est_officine": true
+  },
+  {
+    "compte": "612",
+    "libelle": "Transports sur ventes",
+    "classe": 6,
+    "type": "charge",
+    "est_officine": false
+  },
+  {
+    "compte": "613",
+    "libelle": "Transports pour le compte de tiers",
+    "classe": 6,
+    "type": "charge",
+    "est_officine": false
+  },
+  {
+    "compte": "614",
+    "libelle": "Transports du personnel",
+    "classe": 6,
+    "type": "charge",
+    "est_officine": false
+  },
+  {
+    "compte": "616",
+    "libelle": "Transport de plis",
+    "classe": 6,
+    "type": "charge",
+    "est_officine": false
+  },
+  {
+    "compte": "618",
+    "libelle": "Autres frais de transport",
+    "classe": 6,
+    "type": "charge",
+    "est_officine": false
+  },
+  {
+    "compte": "62",
+    "libelle": "Services extérieurs",
+    "classe": 6,
+    "type": "charge",
+    "est_officine": false
+  },
+  {
+    "compte": "621",
+    "libelle": "Sous-traitance generale",
+    "classe": 6,
+    "type": "charge",
+    "est_officine": false
+  },
+  {
+    "compte": "622",
+    "libelle": "Locations et charges locatives (loyer commercial du local de la pharmacie)",
+    "classe": 6,
+    "type": "charge",
+    "est_officine": true
+  },
+  {
+    "compte": "6221",
+    "libelle": "Locations de terrains",
+    "classe": 6,
+    "type": "charge",
+    "est_officine": false
+  },
+  {
+    "compte": "623",
+    "libelle": "Redevances de location acquisition",
+    "classe": 6,
+    "type": "charge",
+    "est_officine": false
+  },
+  {
+    "compte": "624",
+    "libelle": "Entretien, réparations et maintenance (logiciel officine, automates et TPE)",
+    "classe": 6,
+    "type": "charge",
+    "est_officine": true
+  },
+  {
+    "compte": "6241",
+    "libelle": "Entretien et réparations des biens immobiliers",
+    "classe": 6,
+    "type": "charge",
+    "est_officine": false
+  },
+  {
+    "compte": "625",
+    "libelle": "Primes d'assurance (responsabilité civile professionnelle du pharmacien, assurance stocks)",
+    "classe": 6,
+    "type": "charge",
+    "est_officine": true
+  },
+  {
+    "compte": "6251",
+    "libelle": "Assurances multirisques",
+    "classe": 6,
+    "type": "charge",
+    "est_officine": false
+  },
+  {
+    "compte": "626",
+    "libelle": "Etudes, recherches et documentation",
+    "classe": 6,
+    "type": "charge",
+    "est_officine": false
+  },
+  {
+    "compte": "627",
+    "libelle": "Publicite, publications, relations publiques",
+    "classe": 6,
+    "type": "charge",
+    "est_officine": false
+  },
+  {
+    "compte": "628",
+    "libelle": "Frais de telecommunications",
+    "classe": 6,
+    "type": "charge",
+    "est_officine": false
+  },
+  {
+    "compte": "63",
+    "libelle": "Autres services extérieurs",
+    "classe": 6,
+    "type": "charge",
+    "est_officine": false
+  },
+  {
+    "compte": "631",
+    "libelle": "Frais bancaires",
+    "classe": 6,
+    "type": "charge",
+    "est_officine": false
+  },
+  {
+    "compte": "632",
+    "libelle": "Rémunérations d'intermédiaires et honoraires (expert-comptable, conseil juridique)",
+    "classe": 6,
+    "type": "charge",
+    "est_officine": true
+  },
+  {
+    "compte": "633",
+    "libelle": "Frais de télécommunications (abonnements internet télétransmissions mutuelles)",
+    "classe": 6,
+    "type": "charge",
+    "est_officine": true
+  },
+  {
+    "compte": "634",
+    "libelle": "Redevances pour brevets, licences, marques, logiciels, sites, concessions et droits et valeurs similaires",
+    "classe": 6,
+    "type": "charge",
+    "est_officine": false
+  },
+  {
+    "compte": "635",
+    "libelle": "Cotisations",
+    "classe": 6,
+    "type": "charge",
+    "est_officine": false
+  },
+  {
+    "compte": "637",
+    "libelle": "durant l'exercice ; ce virement solde le compte 637.",
+    "classe": 6,
+    "type": "charge",
+    "est_officine": false
+  },
+  {
+    "compte": "638",
+    "libelle": "Autres charges externes",
+    "classe": 6,
+    "type": "charge",
+    "est_officine": false
+  },
+  {
+    "compte": "64",
+    "libelle": "Impôts et taxes",
+    "classe": 6,
+    "type": "charge",
+    "est_officine": false
+  },
+  {
+    "compte": "641",
+    "libelle": "Impôts et taxes directs (patentes, licences d'officine, taxes professionnelles)",
+    "classe": 6,
+    "type": "charge",
+    "est_officine": true
+  },
+  {
+    "compte": "6411",
+    "libelle": "Impôts fonciers et taxes annexes",
+    "classe": 6,
+    "type": "charge",
+    "est_officine": false
+  },
+  {
+    "compte": "645",
+    "libelle": "Impôts et taxes indirects",
+    "classe": 6,
+    "type": "charge",
+    "est_officine": false
+  },
+  {
+    "compte": "646",
+    "libelle": "Droits d'enregistrement",
+    "classe": 6,
+    "type": "charge",
+    "est_officine": false
+  },
+  {
+    "compte": "647",
+    "libelle": "Penalites et amendes fiscales",
+    "classe": 6,
+    "type": "charge",
+    "est_officine": false
+  },
+  {
+    "compte": "648",
+    "libelle": "Autres impôts et taxes",
+    "classe": 6,
+    "type": "charge",
+    "est_officine": false
+  },
+  {
+    "compte": "65",
+    "libelle": "Autres charges (sauf 659)",
+    "classe": 6,
+    "type": "charge",
+    "est_officine": false
+  },
+  {
+    "compte": "651",
+    "libelle": "Pertes sur creances clients et autres debiteurs",
+    "classe": 6,
+    "type": "charge",
+    "est_officine": false
+  },
+  {
+    "compte": "652",
+    "libelle": "Quote-part de resultat sur operations faites en commun",
+    "classe": 6,
+    "type": "charge",
+    "est_officine": false
+  },
+  {
+    "compte": "654",
+    "libelle": "Valeurs comptables des cessions courantes d'immobilisations",
+    "classe": 6,
+    "type": "charge",
+    "est_officine": false
+  },
+  {
+    "compte": "658",
+    "libelle": "Charges diverses",
+    "classe": 6,
+    "type": "charge",
+    "est_officine": false
+  },
+  {
+    "compte": "6581",
+    "libelle": "Pertes sur produits périmés ou avariés (Sorties PV officiel de destruction)",
+    "classe": 6,
+    "type": "charge",
+    "est_officine": true
+  },
+  {
+    "compte": "659",
+    "libelle": "Charges pour dépréciations et provisions pour risques a court terme d'exploitation",
+    "classe": 6,
+    "type": "charge",
+    "est_officine": false
+  },
+  {
+    "compte": "66",
+    "libelle": "– Charges de personnel par le crédit du compte 78 – Transferts de charges.",
+    "classe": 6,
+    "type": "charge",
+    "est_officine": false
+  },
+  {
+    "compte": "661",
+    "libelle": "Rémunérations directes versées au personnel (pharmaciens adjoints, préparateurs)",
+    "classe": 6,
+    "type": "charge",
+    "est_officine": true
+  },
+  {
+    "compte": "6611",
+    "libelle": "Appointements, salaires et commissions",
+    "classe": 6,
+    "type": "charge",
+    "est_officine": false
+  },
+  {
+    "compte": "662",
+    "libelle": "Remunerations directes versees au personnel non national",
+    "classe": 6,
+    "type": "charge",
+    "est_officine": false
+  },
+  {
+    "compte": "663",
+    "libelle": "Indemnités forfaitaires et primes de garde de nuit versées au personnel",
+    "classe": 6,
+    "type": "charge",
+    "est_officine": true
+  },
+  {
+    "compte": "6631",
+    "libelle": "Indemnités de logement",
+    "classe": 6,
+    "type": "charge",
+    "est_officine": false
+  },
+  {
+    "compte": "664",
+    "libelle": "Charges sociales patronales (cotisations IPRES, Caisse de Sécurité Sociale)",
+    "classe": 6,
+    "type": "charge",
+    "est_officine": true
+  },
+  {
+    "compte": "6641",
+    "libelle": "Charges sociales sur rémunération du personnel national",
+    "classe": 6,
+    "type": "charge",
+    "est_officine": false
+  },
+  {
+    "compte": "666",
+    "libelle": "Rémunération et charges sociales de l'exploitant individuel",
+    "classe": 6,
+    "type": "charge",
+    "est_officine": false
+  },
+  {
+    "compte": "667",
+    "libelle": "Remuneration transferee de personnel exterieur",
+    "classe": 6,
+    "type": "charge",
+    "est_officine": false
+  },
+  {
+    "compte": "668",
+    "libelle": "Autres charges sociales",
+    "classe": 6,
+    "type": "charge",
+    "est_officine": false
+  },
+  {
+    "compte": "67",
+    "libelle": "Frais financiers et charges assimilées",
+    "classe": 6,
+    "type": "charge",
+    "est_officine": false
+  },
+  {
+    "compte": "671",
+    "libelle": "Intérêts des emprunts bancaires et dettes financières (acquisition fonds officine)",
+    "classe": 6,
+    "type": "charge",
+    "est_officine": true
+  },
+  {
+    "compte": "6711",
+    "libelle": "Emprunts obligataires",
+    "classe": 6,
+    "type": "charge",
+    "est_officine": false
+  },
+  {
+    "compte": "672",
+    "libelle": "Interêts dans loyers de location acquisition",
+    "classe": 6,
+    "type": "charge",
+    "est_officine": false
+  },
+  {
+    "compte": "673",
+    "libelle": "Escomptes accordes",
+    "classe": 6,
+    "type": "charge",
+    "est_officine": false
+  },
+  {
+    "compte": "674",
+    "libelle": "Autres interêts",
+    "classe": 6,
+    "type": "charge",
+    "est_officine": false
+  },
+  {
+    "compte": "675",
+    "libelle": "Escomptes des effets de commerce",
+    "classe": 6,
+    "type": "charge",
+    "est_officine": false
+  },
+  {
+    "compte": "676",
+    "libelle": "Pertes de change",
+    "classe": 6,
+    "type": "charge",
+    "est_officine": false
+  },
+  {
+    "compte": "677",
+    "libelle": "Pertes sur titres de placement",
+    "classe": 6,
+    "type": "charge",
+    "est_officine": false
+  },
+  {
+    "compte": "678",
+    "libelle": "Pertes sur risques financiers",
+    "classe": 6,
+    "type": "charge",
+    "est_officine": false
+  },
+  {
+    "compte": "679",
+    "libelle": "Charges pour depreciations et provisions pour risques a court terme financieres",
+    "classe": 6,
+    "type": "charge",
+    "est_officine": false
+  },
+  {
+    "compte": "68",
+    "libelle": "Dotations aux amortissements",
+    "classe": 6,
+    "type": "charge",
+    "est_officine": false
+  },
+  {
+    "compte": "681",
+    "libelle": "Dotations aux amortissements des agencements et matériels officinaux",
+    "classe": 6,
+    "type": "charge",
+    "est_officine": true
+  },
+  {
+    "compte": "687",
+    "libelle": "Dotations aux amortissements a caractere financier",
+    "classe": 6,
+    "type": "charge",
+    "est_officine": false
+  },
+  {
+    "compte": "69",
+    "libelle": "Dotations aux provisions et aux dépréciations",
+    "classe": 6,
+    "type": "charge",
+    "est_officine": false
+  },
+  {
+    "compte": "691",
+    "libelle": "Dotations aux provisions et aux depreciations d'exploitation",
+    "classe": 6,
+    "type": "charge",
+    "est_officine": false
+  },
+  {
+    "compte": "697",
+    "libelle": "Dotations aux provisions et aux depreciations financieres",
+    "classe": 6,
+    "type": "charge",
+    "est_officine": false
+  },
+  {
+    "compte": "70",
+    "libelle": "Ventes",
+    "classe": 7,
+    "type": "produit",
+    "est_officine": false
+  },
+  {
+    "compte": "701",
+    "libelle": "Ventes de marchandises – Médicaments sous ordonnance (prescription & conseil)",
+    "classe": 7,
+    "type": "produit",
+    "est_officine": true
+  },
+  {
+    "compte": "7011",
+    "libelle": "dans la Région (1)",
+    "classe": 7,
+    "type": "produit",
+    "est_officine": false
+  },
+  {
+    "compte": "7012",
+    "libelle": "hors Région (1)",
+    "classe": 7,
+    "type": "produit",
+    "est_officine": false
+  },
+  {
+    "compte": "702",
+    "libelle": "Ventes de marchandises – Produits de parapharmacie, dermo-cosmétique et hygiène",
+    "classe": 7,
+    "type": "produit",
+    "est_officine": true
+  },
+  {
+    "compte": "7021",
+    "libelle": "dans la Région (1)",
+    "classe": 7,
+    "type": "produit",
+    "est_officine": false
+  },
+  {
+    "compte": "703",
+    "libelle": "Ventes de marchandises – Matériel médical, tensiomètres, thermomètres et orthopédie",
+    "classe": 7,
+    "type": "produit",
+    "est_officine": true
+  },
+  {
+    "compte": "7031",
+    "libelle": "dans la Région (1)",
+    "classe": 7,
+    "type": "produit",
+    "est_officine": false
+  },
+  {
+    "compte": "704",
+    "libelle": "Ventes de produits residuels",
+    "classe": 7,
+    "type": "produit",
+    "est_officine": false
+  },
+  {
+    "compte": "705",
+    "libelle": "Ventes de produits finis (préparations magistrales et officinales)",
+    "classe": 7,
+    "type": "produit",
+    "est_officine": true
+  },
+  {
+    "compte": "7051",
+    "libelle": "dans la Région (1)",
+    "classe": 7,
+    "type": "produit",
+    "est_officine": false
+  },
+  {
+    "compte": "706",
+    "libelle": "Prestations de services pharmaceutiques (honoraires de garde, bilans de médication)",
+    "classe": 7,
+    "type": "produit",
+    "est_officine": true
+  },
+  {
+    "compte": "7061",
+    "libelle": "dans la Région (1)",
+    "classe": 7,
+    "type": "produit",
+    "est_officine": false
+  },
+  {
+    "compte": "707",
+    "libelle": "Remises, rabais et ristournes accordés sur ventes",
+    "classe": 7,
+    "type": "produit",
+    "est_officine": true
+  },
+  {
+    "compte": "7071",
+    "libelle": "Ports, emballages perdus et autres frais facturés",
+    "classe": 7,
+    "type": "produit",
+    "est_officine": false
+  },
+  {
+    "compte": "71",
+    "libelle": "Subventions d'exploitation",
+    "classe": 7,
+    "type": "produit",
+    "est_officine": false
+  },
+  {
+    "compte": "711",
+    "libelle": "Subventions d'exploitation reçues",
+    "classe": 7,
+    "type": "produit",
+    "est_officine": true
+  },
+  {
+    "compte": "712",
+    "libelle": "Sur produits a l'importation",
+    "classe": 7,
+    "type": "produit",
+    "est_officine": false
+  },
+  {
+    "compte": "713",
+    "libelle": "Sur produits de perequation",
+    "classe": 7,
+    "type": "produit",
+    "est_officine": false
+  },
+  {
+    "compte": "718",
+    "libelle": "Autres subventions d'exploitation",
+    "classe": 7,
+    "type": "produit",
+    "est_officine": false
+  },
+  {
+    "compte": "72",
+    "libelle": "– Production immobilisée est utilisé.",
+    "classe": 7,
+    "type": "produit",
+    "est_officine": false
+  },
+  {
+    "compte": "721",
+    "libelle": "Immobilisations incorporelles",
+    "classe": 7,
+    "type": "produit",
+    "est_officine": false
+  },
+  {
+    "compte": "722",
+    "libelle": "Immobilisations corporelles",
+    "classe": 7,
+    "type": "produit",
+    "est_officine": false
+  },
+  {
+    "compte": "724",
+    "libelle": "Production auto-consommée",
+    "classe": 7,
+    "type": "produit",
+    "est_officine": false
+  },
+  {
+    "compte": "726",
+    "libelle": "Immobilisations financières (1)",
+    "classe": 7,
+    "type": "produit",
+    "est_officine": false
+  },
+  {
+    "compte": "73",
+    "libelle": "Variations des stocks de biens et services produits",
+    "classe": 7,
+    "type": "produit",
+    "est_officine": false
+  },
+  {
+    "compte": "734",
+    "libelle": "Variations des stocks de produits en cours",
+    "classe": 7,
+    "type": "produit",
+    "est_officine": false
+  },
+  {
+    "compte": "735",
+    "libelle": "Variations des en-cours de services",
+    "classe": 7,
+    "type": "produit",
+    "est_officine": false
+  },
+  {
+    "compte": "736",
+    "libelle": "Variations des stocks de produits finis",
+    "classe": 7,
+    "type": "produit",
+    "est_officine": false
+  },
+  {
+    "compte": "737",
+    "libelle": "Variations des stocks de produits intermediaires et residuels",
+    "classe": 7,
+    "type": "produit",
+    "est_officine": false
+  },
+  {
+    "compte": "75",
+    "libelle": "Autres produits (sauf compte 759)",
+    "classe": 7,
+    "type": "produit",
+    "est_officine": false
+  },
+  {
+    "compte": "752",
+    "libelle": "Quote-part de resultat sur operations faites en commun",
+    "classe": 7,
+    "type": "produit",
+    "est_officine": false
+  },
+  {
+    "compte": "754",
+    "libelle": "Ristournes, rabais et remises obtenus des grossistes répartiteurs",
+    "classe": 7,
+    "type": "produit",
+    "est_officine": true
+  },
+  {
+    "compte": "758",
+    "libelle": "Produits divers",
+    "classe": 7,
+    "type": "produit",
+    "est_officine": false
+  },
+  {
+    "compte": "759",
+    "libelle": "Reprises de charges pour depreciations et provisions a court terme d'exploitation",
+    "classe": 7,
+    "type": "produit",
+    "est_officine": false
+  },
+  {
+    "compte": "77",
+    "libelle": "Revenus financiers et produits assimilés",
+    "classe": 7,
+    "type": "produit",
+    "est_officine": false
+  },
+  {
+    "compte": "771",
+    "libelle": "Intérêts et produits financiers assimilés",
+    "classe": 7,
+    "type": "produit",
+    "est_officine": true
+  },
+  {
+    "compte": "772",
+    "libelle": "Revenus de participations et autres creances immobilises",
+    "classe": 7,
+    "type": "produit",
+    "est_officine": false
+  },
+  {
+    "compte": "773",
+    "libelle": "Escomptes obtenus",
+    "classe": 7,
+    "type": "produit",
+    "est_officine": false
+  },
+  {
+    "compte": "774",
+    "libelle": "Revenus de placement",
+    "classe": 7,
+    "type": "produit",
+    "est_officine": false
+  },
+  {
+    "compte": "775",
+    "libelle": "Interets dans loyers de location acquisition",
+    "classe": 7,
+    "type": "produit",
+    "est_officine": false
+  },
+  {
+    "compte": "776",
+    "libelle": "Gains de change",
+    "classe": 7,
+    "type": "produit",
+    "est_officine": false
+  },
+  {
+    "compte": "777",
+    "libelle": "Gains sur cessions de titres de placement",
+    "classe": 7,
+    "type": "produit",
+    "est_officine": false
+  },
+  {
+    "compte": "778",
+    "libelle": "Gains sur risques financiers",
+    "classe": 7,
+    "type": "produit",
+    "est_officine": false
+  },
+  {
+    "compte": "779",
+    "libelle": "Reprises de charges pour dépréciations et provisions pour risques à court terme financieres",
+    "classe": 7,
+    "type": "produit",
+    "est_officine": false
+  },
+  {
+    "compte": "78",
+    "libelle": "Transferts de charges",
+    "classe": 7,
+    "type": "produit",
+    "est_officine": false
+  },
+  {
+    "compte": "781",
+    "libelle": "Reprises de dépréciations et provisions sur stocks",
+    "classe": 7,
+    "type": "produit",
+    "est_officine": true
+  },
+  {
+    "compte": "787",
+    "libelle": "Transferts de charges financieres",
+    "classe": 7,
+    "type": "produit",
+    "est_officine": false
+  },
+  {
+    "compte": "79",
+    "libelle": "Reprises de provisions, dépréciations et autres",
+    "classe": 7,
+    "type": "produit",
+    "est_officine": false
+  },
+  {
+    "compte": "791",
+    "libelle": "Reprises de provisions et de depreciations d'exploitation",
+    "classe": 7,
+    "type": "produit",
+    "est_officine": false
+  },
+  {
+    "compte": "797",
+    "libelle": "– Reprises de provisions et de dépréciations financières",
+    "classe": 7,
+    "type": "produit",
+    "est_officine": false
+  },
+  {
+    "compte": "798",
+    "libelle": "Reprises d'amortissements (1)",
+    "classe": 7,
+    "type": "produit",
+    "est_officine": false
+  },
+  {
+    "compte": "799",
+    "libelle": "Reprises de subventions d'investissement",
+    "classe": 7,
+    "type": "produit",
+    "est_officine": false
+  },
+  {
+    "compte": "81",
+    "libelle": "Valeurs comptables des cessions d'immobilisations",
+    "classe": 8,
+    "type": "charge",
+    "est_officine": false
+  },
+  {
+    "compte": "811",
+    "libelle": "Valeurs comptables des cessions d'immobilisations incorporelles (logiciel, marque)",
+    "classe": 8,
+    "type": "charge",
+    "est_officine": true
+  },
+  {
+    "compte": "812",
+    "libelle": "Valeurs comptables des cessions d'immobilisations corporelles (revente d'un automate)",
+    "classe": 8,
+    "type": "charge",
+    "est_officine": true
+  },
+  {
+    "compte": "816",
+    "libelle": "Immobilisations financieres",
+    "classe": 8,
+    "type": "charge",
+    "est_officine": false
+  },
+  {
+    "compte": "82",
+    "libelle": "Produits des cessions d'immobilisations",
+    "classe": 8,
+    "type": "produit",
+    "est_officine": false
+  },
+  {
+    "compte": "821",
+    "libelle": "Produits des cessions d'immobilisations incorporelles",
+    "classe": 8,
+    "type": "produit",
+    "est_officine": true
+  },
+  {
+    "compte": "822",
+    "libelle": "Produits des cessions d'immobilisations corporelles",
+    "classe": 8,
+    "type": "produit",
+    "est_officine": true
+  },
+  {
+    "compte": "826",
+    "libelle": "Immobilisations financieres",
+    "classe": 8,
+    "type": "produit",
+    "est_officine": false
+  },
+  {
+    "compte": "83",
+    "libelle": "Charges hors activités ordinaires",
+    "classe": 8,
+    "type": "charge",
+    "est_officine": false
+  },
+  {
+    "compte": "831",
+    "libelle": "Charges hors activités ordinaires (pénalités, sinistres officine)",
+    "classe": 8,
+    "type": "charge",
+    "est_officine": true
+  },
+  {
+    "compte": "833",
+    "libelle": "Charges liees aux operations de restructuration",
+    "classe": 8,
+    "type": "charge",
+    "est_officine": false
+  },
+  {
+    "compte": "834",
+    "libelle": "Pertes sur créances h.a.o.",
+    "classe": 8,
+    "type": "charge",
+    "est_officine": false
+  },
+  {
+    "compte": "835",
+    "libelle": "Dons et libéralités accordés",
+    "classe": 8,
+    "type": "charge",
+    "est_officine": false
+  },
+  {
+    "compte": "836",
+    "libelle": "Abandons de creances consentis",
+    "classe": 8,
+    "type": "charge",
+    "est_officine": false
+  },
+  {
+    "compte": "837",
+    "libelle": "Charges liees aux operations de liquidation",
+    "classe": 8,
+    "type": "charge",
+    "est_officine": false
+  },
+  {
+    "compte": "839",
+    "libelle": "Charges pour depreciations et provisions pour risques a court terme h.a.o.",
+    "classe": 8,
+    "type": "charge",
+    "est_officine": false
+  },
+  {
+    "compte": "84",
+    "libelle": "Produits hors activités ordinaires",
+    "classe": 8,
+    "type": "produit",
+    "est_officine": false
+  },
+  {
+    "compte": "841",
+    "libelle": "Produits hors activités ordinaires (indemnités d'assurance reçues après sinistre)",
+    "classe": 8,
+    "type": "produit",
+    "est_officine": true
+  },
+  {
+    "compte": "843",
+    "libelle": "Produits lies aux operations de restructuration",
+    "classe": 8,
+    "type": "produit",
+    "est_officine": false
+  },
+  {
+    "compte": "845",
+    "libelle": "Dons et libéralités obtenus",
+    "classe": 8,
+    "type": "produit",
+    "est_officine": false
+  },
+  {
+    "compte": "846",
+    "libelle": "Abandons de creances obtenus",
+    "classe": 8,
+    "type": "produit",
+    "est_officine": false
+  },
+  {
+    "compte": "847",
+    "libelle": "Produits lies aux operations de liquidation",
+    "classe": 8,
+    "type": "produit",
+    "est_officine": false
+  },
+  {
+    "compte": "848",
+    "libelle": "Transferts de charges h.a.o.",
+    "classe": 8,
+    "type": "produit",
+    "est_officine": false
+  },
+  {
+    "compte": "849",
+    "libelle": "Reprises de charges pour depreciations et provisions pour risques a court terme h.a.o.",
+    "classe": 8,
+    "type": "produit",
+    "est_officine": false
+  },
+  {
+    "compte": "85",
+    "libelle": "Dotations hors activités ordinaires",
+    "classe": 8,
+    "type": "charge",
+    "est_officine": false
+  },
+  {
+    "compte": "851",
+    "libelle": "Dotations aux provisions reglementees",
+    "classe": 8,
+    "type": "charge",
+    "est_officine": false
+  },
+  {
+    "compte": "852",
+    "libelle": "Dotations aux amortissements h.a.o.",
+    "classe": 8,
+    "type": "charge",
+    "est_officine": false
+  },
+  {
+    "compte": "853",
+    "libelle": "Dotations aux depreciations h.a.o.",
+    "classe": 8,
+    "type": "charge",
+    "est_officine": false
+  },
+  {
+    "compte": "854",
+    "libelle": "Dotations aux provisions pour risques et charges h.a.o.",
+    "classe": 8,
+    "type": "charge",
+    "est_officine": false
+  },
+  {
+    "compte": "858",
+    "libelle": "Autres dotations h.a.o.",
+    "classe": 8,
+    "type": "charge",
+    "est_officine": false
+  },
+  {
+    "compte": "86",
+    "libelle": "Reprises hors activités ordinaires",
+    "classe": 8,
+    "type": "produit",
+    "est_officine": false
+  },
+  {
+    "compte": "861",
+    "libelle": "Reprises de provisions reglementees",
+    "classe": 8,
+    "type": "produit",
+    "est_officine": false
+  },
+  {
+    "compte": "862",
+    "libelle": "Reprises d'amortissements h.a.o.",
+    "classe": 8,
+    "type": "produit",
+    "est_officine": false
+  },
+  {
+    "compte": "863",
+    "libelle": "Reprises de depreciations h.a.o.",
+    "classe": 8,
+    "type": "produit",
+    "est_officine": false
+  },
+  {
+    "compte": "864",
+    "libelle": "Reprises de provisions pour risques et charges h.a.o.",
+    "classe": 8,
+    "type": "produit",
+    "est_officine": false
+  },
+  {
+    "compte": "868",
+    "libelle": "Autres reprises h.a.o.",
+    "classe": 8,
+    "type": "produit",
+    "est_officine": false
+  },
+  {
+    "compte": "87",
+    "libelle": "Participation des travailleurs",
+    "classe": 8,
+    "type": "produit",
+    "est_officine": false
+  },
+  {
+    "compte": "871",
+    "libelle": "Participation légale aux bénéfices",
+    "classe": 8,
+    "type": "produit",
+    "est_officine": false
+  },
+  {
+    "compte": "872",
+    "libelle": "Participation contractuelle aux bénéfices",
+    "classe": 8,
+    "type": "produit",
+    "est_officine": false
+  },
+  {
+    "compte": "878",
+    "libelle": "Autres participations",
+    "classe": 8,
+    "type": "produit",
+    "est_officine": false
+  },
+  {
+    "compte": "88",
+    "libelle": "Subventions d'équilibre",
+    "classe": 8,
+    "type": "produit",
+    "est_officine": false
+  },
+  {
+    "compte": "881",
+    "libelle": "Etat",
+    "classe": 8,
+    "type": "produit",
+    "est_officine": false
+  },
+  {
+    "compte": "884",
+    "libelle": "Collectivités publiques",
+    "classe": 8,
+    "type": "produit",
+    "est_officine": false
+  },
+  {
+    "compte": "886",
+    "libelle": "Groupe",
+    "classe": 8,
+    "type": "produit",
+    "est_officine": false
+  },
+  {
+    "compte": "888",
+    "libelle": "Autres",
+    "classe": 8,
+    "type": "produit",
+    "est_officine": false
+  },
+  {
+    "compte": "89",
+    "libelle": "Impôts sur le résultat",
+    "classe": 8,
+    "type": "produit",
+    "est_officine": false
+  },
+  {
+    "compte": "891",
+    "libelle": "Impôts sur les benefices de l'exercice",
+    "classe": 8,
+    "type": "produit",
+    "est_officine": false
+  },
+  {
+    "compte": "892",
+    "libelle": "Rappels d'impôts sur resultats anterieurs",
+    "classe": 8,
+    "type": "produit",
+    "est_officine": false
+  },
+  {
+    "compte": "895",
+    "libelle": "Impôt minimum forfaitaire (i.m.f.)",
+    "classe": 8,
+    "type": "produit",
+    "est_officine": false
+  },
+  {
+    "compte": "899",
+    "libelle": "Dégrevements et annulations d'impôts sur résultats antérieurs",
+    "classe": 8,
+    "type": "produit",
+    "est_officine": false
+  }
+]

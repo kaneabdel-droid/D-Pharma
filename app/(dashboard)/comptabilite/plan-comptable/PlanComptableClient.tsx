@@ -11,6 +11,7 @@ export type CompteComptable = {
   type?: string
   description?: string
   actif?: boolean
+  est_officine?: boolean
 }
 
 export default function PlanComptableClient({ 
@@ -19,48 +20,49 @@ export default function PlanComptableClient({
   initialPlan: CompteComptable[] 
 }) {
   const [selectedClasse, setSelectedClasse] = useState<number | 'tous'>('tous')
+  const [vueMode, setVueMode] = useState<'officine' | 'tous'>('tous')
   const [search, setSearch] = useState('')
 
   const classesLabels: Record<number, { title: string; subtitle: string; color: string; badge: string }> = {
     1: { 
       title: 'Classe 1 : Capitaux et Ressources Durables', 
-      subtitle: 'Capital, réserves, résultat net, emprunts & dettes à long terme',
+      subtitle: 'Capital, réserves, report à nouveau, résultat net, emprunts & dettes à long terme',
       color: 'text-indigo-600 dark:text-indigo-400',
       badge: 'bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border-indigo-500/20'
     },
     2: { 
       title: 'Classe 2 : Actif Immobilisé', 
-      subtitle: 'Fonds commercial d\'officine, agencements, matériel informatique & automates',
+      subtitle: 'Fonds commercial d\'officine, agencements, matériel informatique, automates & logiciels',
       color: 'text-sky-600 dark:text-sky-400',
       badge: 'bg-sky-500/10 text-sky-600 dark:text-sky-400 border-sky-500/20'
     },
     3: { 
       title: 'Classe 3 : Stocks et En-cours', 
-      subtitle: 'Médicaments éthiques & génériques, parapharmacie, orthopédie & dépréciations',
+      subtitle: 'Médicaments éthiques & génériques, parapharmacie, orthopédie, matières & dépréciations',
       color: 'text-emerald-600 dark:text-emerald-400',
       badge: 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20'
     },
     4: { 
       title: 'Classe 4 : Comptes de Tiers', 
-      subtitle: 'Grossistes-répartiteurs, clients comptoir, mutuelles & organismes de tiers payant, TVA',
+      subtitle: 'Grossistes-répartiteurs, clients comptoir, mutuelles & IPM (Tiers Payant), TVA',
       color: 'text-amber-600 dark:text-amber-400',
       badge: 'bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20'
     },
     5: { 
       title: 'Classe 5 : Comptes de Trésorerie', 
-      subtitle: 'Caisses comptoir (571/572), comptes Mobile Money (551), banques locales (521)',
+      subtitle: 'Caisses comptoirs (571/572), comptes Mobile Money (551), banques d\'exploitation (521)',
       color: 'text-cyan-600 dark:text-cyan-400',
       badge: 'bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 border-cyan-500/20'
     },
     6: { 
       title: 'Classe 6 : Comptes de Charges', 
-      subtitle: 'Achats marchandises grossistes, loyer, salaires préparateurs, électricité chaîne du froid',
+      subtitle: 'Achats médicaments grossistes, loyer, salaires, électricité chaîne du froid, périmés',
       color: 'text-rose-600 dark:text-rose-400',
       badge: 'bg-rose-500/10 text-rose-600 dark:text-rose-400 border-rose-500/20'
     },
     7: { 
       title: 'Classe 7 : Comptes de Produits', 
-      subtitle: 'Ventes médicaments ordonnance, parapharmacie, remises accordées & subventions',
+      subtitle: 'Ventes médicaments ordonnance, parapharmacie, préparations, gardes, remises & subventions',
       color: 'text-emerald-700 dark:text-emerald-300',
       badge: 'bg-emerald-600/10 text-emerald-700 dark:text-emerald-300 border-emerald-600/20'
     },
@@ -72,11 +74,24 @@ export default function PlanComptableClient({
     },
   }
 
-  // Filtrage combiné recherche et classe
+  // Filtrage combiné recherche, classe et mode de vue
   const filteredPlan = useMemo(() => {
     return initialPlan.filter((p) => {
       if (selectedClasse !== 'tous' && p.classe !== selectedClasse) {
         return false
+      }
+      if (vueMode === 'officine') {
+        const estOfficine = p.est_officine || 
+          p.libelle.toLowerCase().includes('officin') || 
+          p.libelle.toLowerCase().includes('médicament') ||
+          p.libelle.toLowerCase().includes('parapharmacie') ||
+          p.libelle.toLowerCase().includes('grossiste') ||
+          p.libelle.toLowerCase().includes('mutuelle') ||
+          p.libelle.toLowerCase().includes('caisse') ||
+          p.libelle.toLowerCase().includes('mobile money') ||
+          p.libelle.toLowerCase().includes('tiers payant') ||
+          ['101', '111', '121', '131', '162', '215', '241', '244', '311', '312', '313', '401', '411', '412', '4431', '521', '551', '571', '572', '601', '6581', '701', '702', '706'].includes(p.compte)
+        if (!estOfficine) return false
       }
       if (!search.trim()) return true
       const q = search.toLowerCase().trim()
@@ -85,7 +100,7 @@ export default function PlanComptableClient({
       const matchType = p.type?.toLowerCase().includes(q)
       return matchCode || matchLibelle || matchType
     })
-  }, [initialPlan, selectedClasse, search])
+  }, [initialPlan, selectedClasse, vueMode, search])
 
   return (
     <div className="space-y-6">
@@ -96,12 +111,12 @@ export default function PlanComptableClient({
             Plan Comptable SYSCOHADA Révisé - Spécialité Pharmacie
           </h2>
           <p className="text-xs text-foreground-muted">
-            Nomenclature officielle des comptes adaptés à l&apos;officine pharmaceutique selon les normes OHADA.
+            Nomenclature officielle complète issue du référentiel OHADA AUDCIF (norme 2016/2018) adaptée aux officines pharmaceutiques.
           </p>
         </div>
         <div className="flex items-center gap-2 text-xs font-semibold px-3 py-1.5 rounded-xl bg-primary/10 text-primary border border-primary/20">
           <ShieldCheck className="w-4 h-4" />
-          <span>Norme SYSCOHADA Conforme • 75 comptes officinaux</span>
+          <span>Norme SYSCOHADA Conforme • 555 comptes</span>
         </div>
       </div>
 
@@ -114,18 +129,39 @@ export default function PlanComptableClient({
               type="text"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              placeholder="Rechercher par numéro de compte ou intitulé (ex: 551, Caisse, Grossiste)..."
+              placeholder="Rechercher par numéro de compte ou intitulé (ex: 551, Caisse, Grossiste, 701)..."
               className="w-full pl-9 pr-3 py-2 text-xs rounded-xl border border-surface-border bg-background text-foreground focus:ring-1 focus:ring-primary shadow-xs"
             />
           </div>
 
-          <div className="text-xs text-foreground-muted font-medium self-end sm:self-center">
-            {filteredPlan.length} compte{filteredPlan.length > 1 ? 's' : ''} affiché{filteredPlan.length > 1 ? 's' : ''}
+          <div className="flex items-center gap-2 flex-wrap">
+            <button
+              type="button"
+              onClick={() => setVueMode('tous')}
+              className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all ${
+                vueMode === 'tous'
+                  ? 'bg-primary text-white shadow-xs'
+                  : 'bg-background text-foreground-muted hover:text-foreground border border-surface-border'
+              }`}
+            >
+              📚 Référentiel Complet ({initialPlan.length})
+            </button>
+            <button
+              type="button"
+              onClick={() => setVueMode('officine')}
+              className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all ${
+                vueMode === 'officine'
+                  ? 'bg-emerald-600 text-white shadow-xs'
+                  : 'bg-background text-foreground-muted hover:text-foreground border border-surface-border'
+              }`}
+            >
+              ⭐ Comptes Clés Pharmacie
+            </button>
           </div>
         </div>
 
         {/* Boutons de sélection rapide de classe */}
-        <div className="flex flex-wrap items-center gap-1.5 pt-1 border-t border-surface-border/60">
+        <div className="flex flex-wrap items-center gap-1.5 pt-2 border-t border-surface-border/60">
           <button
             type="button"
             onClick={() => setSelectedClasse('tous')}
@@ -135,7 +171,7 @@ export default function PlanComptableClient({
                 : 'bg-background text-foreground-muted hover:text-foreground border border-surface-border'
             }`}
           >
-            Tous les comptes ({initialPlan.length})
+            Toutes les classes
           </button>
           {[1, 2, 3, 4, 5, 6, 7, 8].map((cl) => {
             const isActive = selectedClasse === cl
@@ -247,3 +283,4 @@ export default function PlanComptableClient({
     </div>
   )
 }
+
