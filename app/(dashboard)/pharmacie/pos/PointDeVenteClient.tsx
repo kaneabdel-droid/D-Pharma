@@ -11,6 +11,7 @@ import {
 import { submitVente, annulerVente } from './actions'
 import { executeOfflineSafe } from '@/lib/offline/offline-action-helper'
 import BilanCaisseModal from './BilanCaisseModal'
+import { ModalEncaissementDirect } from '@/components/ModalEncaissementDirect'
 
 export type Medicament = {
   id: string
@@ -118,6 +119,7 @@ export default function PointDeVenteClient({
 
   // Sélection du client pour la vente à crédit
   const [selectedClientId, setSelectedClientId] = useState<string>('')
+  const [modalDirectOuvert, setModalDirectOuvert] = useState(false)
 
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [message, setMessage] = useState<{ type: 'success' | 'error', text: string } | null>(null)
@@ -849,6 +851,17 @@ export default function PointDeVenteClient({
                 </div>
               )}
 
+              {cart.length > 0 && (
+                <button
+                  type="button"
+                  onClick={() => setModalDirectOuvert(true)}
+                  className="w-full py-2.5 px-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-md shadow-emerald-600/20 flex items-center justify-center gap-2 transition"
+                >
+                  <Smartphone className="w-4 h-4" />
+                  <span>Encaissement Direct (Wave QR / OM / TPE 0% Frais)</span>
+                </button>
+              )}
+
               <button
                 type="button"
                 onClick={handleCheckout}
@@ -1109,6 +1122,20 @@ export default function PointDeVenteClient({
             </div>
           </div>
         </div>
+      )}
+      {/* Modal d'encaissement direct 0% commission */}
+      {modalDirectOuvert && (
+        <ModalEncaissementDirect
+          montant={totalAmount}
+          clientNom={clients.find(c => c.id === selectedClientId)?.nom || 'Patient Comptoir'}
+          commandeRef={`Vente Pharmacie (${cart.length} articles)`}
+          pointDeVente={comptes.find(c => c.id === activeCaisseId)?.nom || 'Comptoir Caisse #01'}
+          onClose={() => setModalDirectOuvert(false)}
+          onSuccess={(tx) => {
+            setModalDirectOuvert(false)
+            handleCheckout()
+          }}
+        />
       )}
     </div>
   )

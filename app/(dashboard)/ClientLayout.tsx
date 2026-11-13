@@ -27,7 +27,8 @@ import {
   FileWarning,
   RotateCcw,
   Receipt,
-  Network
+  Network,
+  Smartphone
 } from 'lucide-react'
 import { DeviseProvider } from '@/components/DeviseProvider'
 
@@ -84,6 +85,7 @@ export default function ClientLayout({
     { key: 'fournisseurs_pharma', label: dict.sidebar?.fournisseurs_pharma || 'Grossistes & Dettes', href: '/pharmacie/fournisseurs', icon: Building2 },
     { key: 'commandes_pharma', label: dict.sidebar?.commandes_pharma || 'Commandes d’Appro', href: '/pharmacie/commandes', icon: Truck },
     { key: 'tresorerie', label: dict.sidebar?.tresorerie || 'Trésorerie & Caisses', href: '/tresorerie', icon: Landmark },
+    { key: 'encaissements_directs', label: 'Encaissements Directs (0%)', href: '/tresorerie/encaissements-directs', icon: Smartphone },
     { key: 'comptabilite', label: dict.sidebar?.comptabilite || 'Comptabilité (SYSCOHADA)', href: '/comptabilite', icon: BookOpen, badge: 'Premium' },
     { key: 'tva_pharma', label: dict.sidebar?.tva_pharma || 'Déclaration TVA (DGID)', href: '/comptabilite/tva', icon: Receipt, badge: 'Premium' },
     { key: 'import_donnees', label: dict.sidebar?.import_donnees || 'Importer des données', href: '/parametres/import', icon: UploadCloud },
@@ -117,6 +119,7 @@ export default function ClientLayout({
       titre: dict.sidebar?.section_finances || 'Finance & Compta',
       items: [
         { key: 'tresorerie', label: dict.sidebar?.tresorerie || 'Trésorerie & Caisses', href: '/tresorerie', icon: Landmark },
+    { key: 'encaissements_directs', label: 'Encaissements Directs (0%)', href: '/tresorerie/encaissements-directs', icon: Smartphone },
         { key: 'comptabilite', label: dict.sidebar?.comptabilite || 'Comptabilité (SYSCOHADA)', href: '/comptabilite', icon: BookOpen, badge: 'Premium' },
         { key: 'tva_pharma', label: dict.sidebar?.tva_pharma || 'Déclaration TVA (DGID)', href: '/comptabilite/tva', icon: Receipt, badge: 'Premium' },
       ],
