@@ -6,12 +6,13 @@ import {
   Smartphone, ScanLine, Stethoscope, Pill, Sparkles, Filter,
   RotateCcw, AlertTriangle, CheckCircle2, History, UserCheck,
   Building2, Landmark, Wallet, ArrowUpRight, ArrowDownRight, X, Clock,
-  Store, Monitor
+  Store, Monitor, Camera
 } from 'lucide-react'
 import { submitVente, annulerVente } from './actions'
 import { executeOfflineSafe } from '@/lib/offline/offline-action-helper'
 import BilanCaisseModal from './BilanCaisseModal'
 import { ModalEncaissementDirect } from '@/components/ModalEncaissementDirect'
+import ScannerCameraModal from '@/components/ScannerCameraModal'
 
 export type Medicament = {
   id: string
@@ -120,6 +121,7 @@ export default function PointDeVenteClient({
   // Sélection du client pour la vente à crédit
   const [selectedClientId, setSelectedClientId] = useState<string>('')
   const [modalDirectOuvert, setModalDirectOuvert] = useState(false)
+  const [scannerCameraOuvert, setScannerCameraOuvert] = useState(false)
 
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [message, setMessage] = useState<{ type: 'success' | 'error', text: string } | null>(null)
@@ -168,6 +170,43 @@ export default function PointDeVenteClient({
         addToCart(exact || filteredMedicaments[0])
       }
     }
+  }
+
+  // Détection via caméra smartphone ou tablette (QR, DataMatrix, Code-barres)
+  const handleCodeScanneCamera = (code: string) => {
+    const codeNettoye = code.trim()
+    setSearchTerm(codeNettoye)
+
+    // 1. Chercher par code-barres / QR exact
+    const parCode = initialMedicaments.find(
+      m => m.code_barres && m.code_barres.toLowerCase() === codeNettoye.toLowerCase()
+    )
+    if (parCode) {
+      if (parCode.type_produit !== 'service' && parCode.quantite_stock <= 0) {
+        setMessage({ type: 'error', text: `⚠️ Article en rupture de stock : ${parCode.nom}` })
+      } else {
+        addToCart(parCode)
+        setMessage({ type: 'success', text: `✓ Scanné et ajouté : ${parCode.nom}` })
+      }
+      return
+    }
+
+    // 2. Recherche tolérante par nom / référence
+    const parNom = initialMedicaments.find(
+      m => m.nom.toLowerCase().includes(codeNettoye.toLowerCase())
+    )
+    if (parNom) {
+      if (parNom.type_produit !== 'service' && parNom.quantite_stock <= 0) {
+        setMessage({ type: 'error', text: `⚠️ Article en rupture de stock : ${parNom.nom}` })
+      } else {
+        addToCart(parNom)
+        setMessage({ type: 'success', text: `✓ Article identifié : ${parNom.nom}` })
+      }
+      return
+    }
+
+    // 3. Information si non répertorié
+    setMessage({ type: 'error', text: `Code scanné [${codeNettoye}] non trouvé dans le catalogue.` })
   }
 
   const updateQuantity = (id: string, delta: number) => {
@@ -434,21 +473,32 @@ export default function PointDeVenteClient({
                 })}
               </div>
 
-              {/* Barre de recherche */}
-              <div className="relative mb-3">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <Search className="h-4 w-4 text-foreground-muted" />
+              {/* Barre de recherche & Scanner Caméra Smartphone/Tablette */}
+              <div className="flex items-center gap-2 mb-3">
+                <div className="relative flex-1">
+                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <Search className="h-4 w-4 text-foreground-muted" />
+                  </div>
+                  <input
+                    ref={searchInputRef}
+                    type="text"
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    onKeyDown={handleKeyDown}
+                    className="block w-full pl-9 pr-3 py-2 text-sm border border-surface-border rounded-xl bg-background text-foreground focus:ring-1 focus:ring-primary focus:border-primary transition-shadow shadow-sm"
+                    placeholder={t.search_placeholder || 'Rechercher par nom ou scanner le code-barres (Touche Entrée)...'}
+                    autoFocus
+                  />
                 </div>
-                <input
-                  ref={searchInputRef}
-                  type="text"
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  onKeyDown={handleKeyDown}
-                  className="block w-full pl-9 pr-3 py-2 text-sm border border-surface-border rounded-xl bg-background text-foreground focus:ring-1 focus:ring-primary focus:border-primary transition-shadow shadow-sm"
-                  placeholder={t.search_placeholder || 'Rechercher par nom ou scanner le code-barres (Touche Entrée)...'}
-                  autoFocus
-                />
+                <button
+                  type="button"
+                  onClick={() => setScannerCameraOuvert(true)}
+                  className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold bg-primary/10 text-primary border border-primary/20 hover:bg-primary/20 hover:border-primary/40 transition active:scale-95 shadow-sm whitespace-nowrap"
+                  title="Scanner le code QR, DataMatrix ou code-barres avec la caméra du téléphone ou de la tablette"
+                >
+                  <Camera className="w-4 h-4 text-primary" />
+                  <span className="hidden sm:inline">Scanner Caméra</span>
+                </button>
               </div>
 
               {/* Grille du catalogue */}
@@ -1137,6 +1187,15 @@ export default function PointDeVenteClient({
           }}
         />
       )}
+
+      {/* Modal de Scan Caméra Smartphone / Tablette (QR, DataMatrix, Code-barres) */}
+      <ScannerCameraModal
+        isOpen={scannerCameraOuvert}
+        onClose={() => setScannerCameraOuvert(false)}
+        onCodeDetecte={handleCodeScanneCamera}
+        titre="Scanner Médicament (Smartphone / Tablette)"
+        sousTitre="Pointez la caméra vers le Code QR, DataMatrix GS1 ou Code-barres de la boîte"
+      />
     </div>
   )
 }
