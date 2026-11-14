@@ -1,6 +1,7 @@
 'use server'
 
 import { createClient } from '@/utils/supabase/server'
+import { createAdminClient } from '@/utils/supabase/admin'
 import { revalidatePath } from 'next/cache'
 import { getTenantContext } from '@/utils/supabase/tenant'
 
@@ -149,7 +150,8 @@ export async function accuserReception(input: string | FormData) {
         // A. Enregistrement d'entrée du code-barres dans le catalogue
         if (ligne.code_barres && ligne.code_barres.trim()) {
           try {
-            await supabase
+            const admin = createAdminClient()
+            await admin
               .from('medicaments')
               .update({ code_barres: ligne.code_barres.trim() })
               .eq('id', ligne.medicament_id)

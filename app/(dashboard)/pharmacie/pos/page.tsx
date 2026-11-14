@@ -1,4 +1,4 @@
-import { createClient } from '@/utils/supabase/server'
+import { createAdminClient } from '@/utils/supabase/admin'
 import { getTenantContext } from '@/utils/supabase/tenant'
 import PointDeVenteClient from './PointDeVenteClient'
 import { getLocale, getDictionary } from '@/dictionaries'
@@ -10,7 +10,6 @@ export const metadata = {
 export const dynamic = 'force-dynamic'
 
 export default async function POSPage() {
-  const supabase = await createClient()
   const tenant = await getTenantContext()
   const locale = await getLocale()
   const dict = await getDictionary(locale)
@@ -19,6 +18,8 @@ export default async function POSPage() {
   if (!tenant) {
     return <div className="p-4 text-danger bg-danger/10 rounded-xl">Officine non identifiée.</div>
   }
+
+  const supabase = createAdminClient()
 
   // 1. Récupération parallèle des stocks, comptes de trésorerie, clients et ventes récentes
   const [stocksRes, comptesRes, clientsRes, ventesRes] = await Promise.all([
@@ -36,6 +37,7 @@ export default async function POSPage() {
           type_produit
         )
       `)
+      .eq('gie_id', tenant.gieId)
       .order('date_peremption', { ascending: true }),
     supabase
       .from('comptes')

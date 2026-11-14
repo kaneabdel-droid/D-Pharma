@@ -16,6 +16,58 @@ export type MedicamentReferentiel = {
 };
 
 export const DICTIONNAIRE_PHARMA: Record<string, MedicamentReferentiel> = {
+  // --- MÉDICAMENTS COURANTS SÉNÉGAL / AFRIQUE DE L'OUEST ---
+  '6009819850787': {
+    code_barres: '6009819850787',
+    nom: 'Phartrim 480 mg (Cotrimoxazole)',
+    dosage: '480 mg',
+    forme: 'Boîte de 20 comprimés',
+    type_produit: 'medicament',
+    prix_vente_indicatif: 1500,
+    prix_achat_indicatif: 950,
+    categorie: 'Antibactérien'
+  },
+  '6008819859697': {
+    code_barres: '6008819859697',
+    nom: 'Phartrim 480 mg (Cotrimoxazole)',
+    dosage: '480 mg',
+    forme: 'Boîte de 20 comprimés',
+    type_produit: 'medicament',
+    prix_vente_indicatif: 1500,
+    prix_achat_indicatif: 950,
+    categorie: 'Antibactérien'
+  },
+  '600882985697': {
+    code_barres: '600882985697',
+    nom: 'Phartrim 480 mg',
+    dosage: '480 mg',
+    forme: 'Boîte de 20 comprimés',
+    type_produit: 'medicament',
+    prix_vente_indicatif: 1500,
+    prix_achat_indicatif: 950,
+    categorie: 'Antibactérien'
+  },
+  '200000618162': {
+    code_barres: '200000618162',
+    nom: 'Viscéralgine 50 mg (Tiémonium méthylsulfate)',
+    dosage: '50 mg',
+    forme: 'Boîte de 20 comprimés',
+    type_produit: 'medicament',
+    prix_vente_indicatif: 2200,
+    prix_achat_indicatif: 1500,
+    categorie: 'Antispasmodique'
+  },
+  '8906067081629': {
+    code_barres: '8906067081629',
+    nom: 'Artrim-GH (Artéméther + Luméfantrine)',
+    dosage: '20/120 mg',
+    forme: 'Boîte de 24 comprimés',
+    type_produit: 'medicament',
+    prix_vente_indicatif: 2800,
+    prix_achat_indicatif: 1900,
+    categorie: 'Antipaludique CTA'
+  },
+
   // --- ANALGÉSIQUES & ANTIPYRÉTIQUES ---
   '3400935987102': {
     code_barres: '3400935987102',
@@ -525,3 +577,4 @@ export function chercherDansDictionnaire(query: string): MedicamentReferentiel |
 
   return null;
 }
+

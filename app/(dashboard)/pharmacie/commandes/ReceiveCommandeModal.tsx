@@ -600,10 +600,10 @@ export default function ReceiveCommandeModal({
                               <div className="flex items-center gap-2">
                                 <h4 className="font-bold text-sm text-foreground">{medGroup.nom}</h4>
                                 <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${isFullyReceived
-                                    ? 'bg-success/15 text-success'
-                                    : isOverReceived
-                                      ? 'bg-amber-500/15 text-amber-600'
-                                      : 'bg-primary/10 text-primary'
+                                  ? 'bg-success/15 text-success'
+                                  : isOverReceived
+                                    ? 'bg-amber-500/15 text-amber-600'
+                                    : 'bg-primary/10 text-primary'
                                   }`}>
                                   {medGroup.total_recu} / {medGroup.quantite_commandee} reçu(s)
                                 </span>
@@ -643,8 +643,8 @@ export default function ReceiveCommandeModal({
                             <div
                               key={lotItem.id}
                               className={`p-3 rounded-xl border transition-all ${lotItem.is_active_scan
-                                  ? 'border-primary bg-primary/5 shadow-xs ring-1 ring-primary/30'
-                                  : 'border-surface-border bg-surface hover:border-surface-border/80'
+                                ? 'border-primary bg-primary/5 shadow-xs ring-1 ring-primary/30'
+                                : 'border-surface-border bg-surface hover:border-surface-border/80'
                                 }`}
                             >
                               <div className="grid grid-cols-1 sm:grid-cols-12 gap-3 items-center text-xs">
@@ -654,8 +654,8 @@ export default function ReceiveCommandeModal({
                                     type="button"
                                     onClick={() => setActiveLotForScan(lotItem.id)}
                                     className={`px-2.5 py-1 rounded-lg text-[10px] font-bold flex items-center gap-1.5 transition-colors cursor-pointer ${lotItem.is_active_scan
-                                        ? 'bg-primary text-white shadow-xs'
-                                        : 'bg-background border border-surface-border text-foreground-muted hover:text-foreground'
+                                      ? 'bg-primary text-white shadow-xs'
+                                      : 'bg-background border border-surface-border text-foreground-muted hover:text-foreground'
                                       }`}
                                     title="Cliquer pour diriger les prochains scans douchette sur ce lot"
                                   >
@@ -740,8 +740,8 @@ export default function ReceiveCommandeModal({
                                       value={lotItem.prix_vente}
                                       onChange={(e) => updateLotField(lotItem.id, 'prix_vente', Number(e.target.value) || 0)}
                                       className={`w-full font-mono font-bold px-2 py-1 rounded border text-xs text-right ${!lotItem.prix_vente || lotItem.prix_vente <= 0
-                                          ? 'border-danger bg-danger/5 text-danger'
-                                          : 'border-surface-border bg-background text-foreground'
+                                        ? 'border-danger bg-danger/5 text-danger'
+                                        : 'border-surface-border bg-background text-foreground'
                                         }`}
                                       required
                                     />

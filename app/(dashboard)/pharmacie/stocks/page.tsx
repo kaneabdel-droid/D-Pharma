@@ -1,4 +1,4 @@
-import { createClient } from '@/utils/supabase/server'
+import { createAdminClient } from '@/utils/supabase/admin'
 import { getTenantContext } from '@/utils/supabase/tenant'
 import { PackageOpen, AlertTriangle } from 'lucide-react'
 import CreateStockButton from './CreateStockButton'
@@ -14,11 +14,16 @@ export const dynamic = 'force-dynamic'
 export const revalidate = 0
 
 export default async function StocksPage() {
-  const supabase = await createClient()
   const tenant = await getTenantContext()
   const locale = await getLocale()
   const dict = await getDictionary(locale)
   const t = dict.pharmacie?.stocks || {}
+
+  if (!tenant) {
+    return <div className="p-4 text-danger bg-danger/10 rounded-xl">Officine non identifiée.</div>
+  }
+
+  const supabase = createAdminClient()
 
   // Fetch stocks
   const { data: stocks, error } = await supabase
@@ -37,6 +42,7 @@ export default async function StocksPage() {
         type_produit
       )
     `)
+    .eq('gie_id', tenant.gieId)
     .order('date_peremption', { ascending: true })
 
   const totalValue = (stocks || []).reduce((sum, item) => sum + (item.quantite * item.prix_vente), 0)

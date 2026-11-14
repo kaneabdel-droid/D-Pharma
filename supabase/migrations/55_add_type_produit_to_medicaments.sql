@@ -7,3 +7,4 @@ ALTER TABLE public.medicaments
 
 -- Index pour optimiser les filtres par type
 CREATE INDEX IF NOT EXISTS idx_medicaments_type_produit ON public.medicaments(type_produit);
+

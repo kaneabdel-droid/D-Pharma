@@ -1,15 +1,15 @@
 'use server'
 
-import { createClient } from '@/utils/supabase/server'
+import { createAdminClient } from '@/utils/supabase/admin'
 import { revalidatePath } from 'next/cache'
 import { getTenantContext } from '@/utils/supabase/tenant'
 import { chercherDansDictionnaire } from '@/lib/pharmacie/dictionnaire-medicaments'
 
 export async function addStock(formData: FormData) {
-  const supabase = await createClient()
   const tenant = await getTenantContext()
-
   if (!tenant) return { error: 'Officine non trouvée.' }
+
+  const supabase = createAdminClient()
 
   const nom = (formData.get('nom') as string)?.trim()
   const type_produit = (formData.get('type_produit') as string) || 'medicament'
@@ -47,7 +47,6 @@ export async function addStock(formData: FormData) {
 
       if (existingMed) {
         medicament_id = existingMed.id
-        // Si le nom a été mis à jour, l'enregistrer
         if (nom && existingMed.nom !== nom) {
           try {
             await supabase.from('medicaments').update({ nom, type_produit }).eq('id', medicament_id)
@@ -161,9 +160,10 @@ export async function addStock(formData: FormData) {
 }
 
 export async function updateStockPrice(formData: FormData) {
-  const supabase = await createClient()
   const tenant = await getTenantContext()
   if (!tenant) return { error: 'Officine non trouvée.' }
+
+  const supabase = createAdminClient()
 
   const stockId = formData.get('stock_id') as string
   const prixVenteStr = formData.get('prix_vente') as string
@@ -216,9 +216,10 @@ export async function updateStockPrice(formData: FormData) {
 }
 
 export async function updateArticleComplet(formData: FormData) {
-  const supabase = await createClient()
   const tenant = await getTenantContext()
   if (!tenant) return { error: 'Officine non trouvée.' }
+
+  const supabase = createAdminClient()
 
   const stockId = formData.get('stock_id') as string
   let medicamentId = (formData.get('medicament_id') as string)?.trim()
@@ -279,7 +280,6 @@ export async function updateArticleComplet(formData: FormData) {
 
       if (medError) throw medError
     } catch {
-      // Fallback sans type_produit
       await supabase
         .from('medicaments')
         .update({
@@ -322,9 +322,10 @@ export async function updateArticleComplet(formData: FormData) {
 }
 
 export async function deleteArticleStock(stockId: string, medicamentId?: string) {
-  const supabase = await createClient()
   const tenant = await getTenantContext()
   if (!tenant) return { error: 'Officine non trouvée.' }
+
+  const supabase = createAdminClient()
 
   if (!stockId) {
     return { error: 'Identifiant de stock manquant.' }
@@ -435,10 +436,10 @@ export async function deleteArticleStock(stockId: string, medicamentId?: string)
  * Corrige directement le code-barres d'un médicament (résout les erreurs de saisie)
  */
 export async function corrigerCodeBarresArticle(medicamentId: string, nouveauCode: string) {
-  const supabase = await createClient()
   const tenant = await getTenantContext()
   if (!tenant || !medicamentId) return { error: 'Paramètres manquants.' }
 
+  const supabase = createAdminClient()
   const codeNet = (nouveauCode || '').trim()
 
   try {
@@ -472,17 +473,17 @@ export async function corrigerCodeBarresArticle(medicamentId: string, nouveauCod
  * (Interroge d'abord la base locale, puis le référentiel pharmaceutique universel)
  */
 export async function searchMedicamentByCodeOrName(recherche: string) {
-  const supabase = await createClient()
   const tenant = await getTenantContext()
   if (!tenant || !recherche?.trim()) return null
 
+  const supabase = createAdminClient()
   const q = recherche.trim()
 
   try {
     // 1. Chercher par code-barres exact dans le catalogue local
     const { data: medByCode } = await supabase
       .from('medicaments')
-      .select('id, nom, code_barres')
+      .select('id, nom, code_barres, type_produit')
       .eq('code_barres', q)
       .maybeSingle()
 
@@ -500,7 +501,7 @@ export async function searchMedicamentByCodeOrName(recherche: string) {
         id: medByCode.id,
         nom: medByCode.nom,
         code_barres: medByCode.code_barres,
-        type_produit: 'medicament',
+        type_produit: medByCode.type_produit || 'medicament',
         prix_vente: stockRef?.prix_vente,
         prix_achat: stockRef?.prix_achat,
         lot: stockRef?.lot,
@@ -511,7 +512,7 @@ export async function searchMedicamentByCodeOrName(recherche: string) {
     // 2. Chercher par nom dans le catalogue local
     const { data: medByName } = await supabase
       .from('medicaments')
-      .select('id, nom, code_barres')
+      .select('id, nom, code_barres, type_produit')
       .ilike('nom', `%${q}%`)
       .limit(1)
       .maybeSingle()
@@ -530,7 +531,7 @@ export async function searchMedicamentByCodeOrName(recherche: string) {
         id: medByName.id,
         nom: medByName.nom,
         code_barres: medByName.code_barres,
-        type_produit: 'medicament',
+        type_produit: medByName.type_produit || 'medicament',
         prix_vente: stockRef?.prix_vente,
         prix_achat: stockRef?.prix_achat,
         lot: stockRef?.lot,
