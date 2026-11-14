@@ -723,32 +723,32 @@
             "lead": "Une interface pensée pour la rapidité du service et la réduction maximale de l’attente des patients.",
             "blocks": [
               {
-                "p": "Le terminal de vente est optimisé pour les écrans tactiles et les douchettes code-barres :"
+                "p": "The point of sale terminal is optimized for touch screens, barcode readers, and smartphones/tablets (with built-in camera scanner):"
               },
               {
                 "ol": [
                   {
-                    "t": "Scannez le médicament :",
-                    "x": "Passez le code-barres sous la douchette ou cherchez par les premières lettres du nom commercial ou de la DCI."
+                    "t": "Scan the medication:",
+                    "x": "Scan the barcode with a handheld reader, or tap «Camera Scanner» to scan using your phone or tablet camera (QR Codes, GS1 DataMatrix, or 1D barcodes with beep and vibration), or search by brand name or INN."
                   },
                   {
-                    "t": "Ajustez le conditionnement :",
-                    "x": "Indiquez le nombre de boîtes demandées. Le panier calcule instantanément le sous-total."
+                    "t": "Adjust quantity:",
+                    "x": "Enter the number of boxes requested. The cart calculates the subtotal instantly."
                   },
                   {
-                    "t": "Choisissez le mode de paiement :",
-                    "x": "Sélectionnez Espèces, Wave, Orange Money ou Carte. En espèces, saisissez la somme remise : D-PHARMA indique la monnaie exacte à rendre."
+                    "t": "Select payment method:",
+                    "x": "Choose Cash, Wave, Orange Money, or Card. With the 0% commission direct collection module, collect directly without third-party aggregator transaction fees."
                   },
                   {
-                    "t": "Validez l’encaissement :",
-                    "x": "Le stock est décrémenté immédiatement, l’opération est consignée en caisse et le ticket est généré."
+                    "t": "Confirm checkout:",
+                    "x": "Stock is updated immediately, the transaction is logged in cash management, and the receipt is generated."
                   }
                 ]
               },
               {
                 "callout": {
-                  "l": "Gain de temps",
-                  "x": "La touche Entrée valide directement le panier. Vos préparateurs peuvent ainsi enchaîner les ordonnances sans toucher la souris."
+                  "l": "Mobility & Zero Extra Hardware",
+                  "x": "No external barcode reader needed: any connected smartphone or tablet becomes an instant optical scanner and mobile POS counter."
                 }
               }
             ]

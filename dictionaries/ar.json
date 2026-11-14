@@ -723,32 +723,32 @@
             "lead": "Une interface pensée pour la rapidité du service et la réduction maximale de l’attente des patients.",
             "blocks": [
               {
-                "p": "Le terminal de vente est optimisé pour les écrans tactiles et les douchettes code-barres :"
+                "p": "محطة البيع مهيأة للشاشات اللمسية وقارئات الباركود وكذلك الهواتف الذكية والأجهزة اللوحية (مع ماسح الكاميرا المدمج):"
               },
               {
                 "ol": [
                   {
-                    "t": "Scannez le médicament :",
-                    "x": "Passez le code-barres sous la douchette ou cherchez par les premières lettres du nom commercial ou de la DCI."
+                    "t": "مسح الدواء:",
+                    "x": "مرر الرمز الشريطي تحت القارئ، أو اضغط على «مسح بالكاميرا» للمسح المباشر بكاميرا الهاتف أو الجهاز اللوحي (رموز QR، ومصفوفة البيانات GS1، والباركود 1D)، أو ابحث بالاسم التجاري أو DCI."
                   },
                   {
-                    "t": "Ajustez le conditionnement :",
-                    "x": "Indiquez le nombre de boîtes demandées. Le panier calcule instantanément le sous-total."
+                    "t": "تحديد الكمية:",
+                    "x": "حدد عدد العلب المطلوبة؛ ويتم احتساب المجموع الفرعي فوراً في السلة."
                   },
                   {
-                    "t": "Choisissez le mode de paiement :",
-                    "x": "Sélectionnez Espèces, Wave, Orange Money ou Carte. En espèces, saisissez la somme remise : D-PHARMA indique la monnaie exacte à rendre."
+                    "t": "طريقة الدفع:",
+                    "x": "اختر نقداً أو Wave أو Orange Money أو البطاقة البنكية. مع وحدة التحصيل المباشر بدون عمولة 0%، يتم الدفع مباشرة دون رسوم وسطاء مقتطعة."
                   },
                   {
-                    "t": "Validez l’encaissement :",
-                    "x": "Le stock est décrémenté immédiatement, l’opération est consignée en caisse et le ticket est généré."
+                    "t": "تأكيد العملية:",
+                    "x": "يتم خصم المخزون فورياً وتسجيل العملية في الصندوق وطباعة التذكرة."
                   }
                 ]
               },
               {
                 "callout": {
-                  "l": "Gain de temps",
-                  "x": "La touche Entrée valide directement le panier. Vos préparateurs peuvent ainsi enchaîner les ordonnances sans toucher la souris."
+                  "l": "مرونة وتوفير في العتاد",
+                  "x": "لا يلزم شراء قارئ باركود منفصل: أي هاتف أو جهاز لوحي يتحول فوراً إلى ماسح ضوئي ونقطة بيع ذكية."
                 }
               }
             ]
