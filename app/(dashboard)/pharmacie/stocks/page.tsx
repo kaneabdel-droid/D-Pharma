@@ -28,6 +28,7 @@ export default async function StocksPage() {
       date_peremption,
       lot,
       medicaments!inner (
+        id,
         nom,
         code_barres,
         type_produit

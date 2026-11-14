@@ -3,9 +3,11 @@
 import { useState, useRef, useEffect } from 'react'
 import {
   PackageCheck, X, ShieldCheck, AlertCircle, ScanLine, Plus,
-  Trash2, CheckCircle2, Pill, Sparkles, Barcode, ArrowRight, Check
+  Trash2, CheckCircle2, Pill, Sparkles, Barcode, ArrowRight, Check,
+  Camera
 } from 'lucide-react'
 import { accuserReception } from './actions'
+import ScannerCameraModal from '@/components/ScannerCameraModal'
 
 type CommandeLigne = {
   id: string
@@ -70,7 +72,7 @@ function playBeepSound() {
     gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.12)
     osc.start()
     osc.stop(ctx.currentTime + 0.12)
-  } catch {}
+  } catch { }
 }
 
 export default function ReceiveCommandeModal({
@@ -94,6 +96,7 @@ export default function ReceiveCommandeModal({
     isNewBarcode?: boolean
   } | null>(null)
   const [unrecognizedCode, setUnrecognizedCode] = useState<string | null>(null)
+  const [scannerCameraOuvert, setScannerCameraOuvert] = useState(false)
 
   const scanInputRef = useRef<HTMLInputElement>(null)
 
@@ -422,9 +425,21 @@ export default function ReceiveCommandeModal({
                   </button>
                 </div>
 
-                <div className="flex items-center gap-2 text-xs text-foreground-muted shrink-0">
-                  <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-ping"></span>
-                  <span className="font-semibold text-emerald-600">Douchette prête</span>
+                <div className="flex items-center gap-2 shrink-0">
+                  <button
+                    type="button"
+                    onClick={() => setScannerCameraOuvert(true)}
+                    className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30 hover:bg-emerald-500/20 transition active:scale-95 shadow-xs whitespace-nowrap cursor-pointer"
+                    title="Scanner les boîtes reçues avec la caméra du smartphone / tablette"
+                  >
+                    <Camera className="w-4 h-4" />
+                    <span>Scanner Caméra</span>
+                  </button>
+
+                  <div className="hidden sm:flex items-center gap-1.5 text-xs text-foreground-muted pl-1">
+                    <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
+                    <span className="font-semibold text-emerald-600">Douchette active</span>
+                  </div>
                 </div>
               </div>
 
@@ -533,13 +548,12 @@ export default function ReceiveCommandeModal({
                             <div>
                               <div className="flex items-center gap-2">
                                 <h4 className="font-bold text-sm text-foreground">{medGroup.nom}</h4>
-                                <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${
-                                  isFullyReceived
+                                <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${isFullyReceived
                                     ? 'bg-success/15 text-success'
                                     : isOverReceived
-                                    ? 'bg-amber-500/15 text-amber-600'
-                                    : 'bg-primary/10 text-primary'
-                                }`}>
+                                      ? 'bg-amber-500/15 text-amber-600'
+                                      : 'bg-primary/10 text-primary'
+                                  }`}>
                                   {medGroup.total_recu} / {medGroup.quantite_commandee} reçu(s)
                                 </span>
                               </div>
@@ -577,11 +591,10 @@ export default function ReceiveCommandeModal({
                           {medGroup.lots.map((lotItem, lotIdx) => (
                             <div
                               key={lotItem.id}
-                              className={`p-3 rounded-xl border transition-all ${
-                                lotItem.is_active_scan
+                              className={`p-3 rounded-xl border transition-all ${lotItem.is_active_scan
                                   ? 'border-primary bg-primary/5 shadow-xs ring-1 ring-primary/30'
                                   : 'border-surface-border bg-surface hover:border-surface-border/80'
-                              }`}
+                                }`}
                             >
                               <div className="grid grid-cols-1 sm:grid-cols-12 gap-3 items-center text-xs">
                                 {/* Sélecteur Lot actif pour scan */}
@@ -589,11 +602,10 @@ export default function ReceiveCommandeModal({
                                   <button
                                     type="button"
                                     onClick={() => setActiveLotForScan(lotItem.id)}
-                                    className={`px-2.5 py-1 rounded-lg text-[10px] font-bold flex items-center gap-1.5 transition-colors cursor-pointer ${
-                                      lotItem.is_active_scan
+                                    className={`px-2.5 py-1 rounded-lg text-[10px] font-bold flex items-center gap-1.5 transition-colors cursor-pointer ${lotItem.is_active_scan
                                         ? 'bg-primary text-white shadow-xs'
                                         : 'bg-background border border-surface-border text-foreground-muted hover:text-foreground'
-                                    }`}
+                                      }`}
                                     title="Cliquer pour diriger les prochains scans douchette sur ce lot"
                                   >
                                     <span className={`w-2 h-2 rounded-full ${lotItem.is_active_scan ? 'bg-white animate-pulse' : 'bg-foreground-muted'}`}></span>
@@ -676,11 +688,10 @@ export default function ReceiveCommandeModal({
                                       min="1"
                                       value={lotItem.prix_vente}
                                       onChange={(e) => updateLotField(lotItem.id, 'prix_vente', Number(e.target.value) || 0)}
-                                      className={`w-full font-mono font-bold px-2 py-1 rounded border text-xs text-right ${
-                                        !lotItem.prix_vente || lotItem.prix_vente <= 0
+                                      className={`w-full font-mono font-bold px-2 py-1 rounded border text-xs text-right ${!lotItem.prix_vente || lotItem.prix_vente <= 0
                                           ? 'border-danger bg-danger/5 text-danger'
                                           : 'border-surface-border bg-background text-foreground'
-                                      }`}
+                                        }`}
                                       required
                                     />
                                   </div>
@@ -760,6 +771,15 @@ export default function ReceiveCommandeModal({
           </div>
         </div>
       )}
+
+      {/* Scanner Caméra pour Réception de Commande */}
+      <ScannerCameraModal
+        isOpen={scannerCameraOuvert}
+        onClose={() => setScannerCameraOuvert(false)}
+        onCodeDetecte={(code) => processBarcodeScan(code)}
+        titre="Scanner Réception Grossiste"
+        sousTitre="Scannez les boîtes livrées par le grossiste pour pointer les quantités"
+      />
     </>
   )
 }

@@ -1,12 +1,15 @@
 'use client'
 
 import { useState } from 'react'
-import { Plus, X, Pill, Stethoscope, Sparkles, AlertCircle } from 'lucide-react'
+import { Plus, X, Pill, Stethoscope, Sparkles, AlertCircle, Camera } from 'lucide-react'
 import { addStock } from './actions'
+import ScannerCameraModal from '@/components/ScannerCameraModal'
 
 export default function CreateStockButton() {
   const [isOpen, setIsOpen] = useState(false)
   const [typeProduit, setTypeProduit] = useState<'medicament' | 'materiel' | 'service'>('medicament')
+  const [codeBarres, setCodeBarres] = useState('')
+  const [scannerOuvert, setScannerOuvert] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
@@ -32,7 +35,7 @@ export default function CreateStockButton() {
   return (
     <>
       <button
-        onClick={() => { setIsOpen(true); setError(null) }}
+        onClick={() => { setIsOpen(true); setError(null); setCodeBarres('') }}
         className="flex items-center gap-2 bg-primary text-white px-4 py-2.5 rounded-xl font-bold text-sm hover:bg-primary-hover transition-colors shadow-sm"
       >
         <Plus className="w-4 h-4" />
@@ -133,13 +136,35 @@ export default function CreateStockButton() {
 
               {typeProduit !== 'service' && (
                 <div>
-                  <label className="block text-xs font-semibold text-foreground mb-1">Code-barres / Référence (Optionnel)</label>
-                  <input 
-                    type="text" 
-                    name="code_barres" 
-                    className={champ} 
-                    placeholder="Scanner ou saisir le code CIP / EAN..." 
-                  />
+                  <div className="flex items-center justify-between mb-1">
+                    <label className="block text-xs font-semibold text-foreground">Code-barres / Référence (Optionnel)</label>
+                    <button
+                      type="button"
+                      onClick={() => setScannerOuvert(true)}
+                      className="inline-flex items-center gap-1 text-[11px] font-bold text-emerald-600 dark:text-emerald-400 hover:underline"
+                    >
+                      <Camera className="w-3.5 h-3.5" />
+                      <span>Scanner par caméra</span>
+                    </button>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <input 
+                      type="text" 
+                      name="code_barres" 
+                      value={codeBarres}
+                      onChange={(e) => setCodeBarres(e.target.value)}
+                      className={champ} 
+                      placeholder="Scanner ou saisir le code CIP / EAN..." 
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setScannerOuvert(true)}
+                      className="p-2.5 rounded-xl border border-surface-border bg-background hover:bg-surface-border/50 text-emerald-600 dark:text-emerald-400 shrink-0 transition"
+                      title="Scanner avec la caméra du smartphone / tablette"
+                    >
+                      <Camera className="w-4 h-4" />
+                    </button>
+                  </div>
                 </div>
               )}
 
@@ -242,6 +267,15 @@ export default function CreateStockButton() {
           </div>
         </div>
       )}
+
+      {/* Scanner Caméra pour Entrée de Stock */}
+      <ScannerCameraModal
+        isOpen={scannerOuvert}
+        onClose={() => setScannerOuvert(false)}
+        onCodeDetecte={(code) => setCodeBarres(code)}
+        titre="Scanner pour Entrée en Stock"
+        sousTitre="Scannez le code QR, DataMatrix ou code-barres de la boîte"
+      />
     </>
   )
 }
