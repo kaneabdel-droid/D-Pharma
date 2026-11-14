@@ -13,11 +13,12 @@ import {
   Sparkles,
 } from "lucide-react";
 import { Html5Qrcode, Html5QrcodeSupportedFormats } from "html5-qrcode";
+import { parserCodePharma, CodePharmaParse } from "@/lib/pharmacie/code-parser";
 
 interface ScannerCameraModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onCodeDetecte: (code: string) => void;
+  onCodeDetecte: (code: string, parseResult?: CodePharmaParse) => void;
   titre?: string;
   sousTitre?: string;
 }
@@ -41,6 +42,7 @@ export default function ScannerCameraModal({
   const [torchActive, setTorchActive] = useState(false);
   const [dernierCodeScanne, setDernierCodeScanne] = useState<string | null>(null);
   const [scanReussiAnim, setScanReussiAnim] = useState(false);
+  const [detailsExtraits, setDetailsExtraits] = useState<CodePharmaParse | null>(null);
 
   // Émission d'un bip sonore de confirmation
   const biperScan = useCallback(() => {
@@ -75,15 +77,18 @@ export default function ScannerCameraModal({
       const code = codeBrut.trim();
       if (!code || code === dernierCodeScanne) return;
 
+      const parsed = parserCodePharma(code);
       setDernierCodeScanne(code);
+      setDetailsExtraits(parsed);
       setScanReussiAnim(true);
       biperScan();
 
       setTimeout(() => {
-        onCodeDetecte(code);
+        onCodeDetecte(parsed.code_barres || code, parsed);
         setScanReussiAnim(false);
+        setDetailsExtraits(null);
         onClose();
-      }, 350);
+      }, 550);
 
       setTimeout(() => {
         setDernierCodeScanne(null);
@@ -330,11 +335,30 @@ export default function ScannerCameraModal({
 
                 {/* Badge visuel scan réussi */}
                 {scanReussiAnim && (
-                  <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 text-white bg-emerald-600/40 backdrop-blur-xs rounded-2xl">
-                    <CheckCircle2 className="w-12 h-12 text-emerald-300 animate-bounce" />
-                    <span className="font-bold text-sm bg-black/60 px-3 py-1 rounded-full">
+                  <div className="absolute inset-0 flex flex-col items-center justify-center p-3 text-white bg-emerald-700/60 backdrop-blur-sm rounded-2xl text-center">
+                    <CheckCircle2 className="w-10 h-10 text-emerald-300 animate-bounce mb-1" />
+                    <span className="font-bold text-sm bg-black/70 px-3 py-1 rounded-full text-emerald-200">
                       Code détecté !
                     </span>
+                    {detailsExtraits && (
+                      <div className="mt-2 text-xs bg-black/80 p-2 rounded-xl border border-emerald-400/30 max-w-full space-y-0.5">
+                        {detailsExtraits.nom && (
+                          <div className="font-semibold text-white truncate max-w-[200px] sm:max-w-[240px]">
+                            {detailsExtraits.nom}
+                          </div>
+                        )}
+                        <div className="text-[11px] text-emerald-300 font-mono">
+                          {detailsExtraits.code_barres}
+                        </div>
+                        {(detailsExtraits.lot || detailsExtraits.date_peremption || detailsExtraits.prix_vente) && (
+                          <div className="flex flex-wrap items-center justify-center gap-1.5 text-[10px] text-white/90 pt-0.5">
+                            {detailsExtraits.lot && <span className="bg-white/20 px-1.5 py-0.5 rounded">Lot: {detailsExtraits.lot}</span>}
+                            {detailsExtraits.date_peremption && <span className="bg-white/20 px-1.5 py-0.5 rounded">Exp: {detailsExtraits.date_peremption}</span>}
+                            {detailsExtraits.prix_vente && <span className="bg-emerald-500/40 px-1.5 py-0.5 rounded font-bold">{detailsExtraits.prix_vente} F</span>}
+                          </div>
+                        )}
+                      </div>
+                    )}
                   </div>
                 )}
               </div>

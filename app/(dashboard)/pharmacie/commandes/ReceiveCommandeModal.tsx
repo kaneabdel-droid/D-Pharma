@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useRef, useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 import {
   PackageCheck, X, ShieldCheck, AlertCircle, ScanLine, Plus,
   Trash2, CheckCircle2, Pill, Sparkles, Barcode, ArrowRight, Check,
@@ -8,7 +9,7 @@ import {
 } from 'lucide-react'
 import { accuserReception } from './actions'
 import ScannerCameraModal from '@/components/ScannerCameraModal'
-import { parserCodePharma } from '@/lib/pharmacie/code-parser'
+import { parserCodePharma, CodePharmaParse } from '@/lib/pharmacie/code-parser'
 
 type CommandeLigne = {
   id: string
@@ -83,6 +84,7 @@ export default function ReceiveCommandeModal({
   commande: Commande
   stockMap?: Record<string, StockInfo>
 }) {
+  const router = useRouter()
   const [isOpen, setIsOpen] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -208,10 +210,10 @@ export default function ReceiveCommandeModal({
   }
 
   // Traitement intelligent d'un scan (DataMatrix GS1, QR Code ou code-barres standard)
-  const processBarcodeScan = (scannedCodeRaw: string) => {
+  const processBarcodeScan = (scannedCodeRaw: string, parseResult?: CodePharmaParse) => {
     if (!scannedCodeRaw?.trim()) return
 
-    const parsed = parserCodePharma(scannedCodeRaw)
+    const parsed = parseResult || parserCodePharma(scannedCodeRaw)
     const code = (parsed.code_barres || scannedCodeRaw).trim()
     const lotScanne = parsed.lot
     const peremptionScanne = parsed.date_peremption
@@ -225,14 +227,14 @@ export default function ReceiveCommandeModal({
     let matchingLots = lots.filter(
       l =>
         (l.code_barres && l.code_barres.trim().toLowerCase() === code.toLowerCase()) ||
-        (l.code_barres && code.length >= 8 && l.code_barres.includes(code)) ||
-        (l.code_barres && code.length >= 8 && code.includes(l.code_barres))
+        (l.code_barres && code.length >= 8 && (l.code_barres.includes(code) || code.includes(l.code_barres)))
     )
 
-    // Si pas trouvé par code-barres et qu'un nom est présent dans le QR, chercher par nom
+    // Si pas trouvé par code-barres et qu'un nom est présent dans le code/dictionnaire, chercher par nom
     if (matchingLots.length === 0 && nomScanne) {
       matchingLots = lots.filter(l =>
-        l.nom.toLowerCase().includes(nomScanne.toLowerCase())
+        l.nom.toLowerCase().includes(nomScanne.toLowerCase()) ||
+        nomScanne.toLowerCase().includes(l.nom.toLowerCase())
       )
     }
 
@@ -401,6 +403,7 @@ export default function ReceiveCommandeModal({
     if (result?.error) {
       setError(result.error)
     } else {
+      router.refresh()
       setIsOpen(false)
     }
   }
@@ -824,7 +827,7 @@ export default function ReceiveCommandeModal({
       <ScannerCameraModal
         isOpen={scannerCameraOuvert}
         onClose={() => setScannerCameraOuvert(false)}
-        onCodeDetecte={(code) => processBarcodeScan(code)}
+        onCodeDetecte={(code, parseResult) => processBarcodeScan(code, parseResult)}
         titre="Scanner Réception Grossiste"
         sousTitre="Scannez les boîtes livrées par le grossiste pour pointer les quantités"
       />

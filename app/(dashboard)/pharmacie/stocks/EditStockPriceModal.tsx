@@ -1,13 +1,14 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 import {
   Pencil, X, Check, AlertCircle, ShieldCheck, Tag, Trash2,
-  Camera, Pill, Stethoscope, Sparkles, AlertTriangle
+  Camera, Pill, Stethoscope, Sparkles, AlertTriangle, CheckCircle2
 } from 'lucide-react'
-import { updateArticleComplet, deleteArticleStock } from './actions'
+import { updateArticleComplet, deleteArticleStock, searchMedicamentByCodeOrName } from './actions'
 import ScannerCameraModal from '@/components/ScannerCameraModal'
-import { parserCodePharma } from '@/lib/pharmacie/code-parser'
+import { parserCodePharma, CodePharmaParse } from '@/lib/pharmacie/code-parser'
 
 type StockItem = {
   id: string
@@ -25,6 +26,7 @@ type StockItem = {
 }
 
 export default function EditStockPriceModal({ stock }: { stock: StockItem }) {
+  const router = useRouter()
   const [isOpen, setIsOpen] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isDeleting, setIsDeleting] = useState(false)
@@ -32,6 +34,7 @@ export default function EditStockPriceModal({ stock }: { stock: StockItem }) {
   const [error, setError] = useState<string | null>(null)
   const [warning, setWarning] = useState<string | null>(null)
   const [success, setSuccess] = useState(false)
+  const [scanFeedback, setScanFeedback] = useState<string | null>(null)
 
   // Champs modifiables
   const [nom, setNom] = useState(stock.medicaments.nom)
@@ -49,6 +52,18 @@ export default function EditStockPriceModal({ stock }: { stock: StockItem }) {
 
   const [scannerOuvert, setScannerOuvert] = useState(false)
 
+  // Synchroniser l'état quand la prop stock change
+  useEffect(() => {
+    setNom(stock.medicaments.nom)
+    setCodeBarres(stock.medicaments.code_barres || '')
+    setTypeProduit((stock.medicaments.type_produit as any) || 'medicament')
+    setQuantite(stock.quantite.toString())
+    setPrixVente(stock.prix_vente.toString())
+    setPrixAchat((stock.prix_achat || 0).toString())
+    setLot(stock.lot || '')
+    setDatePeremption(stock.date_peremption ? stock.date_peremption.split('T')[0] : '')
+  }, [stock])
+
   const handleOpen = () => {
     setNom(stock.medicaments.nom)
     setCodeBarres(stock.medicaments.code_barres || '')
@@ -62,17 +77,59 @@ export default function EditStockPriceModal({ stock }: { stock: StockItem }) {
     setWarning(null)
     setSuccess(false)
     setConfirmSuppression(false)
+    setScanFeedback(null)
     setIsOpen(true)
   }
 
-  const handleCodeScanneModif = (codeBrut: string) => {
-    const parse = parserCodePharma(codeBrut)
-    setCodeBarres(parse.code_barres || codeBrut.trim())
-    if (parse.nom) setNom(parse.nom)
-    if (parse.prix_vente) setPrixVente(parse.prix_vente.toString())
+  const handleCodeScanneModif = async (codeBrut: string, parseResult?: CodePharmaParse) => {
+    const parse = parseResult || parserCodePharma(codeBrut)
+    const codeNet = parse.code_barres || codeBrut.trim()
+    setCodeBarres(codeNet)
+
+    const details: string[] = []
+    if (parse.nom) {
+      setNom(parse.nom)
+      details.push(parse.nom)
+    }
+    if (parse.prix_vente) {
+      setPrixVente(parse.prix_vente.toString())
+      details.push(`${parse.prix_vente} FCFA`)
+    }
     if (parse.prix_achat) setPrixAchat(parse.prix_achat.toString())
-    if (parse.lot) setLot(parse.lot)
-    if (parse.date_peremption) setDatePeremption(parse.date_peremption)
+    if (parse.lot) {
+      setLot(parse.lot)
+      details.push(`Lot: ${parse.lot}`)
+    }
+    if (parse.date_peremption) {
+      setDatePeremption(parse.date_peremption)
+      details.push(`Exp: ${parse.date_peremption}`)
+    }
+    if (parse.type_produit) setTypeProduit(parse.type_produit as any)
+
+    // Si le nom était absent du code, chercher dans le catalogue ou le dictionnaire officinal
+    if (!parse.nom && codeNet) {
+      const existant = await searchMedicamentByCodeOrName(codeNet)
+      if (existant) {
+        if (existant.nom) {
+          setNom(existant.nom)
+          details.push(existant.nom)
+        }
+        if (existant.type_produit) setTypeProduit(existant.type_produit as any)
+        if (existant.prix_vente && !parse.prix_vente) {
+          setPrixVente(existant.prix_vente.toString())
+          details.push(`${existant.prix_vente} FCFA`)
+        }
+        if (existant.prix_achat && !parse.prix_achat) {
+          setPrixAchat(existant.prix_achat.toString())
+        }
+      }
+    }
+
+    setScanFeedback(
+      details.length > 0
+        ? `Informations extraites : ${details.join(' • ')}`
+        : `Code scanné : ${codeNet}`
+    )
   }
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -100,10 +157,11 @@ export default function EditStockPriceModal({ stock }: { stock: StockItem }) {
       setError(result.error)
     } else {
       setSuccess(true)
+      router.refresh()
       setTimeout(() => {
         setSuccess(false)
         setIsOpen(false)
-      }, 700)
+      }, 600)
     }
   }
 
@@ -119,10 +177,12 @@ export default function EditStockPriceModal({ stock }: { stock: StockItem }) {
       setError(result.error)
     } else if (result.warning) {
       setWarning(result.warning)
+      router.refresh()
       setTimeout(() => {
         setIsOpen(false)
-      }, 2500)
+      }, 1800)
     } else {
+      router.refresh()
       setIsOpen(false)
     }
   }
@@ -230,6 +290,13 @@ export default function EditStockPriceModal({ stock }: { stock: StockItem }) {
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="p-5 space-y-4 max-h-[82vh] overflow-y-auto">
+                {scanFeedback && (
+                  <div className="bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border border-emerald-500/20 p-3 rounded-xl text-xs font-semibold flex items-center gap-2">
+                    <CheckCircle2 className="w-4 h-4 shrink-0 text-emerald-600" />
+                    <span>{scanFeedback}</span>
+                  </div>
+                )}
+
                 {error && (
                   <div className="bg-danger/10 text-danger border border-danger/20 p-3 rounded-xl text-xs font-semibold flex items-center gap-2">
                     <AlertCircle className="w-4 h-4 shrink-0" />

@@ -10,6 +10,9 @@ export const metadata = {
   title: 'Gestion des Stocks | D-PHARMA',
 }
 
+export const dynamic = 'force-dynamic'
+export const revalidate = 0
+
 export default async function StocksPage() {
   const supabase = await createClient()
   const tenant = await getTenantContext()

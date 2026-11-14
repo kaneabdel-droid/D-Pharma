@@ -1,12 +1,14 @@
 'use client'
 
 import { useState } from 'react'
+import { useRouter } from 'next/navigation'
 import { Plus, X, Pill, Stethoscope, Sparkles, AlertCircle, Camera, CheckCircle2 } from 'lucide-react'
 import { addStock, searchMedicamentByCodeOrName } from './actions'
 import ScannerCameraModal from '@/components/ScannerCameraModal'
-import { parserCodePharma } from '@/lib/pharmacie/code-parser'
+import { parserCodePharma, CodePharmaParse } from '@/lib/pharmacie/code-parser'
 
 export default function CreateStockButton() {
+  const router = useRouter()
   const [isOpen, setIsOpen] = useState(false)
   const [typeProduit, setTypeProduit] = useState<'medicament' | 'materiel' | 'service'>('medicament')
   const [nom, setNom] = useState('')
@@ -37,8 +39,8 @@ export default function CreateStockButton() {
   }
 
   // Traitement intelligent du scan (QR Code, DataMatrix, Code-barres)
-  const handleCodeScanne = async (codeBrut: string) => {
-    const parse = parserCodePharma(codeBrut)
+  const handleCodeScanne = async (codeBrut: string, parseResult?: CodePharmaParse) => {
+    const parse = parseResult || parserCodePharma(codeBrut)
     const codeNet = parse.code_barres || codeBrut.trim()
     setCodeBarres(codeNet)
 
@@ -48,9 +50,12 @@ export default function CreateStockButton() {
       setNom(parse.nom)
       details.push(parse.nom)
     }
+    if (parse.type_produit) {
+      setTypeProduit(parse.type_produit as any)
+    }
     if (parse.prix_vente) {
       setPrixVente(parse.prix_vente.toString())
-      details.push(`Prix: ${parse.prix_vente} F`)
+      details.push(`Prix: ${parse.prix_vente} FCFA`)
     }
     if (parse.prix_achat) {
       setPrixAchat(parse.prix_achat.toString())
@@ -64,7 +69,7 @@ export default function CreateStockButton() {
       details.push(`Exp: ${parse.date_peremption}`)
     }
 
-    // Si le nom n'était pas dans le code, chercher si ce médicament existe déjà dans la base
+    // Si le nom n'était pas dans le code, chercher si ce médicament existe dans la base ou le dictionnaire
     if (!parse.nom && codeNet) {
       const existant = await searchMedicamentByCodeOrName(codeNet)
       if (existant) {
@@ -75,7 +80,7 @@ export default function CreateStockButton() {
         if (existant.type_produit) setTypeProduit(existant.type_produit as any)
         if (existant.prix_vente && !parse.prix_vente) {
           setPrixVente(existant.prix_vente.toString())
-          details.push(`Dernier prix: ${existant.prix_vente} F`)
+          details.push(`Prix: ${existant.prix_vente} FCFA`)
         }
         if (existant.prix_achat && !parse.prix_achat) {
           setPrixAchat(existant.prix_achat.toString())
@@ -111,6 +116,7 @@ export default function CreateStockButton() {
     if (result.error) {
       setError(result.error)
     } else {
+      router.refresh()
       setIsOpen(false)
       resetForm()
     }

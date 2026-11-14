@@ -13,7 +13,7 @@ import { executeOfflineSafe } from '@/lib/offline/offline-action-helper'
 import BilanCaisseModal from './BilanCaisseModal'
 import { ModalEncaissementDirect } from '@/components/ModalEncaissementDirect'
 import ScannerCameraModal from '@/components/ScannerCameraModal'
-import { parserCodePharma } from '@/lib/pharmacie/code-parser'
+import { parserCodePharma, CodePharmaParse } from '@/lib/pharmacie/code-parser'
 
 export type Medicament = {
   id: string
@@ -201,10 +201,10 @@ export default function PointDeVenteClient({
   }
 
   // Détection intelligente via caméra smartphone ou tablette (QR, DataMatrix GS1, Code-barres 1D)
-  const handleCodeScanneCamera = (codeBrut: string) => {
+  const handleCodeScanneCamera = (codeBrut: string, parseResult?: CodePharmaParse) => {
     if (!codeBrut?.trim()) return
 
-    const parsed = parserCodePharma(codeBrut)
+    const parsed = parseResult || parserCodePharma(codeBrut)
     const codeNet = (parsed.code_barres || codeBrut).trim()
     const nomScanne = parsed.nom
     setSearchTerm(codeNet)

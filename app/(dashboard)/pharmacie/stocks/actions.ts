@@ -3,6 +3,7 @@
 import { createClient } from '@/utils/supabase/server'
 import { revalidatePath } from 'next/cache'
 import { getTenantContext } from '@/utils/supabase/tenant'
+import { chercherDansDictionnaire } from '@/lib/pharmacie/dictionnaire-medicaments'
 
 export async function addStock(formData: FormData) {
   const supabase = await createClient()
@@ -34,10 +35,9 @@ export async function addStock(formData: FormData) {
   }
 
   try {
-    // 1. Chercher si l'article existe déjà dans le catalogue global
-    let medicament_id = null
+    let medicament_id: string | null = null
 
-    // Cherche d'abord par code barre si fourni
+    // 1. Cherche d'abord par code barre si fourni
     if (code_barres) {
       const { data: existingMed } = await supabase
         .from('medicaments')
@@ -49,12 +49,16 @@ export async function addStock(formData: FormData) {
         medicament_id = existingMed.id
         // Si le nom a été mis à jour, l'enregistrer
         if (nom && existingMed.nom !== nom) {
-          await supabase.from('medicaments').update({ nom, type_produit }).eq('id', medicament_id)
+          try {
+            await supabase.from('medicaments').update({ nom, type_produit }).eq('id', medicament_id)
+          } catch {
+            await supabase.from('medicaments').update({ nom }).eq('id', medicament_id)
+          }
         }
       }
     }
 
-    // Sinon cherche par nom
+    // 2. Sinon cherche par nom
     if (!medicament_id) {
       const { data: existingMedName } = await supabase
         .from('medicaments')
@@ -65,51 +69,37 @@ export async function addStock(formData: FormData) {
       if (existingMedName) {
         medicament_id = existingMedName.id
 
-        // TRÈS IMPORTANT : Mettre à jour le code-barres s'il était manquant ou erroné !
+        // Mettre à jour le code-barres s'il a été saisi ou modifié
         if (code_barres && existingMedName.code_barres !== code_barres) {
-          // Résoudre un éventuel conflit avec un enregistrement orphelin ayant ce code-barres
-          const { data: conflit } = await supabase
+          // Libérer immédiatement ce code-barres sur tout autre article pour éviter la collision UNIQUE
+          await supabase
             .from('medicaments')
-            .select('id')
+            .update({ code_barres: null })
             .eq('code_barres', code_barres)
             .neq('id', medicament_id)
-            .maybeSingle()
 
-          if (conflit) {
-            const { data: stocksConflit } = await supabase
-              .from('stocks_pharmacie')
-              .select('id')
-              .eq('medicament_id', conflit.id)
-              .limit(1)
-
-            if (!stocksConflit || stocksConflit.length === 0) {
-              await supabase.from('medicaments').delete().eq('id', conflit.id)
-            } else {
-              await supabase.from('medicaments').update({ code_barres: null }).eq('id', conflit.id)
-            }
+          try {
+            await supabase.from('medicaments').update({ code_barres, type_produit }).eq('id', medicament_id)
+          } catch {
+            await supabase.from('medicaments').update({ code_barres }).eq('id', medicament_id)
           }
-
-          await supabase.from('medicaments').update({ code_barres, type_produit }).eq('id', medicament_id)
         }
       }
     }
 
-    // 2. S'il n'existe pas, on le crée dans le catalogue global
+    // 3. S'il n'existe pas encore dans medicaments, on le crée
     if (!medicament_id) {
       if (code_barres) {
-        const { data: orphelin } = await supabase
+        // Libérer le code-barres pour garantir qu'aucune collision UNIQUE ne bloque l'insert
+        await supabase
           .from('medicaments')
-          .select('id')
+          .update({ code_barres: null })
           .eq('code_barres', code_barres)
-          .maybeSingle()
-
-        if (orphelin) {
-          await supabase.from('medicaments').update({ nom, type_produit }).eq('id', orphelin.id)
-          medicament_id = orphelin.id
-        }
       }
 
-      if (!medicament_id) {
+      let newMedId: string | null = null
+
+      try {
         const { data: newMed, error: newMedError } = await supabase
           .from('medicaments')
           .insert({
@@ -121,14 +111,30 @@ export async function addStock(formData: FormData) {
           .single()
 
         if (newMedError) throw newMedError
-        medicament_id = newMed.id
+        newMedId = newMed.id
+      } catch {
+        // Fallback sans type_produit si la colonne n'existe pas
+        const { data: newMedFallback, error: fallbackError } = await supabase
+          .from('medicaments')
+          .insert({
+            nom,
+            code_barres: code_barres || null
+          })
+          .select('id')
+          .single()
+
+        if (fallbackError) throw fallbackError
+        newMedId = newMedFallback.id
       }
-    } else {
-      // Mettre à jour le type si besoin
-      await supabase.from('medicaments').update({ type_produit }).eq('id', medicament_id)
+
+      medicament_id = newMedId
     }
 
-    // 3. Ajouter l'entrée en stock pour cette pharmacie
+    if (!medicament_id) {
+      return { error: 'Impossible de créer ou retrouver l\'article.' }
+    }
+
+    // 4. Ajouter l'entrée en stock pour cette officine
     const { error: stockError } = await supabase
       .from('stocks_pharmacie')
       .insert({
@@ -145,6 +151,8 @@ export async function addStock(formData: FormData) {
 
     revalidatePath('/pharmacie/stocks')
     revalidatePath('/pharmacie/pos')
+    revalidatePath('/pharmacie/commandes')
+    revalidatePath('/dashboard')
     return { success: true }
   } catch (err: any) {
     console.error('Erreur ajout article/médicament:', err)
@@ -249,43 +257,37 @@ export async function updateArticleComplet(formData: FormData) {
   }
 
   try {
-    // 1. Résoudre les conflits de code-barres avec d'anciens enregistrements orphelins
+    // 1. Libérer le code-barres sur tout autre article pour éviter la collision UNIQUE
     if (code_barres) {
-      const { data: conflit } = await supabase
+      await supabase
         .from('medicaments')
-        .select('id')
+        .update({ code_barres: null })
         .eq('code_barres', code_barres)
         .neq('id', medicamentId)
-        .maybeSingle()
-
-      if (conflit) {
-        const { data: stocksConflit } = await supabase
-          .from('stocks_pharmacie')
-          .select('id')
-          .eq('medicament_id', conflit.id)
-          .limit(1)
-
-        if (!stocksConflit || stocksConflit.length === 0) {
-          // Supprimer l'orphelin pour libérer le code-barres
-          await supabase.from('medicaments').delete().eq('id', conflit.id)
-        } else {
-          // Si déjà utilisé ailleurs, vider son code
-          await supabase.from('medicaments').update({ code_barres: null }).eq('id', conflit.id)
-        }
-      }
     }
 
-    // 2. Mettre à jour les informations du médicament / catalogue
-    const { error: medError } = await supabase
-      .from('medicaments')
-      .update({
-        nom,
-        code_barres: code_barres || null,
-        type_produit
-      })
-      .eq('id', medicamentId)
+    // 2. Mettre à jour les informations du médicament dans le catalogue
+    try {
+      const { error: medError } = await supabase
+        .from('medicaments')
+        .update({
+          nom,
+          code_barres: code_barres || null,
+          type_produit
+        })
+        .eq('id', medicamentId)
 
-    if (medError) throw medError
+      if (medError) throw medError
+    } catch {
+      // Fallback sans type_produit
+      await supabase
+        .from('medicaments')
+        .update({
+          nom,
+          code_barres: code_barres || null
+        })
+        .eq('id', medicamentId)
+    }
 
     // 3. Mettre à jour les informations de stock pour cette pharmacie
     const stockUpdatePayload: any = {
@@ -310,6 +312,7 @@ export async function updateArticleComplet(formData: FormData) {
 
     revalidatePath('/pharmacie/stocks')
     revalidatePath('/pharmacie/pos')
+    revalidatePath('/pharmacie/commandes')
     revalidatePath('/dashboard')
     return { success: true }
   } catch (err: any) {
@@ -341,6 +344,7 @@ export async function deleteArticleStock(stockId: string, medicamentId?: string)
     }
 
     // Vérifier si l'article est référencé dans des ventes existantes
+    let aDesVentes = false
     if (targetMedId) {
       const { data: ventesLiees } = await supabase
         .from('lignes_vente_pharmacie')
@@ -349,26 +353,48 @@ export async function deleteArticleStock(stockId: string, medicamentId?: string)
         .limit(1)
 
       if (ventesLiees && ventesLiees.length > 0) {
-        // L'article a déjà des ventes enregistrées dans l'historique comptable
-        // On remet la quantité à 0 pour le désactiver sans détruire les tickets de caisse passés
-        await supabase
-          .from('stocks_pharmacie')
-          .update({
-            quantite: 0,
-            updated_at: new Date().toISOString()
-          })
-          .eq('id', stockId)
-          .eq('gie_id', tenant.gieId)
-
-        revalidatePath('/pharmacie/stocks')
-        revalidatePath('/pharmacie/pos')
-        return {
-          warning: 'Cet article figure déjà sur des tickets de caisse passés. Pour préserver l\'intégrité comptable, son stock a été ramené à 0.'
-        }
+        aDesVentes = true
       }
     }
 
-    // Si aucune vente liée (erreur de saisie), suppression directe de la ligne de stock
+    if (aDesVentes) {
+      // Pour préserver l'historique comptable des tickets passés :
+      // 1. Ramener la quantité en stock à 0
+      await supabase
+        .from('stocks_pharmacie')
+        .update({
+          quantite: 0,
+          updated_at: new Date().toISOString()
+        })
+        .eq('id', stockId)
+        .eq('gie_id', tenant.gieId)
+
+      // 2. Libérer le code-barres sur medicaments pour que l'utilisateur puisse
+      // le réutiliser ou le corriger immédiatement sans conflit UNIQUE
+      if (targetMedId) {
+        await supabase
+          .from('medicaments')
+          .update({ code_barres: null })
+          .eq('id', targetMedId)
+      }
+
+      revalidatePath('/pharmacie/stocks')
+      revalidatePath('/pharmacie/pos')
+      return {
+        warning: 'Cet article figure déjà sur des tickets de caisse passés. Son stock a été remis à 0 et son code-barres a été libéré pour éviter tout conflit futur.'
+      }
+    }
+
+    // Si aucune vente liée (erreur de saisie ou correction) :
+    // 1. Libérer le code-barres en premier
+    if (targetMedId) {
+      await supabase
+        .from('medicaments')
+        .update({ code_barres: null })
+        .eq('id', targetMedId)
+    }
+
+    // 2. Supprimer la ligne de stock pour cette pharmacie
     const { error: deleteError } = await supabase
       .from('stocks_pharmacie')
       .delete()
@@ -377,7 +403,7 @@ export async function deleteArticleStock(stockId: string, medicamentId?: string)
 
     if (deleteError) throw deleteError
 
-    // Si le médicament n'est utilisé par aucun autre stock ni commande, on nettoie
+    // 3. Si aucun autre stock n'utilise ce médicament, nettoyer la table globale medicaments
     if (targetMedId) {
       const { data: otherStocks } = await supabase
         .from('stocks_pharmacie')
@@ -386,15 +412,17 @@ export async function deleteArticleStock(stockId: string, medicamentId?: string)
         .limit(1)
 
       if (!otherStocks || otherStocks.length === 0) {
-        await supabase
-          .from('medicaments')
-          .delete()
-          .eq('id', targetMedId)
+        try {
+          await supabase.from('medicaments').delete().eq('id', targetMedId)
+        } catch {
+          // Si une autre contrainte empêche le delete physique, le code_barres est déjà null donc aucun problème
+        }
       }
     }
 
     revalidatePath('/pharmacie/stocks')
     revalidatePath('/pharmacie/pos')
+    revalidatePath('/pharmacie/commandes')
     revalidatePath('/dashboard')
     return { success: true }
   } catch (err: any) {
@@ -404,8 +432,44 @@ export async function deleteArticleStock(stockId: string, medicamentId?: string)
 }
 
 /**
+ * Corrige directement le code-barres d'un médicament (résout les erreurs de saisie)
+ */
+export async function corrigerCodeBarresArticle(medicamentId: string, nouveauCode: string) {
+  const supabase = await createClient()
+  const tenant = await getTenantContext()
+  if (!tenant || !medicamentId) return { error: 'Paramètres manquants.' }
+
+  const codeNet = (nouveauCode || '').trim()
+
+  try {
+    if (codeNet) {
+      // Libérer de tout conflit
+      await supabase
+        .from('medicaments')
+        .update({ code_barres: null })
+        .eq('code_barres', codeNet)
+        .neq('id', medicamentId)
+    }
+
+    const { error } = await supabase
+      .from('medicaments')
+      .update({ code_barres: codeNet || null })
+      .eq('id', medicamentId)
+
+    if (error) throw error
+
+    revalidatePath('/pharmacie/stocks')
+    revalidatePath('/pharmacie/pos')
+    return { success: true }
+  } catch (err: any) {
+    return { error: err.message || 'Erreur correction code-barres' }
+  }
+}
+
+/**
  * Recherche un médicament par son code-barres ou son nom
  * pour auto-compléter les informations lors de la saisie ou du scan
+ * (Interroge d'abord la base locale, puis le référentiel pharmaceutique universel)
  */
 export async function searchMedicamentByCodeOrName(recherche: string) {
   const supabase = await createClient()
@@ -415,15 +479,14 @@ export async function searchMedicamentByCodeOrName(recherche: string) {
   const q = recherche.trim()
 
   try {
-    // 1. Chercher par code-barres exact
+    // 1. Chercher par code-barres exact dans le catalogue local
     const { data: medByCode } = await supabase
       .from('medicaments')
-      .select('id, nom, code_barres, type_produit')
+      .select('id, nom, code_barres')
       .eq('code_barres', q)
       .maybeSingle()
 
     if (medByCode) {
-      // Vérifier le dernier prix connu dans le stock
       const { data: stockRef } = await supabase
         .from('stocks_pharmacie')
         .select('prix_vente, prix_achat, lot, date_peremption')
@@ -434,7 +497,10 @@ export async function searchMedicamentByCodeOrName(recherche: string) {
         .maybeSingle()
 
       return {
-        ...medByCode,
+        id: medByCode.id,
+        nom: medByCode.nom,
+        code_barres: medByCode.code_barres,
+        type_produit: 'medicament',
         prix_vente: stockRef?.prix_vente,
         prix_achat: stockRef?.prix_achat,
         lot: stockRef?.lot,
@@ -442,11 +508,11 @@ export async function searchMedicamentByCodeOrName(recherche: string) {
       }
     }
 
-    // 2. Chercher par nom
+    // 2. Chercher par nom dans le catalogue local
     const { data: medByName } = await supabase
       .from('medicaments')
-      .select('id, nom, code_barres, type_produit')
-      .ilike('nom', q)
+      .select('id, nom, code_barres')
+      .ilike('nom', `%${q}%`)
       .limit(1)
       .maybeSingle()
 
@@ -461,7 +527,10 @@ export async function searchMedicamentByCodeOrName(recherche: string) {
         .maybeSingle()
 
       return {
-        ...medByName,
+        id: medByName.id,
+        nom: medByName.nom,
+        code_barres: medByName.code_barres,
+        type_produit: 'medicament',
         prix_vente: stockRef?.prix_vente,
         prix_achat: stockRef?.prix_achat,
         lot: stockRef?.lot,
@@ -469,9 +538,36 @@ export async function searchMedicamentByCodeOrName(recherche: string) {
       }
     }
 
+    // 3. Si non trouvé en base, interroger le dictionnaire pharmaceutique de référence
+    const ref = chercherDansDictionnaire(q)
+    if (ref) {
+      return {
+        id: null,
+        nom: ref.nom,
+        code_barres: ref.code_barres,
+        type_produit: ref.type_produit,
+        prix_vente: ref.prix_vente_indicatif,
+        prix_achat: ref.prix_achat_indicatif,
+        lot: null,
+        date_peremption: null
+      }
+    }
+
     return null
   } catch {
+    const ref = chercherDansDictionnaire(q)
+    if (ref) {
+      return {
+        id: null,
+        nom: ref.nom,
+        code_barres: ref.code_barres,
+        type_produit: ref.type_produit,
+        prix_vente: ref.prix_vente_indicatif,
+        prix_achat: ref.prix_achat_indicatif,
+        lot: null,
+        date_peremption: null
+      }
+    }
     return null
   }
 }
-

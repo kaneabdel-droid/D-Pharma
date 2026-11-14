@@ -5,8 +5,14 @@
  * 2. QR Codes JSON (Nom, Prix, Lot, Péremption, Code)
  * 3. QR Codes Clé-Valeur (NOM:... | PRIX:... | LOT:... | EXP:...)
  * 4. QR Codes délimités CSV / Point-virgule
- * 5. Codes-barres 1D classiques (CIP13, EAN-13, EAN-8, Code 128)
+ * 5. QR Codes de type URL / Paramètres HTTP
+ * 6. Codes-barres 1D classiques (CIP13, EAN-13, EAN-8, Code 128)
+ * 
+ * Auto-enrichit automatiquement avec le Nom et Prix indicatif via le dictionnaire officinal
+ * même si le fabricant n'encode que le GTIN/Lot/Péremption.
  */
+
+import { chercherDansDictionnaire } from './dictionnaire-medicaments';
 
 export type CodePharmaParse = {
   raw: string;
@@ -17,20 +23,21 @@ export type CodePharmaParse = {
   lot?: string;
   date_peremption?: string; // Format ISO YYYY-MM-DD
   quantite?: number;
-  format: 'gs1_datamatrix' | 'json' | 'cle_valeur' | 'csv' | 'standard';
+  type_produit?: 'medicament' | 'materiel' | 'service';
+  format: 'gs1_datamatrix' | 'json' | 'cle_valeur' | 'csv' | 'url' | 'standard';
 };
 
 /**
  * Normalise une date en chaîne 'YYYY-MM-DD'
  */
-function normaliserDate(rawDate: string): string | undefined {
+export function normaliserDate(rawDate: string): string | undefined {
   if (!rawDate) return undefined;
   const d = rawDate.trim();
 
   // Déjà au format YYYY-MM-DD
   if (/^\d{4}-\d{2}-\d{2}$/.test(d)) return d;
 
-  // Format DD/MM/YYYY ou DD-MM-YYYY
+  // Format DD/MM/YYYY ou DD-MM-YYYY ou DD.MM.YYYY
   const frMatch = d.match(/^(\d{1,2})[\/\-\.](\d{1,2})[\/\-\.](\d{4})$/);
   if (frMatch) {
     const jour = frMatch[1].padStart(2, '0');
@@ -47,7 +54,7 @@ function normaliserDate(rawDate: string): string | undefined {
     let dd = gs1Match[3];
     // En GS1, si le jour est '00', c'est le dernier jour du mois
     const annee = yy >= 70 ? `19${yy}` : `20${yy.toString().padStart(2, '0')}`;
-    if (dd === '00') {
+    if (dd === '00' || parseInt(dd, 10) > 31) {
       const dernierJour = new Date(parseInt(annee, 10), parseInt(mm, 10), 0).getDate();
       dd = dernierJour.toString().padStart(2, '0');
     }
@@ -68,13 +75,19 @@ function normaliserDate(rawDate: string): string | undefined {
 }
 
 /**
- * Décode un code GS1 DataMatrix (avec ou sans parenthèses, avec ou sans FNC1 \x1d)
- * Ex: (01)03400935987102(17)261130(10)LOT459
+ * Décode un code GS1 DataMatrix (avec ou sans parenthèses, avec ou sans FNC1 \x1d, avec ou sans préfixe de symbologie ]d2)
+ * Ex: ]d201034009359871021726113010LOT459
+ * ou: (01)03400935987102(17)261130(10)LOT459
  * ou: 01034009359871021726113010LOT459
  */
-function parserGS1DataMatrix(texte: string): Partial<CodePharmaParse> | null {
-  // Nettoyer les caractères de contrôle GS1 / FNC1
-  const clean = texte.replace(/[\x1d\x1e\x04]/g, '|').trim();
+export function parserGS1DataMatrix(texte: string): Partial<CodePharmaParse> | null {
+  if (!texte) return null;
+
+  // Supprimer tout préfixe de symbologie (ex: ]d2 pour DataMatrix GS1, ]Q3 pour QR GS1, ]C1 pour Code 128 GS1)
+  let clean = texte.replace(/^\][a-zA-Z0-9]{2}/, '');
+
+  // Remplacer les caractères de contrôle FNC1 (ASCII 29 GS, ASCII 30 RS, ASCII 4 EOT) par '|'
+  clean = clean.replace(/[\x1d\x1e\x04]/g, '|').trim();
 
   let gtin: string | undefined;
   let expDate: string | undefined;
@@ -92,24 +105,68 @@ function parserGS1DataMatrix(texte: string): Partial<CodePharmaParse> | null {
     if (m10) lot = m10[1].trim();
   }
 
-  // Cas 2 : Sans parenthèses (format brut lecteur optique DataMatrix GS1)
-  // Commence souvent par 01 suivi de 14 chiffres
+  // Cas 2 : Sans parenthèses (format continu GS1 brut des boîtes de médicaments)
   if (!gtin) {
     const rawMatch = clean.match(/^01(\d{14})(.*)$/);
     if (rawMatch) {
       gtin = rawMatch[1];
-      const reste = rawMatch[2];
+      let reste = rawMatch[2];
 
-      // Chercher (17) ou 17 + 6 chiffres
-      const expMatch = reste.match(/17(\d{6})/);
-      if (expMatch) {
-        expDate = normaliserDate(expMatch[1]);
-      }
+      // Parcourir les identifiants d'application restants
+      while (reste.length > 0) {
+        if (reste.startsWith('|')) {
+          reste = reste.substring(1);
+          continue;
+        }
 
-      // Chercher (10) ou 10 + chaîne jusqu'au séparateur ou fin
-      const lotMatch = reste.match(/10([A-Za-z0-9\-_]+)/);
-      if (lotMatch) {
-        lot = lotMatch[1].trim();
+        // AI 17 : Date d'expiration (6 chiffres YYMMDD)
+        if (reste.startsWith('17') && reste.length >= 8 && /^\d{6}/.test(reste.substring(2, 8))) {
+          expDate = normaliserDate(reste.substring(2, 8));
+          reste = reste.substring(8);
+          continue;
+        }
+
+        // AI 11 : Date de fabrication (6 chiffres YYMMDD)
+        if (reste.startsWith('11') && reste.length >= 8 && /^\d{6}/.test(reste.substring(2, 8))) {
+          reste = reste.substring(8);
+          continue;
+        }
+
+        // AI 10 : Numéro de lot (jusqu'à 20 caractères, s'arrête à '|' ou prochain AI connu ou fin)
+        if (reste.startsWith('10')) {
+          const sansPrefixe = reste.substring(2);
+          const endIdx = sansPrefixe.indexOf('|');
+          if (endIdx !== -1) {
+            lot = sansPrefixe.substring(0, endIdx).trim();
+            reste = sansPrefixe.substring(endIdx + 1);
+          } else {
+            // Chercher si un autre AI (comme 17 ou 21) suit sans séparateur
+            const next17 = sansPrefixe.search(/17\d{6}/);
+            if (next17 !== -1) {
+              lot = sansPrefixe.substring(0, next17).trim();
+              reste = sansPrefixe.substring(next17);
+            } else {
+              lot = sansPrefixe.trim();
+              reste = '';
+            }
+          }
+          continue;
+        }
+
+        // AI 21 : Numéro de série
+        if (reste.startsWith('21')) {
+          const sansPrefixe = reste.substring(2);
+          const endIdx = sansPrefixe.indexOf('|');
+          if (endIdx !== -1) {
+            reste = sansPrefixe.substring(endIdx + 1);
+          } else {
+            reste = '';
+          }
+          continue;
+        }
+
+        // Si aucun AI reconnu en début, avance d'un caractère
+        reste = reste.substring(1);
       }
     }
   }
@@ -131,7 +188,7 @@ function parserGS1DataMatrix(texte: string): Partial<CodePharmaParse> | null {
 /**
  * Décode un QR Code au format JSON
  */
-function parserJSON(texte: string): Partial<CodePharmaParse> | null {
+export function parserJSON(texte: string): Partial<CodePharmaParse> | null {
   const t = texte.trim();
   if (!t.startsWith('{') || !t.endsWith('}')) return null;
 
@@ -155,6 +212,7 @@ function parserJSON(texte: string): Partial<CodePharmaParse> | null {
     const lot = obj.lot || obj.batch || obj.numero_lot;
     const date_peremption = normaliserDate(obj.date_peremption || obj.peremption || obj.exp || obj.expiry || '');
     const quantite = parseFloat(obj.quantite || obj.qte || obj.qty || '0');
+    const type_produit = obj.type_produit || (obj.service ? 'service' : undefined);
 
     return {
       code_barres: String(code || '').trim(),
@@ -164,6 +222,7 @@ function parserJSON(texte: string): Partial<CodePharmaParse> | null {
       lot: lot ? String(lot).trim() : undefined,
       date_peremption,
       quantite: !isNaN(quantite) && quantite > 0 ? quantite : undefined,
+      type_produit,
       format: 'json',
     };
   } catch {
@@ -175,7 +234,7 @@ function parserJSON(texte: string): Partial<CodePharmaParse> | null {
  * Décode un texte au format Clé:Valeur ou Clé=Valeur
  * Ex: NOM:Paracétamol 500mg | PRIX:1500 | LOT:LOT-01 | EXP:2027-12-31 | CODE:3400935987102
  */
-function parserCleValeur(texte: string): Partial<CodePharmaParse> | null {
+export function parserCleValeur(texte: string): Partial<CodePharmaParse> | null {
   if (!texte.includes(':') && !texte.includes('=')) return null;
 
   const sepRegex = /[\n\|\;\&]/;
@@ -225,10 +284,10 @@ function parserCleValeur(texte: string): Partial<CodePharmaParse> | null {
 }
 
 /**
- * Décode un texte séparé par point-virgule ou barre verticale
+ * Décode un texte séparé par point-virgule ou barre verticale (format CSV / Bon de livraison)
  * Ex: Paracétamol 500mg;1500;LOT-2026;2026-11-30;3400935987102
  */
-function parserCSV(texte: string): Partial<CodePharmaParse> | null {
+export function parserCSV(texte: string): Partial<CodePharmaParse> | null {
   const delim = texte.includes(';') ? ';' : texte.includes('|') ? '|' : null;
   if (!delim) return null;
 
@@ -291,7 +350,40 @@ function parserCSV(texte: string): Partial<CodePharmaParse> | null {
 }
 
 /**
- * Fonction principale de parsing
+ * Décode une URL avec paramètres (ex: https://.../scan?nom=...&prix=...&lot=...)
+ */
+export function parserURL(texte: string): Partial<CodePharmaParse> | null {
+  if (!texte.includes('?') && !texte.startsWith('http')) return null;
+
+  try {
+    const urlObj = new URL(texte.startsWith('http') ? texte : `http://localhost/${texte}`);
+    const params = urlObj.searchParams;
+
+    const code = params.get('code') || params.get('code_barres') || params.get('cip') || params.get('gtin') || params.get('ean');
+    const nom = params.get('nom') || params.get('designation') || params.get('article');
+    const prix = params.get('prix') || params.get('prix_vente') || params.get('pv');
+    const lot = params.get('lot') || params.get('batch');
+    const exp = params.get('exp') || params.get('date_peremption') || params.get('peremption');
+
+    if (code || nom || lot) {
+      return {
+        code_barres: code ? code.trim() : '',
+        nom: nom ? nom.trim() : undefined,
+        prix_vente: prix ? parseFloat(prix) : undefined,
+        lot: lot ? lot.trim() : undefined,
+        date_peremption: exp ? normaliserDate(exp) : undefined,
+        format: 'url',
+      };
+    }
+  } catch { }
+
+  return null;
+}
+
+/**
+ * Fonction principale universelle de parsing
+ * Décode le code scanné et auto-complète instantanément le nom et le prix indicatif
+ * si le médicament est répertorié dans la pharmacopée officinale.
  */
 export function parserCodePharma(texteBrut: string): CodePharmaParse {
   if (!texteBrut) {
@@ -300,10 +392,12 @@ export function parserCodePharma(texteBrut: string): CodePharmaParse {
 
   const nettoye = texteBrut.trim();
 
+  let resultat: CodePharmaParse | null = null;
+
   // 1. Essai JSON
   const resJSON = parserJSON(nettoye);
   if (resJSON && (resJSON.code_barres || resJSON.nom)) {
-    return {
+    resultat = {
       raw: nettoye,
       code_barres: resJSON.code_barres || nettoye,
       nom: resJSON.nom,
@@ -312,66 +406,111 @@ export function parserCodePharma(texteBrut: string): CodePharmaParse {
       lot: resJSON.lot,
       date_peremption: resJSON.date_peremption,
       quantite: resJSON.quantite,
+      type_produit: resJSON.type_produit,
       format: 'json',
     };
   }
 
-  // 2. Essai GS1 DataMatrix Pharma
-  const resGS1 = parserGS1DataMatrix(nettoye);
-  if (resGS1 && resGS1.code_barres) {
-    return {
+  // 2. Essai GS1 DataMatrix Pharma (Boîtes de médicaments)
+  if (!resultat) {
+    const resGS1 = parserGS1DataMatrix(nettoye);
+    if (resGS1 && resGS1.code_barres) {
+      resultat = {
+        raw: nettoye,
+        code_barres: resGS1.code_barres,
+        nom: resGS1.nom,
+        prix_vente: resGS1.prix_vente,
+        prix_achat: resGS1.prix_achat,
+        lot: resGS1.lot,
+        date_peremption: resGS1.date_peremption,
+        quantite: resGS1.quantite,
+        format: 'gs1_datamatrix',
+      };
+    }
+  }
+
+  // 3. Essai URL
+  if (!resultat) {
+    const resURL = parserURL(nettoye);
+    if (resURL && (resURL.code_barres || resURL.nom)) {
+      resultat = {
+        raw: nettoye,
+        code_barres: resURL.code_barres || nettoye,
+        nom: resURL.nom,
+        prix_vente: resURL.prix_vente,
+        prix_achat: resURL.prix_achat,
+        lot: resURL.lot,
+        date_peremption: resURL.date_peremption,
+        format: 'url',
+      };
+    }
+  }
+
+  // 4. Essai Clé-Valeur
+  if (!resultat) {
+    const resCleVal = parserCleValeur(nettoye);
+    if (resCleVal && (resCleVal.code_barres || resCleVal.nom)) {
+      resultat = {
+        raw: nettoye,
+        code_barres: resCleVal.code_barres || nettoye,
+        nom: resCleVal.nom,
+        prix_vente: resCleVal.prix_vente,
+        prix_achat: resCleVal.prix_achat,
+        lot: resCleVal.lot,
+        date_peremption: resCleVal.date_peremption,
+        quantite: resCleVal.quantite,
+        format: 'cle_valeur',
+      };
+    }
+  }
+
+  // 5. Essai CSV
+  if (!resultat) {
+    const resCSV = parserCSV(nettoye);
+    if (resCSV && (resCSV.code_barres || resCSV.nom)) {
+      resultat = {
+        raw: nettoye,
+        code_barres: resCSV.code_barres || nettoye,
+        nom: resCSV.nom,
+        prix_vente: resCSV.prix_vente,
+        prix_achat: resCSV.prix_achat,
+        lot: resCSV.lot,
+        date_peremption: resCSV.date_peremption,
+        quantite: resCSV.quantite,
+        format: 'csv',
+      };
+    }
+  }
+
+  // 6. Code standard (EAN-13, EAN-8, Code 128, etc.)
+  if (!resultat) {
+    // Nettoyer les espaces, caractères non imprimables et préfixes de symbologie
+    let codePropre = nettoye.replace(/^\][a-zA-Z0-9]{2}/, '').replace(/[\x00-\x1F\x7F-\x9F\s]/g, '');
+    
+    // Si GTIN-14 commençant par 0, extraire le CIP-13
+    if (codePropre.length === 14 && codePropre.startsWith('0')) {
+      codePropre = codePropre.substring(1);
+    }
+
+    resultat = {
       raw: nettoye,
-      code_barres: resGS1.code_barres,
-      nom: resGS1.nom,
-      prix_vente: resGS1.prix_vente,
-      prix_achat: resGS1.prix_achat,
-      lot: resGS1.lot,
-      date_peremption: resGS1.date_peremption,
-      quantite: resGS1.quantite,
-      format: 'gs1_datamatrix',
+      code_barres: codePropre,
+      format: 'standard',
     };
   }
 
-  // 3. Essai Clé-Valeur
-  const resCleVal = parserCleValeur(nettoye);
-  if (resCleVal && (resCleVal.code_barres || resCleVal.nom)) {
-    return {
-      raw: nettoye,
-      code_barres: resCleVal.code_barres || nettoye,
-      nom: resCleVal.nom,
-      prix_vente: resCleVal.prix_vente,
-      prix_achat: resCleVal.prix_achat,
-      lot: resCleVal.lot,
-      date_peremption: resCleVal.date_peremption,
-      quantite: resCleVal.quantite,
-      format: 'cle_valeur',
-    };
+  // 7. ENRICHISSEMENT AUTOMATIQUE VIA LE RÉFÉRENTIEL PHARMA :
+  // Si le nom ou le prix est manquant (par exemple pour une boîte avec GS1 DataMatrix ou EAN-13),
+  // on interroge le dictionnaire pour pré-remplir instantanément le nom et le prix indicatif !
+  if (resultat.code_barres) {
+    const ref = chercherDansDictionnaire(resultat.code_barres);
+    if (ref) {
+      if (!resultat.nom) resultat.nom = ref.nom;
+      if (!resultat.prix_vente && ref.prix_vente_indicatif) resultat.prix_vente = ref.prix_vente_indicatif;
+      if (!resultat.prix_achat && ref.prix_achat_indicatif) resultat.prix_achat = ref.prix_achat_indicatif;
+      if (!resultat.type_produit) resultat.type_produit = ref.type_produit;
+    }
   }
 
-  // 4. Essai CSV
-  const resCSV = parserCSV(nettoye);
-  if (resCSV && (resCSV.code_barres || resCSV.nom)) {
-    return {
-      raw: nettoye,
-      code_barres: resCSV.code_barres || nettoye,
-      nom: resCSV.nom,
-      prix_vente: resCSV.prix_vente,
-      prix_achat: resCSV.prix_achat,
-      lot: resCSV.lot,
-      date_peremption: resCSV.date_peremption,
-      quantite: resCSV.quantite,
-      format: 'csv',
-    };
-  }
-
-  // 5. Code standard (EAN-13, EAN-8, Code 128, etc.)
-  // Nettoyer les espaces et caractères non imprimables
-  const codePropre = nettoye.replace(/[\x00-\x1F\x7F-\x9F\s]/g, '');
-
-  return {
-    raw: nettoye,
-    code_barres: codePropre,
-    format: 'standard',
-  };
+  return resultat;
 }
-
