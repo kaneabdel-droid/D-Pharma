@@ -8,6 +8,7 @@ import {
 } from 'lucide-react'
 import { accuserReception } from './actions'
 import ScannerCameraModal from '@/components/ScannerCameraModal'
+import { parserCodePharma } from '@/lib/pharmacie/code-parser'
 
 type CommandeLigne = {
   id: string
@@ -206,33 +207,69 @@ export default function ReceiveCommandeModal({
     }))
   }
 
-  // Traitement d'un scan code-barre
+  // Traitement intelligent d'un scan (DataMatrix GS1, QR Code ou code-barres standard)
   const processBarcodeScan = (scannedCodeRaw: string) => {
-    const code = scannedCodeRaw.trim()
-    if (!code) return
+    if (!scannedCodeRaw?.trim()) return
+
+    const parsed = parserCodePharma(scannedCodeRaw)
+    const code = (parsed.code_barres || scannedCodeRaw).trim()
+    const lotScanne = parsed.lot
+    const peremptionScanne = parsed.date_peremption
+    const prixVenteScanne = parsed.prix_vente
+    const prixAchatScanne = parsed.prix_achat
+    const nomScanne = parsed.nom
 
     setUnrecognizedCode(null)
 
-    // 1. Chercher si ce code-barre est déjà associé à un médicament de la commande
-    const matchingLots = lots.filter(l => l.code_barres && l.code_barres.trim() === code)
+    // 1. Chercher si ce code-barres (ou nom) correspond à un médicament de la commande
+    let matchingLots = lots.filter(
+      l =>
+        (l.code_barres && l.code_barres.trim().toLowerCase() === code.toLowerCase()) ||
+        (l.code_barres && code.length >= 8 && l.code_barres.includes(code)) ||
+        (l.code_barres && code.length >= 8 && code.includes(l.code_barres))
+    )
+
+    // Si pas trouvé par code-barres et qu'un nom est présent dans le QR, chercher par nom
+    if (matchingLots.length === 0 && nomScanne) {
+      matchingLots = lots.filter(l =>
+        l.nom.toLowerCase().includes(nomScanne.toLowerCase())
+      )
+    }
 
     if (matchingLots.length > 0) {
       // Trouver le lot actif pour ce médicament, ou le premier lot
       const targetLot = matchingLots.find(l => l.is_active_scan) || matchingLots[0]
 
-      setLots(prev => prev.map(l => {
-        if (l.id === targetLot.id) {
-          const newQte = Number(l.quantite_recue || 0) + 1
-          setLastScannedFeedback({
-            nom: l.nom,
-            lot: l.lot,
-            qte: newQte,
-            isNewBarcode: false,
-          })
-          return { ...l, quantite_recue: newQte, is_active_scan: true }
-        }
-        return { ...l, is_active_scan: false }
-      }))
+      setLots(prev =>
+        prev.map(l => {
+          if (l.id === targetLot.id) {
+            const newQte = Number(l.quantite_recue || 0) + 1
+            const updatedLot = lotScanne || l.lot
+            const updatedExp = peremptionScanne || l.date_peremption
+            const updatedPv = prixVenteScanne && prixVenteScanne > 0 ? prixVenteScanne : l.prix_vente
+            const updatedPa = prixAchatScanne && prixAchatScanne > 0 ? prixAchatScanne : l.prix_achat
+
+            setLastScannedFeedback({
+              nom: l.nom,
+              lot: updatedLot,
+              qte: newQte,
+              isNewBarcode: !l.code_barres,
+            })
+
+            return {
+              ...l,
+              code_barres: l.code_barres || code,
+              quantite_recue: newQte,
+              lot: updatedLot,
+              date_peremption: updatedExp,
+              prix_vente: updatedPv,
+              prix_achat: updatedPa,
+              is_active_scan: true,
+            }
+          }
+          return { ...l, is_active_scan: false }
+        })
+      )
 
       playBeepSound()
       setScanInput('')
@@ -243,28 +280,39 @@ export default function ReceiveCommandeModal({
     // Vérifier si un lot est actuellement sélectionné par l'utilisateur
     const activeLot = lots.find(l => l.is_active_scan)
     if (activeLot) {
-      // Associer ce nouveau code-barres au médicament actif et incrémenter de +1
-      setLots(prev => prev.map(l => {
-        if (l.medicament_id === activeLot.medicament_id) {
-          const isTarget = l.id === activeLot.id
-          const newQte = isTarget ? Number(l.quantite_recue || 0) + 1 : l.quantite_recue
-          if (isTarget) {
-            setLastScannedFeedback({
-              nom: l.nom,
-              lot: l.lot,
-              qte: newQte,
-              isNewBarcode: true,
-            })
+      // Associer ce nouveau code-barres et mettre à jour lot / péremption / prix
+      setLots(prev =>
+        prev.map(l => {
+          if (l.medicament_id === activeLot.medicament_id) {
+            const isTarget = l.id === activeLot.id
+            const newQte = isTarget ? Number(l.quantite_recue || 0) + 1 : l.quantite_recue
+            const updatedLot = lotScanne || l.lot
+            const updatedExp = peremptionScanne || l.date_peremption
+            const updatedPv = prixVenteScanne && prixVenteScanne > 0 ? prixVenteScanne : l.prix_vente
+            const updatedPa = prixAchatScanne && prixAchatScanne > 0 ? prixAchatScanne : l.prix_achat
+
+            if (isTarget) {
+              setLastScannedFeedback({
+                nom: l.nom,
+                lot: updatedLot,
+                qte: newQte,
+                isNewBarcode: true,
+              })
+            }
+            return {
+              ...l,
+              code_barres: code,
+              quantite_recue: newQte,
+              lot: updatedLot,
+              date_peremption: updatedExp,
+              prix_vente: updatedPv,
+              prix_achat: updatedPa,
+              is_active_scan: isTarget,
+            }
           }
-          return {
-            ...l,
-            code_barres: code,
-            quantite_recue: newQte,
-            is_active_scan: isTarget,
-          }
-        }
-        return { ...l, is_active_scan: false }
-      }))
+          return { ...l, is_active_scan: false }
+        })
+      )
 
       playBeepSound()
       setScanInput('')

@@ -7,6 +7,7 @@ import {
 } from 'lucide-react'
 import { updateArticleComplet, deleteArticleStock } from './actions'
 import ScannerCameraModal from '@/components/ScannerCameraModal'
+import { parserCodePharma } from '@/lib/pharmacie/code-parser'
 
 type StockItem = {
   id: string
@@ -62,6 +63,16 @@ export default function EditStockPriceModal({ stock }: { stock: StockItem }) {
     setSuccess(false)
     setConfirmSuppression(false)
     setIsOpen(true)
+  }
+
+  const handleCodeScanneModif = (codeBrut: string) => {
+    const parse = parserCodePharma(codeBrut)
+    setCodeBarres(parse.code_barres || codeBrut.trim())
+    if (parse.nom) setNom(parse.nom)
+    if (parse.prix_vente) setPrixVente(parse.prix_vente.toString())
+    if (parse.prix_achat) setPrixAchat(parse.prix_achat.toString())
+    if (parse.lot) setLot(parse.lot)
+    if (parse.date_peremption) setDatePeremption(parse.date_peremption)
   }
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -449,7 +460,7 @@ export default function EditStockPriceModal({ stock }: { stock: StockItem }) {
       <ScannerCameraModal
         isOpen={scannerOuvert}
         onClose={() => setScannerOuvert(false)}
-        onCodeDetecte={(code) => setCodeBarres(code)}
+        onCodeDetecte={(code) => handleCodeScanneModif(code)}
         titre="Scanner le Code de l'Article"
         sousTitre="Visez le code pour mettre à jour la référence"
       />

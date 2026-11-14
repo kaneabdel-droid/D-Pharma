@@ -13,6 +13,7 @@ import { executeOfflineSafe } from '@/lib/offline/offline-action-helper'
 import BilanCaisseModal from './BilanCaisseModal'
 import { ModalEncaissementDirect } from '@/components/ModalEncaissementDirect'
 import ScannerCameraModal from '@/components/ScannerCameraModal'
+import { parserCodePharma } from '@/lib/pharmacie/code-parser'
 
 export type Medicament = {
   id: string
@@ -134,10 +135,24 @@ export default function PointDeVenteClient({
 
   const searchInputRef = useRef<HTMLInputElement>(null)
 
-  // Filtrage du catalogue
+  // Filtrage du catalogue avec tolérance GTIN-13/14 et codes DataMatrix
   const filteredMedicaments = initialMedicaments.filter(m => {
-    const matchesSearch = m.nom.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      (m.code_barres && m.code_barres.toLowerCase().includes(searchTerm.toLowerCase()))
+    const term = searchTerm.toLowerCase().trim()
+    if (!term) {
+      if (selectedCategory === 'tous') return true
+      if (selectedCategory === 'service') return m.type_produit === 'service'
+      if (selectedCategory === 'materiel') return m.type_produit === 'materiel' || m.type_produit === 'fourniture'
+      if (selectedCategory === 'medicament') return !m.type_produit || m.type_produit === 'medicament'
+      return true
+    }
+
+    const medCode = (m.code_barres || '').toLowerCase()
+    const matchesSearch =
+      m.nom.toLowerCase().includes(term) ||
+      (medCode && (
+        medCode.includes(term) ||
+        (term.length >= 7 && term.includes(medCode))
+      ))
 
     if (!matchesSearch) return false
 
@@ -165,48 +180,85 @@ export default function PointDeVenteClient({
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
       e.preventDefault()
-      if (filteredMedicaments.length > 0) {
-        const exact = filteredMedicaments.find(m => m.code_barres && m.code_barres.toLowerCase() === searchTerm.trim().toLowerCase())
-        addToCart(exact || filteredMedicaments[0])
+      const raw = searchTerm.trim()
+      const parsed = parserCodePharma(raw)
+      const code = (parsed.code_barres || raw).toLowerCase()
+
+      const exact = filteredMedicaments.find(m => {
+        const medCode = (m.code_barres || '').toLowerCase()
+        return (
+          medCode === code ||
+          (code.length >= 7 && (medCode.includes(code) || code.includes(medCode)))
+        )
+      }) || (parsed.nom ? filteredMedicaments.find(m => m.nom.toLowerCase().includes(parsed.nom!.toLowerCase())) : null)
+
+      if (exact) {
+        addToCart(exact)
+      } else if (filteredMedicaments.length > 0) {
+        addToCart(filteredMedicaments[0])
       }
     }
   }
 
-  // Détection via caméra smartphone ou tablette (QR, DataMatrix, Code-barres)
-  const handleCodeScanneCamera = (code: string) => {
-    const codeNettoye = code.trim()
-    setSearchTerm(codeNettoye)
+  // Détection intelligente via caméra smartphone ou tablette (QR, DataMatrix GS1, Code-barres 1D)
+  const handleCodeScanneCamera = (codeBrut: string) => {
+    if (!codeBrut?.trim()) return
 
-    // 1. Chercher par code-barres / QR exact
-    const parCode = initialMedicaments.find(
-      m => m.code_barres && m.code_barres.toLowerCase() === codeNettoye.toLowerCase()
+    const parsed = parserCodePharma(codeBrut)
+    const codeNet = (parsed.code_barres || codeBrut).trim()
+    const nomScanne = parsed.nom
+    setSearchTerm(codeNet)
+
+    // 1. Chercher par code-barres exact ou code extrait
+    let trouve = initialMedicaments.find(
+      m => m.code_barres && m.code_barres.toLowerCase() === codeNet.toLowerCase()
     )
-    if (parCode) {
-      if (parCode.type_produit !== 'service' && parCode.quantite_stock <= 0) {
-        setMessage({ type: 'error', text: `⚠️ Article en rupture de stock : ${parCode.nom}` })
+
+    // 2. Chercher par correspondance GTIN / sous-chaîne
+    if (!trouve && codeNet.length >= 7) {
+      trouve = initialMedicaments.find(
+        m =>
+          m.code_barres &&
+          (m.code_barres.includes(codeNet) || codeNet.includes(m.code_barres))
+      )
+    }
+
+    // 3. Chercher si le code brut complet contenait le code-barres de la base
+    if (!trouve && codeBrut.length >= 7) {
+      trouve = initialMedicaments.find(
+        m => m.code_barres && codeBrut.includes(m.code_barres)
+      )
+    }
+
+    // 4. Si nom présent dans le QR code / DataMatrix, chercher par nom
+    if (!trouve && nomScanne) {
+      trouve = initialMedicaments.find(
+        m => m.nom.toLowerCase().includes(nomScanne.toLowerCase())
+      )
+    }
+
+    // 5. Recherche tolérante si l'utilisateur a scanné un libellé textuel
+    if (!trouve && codeNet.length >= 3) {
+      trouve = initialMedicaments.find(
+        m => m.nom.toLowerCase().includes(codeNet.toLowerCase())
+      )
+    }
+
+    if (trouve) {
+      if (trouve.type_produit !== 'service' && trouve.quantite_stock <= 0) {
+        setMessage({ type: 'error', text: `⚠️ Article en rupture de stock : ${trouve.nom}` })
       } else {
-        addToCart(parCode)
-        setMessage({ type: 'success', text: `✓ Scanné et ajouté : ${parCode.nom}` })
+        addToCart(trouve)
+        setMessage({ type: 'success', text: `✓ Scanné et ajouté : ${trouve.nom}` })
       }
       return
     }
 
-    // 2. Recherche tolérante par nom / référence
-    const parNom = initialMedicaments.find(
-      m => m.nom.toLowerCase().includes(codeNettoye.toLowerCase())
-    )
-    if (parNom) {
-      if (parNom.type_produit !== 'service' && parNom.quantite_stock <= 0) {
-        setMessage({ type: 'error', text: `⚠️ Article en rupture de stock : ${parNom.nom}` })
-      } else {
-        addToCart(parNom)
-        setMessage({ type: 'success', text: `✓ Article identifié : ${parNom.nom}` })
-      }
-      return
-    }
-
-    // 3. Information si non répertorié
-    setMessage({ type: 'error', text: `Code scanné [${codeNettoye}] non trouvé dans le catalogue.` })
+    // Information claire si non répertorié
+    setMessage({
+      type: 'error',
+      text: `Code scanné [${codeNet}] non trouvé dans le catalogue. Vérifiez que l'article a bien été enregistré en stock.`
+    })
   }
 
   const updateQuantity = (id: string, delta: number) => {
@@ -363,8 +415,8 @@ export default function PointDeVenteClient({
             type="button"
             onClick={() => setActiveTab('pos')}
             className={`px-4 py-2 rounded-xl text-sm font-bold flex items-center gap-2 transition-all ${activeTab === 'pos'
-                ? 'bg-primary text-white shadow-md'
-                : 'bg-surface text-foreground-muted hover:text-foreground border border-surface-border'
+              ? 'bg-primary text-white shadow-md'
+              : 'bg-surface text-foreground-muted hover:text-foreground border border-surface-border'
               }`}
           >
             <ShoppingCart className="w-4 h-4" />
@@ -375,8 +427,8 @@ export default function PointDeVenteClient({
             type="button"
             onClick={() => setActiveTab('historique')}
             className={`px-4 py-2 rounded-xl text-sm font-bold flex items-center gap-2 transition-all ${activeTab === 'historique'
-                ? 'bg-primary text-white shadow-md'
-                : 'bg-surface text-foreground-muted hover:text-foreground border border-surface-border'
+              ? 'bg-primary text-white shadow-md'
+              : 'bg-surface text-foreground-muted hover:text-foreground border border-surface-border'
               }`}
           >
             <History className="w-4 h-4" />
@@ -462,8 +514,8 @@ export default function PointDeVenteClient({
                       key={tab.id}
                       onClick={() => setSelectedCategory(tab.id as any)}
                       className={`px-3 py-1 rounded-xl text-xs font-semibold flex items-center gap-1.5 transition-all ${isActive
-                          ? 'bg-primary text-white shadow-sm'
-                          : 'bg-background text-foreground-muted hover:text-foreground border border-surface-border'
+                        ? 'bg-primary text-white shadow-sm'
+                        : 'bg-background text-foreground-muted hover:text-foreground border border-surface-border'
                         }`}
                     >
                       {Icon && <Icon className="w-3.5 h-3.5" />}
@@ -516,8 +568,8 @@ export default function PointDeVenteClient({
                         key={med.id}
                         onClick={() => !rupture && addToCart(med)}
                         className={`group relative flex flex-col justify-between p-3 rounded-2xl border transition-all text-left ${rupture
-                            ? 'opacity-40 bg-background/50 border-surface-border cursor-not-allowed'
-                            : 'bg-background hover:bg-surface-hover hover:border-primary/50 cursor-pointer shadow-sm hover:shadow'
+                          ? 'opacity-40 bg-background/50 border-surface-border cursor-not-allowed'
+                          : 'bg-background hover:bg-surface-hover hover:border-primary/50 cursor-pointer shadow-sm hover:shadow'
                           }`}
                       >
                         <div>
@@ -527,8 +579,8 @@ export default function PointDeVenteClient({
                             </span>
                             {med.type_produit !== 'service' && (
                               <span className={`text-[10px] font-extrabold px-1.5 py-0.5 rounded-md ${med.quantite_stock <= 5
-                                  ? 'bg-danger/10 text-danger'
-                                  : 'bg-emerald-500/10 text-emerald-600'
+                                ? 'bg-danger/10 text-danger'
+                                : 'bg-emerald-500/10 text-emerald-600'
                                 }`}>
                                 {med.quantite_stock} dispo
                               </span>
@@ -653,8 +705,8 @@ export default function PointDeVenteClient({
                     type="button"
                     onClick={() => handleSelectMoyenPaiement('especes')}
                     className={`py-2 px-2 rounded-lg text-xs font-bold flex items-center justify-center gap-1.5 transition-all ${moyenPaiement !== 'credit'
-                        ? 'bg-primary text-white shadow-xs'
-                        : 'text-foreground-muted hover:text-foreground hover:bg-black/5'
+                      ? 'bg-primary text-white shadow-xs'
+                      : 'text-foreground-muted hover:text-foreground hover:bg-black/5'
                       }`}
                   >
                     <Banknote className="w-3.5 h-3.5" />
@@ -665,8 +717,8 @@ export default function PointDeVenteClient({
                     type="button"
                     onClick={() => handleSelectMoyenPaiement('credit')}
                     className={`py-2 px-2 rounded-lg text-xs font-bold flex items-center justify-center gap-1.5 transition-all ${moyenPaiement === 'credit'
-                        ? 'bg-amber-600 text-white shadow-xs'
-                        : 'text-foreground-muted hover:text-foreground hover:bg-black/5'
+                      ? 'bg-amber-600 text-white shadow-xs'
+                      : 'text-foreground-muted hover:text-foreground hover:bg-black/5'
                       }`}
                   >
                     <UserCheck className="w-3.5 h-3.5" />
@@ -686,8 +738,8 @@ export default function PointDeVenteClient({
                       type="button"
                       onClick={() => handleSelectMoyenPaiement('especes')}
                       className={`py-2 px-2 rounded-xl border text-center transition-all ${moyenPaiement === 'especes'
-                          ? 'bg-primary text-white border-primary shadow-sm font-bold'
-                          : 'bg-surface border-surface-border text-foreground-muted hover:text-foreground text-xs'
+                        ? 'bg-primary text-white border-primary shadow-sm font-bold'
+                        : 'bg-surface border-surface-border text-foreground-muted hover:text-foreground text-xs'
                         }`}
                     >
                       <Banknote className="w-3.5 h-3.5 mx-auto mb-1" />
@@ -698,8 +750,8 @@ export default function PointDeVenteClient({
                       type="button"
                       onClick={() => handleSelectMoyenPaiement('mobile_money')}
                       className={`py-2 px-2 rounded-xl border text-center transition-all ${moyenPaiement === 'mobile_money'
-                          ? 'bg-primary text-white border-primary shadow-sm font-bold'
-                          : 'bg-surface border-surface-border text-foreground-muted hover:text-foreground text-xs'
+                        ? 'bg-primary text-white border-primary shadow-sm font-bold'
+                        : 'bg-surface border-surface-border text-foreground-muted hover:text-foreground text-xs'
                         }`}
                     >
                       <Smartphone className="w-3.5 h-3.5 mx-auto mb-1" />
@@ -710,8 +762,8 @@ export default function PointDeVenteClient({
                       type="button"
                       onClick={() => handleSelectMoyenPaiement('carte')}
                       className={`py-2 px-2 rounded-xl border text-center transition-all ${moyenPaiement === 'carte'
-                          ? 'bg-primary text-white border-primary shadow-sm font-bold'
-                          : 'bg-surface border-surface-border text-foreground-muted hover:text-foreground text-xs'
+                        ? 'bg-primary text-white border-primary shadow-sm font-bold'
+                        : 'bg-surface border-surface-border text-foreground-muted hover:text-foreground text-xs'
                         }`}
                     >
                       <CreditCard className="w-3.5 h-3.5 mx-auto mb-1" />
@@ -744,8 +796,8 @@ export default function PointDeVenteClient({
                             type="button"
                             onClick={() => setCompteTresorerieId(acc.id)}
                             className={`p-2.5 rounded-xl border text-left transition-all flex items-center justify-between ${isSel
-                                ? 'border-primary bg-primary/10 text-primary font-bold shadow-xs ring-2 ring-primary/30'
-                                : 'border-surface-border bg-background text-foreground hover:border-primary/50'
+                              ? 'border-primary bg-primary/10 text-primary font-bold shadow-xs ring-2 ring-primary/30'
+                              : 'border-surface-border bg-background text-foreground hover:border-primary/50'
                               }`}
                           >
                             <span className="text-xs truncate">{acc.nom}</span>
@@ -852,8 +904,8 @@ export default function PointDeVenteClient({
                     onChange={(e) => setSelectedClientId(e.target.value)}
                     required
                     className={`block w-full rounded-lg bg-background px-2.5 py-2 text-xs font-bold text-foreground focus:ring-2 focus:ring-amber-500 transition-all ${!selectedClientId
-                        ? 'border-2 border-amber-500 ring-2 ring-amber-500/20'
-                        : 'border border-surface-border'
+                      ? 'border-2 border-amber-500 ring-2 ring-amber-500/20'
+                      : 'border border-surface-border'
                       }`}
                   >
                     <option value="">-- Sélectionner obligatoirement le client --</option>
@@ -917,8 +969,8 @@ export default function PointDeVenteClient({
                 onClick={handleCheckout}
                 disabled={cart.length === 0 || isSubmitting || (moyenPaiement === 'credit' && !selectedClientId)}
                 className={`w-full py-2.5 rounded-xl font-bold text-sm transition-all shadow-md active:scale-[0.99] flex items-center justify-center gap-2 ${moyenPaiement === 'credit' && !selectedClientId
-                    ? 'bg-amber-500/30 text-amber-800 dark:text-amber-300 cursor-not-allowed border border-amber-500/40'
-                    : 'bg-primary text-white hover:bg-primary-hover disabled:opacity-50 disabled:cursor-not-allowed'
+                  ? 'bg-amber-500/30 text-amber-800 dark:text-amber-300 cursor-not-allowed border border-amber-500/40'
+                  : 'bg-primary text-white hover:bg-primary-hover disabled:opacity-50 disabled:cursor-not-allowed'
                   }`}
               >
                 {isSubmitting ? (
