@@ -122,8 +122,20 @@ export default function CreateStockButton() {
 
   // Auto-complétion lors de la saisie ou scan douchette du code-barres
   const handleCodeBarresChange = async (val: string) => {
-    setCodeBarres(val)
     const codeNet = val.trim()
+    if (!codeNet) {
+      setCodeBarres(val)
+      return
+    }
+
+    // Détection immédiate si scan d'un QR code, GS1 DataMatrix ou chaîne composite (avec lot, exp, gtin)
+    const parse = parserCodePharma(codeNet)
+    if (parse.code_barres && (parse.lot || parse.date_peremption || parse.format !== 'standard' || codeNet.length > 20)) {
+      handleCodeScanne(codeNet, parse)
+      return
+    }
+
+    setCodeBarres(val)
     if (codeNet.length >= 6) {
       const existant = await searchMedicamentByCodeOrName(codeNet)
       if (existant) {
@@ -303,25 +315,39 @@ export default function CreateStockButton() {
                         : 'Ex: Paracétamol 500mg, Amoxicilline 1g, Viscéralgine...'
                   }
                 />
-                {principeActif && (
-                  <div className="mt-2 flex items-start gap-2.5 p-3 rounded-xl bg-primary/10 border border-primary/20 text-xs">
-                    <Sparkles className="w-4 h-4 shrink-0 text-primary mt-0.5" />
-                    <div className="flex-1 min-w-0">
-                      <div className="font-bold text-[10px] uppercase tracking-wider text-primary">
-                        Formule / DCI reconnue
-                      </div>
-                      <div className="text-foreground font-semibold mt-0.5 break-words">
-                        {principeActif}
-                      </div>
+              </div>
+
+              {typeProduit === 'medicament' && (
+                <div>
+                  <div className="flex items-center justify-between mb-1">
+                    <label className="block text-xs font-semibold text-foreground">
+                      Formule Chimique / DCI (Principe Actif)
+                    </label>
+                    <span className="text-[10px] text-foreground-muted">Auto-rempli par scan ou recherche</span>
+                  </div>
+                  <input
+                    type="text"
+                    name="principe_actif"
+                    value={principeActif}
+                    onChange={(e) => setPrincipeActif(e.target.value)}
+                    className={champ}
+                    placeholder="Ex: Cotrimoxazole, Paracétamol, Amoxicilline, Tiémonium méthylsulfate..."
+                  />
+                  {(principeActif || forme || dosage) && (
+                    <div className="mt-1.5 flex items-center gap-2 px-2.5 py-1.5 rounded-xl bg-primary/10 border border-primary/20 text-xs text-primary font-medium">
+                      <Sparkles className="w-3.5 h-3.5 shrink-0 text-primary" />
+                      <span className="truncate">
+                        DCI / Formule : <strong>{principeActif || '—'}</strong>
+                      </span>
                       {(forme || dosage) && (
-                        <div className="text-[11px] text-foreground-muted font-normal mt-0.5">
-                          {forme}{forme && dosage ? ' • ' : ''}{dosage}
-                        </div>
+                        <span className="text-foreground-muted text-[11px] shrink-0">
+                          ({[dosage, forme].filter(Boolean).join(' • ')})
+                        </span>
                       )}
                     </div>
-                  </div>
-                )}
-              </div>
+                  )}
+                </div>
+              )}
 
               {typeProduit !== 'service' && (
                 <div>

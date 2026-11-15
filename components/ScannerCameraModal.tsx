@@ -107,7 +107,7 @@ export default function ScannerCameraModal({
         };
       }
 
-      // Compléter avec le dictionnaire pharmaceutique si le nom ou prix manque
+      // Compléter avec le dictionnaire pharmaceutique si le nom, DCI ou prix manque
       if (parsed.code_barres) {
         const refDico = chercherDansDictionnaire(parsed.code_barres);
         if (refDico) {
@@ -116,6 +116,9 @@ export default function ScannerCameraModal({
             parsed.prix_vente = refDico.prix_vente_indicatif;
           }
           if (!parsed.type_produit) parsed.type_produit = refDico.type_produit;
+          if (!parsed.principe_actif && refDico.principe_actif) parsed.principe_actif = refDico.principe_actif;
+          if (!parsed.forme && refDico.forme) parsed.forme = refDico.forme;
+          if (!parsed.dosage && refDico.dosage) parsed.dosage = refDico.dosage;
         }
       }
 

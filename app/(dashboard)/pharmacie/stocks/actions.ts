@@ -527,8 +527,11 @@ export async function searchMedicamentByCodeOrName(recherche: string) {
         .limit(1)
         .maybeSingle()
 
-      // Compléter le prix et la formule si manquants
-      const refDico = chercherDansDictionnaire(medByCode.code_barres || medByCode.nom)
+      // Compléter le prix et la formule si manquants (vérifie le code-barres PUIS le nom dans le dictionnaire)
+      const refDico =
+        chercherDansDictionnaire(medByCode.code_barres || '') ||
+        (medByCode.nom ? chercherDansDictionnaire(medByCode.nom) : null)
+
       const prixVente = stockRef?.prix_vente && stockRef.prix_vente > 0
         ? stockRef.prix_vente
         : refDico?.prix_vente_indicatif || undefined
@@ -540,15 +543,22 @@ export async function searchMedicamentByCodeOrName(recherche: string) {
       let forme = medByCode.forme || refDico?.forme || undefined
       let dosage = medByCode.dosage || refDico?.dosage || undefined
 
-      // Si la formule n'est toujours pas renseignée, interroger l'API publique
+      // Si la formule n'est toujours pas renseignée, interroger l'API publique par nom ou par code
       if (!principeActif) {
         try {
-          const apiData = await chercherMedicamentApiPublique(q)
+          const apiData = await chercherMedicamentApiPublique(medByCode.nom || q)
           if (apiData?.principe_actif) {
             principeActif = apiData.principe_actif
             if (!forme && apiData.forme) forme = apiData.forme
             if (!dosage && apiData.dosage) dosage = apiData.dosage
           }
+        } catch {}
+      }
+
+      // Mémoriser la DCI / formule dans la fiche médicament pour les prochains scans
+      if (principeActif && !medByCode.principe_actif) {
+        try {
+          await supabase.from('medicaments').update({ principe_actif: principeActif, forme, dosage }).eq('id', medByCode.id)
         } catch {}
       }
 
@@ -585,7 +595,10 @@ export async function searchMedicamentByCodeOrName(recherche: string) {
         .limit(1)
         .maybeSingle()
 
-      const refDico = chercherDansDictionnaire(medByName.code_barres || medByName.nom)
+      const refDico =
+        chercherDansDictionnaire(medByName.code_barres || '') ||
+        chercherDansDictionnaire(medByName.nom)
+
       const prixVente = stockRef?.prix_vente && stockRef.prix_vente > 0
         ? stockRef.prix_vente
         : refDico?.prix_vente_indicatif || undefined
@@ -599,12 +612,18 @@ export async function searchMedicamentByCodeOrName(recherche: string) {
 
       if (!principeActif) {
         try {
-          const apiData = await chercherMedicamentApiPublique(q)
+          const apiData = await chercherMedicamentApiPublique(medByName.nom || q)
           if (apiData?.principe_actif) {
             principeActif = apiData.principe_actif
             if (!forme && apiData.forme) forme = apiData.forme
             if (!dosage && apiData.dosage) dosage = apiData.dosage
           }
+        } catch {}
+      }
+
+      if (principeActif && !medByName.principe_actif) {
+        try {
+          await supabase.from('medicaments').update({ principe_actif: principeActif, forme, dosage }).eq('id', medByName.id)
         } catch {}
       }
 
