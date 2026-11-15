@@ -7,6 +7,7 @@
 export type MedicamentReferentiel = {
   code_barres: string;
   nom: string;
+  principe_actif?: string; // Formule / DCI (ex: Paracétamol, Tiémonium méthylsulfate)
   dosage?: string;
   forme?: string;
   type_produit: 'medicament' | 'materiel' | 'service';
@@ -20,6 +21,7 @@ export const DICTIONNAIRE_PHARMA: Record<string, MedicamentReferentiel> = {
   '6009819850787': {
     code_barres: '6009819850787',
     nom: 'Phartrim 480 mg (Cotrimoxazole)',
+    principe_actif: 'Cotrimoxazole (Sulfaméthoxazole + Triméthoprime)',
     dosage: '480 mg',
     forme: 'Boîte de 20 comprimés',
     type_produit: 'medicament',
@@ -30,6 +32,7 @@ export const DICTIONNAIRE_PHARMA: Record<string, MedicamentReferentiel> = {
   '6008819859697': {
     code_barres: '6008819859697',
     nom: 'Phartrim 480 mg (Cotrimoxazole)',
+    principe_actif: 'Cotrimoxazole (Sulfaméthoxazole + Triméthoprime)',
     dosage: '480 mg',
     forme: 'Boîte de 20 comprimés',
     type_produit: 'medicament',
@@ -40,6 +43,7 @@ export const DICTIONNAIRE_PHARMA: Record<string, MedicamentReferentiel> = {
   '600882985697': {
     code_barres: '600882985697',
     nom: 'Phartrim 480 mg',
+    principe_actif: 'Cotrimoxazole (Sulfaméthoxazole + Triméthoprime)',
     dosage: '480 mg',
     forme: 'Boîte de 20 comprimés',
     type_produit: 'medicament',
@@ -50,6 +54,7 @@ export const DICTIONNAIRE_PHARMA: Record<string, MedicamentReferentiel> = {
   '6118000081760': {
     code_barres: '6118000081760',
     nom: 'Viscéralgine 50 mg (Tiémonium méthylsulfate)',
+    principe_actif: 'Tiémonium méthylsulfate',
     dosage: '50 mg',
     forme: 'Boîte de 20 comprimés',
     type_produit: 'medicament',
@@ -60,6 +65,7 @@ export const DICTIONNAIRE_PHARMA: Record<string, MedicamentReferentiel> = {
   '06118000081760': {
     code_barres: '6118000081760',
     nom: 'Viscéralgine 50 mg (Tiémonium méthylsulfate)',
+    principe_actif: 'Tiémonium méthylsulfate',
     dosage: '50 mg',
     forme: 'Boîte de 20 comprimés',
     type_produit: 'medicament',
@@ -70,6 +76,7 @@ export const DICTIONNAIRE_PHARMA: Record<string, MedicamentReferentiel> = {
   '200000618162': {
     code_barres: '200000618162',
     nom: 'Viscéralgine 50 mg (Tiémonium méthylsulfate)',
+    principe_actif: 'Tiémonium méthylsulfate',
     dosage: '50 mg',
     forme: 'Boîte de 20 comprimés',
     type_produit: 'medicament',
@@ -80,6 +87,7 @@ export const DICTIONNAIRE_PHARMA: Record<string, MedicamentReferentiel> = {
   '0200000618162': {
     code_barres: '200000618162',
     nom: 'Viscéralgine 50 mg (Tiémonium méthylsulfate)',
+    principe_actif: 'Tiémonium méthylsulfate',
     dosage: '50 mg',
     forme: 'Boîte de 20 comprimés',
     type_produit: 'medicament',
@@ -90,6 +98,7 @@ export const DICTIONNAIRE_PHARMA: Record<string, MedicamentReferentiel> = {
   '2000006181625': {
     code_barres: '2000006181625',
     nom: 'Viscéralgine 50 mg (Tiémonium méthylsulfate)',
+    principe_actif: 'Tiémonium méthylsulfate',
     dosage: '50 mg',
     forme: 'Boîte de 20 comprimés',
     type_produit: 'medicament',
@@ -100,6 +109,7 @@ export const DICTIONNAIRE_PHARMA: Record<string, MedicamentReferentiel> = {
   '3400931181628': {
     code_barres: '3400931181628',
     nom: 'Viscéralgine 50 mg (Tiémonium méthylsulfate)',
+    principe_actif: 'Tiémonium méthylsulfate',
     dosage: '50 mg',
     forme: 'Boîte de 20 comprimés',
     type_produit: 'medicament',
@@ -110,6 +120,7 @@ export const DICTIONNAIRE_PHARMA: Record<string, MedicamentReferentiel> = {
   '3400930061816': {
     code_barres: '3400930061816',
     nom: 'Viscéralgine 50 mg (Tiémonium méthylsulfate)',
+    principe_actif: 'Tiémonium méthylsulfate',
     dosage: '50 mg',
     forme: 'Boîte de 20 comprimés',
     type_produit: 'medicament',
@@ -120,6 +131,7 @@ export const DICTIONNAIRE_PHARMA: Record<string, MedicamentReferentiel> = {
   '3400930061817': {
     code_barres: '3400930061817',
     nom: 'Viscéralgine Sirop 125ml',
+    principe_actif: 'Tiémonium méthylsulfate',
     dosage: '2 mg/ml',
     forme: 'Flacon de 125 ml',
     type_produit: 'medicament',
@@ -130,6 +142,7 @@ export const DICTIONNAIRE_PHARMA: Record<string, MedicamentReferentiel> = {
   '8906067081629': {
     code_barres: '8906067081629',
     nom: 'Artrim-GH (Artéméther + Luméfantrine)',
+    principe_actif: 'Artéméther + Luméfantrine',
     dosage: '20/120 mg',
     forme: 'Boîte de 24 comprimés',
     type_produit: 'medicament',
@@ -616,6 +629,18 @@ export function normaliserTexteComparaison(texte: string): string {
     .trim();
 }
 
+// Mots génériques pharmaceutiques à exclure de la recherche floue
+const STOPWORDS_PHARMA = new Set([
+  'comprime', 'comprimes', 'gelule', 'gelules', 'sirop', 'suspension', 'solution',
+  'buvable', 'injectable', 'ampoule', 'ampoules', 'flacon', 'boite', 'boites',
+  'sachet', 'sachets', 'pommade', 'creme', 'voie', 'orale', 'cutanee', 'rectale',
+  'usage', 'interne', 'externe', 'laboratoire', 'laboratoires', 'fabrique', 'distribue',
+  'adultes', 'enfants', 'nourrissons', 'notice', 'posologie', 'composition', 'conserver',
+  'temperature', 'degres', 'peremption', 'lot', 'exp', 'fabrication', 'prix', 'cfa',
+  'fcfa', 'vente', 'achat', 'cip', 'ean', 'grossiste', 'medicament', 'medicaments',
+  'oral', 'effervescent', 'sublingual', 'pellicule', 'pellicules', 'enrobe', 'enrobes'
+]);
+
 /**
  * Recherche intelligente dans le dictionnaire pharmaceutique
  * par code-barres exact, GTIN-14, ou par nom (insensible aux accents et à la casse)
@@ -655,20 +680,40 @@ export function chercherDansDictionnaire(query: string): MedicamentReferentiel |
     }
   }
 
+  // Si la requête est un mot générique pharmaceutique seul, ne pas faire de faux positif
+  if (STOPWORDS_PHARMA.has(qNorm)) {
+    return null;
+  }
+
   // 5. Recherche par nom (insensible aux accents, à la casse et aux espaces)
-  if (qNorm.length >= 2) {
-    const qMots = qNorm.split(' ').filter(m => m.length >= 2);
+  if (qNorm.length >= 3) {
+    const qMots = qNorm.split(' ').filter(m => m.length >= 3 && !STOPWORDS_PHARMA.has(m));
+
+    // Si après filtrage des stopwords il ne reste aucun mot significatif, abandonner
+    if (qMots.length === 0) {
+      return null;
+    }
 
     for (const item of Object.values(DICTIONNAIRE_PHARMA)) {
       const nomNorm = normaliserTexteComparaison(item.nom);
 
-      // Correspondance exacte ou inclusion globale
-      if (nomNorm.includes(qNorm) || qNorm.includes(nomNorm)) {
+      // Correspondance exacte
+      if (nomNorm === qNorm) {
         return item;
       }
 
-      // Si recherche multi-mots (ex: "visceralgine 50" ou "phartrim comprimés")
-      if (qMots.length > 0 && qMots.every(mot => nomNorm.includes(mot))) {
+      // Si le nom du dictionnaire est contenu dans le texte scanné (ex: "VISCERALGINE 50MG BOITE DE 20" contient "visceralgine")
+      // On teste d'abord les mots principaux du médicament
+      const nomMots = nomNorm.split(' ').filter(m => m.length >= 4 && !STOPWORDS_PHARMA.has(m));
+      if (nomMots.length > 0) {
+        const motClePrincipal = nomMots[0]; // Ex: "visceralgine", "phartrim", "doliprane"
+        if (qNorm.includes(motClePrincipal)) {
+          return item;
+        }
+      }
+
+      // Correspondance multi-mots significatifs
+      if (qMots.length >= 2 && qMots.every(mot => nomNorm.includes(mot))) {
         return item;
       }
     }

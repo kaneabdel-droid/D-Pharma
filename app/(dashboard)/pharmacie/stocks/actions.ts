@@ -4,6 +4,7 @@ import { createAdminClient } from '@/utils/supabase/admin'
 import { revalidatePath } from 'next/cache'
 import { getTenantContext } from '@/utils/supabase/tenant'
 import { chercherDansDictionnaire } from '@/lib/pharmacie/dictionnaire-medicaments'
+import { chercherMedicamentApiPublique } from '@/lib/pharmacie/api-medicaments-public'
 
 export async function addStock(formData: FormData) {
   const tenant = await getTenantContext()
@@ -20,6 +21,9 @@ export async function addStock(formData: FormData) {
   const prix_achat = parseFloat(formData.get('prix_achat') as string || '0')
   const date_peremption = (formData.get('date_peremption') as string) || (type_produit === 'service' ? '2099-12-31' : '')
   const lot = ((formData.get('lot') as string) || '').trim()
+  const principe_actif = ((formData.get('principe_actif') as string) || '').trim() || null
+  const forme = ((formData.get('forme') as string) || '').trim() || null
+  const dosage = ((formData.get('dosage') as string) || '').trim() || null
 
   if (!nom || isNaN(prix_vente) || prix_vente <= 0) {
     return { error: 'Le nom et un prix de vente valide sont obligatoires.' }
@@ -41,7 +45,7 @@ export async function addStock(formData: FormData) {
     if (code_barres) {
       const { data: existingMed } = await supabase
         .from('medicaments')
-        .select('id, nom, code_barres')
+        .select('id, nom, code_barres, principe_actif')
         .eq('code_barres', code_barres)
         .maybeSingle()
 
@@ -49,10 +53,14 @@ export async function addStock(formData: FormData) {
         medicament_id = existingMed.id
         if (nom && existingMed.nom !== nom) {
           try {
-            await supabase.from('medicaments').update({ nom, type_produit }).eq('id', medicament_id)
+            await supabase.from('medicaments').update({ nom, type_produit, principe_actif, forme, dosage }).eq('id', medicament_id)
           } catch {
-            await supabase.from('medicaments').update({ nom }).eq('id', medicament_id)
+            await supabase.from('medicaments').update({ nom, type_produit }).eq('id', medicament_id)
           }
+        } else if (principe_actif && !existingMed.principe_actif) {
+          try {
+            await supabase.from('medicaments').update({ principe_actif, forme, dosage }).eq('id', medicament_id)
+          } catch {}
         }
       }
     }
@@ -61,7 +69,7 @@ export async function addStock(formData: FormData) {
     if (!medicament_id) {
       const { data: existingMedName } = await supabase
         .from('medicaments')
-        .select('id, nom, code_barres')
+        .select('id, nom, code_barres, principe_actif')
         .ilike('nom', nom)
         .maybeSingle()
 
@@ -78,10 +86,14 @@ export async function addStock(formData: FormData) {
             .neq('id', medicament_id)
 
           try {
-            await supabase.from('medicaments').update({ code_barres, type_produit }).eq('id', medicament_id)
+            await supabase.from('medicaments').update({ code_barres, type_produit, principe_actif, forme, dosage }).eq('id', medicament_id)
           } catch {
-            await supabase.from('medicaments').update({ code_barres }).eq('id', medicament_id)
+            await supabase.from('medicaments').update({ code_barres, type_produit }).eq('id', medicament_id)
           }
+        } else if (principe_actif && !existingMedName.principe_actif) {
+          try {
+            await supabase.from('medicaments').update({ principe_actif, forme, dosage }).eq('id', medicament_id)
+          } catch {}
         }
       }
     }
@@ -104,7 +116,10 @@ export async function addStock(formData: FormData) {
           .insert({
             nom,
             code_barres: code_barres || null,
-            type_produit
+            type_produit,
+            principe_actif,
+            forme,
+            dosage
           })
           .select('id')
           .single()
@@ -112,18 +127,33 @@ export async function addStock(formData: FormData) {
         if (newMedError) throw newMedError
         newMedId = newMed.id
       } catch {
-        // Fallback sans type_produit si la colonne n'existe pas
-        const { data: newMedFallback, error: fallbackError } = await supabase
-          .from('medicaments')
-          .insert({
-            nom,
-            code_barres: code_barres || null
-          })
-          .select('id')
-          .single()
+        // Fallback sans colonnes supplémentaires si inexistantes
+        try {
+          const { data: newMedFallback, error: fallbackError } = await supabase
+            .from('medicaments')
+            .insert({
+              nom,
+              code_barres: code_barres || null,
+              type_produit
+            })
+            .select('id')
+            .single()
 
-        if (fallbackError) throw fallbackError
-        newMedId = newMedFallback.id
+          if (fallbackError) throw fallbackError
+          newMedId = newMedFallback.id
+        } catch {
+          const { data: newMedUltraFallback, error: ultraError } = await supabase
+            .from('medicaments')
+            .insert({
+              nom,
+              code_barres: code_barres || null
+            })
+            .select('id')
+            .single()
+
+          if (ultraError) throw ultraError
+          newMedId = newMedUltraFallback.id
+        }
       }
 
       medicament_id = newMedId
@@ -483,7 +513,7 @@ export async function searchMedicamentByCodeOrName(recherche: string) {
     // 1. Chercher par code-barres exact dans le catalogue local
     const { data: medByCode } = await supabase
       .from('medicaments')
-      .select('id, nom, code_barres, type_produit')
+      .select('id, nom, code_barres, type_produit, principe_actif, forme, dosage')
       .eq('code_barres', q)
       .maybeSingle()
 
@@ -497,7 +527,7 @@ export async function searchMedicamentByCodeOrName(recherche: string) {
         .limit(1)
         .maybeSingle()
 
-      // Si le stock n'a pas de prix défini, chercher dans le dictionnaire pharmaceutique
+      // Compléter le prix et la formule si manquants
       const refDico = chercherDansDictionnaire(medByCode.code_barres || medByCode.nom)
       const prixVente = stockRef?.prix_vente && stockRef.prix_vente > 0
         ? stockRef.prix_vente
@@ -506,22 +536,41 @@ export async function searchMedicamentByCodeOrName(recherche: string) {
         ? stockRef.prix_achat
         : refDico?.prix_achat_indicatif || undefined
 
+      let principeActif = medByCode.principe_actif || refDico?.principe_actif || undefined
+      let forme = medByCode.forme || refDico?.forme || undefined
+      let dosage = medByCode.dosage || refDico?.dosage || undefined
+
+      // Si la formule n'est toujours pas renseignée, interroger l'API publique
+      if (!principeActif) {
+        try {
+          const apiData = await chercherMedicamentApiPublique(q)
+          if (apiData?.principe_actif) {
+            principeActif = apiData.principe_actif
+            if (!forme && apiData.forme) forme = apiData.forme
+            if (!dosage && apiData.dosage) dosage = apiData.dosage
+          }
+        } catch {}
+      }
+
       return {
         id: medByCode.id,
         nom: medByCode.nom,
         code_barres: medByCode.code_barres,
         type_produit: medByCode.type_produit || refDico?.type_produit || 'medicament',
+        principe_actif: principeActif,
+        forme,
+        dosage,
         prix_vente: prixVente,
         prix_achat: prixAchat,
-        lot: stockRef?.lot || undefined,
-        date_peremption: stockRef?.date_peremption || undefined
+        lot: undefined, // Ne jamais préremplir avec un ancien lot en stock
+        date_peremption: undefined
       }
     }
 
     // 2. Chercher par nom dans le catalogue local
     const { data: medByName } = await supabase
       .from('medicaments')
-      .select('id, nom, code_barres, type_produit')
+      .select('id, nom, code_barres, type_produit, principe_actif, forme, dosage')
       .ilike('nom', `%${q}%`)
       .limit(1)
       .maybeSingle()
@@ -544,22 +593,39 @@ export async function searchMedicamentByCodeOrName(recherche: string) {
         ? stockRef.prix_achat
         : refDico?.prix_achat_indicatif || undefined
 
+      let principeActif = medByName.principe_actif || refDico?.principe_actif || undefined
+      let forme = medByName.forme || refDico?.forme || undefined
+      let dosage = medByName.dosage || refDico?.dosage || undefined
+
+      if (!principeActif) {
+        try {
+          const apiData = await chercherMedicamentApiPublique(q)
+          if (apiData?.principe_actif) {
+            principeActif = apiData.principe_actif
+            if (!forme && apiData.forme) forme = apiData.forme
+            if (!dosage && apiData.dosage) dosage = apiData.dosage
+          }
+        } catch {}
+      }
+
       return {
         id: medByName.id,
         nom: medByName.nom,
         code_barres: medByName.code_barres || q,
         type_produit: medByName.type_produit || refDico?.type_produit || 'medicament',
+        principe_actif: principeActif,
+        forme,
+        dosage,
         prix_vente: prixVente,
         prix_achat: prixAchat,
-        lot: stockRef?.lot || undefined,
-        date_peremption: stockRef?.date_peremption || undefined
+        lot: undefined, // Ne jamais préremplir avec un ancien lot en stock
+        date_peremption: undefined
       }
     }
 
-    // 3. Si non trouvé en base, interroger le dictionnaire pharmaceutique de référence
+    // 3. Interroger le dictionnaire pharmaceutique de référence local (UEMOA / Sénégal)
     const ref = chercherDansDictionnaire(q)
     if (ref) {
-      // Vérifier si un article similaire existe déjà localement pour reprendre son stock ou son id
       const motCle = ref.nom.split(' ')[0]
       const { data: medSimilaire } = await supabase
         .from('medicaments')
@@ -586,16 +652,56 @@ export async function searchMedicamentByCodeOrName(recherche: string) {
         nom: medSimilaire?.nom || ref.nom,
         code_barres: q.length >= 6 ? q : (medSimilaire?.code_barres || ref.code_barres),
         type_produit: ref.type_produit,
+        principe_actif: ref.principe_actif,
+        forme: ref.forme,
+        dosage: ref.dosage,
         prix_vente: stockExistant?.prix_vente || ref.prix_vente_indicatif,
         prix_achat: stockExistant?.prix_achat || ref.prix_achat_indicatif,
-        lot: stockExistant?.lot || undefined,
-        date_peremption: stockExistant?.date_peremption || undefined
+        lot: undefined, // Ne jamais préremplir avec un ancien lot en stock
+        date_peremption: undefined
+      }
+    }
+
+    // 4. Si non trouvé localement, interroger l'API Publique Officielle des Médicaments (BDPM / ANSM)
+    const apiRes = await chercherMedicamentApiPublique(q)
+    if (apiRes) {
+      return {
+        id: null,
+        nom: apiRes.nom,
+        code_barres: apiRes.code_barres || q,
+        type_produit: apiRes.type_produit,
+        principe_actif: apiRes.principe_actif,
+        forme: apiRes.forme,
+        dosage: apiRes.dosage,
+        prix_vente: apiRes.prix_indicatif,
+        prix_achat: undefined,
+        lot: undefined,
+        date_peremption: undefined,
       }
     }
 
     return null
   } catch (err) {
     console.warn('Erreur searchMedicamentByCodeOrName:', err)
+    try {
+      const apiRes = await chercherMedicamentApiPublique(q)
+      if (apiRes) {
+        return {
+          id: null,
+          nom: apiRes.nom,
+          code_barres: apiRes.code_barres || q,
+          type_produit: apiRes.type_produit,
+          principe_actif: apiRes.principe_actif,
+          forme: apiRes.forme,
+          dosage: apiRes.dosage,
+          prix_vente: apiRes.prix_indicatif,
+          prix_achat: undefined,
+          lot: undefined,
+          date_peremption: undefined,
+        }
+      }
+    } catch {}
+
     const ref = chercherDansDictionnaire(q)
     if (ref) {
       return {
@@ -603,6 +709,9 @@ export async function searchMedicamentByCodeOrName(recherche: string) {
         nom: ref.nom,
         code_barres: ref.code_barres || q,
         type_produit: ref.type_produit,
+        principe_actif: ref.principe_actif,
+        forme: ref.forme,
+        dosage: ref.dosage,
         prix_vente: ref.prix_vente_indicatif,
         prix_achat: ref.prix_achat_indicatif,
         lot: undefined,

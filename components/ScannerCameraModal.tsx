@@ -376,9 +376,9 @@ export default function ScannerCameraModal({
             merged.prix_vente = refDico.prix_vente_indicatif;
           }
           if (!merged.type_produit) merged.type_produit = refDico.type_produit;
-          if (!merged.code_barres && refDico.code_barres) {
-            merged.code_barres = refDico.code_barres;
-          }
+          if (!merged.principe_actif && refDico.principe_actif) merged.principe_actif = refDico.principe_actif;
+          if (!merged.forme && refDico.forme) merged.forme = refDico.forme;
+          if (!merged.dosage && refDico.dosage) merged.dosage = refDico.dosage;
         }
       }
 

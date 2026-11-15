@@ -18,6 +18,9 @@ export type CodePharmaParse = {
   raw: string;
   code_barres: string;
   nom?: string;
+  principe_actif?: string; // Formule / DCI (ex: Paracétamol, Tiémonium méthylsulfate)
+  forme?: string;
+  dosage?: string;
   prix_vente?: number;
   prix_achat?: number;
   lot?: string;
@@ -27,8 +30,36 @@ export type CodePharmaParse = {
   format: 'gs1_datamatrix' | 'json' | 'cle_valeur' | 'csv' | 'url' | 'standard';
 };
 
+const MOIS_NOMS_MAP: Record<string, number> = {
+  jan: 1, janv: 1, janvier: 1, january: 1,
+  fev: 2, fevr: 2, fevrier: 2, feb: 2, february: 2,
+  mar: 3, mars: 3, march: 3,
+  avr: 4, avril: 4, apr: 4, april: 4,
+  mai: 5, may: 5,
+  juin: 6, jun: 6, june: 6,
+  juil: 7, juill: 7, juillet: 7, jul: 7, july: 7,
+  aou: 8, aout: 8, août: 8, aug: 8, august: 8,
+  sep: 9, sept: 9, septembre: 9, september: 9,
+  oct: 10, octo: 10, octobre: 10, october: 10,
+  nov: 11, nouvembre: 11, novembre: 11, november: 11,
+  dec: 12, decembre: 12, déc: 12, décembre: 12, december: 12,
+};
+
+function fabriquerDateFinMois(annee: number, mois: number, jour?: number): string | undefined {
+  let a = annee;
+  if (a < 100) {
+    a = a >= 70 ? 1900 + a : 2000 + a;
+  }
+  if (mois < 1 || mois > 12 || a < 1990 || a > 2100) return undefined;
+  const dernierJour = new Date(a, mois, 0).getDate();
+  const j = jour && jour >= 1 && jour <= dernierJour ? jour : dernierJour;
+  return `${a}-${mois.toString().padStart(2, '0')}-${j.toString().padStart(2, '0')}`;
+}
+
 /**
  * Normalise une date en chaîne 'YYYY-MM-DD'
+ * Gère les dates complètes (DD/MM/YYYY) ainsi que les dates pharmaceutiques
+ * sans jour (MM/YYYY, Nov 2027, NOV 27, 12 2028) qui expirent au DERNIER JOUR du mois.
  */
 export function normaliserDate(rawDate: string): string | undefined {
   if (!rawDate) return undefined;
@@ -40,48 +71,73 @@ export function normaliserDate(rawDate: string): string | undefined {
   // Format DD/MM/YYYY ou DD-MM-YYYY ou DD.MM.YYYY
   const frMatch = d.match(/^(\d{1,2})[\/\-\.](\d{1,2})[\/\-\.](\d{4})$/);
   if (frMatch) {
-    const jour = frMatch[1].padStart(2, '0');
-    const mois = frMatch[2].padStart(2, '0');
-    const annee = frMatch[3];
-    return `${annee}-${mois}-${jour}`;
+    const jour = parseInt(frMatch[1], 10);
+    const mois = parseInt(frMatch[2], 10);
+    const annee = parseInt(frMatch[3], 10);
+    return fabriquerDateFinMois(annee, mois, jour);
   }
 
-  // Format MM/YYYY ou MM-YYYY ou MM.YYYY (courant sur boîtes pharmaceutiques)
-  const my4Match = d.match(/^(\d{1,2})[\/\-\.](\d{4})$/);
-  if (my4Match) {
-    const mm = parseInt(my4Match[1], 10);
-    const yyyy = parseInt(my4Match[2], 10);
-    if (mm >= 1 && mm <= 12 && yyyy >= 2000 && yyyy <= 2100) {
-      const dernierJour = new Date(yyyy, mm, 0).getDate();
-      return `${yyyy}-${mm.toString().padStart(2, '0')}-${dernierJour.toString().padStart(2, '0')}`;
+  // Format DD/MM/YY ou DD-MM-YY
+  const frShortMatch = d.match(/^(\d{1,2})[\/\-\.](\d{1,2})[\/\-\.](\d{2})$/);
+  if (frShortMatch) {
+    const jour = parseInt(frShortMatch[1], 10);
+    const mois = parseInt(frShortMatch[2], 10);
+    const yy = parseInt(frShortMatch[3], 10);
+    return fabriquerDateFinMois(yy, mois, jour);
+  }
+
+  // Format Jour + Mois textuel + Année (ex: "15 Nov 2027", "15-NOV-27")
+  const dayTextMoisMatch = d.match(/^(\d{1,2})[\s\.\/\-_|]+([A-Za-zÀ-ÿ]{3,10})[\s\.\/\-_|]+(20\d{2}|\d{2})$/);
+  if (dayTextMoisMatch) {
+    const jour = parseInt(dayTextMoisMatch[1], 10);
+    const cleMois = dayTextMoisMatch[2].toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+    const mois = MOIS_NOMS_MAP[cleMois] || MOIS_NOMS_MAP[cleMois.substring(0, 3)] || MOIS_NOMS_MAP[cleMois.substring(0, 4)];
+    if (mois) {
+      const annee = parseInt(dayTextMoisMatch[3], 10);
+      return fabriquerDateFinMois(annee, mois, jour);
     }
   }
 
-  // Format MM/YY ou MM-YY (ex: 11/28 ou 05/27)
-  const my2Match = d.match(/^(\d{1,2})[\/\-\.](\d{2})$/);
+  // Format Mois textuel + Année sans jour (ex: "Nov 2027", "NOV. 2027", "NOV 27", "NOV/27", "NOV-2027", "Novembre 2028")
+  const textMoisMatch = d.match(/^([A-Za-zÀ-ÿ]{3,10})[\s\.\/\-_|]+(20\d{2}|\d{2})$/);
+  if (textMoisMatch) {
+    const cleMois = textMoisMatch[1].toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+    const mois = MOIS_NOMS_MAP[cleMois] || MOIS_NOMS_MAP[cleMois.substring(0, 3)] || MOIS_NOMS_MAP[cleMois.substring(0, 4)];
+    if (mois) {
+      const annee = parseInt(textMoisMatch[2], 10);
+      return fabriquerDateFinMois(annee, mois);
+    }
+  }
+
+  // Format MM/YYYY ou MM-YYYY ou MM.YYYY ou MM YYYY (sans jour => dernier jour du mois)
+  const my4Match = d.match(/^(\d{1,2})[\s\/\-\._|]+(20\d{2})$/);
+  if (my4Match) {
+    const mm = parseInt(my4Match[1], 10);
+    const yyyy = parseInt(my4Match[2], 10);
+    if (mm >= 1 && mm <= 12) {
+      return fabriquerDateFinMois(yyyy, mm);
+    }
+  }
+
+  // Format MM/YY ou MM-YY ou MM.YY ou MM YY (ex: 11/28, 05/27, 12 28)
+  const my2Match = d.match(/^(\d{1,2})[\s\/\-\._|]+(\d{2})$/);
   if (my2Match) {
     const mm = parseInt(my2Match[1], 10);
     const yy = parseInt(my2Match[2], 10);
     if (mm >= 1 && mm <= 12) {
-      const yyyy = yy >= 70 ? 1900 + yy : 2000 + yy;
-      const dernierJour = new Date(yyyy, mm, 0).getDate();
-      return `${yyyy}-${mm.toString().padStart(2, '0')}-${dernierJour.toString().padStart(2, '0')}`;
+      return fabriquerDateFinMois(yy, mm);
     }
   }
 
-  // Format YYMMDD (GS1 Healthcare standard)
+  // Format YYMMDD (GS1 Healthcare standard: 6 chiffres)
   const gs1Match = d.match(/^(\d{2})(\d{2})(\d{2})$/);
   if (gs1Match) {
     const yy = parseInt(gs1Match[1], 10);
-    const mm = gs1Match[2];
-    let dd = gs1Match[3];
-    // En GS1, si le jour est '00', c'est le dernier jour du mois
-    const annee = yy >= 70 ? `19${yy}` : `20${yy.toString().padStart(2, '0')}`;
-    if (dd === '00' || parseInt(dd, 10) > 31) {
-      const dernierJour = new Date(parseInt(annee, 10), parseInt(mm, 10), 0).getDate();
-      dd = dernierJour.toString().padStart(2, '0');
+    const mm = parseInt(gs1Match[2], 10);
+    const dd = parseInt(gs1Match[3], 10);
+    if (mm >= 1 && mm <= 12) {
+      return fabriquerDateFinMois(yy, mm, dd === 0 ? undefined : dd);
     }
-    return `${annee}-${mm}-${dd}`;
   }
 
   // Essai Date.parse uniquement si la chaîne contient des tirets ou des barres
@@ -92,6 +148,76 @@ export function normaliserDate(rawDate: string): string | undefined {
         return parsed.toISOString().split('T')[0];
       }
     } catch { }
+  }
+
+  return undefined;
+}
+
+/**
+ * Extrait spécifiquement la date de péremption d'un texte de boîte de médicament
+ * en gérant les préfixes (EXP, PER, CAD, etc.), les mois textuels (Nov 2027),
+ * les formats sans jour (12/2028), tout en ignorant les dates de fabrication (FAB, MFG).
+ */
+export function extraireDatePeremptionBoite(texte: string): string | undefined {
+  if (!texte) return undefined;
+
+  // 1. Chercher d'abord après un préfixe explicite d'expiration / péremption
+  const prefixeRegex = /(?:EXP|EXPIRY|PER|P[EÉ]R|P[EÉ]REMPTION|CAD|DLUO|VAL|VALABLE|USE\s*BY|UTILISER\s*AVANT|BEST\s*BEFORE)[\s\.:\-_|]*([^\r\n]{2,30})/gi;
+  let match: RegExpExecArray | null;
+  while ((match = prefixeRegex.exec(texte)) !== null) {
+    const sousTexte = match[1].trim();
+    const tokens = sousTexte.split(/[\s;,]+/);
+    for (let len = 3; len >= 1; len--) {
+      const probe = tokens.slice(0, len).join(' ');
+      const res = normaliserDate(probe);
+      if (res) return res;
+    }
+    const token1 = tokens[0] || '';
+    const res1 = normaliserDate(token1);
+    if (res1) return res1;
+  }
+
+  // 2. Si pas de préfixe explicite, ignorer d'abord les mentions de fabrication (FAB, MFG, PROD)
+  const sansFab = texte.replace(/(?:FAB|MFG|PROD|FABRICATION|DATE\s*FAB|MFR)[\s\.:\-_|]*([^\r\n]{2,20})/gi, ' ');
+
+  // Chercher d'abord format Jour + Mois textuel + Année (ex: "15 Nov 2027", "15-NOV-27")
+  const dayMoisTextRegex = /\b([0-2]?\d|3[01])[\s\.\/\-_|]+(JAN|JANV|FEV|FEVR|FEB|MAR|MARS|APR|AVR|MAY|MAI|JUN|JUIN|JUL|JUIL|AOU|AOUT|AUG|SEP|SEPT|OCT|NOV|DEC)[\s\.\/\-_|]+(20\d{2}|\d{2})\b/i;
+  const dmtMatch = sansFab.match(dayMoisTextRegex);
+  if (dmtMatch) {
+    const d = normaliserDate(dmtMatch[0]);
+    if (d) return d;
+  }
+
+  // Chercher format Mois textuel + Année sans jour (ex: "Nov 2027", "NOV. 2027", "NOV 27", "DEC 2028")
+  const moisTextRegex = /\b(JAN|JANV|FEV|FEVR|FEB|MAR|MARS|APR|AVR|MAY|MAI|JUN|JUIN|JUL|JUIL|AOU|AOUT|AUG|SEP|SEPT|OCT|NOV|DEC)[\s\.\/\-_|]+(20\d{2}|\d{2})\b/i;
+  const mtMatch = sansFab.match(moisTextRegex);
+  if (mtMatch) {
+    const d = normaliserDate(mtMatch[0]);
+    if (d) return d;
+  }
+
+  // Chercher MM/YYYY ou MM-YYYY ou MM.YYYY ou MM YYYY (2024-2039)
+  const my4Regex = /\b(0[1-9]|1[0-2])[\s\/\-\._|]+(20[2-3]\d)\b/;
+  const my4 = sansFab.match(my4Regex);
+  if (my4) {
+    const d = normaliserDate(`${my4[1]}/${my4[2]}`);
+    if (d) return d;
+  }
+
+  // Chercher DD/MM/YYYY
+  const dmyRegex = /\b([0-2]?\d|3[01])[\/\-\.](0[1-9]|1[0-2])[\/\-\.](20[2-3]\d)\b/;
+  const dmy = sansFab.match(dmyRegex);
+  if (dmy) {
+    const d = normaliserDate(dmy[0]);
+    if (d) return d;
+  }
+
+  // Chercher MM/YY (ex: 11/27, 12/28)
+  const my2Regex = /\b(0[1-9]|1[0-2])[\/\-\.](2[5-9]|3\d)\b/;
+  const my2 = sansFab.match(my2Regex);
+  if (my2) {
+    const d = normaliserDate(`${my2[1]}/${my2[2]}`);
+    if (d) return d;
   }
 
   return undefined;
@@ -529,6 +655,9 @@ export function parserCodePharma(texteBrut: string): CodePharmaParse {
     const ref = chercherDansDictionnaire(resultat.code_barres);
     if (ref) {
       if (!resultat.nom) resultat.nom = ref.nom;
+      if (!resultat.principe_actif && ref.principe_actif) resultat.principe_actif = ref.principe_actif;
+      if (!resultat.forme && ref.forme) resultat.forme = ref.forme;
+      if (!resultat.dosage && ref.dosage) resultat.dosage = ref.dosage;
       if (!resultat.prix_vente && ref.prix_vente_indicatif) resultat.prix_vente = ref.prix_vente_indicatif;
       if (!resultat.prix_achat && ref.prix_achat_indicatif) resultat.prix_achat = ref.prix_achat_indicatif;
       if (!resultat.type_produit) resultat.type_produit = ref.type_produit;
@@ -566,19 +695,8 @@ export function parserTexteBoiteMedicament(texteBrut: string): CodePharmaParse {
     lot = lotMatch[1].trim();
   }
 
-  // 2. Détection de la date d'expiration / péremption
-  const expMatch = t.match(/(?:EXP|PER|CAD|DLUO|EXPIRY|VAL|UTILISER\s*AVANT)[\s\.:\-_]*(\d{1,2}[\/\-\.]\d{2,4}|\d{4}[\/\-\.]\d{1,2}[\/\-\.]\d{1,2}|\d{4}[\/\-\.]\d{1,2}|\d{6})/i);
-  if (expMatch) {
-    date_peremption = normaliserDate(expMatch[1]);
-  }
-
-  // Si pas de préfixe explicite mais une date type MM/YYYY ou MM/YY isolée
-  if (!date_peremption) {
-    const genericDateMatch = t.match(/\b(0[1-9]|1[0-2])[\/\-\.](20\d{2}|\d{2})\b/);
-    if (genericDateMatch) {
-      date_peremption = normaliserDate(genericDateMatch[0]);
-    }
-  }
+  // 2. Détection de la date d'expiration / péremption (supporte 12/2028, Nov 2027, NOV 27, EXP 12 2028, etc.)
+  date_peremption = extraireDatePeremptionBoite(t);
 
   // 3. Détection du Prix étiqueté (PPV, P.P.V, PRIX, P.V, TARIF, ou montant avec FCFA / F)
   const prixMatch = t.match(/(?:PPV|P\.P\.V|PRIX|P\.V|TARIF)[\s\.:\-_]*(\d[\d\s]*\d|\d+)\s*(?:F|CFA|FCFA)?/i) ||
@@ -591,7 +709,7 @@ export function parserTexteBoiteMedicament(texteBrut: string): CodePharmaParse {
     }
   }
 
-  // 4. Détection de code-barres numérique (13 ou 14 chiffres, ou 7-8 chiffres)
+  // 4. Détection de code-barres numérique présent sur la boîte (13 ou 14 chiffres, ou 7-8 chiffres)
   const cbMatch = t.match(/\b(\d{13,14})\b/) || t.match(/\b(\d{7,8})\b/);
   if (cbMatch) {
     let cb = cbMatch[1];
@@ -601,13 +719,20 @@ export function parserTexteBoiteMedicament(texteBrut: string): CodePharmaParse {
 
   // 5. Recherche du nom du médicament parmi les lignes du texte
   const lignes = t.split(/[\r\n]+/).map(l => l.trim()).filter(Boolean);
+  let principe_actif: string | undefined;
+  let forme: string | undefined;
+  let dosage: string | undefined;
+
   for (const ligne of lignes) {
     if (ligne.length >= 3) {
       const matchDico = chercherDansDictionnaire(ligne);
       if (matchDico) {
         nom = matchDico.nom;
-        if (!code_barres) code_barres = matchDico.code_barres;
+        // IMPORTANT: Ne JAMAIS inventer un code-barres depuis le dictionnaire si non scanné
         if (!prix_vente && matchDico.prix_vente_indicatif) prix_vente = matchDico.prix_vente_indicatif;
+        if (matchDico.principe_actif) principe_actif = matchDico.principe_actif;
+        if (matchDico.forme) forme = matchDico.forme;
+        if (matchDico.dosage) dosage = matchDico.dosage;
         if (matchDico.type_produit) type_produit = matchDico.type_produit;
         break;
       }
@@ -620,6 +745,9 @@ export function parserTexteBoiteMedicament(texteBrut: string): CodePharmaParse {
     if (matchDico) {
       if (!nom) nom = matchDico.nom;
       if (!prix_vente && matchDico.prix_vente_indicatif) prix_vente = matchDico.prix_vente_indicatif;
+      if (!principe_actif && matchDico.principe_actif) principe_actif = matchDico.principe_actif;
+      if (!forme && matchDico.forme) forme = matchDico.forme;
+      if (!dosage && matchDico.dosage) dosage = matchDico.dosage;
       if (matchDico.type_produit) type_produit = matchDico.type_produit;
     }
   }
@@ -628,6 +756,9 @@ export function parserTexteBoiteMedicament(texteBrut: string): CodePharmaParse {
     raw: t,
     code_barres: code_barres || '',
     nom,
+    principe_actif,
+    forme,
+    dosage,
     prix_vente,
     lot,
     date_peremption,

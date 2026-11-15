@@ -13,6 +13,9 @@ export default function CreateStockButton() {
   const [typeProduit, setTypeProduit] = useState<'medicament' | 'materiel' | 'service'>('medicament')
   const [nom, setNom] = useState('')
   const [codeBarres, setCodeBarres] = useState('')
+  const [principeActif, setPrincipeActif] = useState('')
+  const [forme, setForme] = useState('')
+  const [dosage, setDosage] = useState('')
   const [quantite, setQuantite] = useState('10')
   const [prixVente, setPrixVente] = useState('')
   const [prixAchat, setPrixAchat] = useState('')
@@ -30,6 +33,9 @@ export default function CreateStockButton() {
   const resetForm = () => {
     setNom('')
     setCodeBarres('')
+    setPrincipeActif('')
+    setForme('')
+    setDosage('')
     setQuantite('10')
     setPrixVente('')
     setPrixAchat('')
@@ -51,6 +57,12 @@ export default function CreateStockButton() {
       setNom(parse.nom)
       details.push(parse.nom)
     }
+    if (parse.principe_actif) {
+      setPrincipeActif(parse.principe_actif)
+      details.push(`DCI: ${parse.principe_actif}`)
+    }
+    if (parse.forme) setForme(parse.forme)
+    if (parse.dosage) setDosage(parse.dosage)
     if (parse.type_produit) {
       setTypeProduit(parse.type_produit as any)
     }
@@ -70,9 +82,9 @@ export default function CreateStockButton() {
       details.push(`Exp: ${parse.date_peremption}`)
     }
 
-    // Compléter les champs manquants en consultant la base de données et le référentiel
+    // Compléter les champs manquants en consultant la base de données locale ou l'API publique
     const rechercheCle = codeNet || parse.nom || ''
-    if (rechercheCle && (!parse.nom || !parse.prix_vente || !parse.lot || !parse.date_peremption)) {
+    if (rechercheCle && (!parse.nom || !parse.prix_vente || !parse.lot || !parse.date_peremption || !principeActif)) {
       const existant = await searchMedicamentByCodeOrName(rechercheCle)
       if (existant) {
         if (existant.nom && !parse.nom) {
@@ -82,6 +94,12 @@ export default function CreateStockButton() {
         if (existant.code_barres && !codeNet) {
           setCodeBarres(existant.code_barres)
         }
+        if (existant.principe_actif && !parse.principe_actif) {
+          setPrincipeActif(existant.principe_actif)
+          details.push(`DCI: ${existant.principe_actif}`)
+        }
+        if (existant.forme && !forme) setForme(existant.forme)
+        if (existant.dosage && !dosage) setDosage(existant.dosage)
         if (existant.type_produit && !parse.type_produit) {
           setTypeProduit(existant.type_produit as any)
         }
@@ -91,15 +109,6 @@ export default function CreateStockButton() {
         }
         if (existant.prix_achat && (!parse.prix_achat || parse.prix_achat <= 0)) {
           setPrixAchat(existant.prix_achat.toString())
-        }
-        if (existant.lot && !parse.lot) {
-          setLot(existant.lot)
-          details.push(`Lot: ${existant.lot}`)
-        }
-        if (existant.date_peremption && !parse.date_peremption) {
-          const dateStr = existant.date_peremption.split('T')[0]
-          setDatePeremption(dateStr)
-          details.push(`Exp: ${dateStr}`)
         }
       }
     }
@@ -119,21 +128,25 @@ export default function CreateStockButton() {
       const existant = await searchMedicamentByCodeOrName(codeNet)
       if (existant) {
         if (existant.nom && !nom) setNom(existant.nom)
+        if (existant.principe_actif && !principeActif) setPrincipeActif(existant.principe_actif)
+        if (existant.forme && !forme) setForme(existant.forme)
+        if (existant.dosage && !dosage) setDosage(existant.dosage)
         if (existant.type_produit) setTypeProduit(existant.type_produit as any)
         if (existant.prix_vente && !prixVente) setPrixVente(existant.prix_vente.toString())
         if (existant.prix_achat && !prixAchat) setPrixAchat(existant.prix_achat.toString())
-        if (existant.lot && !lot) setLot(existant.lot)
-        if (existant.date_peremption && !datePeremption) setDatePeremption(existant.date_peremption.split('T')[0])
       }
     }
   }
 
   // Auto-complétion lors de la saisie du nom (si code ou prix absent)
   const handleNomBlur = async () => {
-    if (nom.trim().length >= 3 && (!codeBarres || !prixVente)) {
+    if (nom.trim().length >= 3 && (!codeBarres || !prixVente || !principeActif)) {
       const existant = await searchMedicamentByCodeOrName(nom.trim())
       if (existant) {
         if (existant.code_barres && !codeBarres) setCodeBarres(existant.code_barres)
+        if (existant.principe_actif && !principeActif) setPrincipeActif(existant.principe_actif)
+        if (existant.forme && !forme) setForme(existant.forme)
+        if (existant.dosage && !dosage) setDosage(existant.dosage)
         if (existant.type_produit) setTypeProduit(existant.type_produit as any)
         if (existant.prix_vente && !prixVente) setPrixVente(existant.prix_vente.toString())
         if (existant.prix_achat && !prixAchat) setPrixAchat(existant.prix_achat.toString())
@@ -150,6 +163,9 @@ export default function CreateStockButton() {
     formData.set('type_produit', typeProduit)
     formData.set('nom', nom)
     formData.set('code_barres', codeBarres)
+    formData.set('principe_actif', principeActif)
+    formData.set('forme', forme)
+    formData.set('dosage', dosage)
     formData.set('quantite', quantite)
     formData.set('prix_vente', prixVente)
     formData.set('prix_achat', prixAchat)
@@ -229,8 +245,8 @@ export default function CreateStockButton() {
                     type="button"
                     onClick={() => setTypeProduit('medicament')}
                     className={`flex flex-col items-center justify-center gap-1 p-2.5 rounded-xl border text-xs font-semibold transition-all cursor-pointer ${typeProduit === 'medicament'
-                        ? 'bg-primary text-white border-primary shadow-sm'
-                        : 'bg-background border-surface-border text-foreground hover:bg-surface-border/50'
+                      ? 'bg-primary text-white border-primary shadow-sm'
+                      : 'bg-background border-surface-border text-foreground hover:bg-surface-border/50'
                       }`}
                   >
                     <Pill className="w-4 h-4" />
@@ -241,8 +257,8 @@ export default function CreateStockButton() {
                     type="button"
                     onClick={() => setTypeProduit('materiel')}
                     className={`flex flex-col items-center justify-center gap-1 p-2.5 rounded-xl border text-xs font-semibold transition-all cursor-pointer ${typeProduit === 'materiel'
-                        ? 'bg-primary text-white border-primary shadow-sm'
-                        : 'bg-background border-surface-border text-foreground hover:bg-surface-border/50'
+                      ? 'bg-primary text-white border-primary shadow-sm'
+                      : 'bg-background border-surface-border text-foreground hover:bg-surface-border/50'
                       }`}
                   >
                     <Stethoscope className="w-4 h-4" />
@@ -253,8 +269,8 @@ export default function CreateStockButton() {
                     type="button"
                     onClick={() => setTypeProduit('service')}
                     className={`flex flex-col items-center justify-center gap-1 p-2.5 rounded-xl border text-xs font-semibold transition-all cursor-pointer ${typeProduit === 'service'
-                        ? 'bg-primary text-white border-primary shadow-sm'
-                        : 'bg-background border-surface-border text-foreground hover:bg-surface-border/50'
+                      ? 'bg-primary text-white border-primary shadow-sm'
+                      : 'bg-background border-surface-border text-foreground hover:bg-surface-border/50'
                       }`}
                   >
                     <Sparkles className="w-4 h-4" />
@@ -287,6 +303,24 @@ export default function CreateStockButton() {
                         : 'Ex: Paracétamol 500mg, Amoxicilline 1g, Viscéralgine...'
                   }
                 />
+                {principeActif && (
+                  <div className="mt-2 flex items-start gap-2.5 p-3 rounded-xl bg-primary/10 border border-primary/20 text-xs">
+                    <Sparkles className="w-4 h-4 shrink-0 text-primary mt-0.5" />
+                    <div className="flex-1 min-w-0">
+                      <div className="font-bold text-[10px] uppercase tracking-wider text-primary">
+                        Formule / DCI reconnue
+                      </div>
+                      <div className="text-foreground font-semibold mt-0.5 break-words">
+                        {principeActif}
+                      </div>
+                      {(forme || dosage) && (
+                        <div className="text-[11px] text-foreground-muted font-normal mt-0.5">
+                          {forme}{forme && dosage ? ' • ' : ''}{dosage}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                )}
               </div>
 
               {typeProduit !== 'service' && (
