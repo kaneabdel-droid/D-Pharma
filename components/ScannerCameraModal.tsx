@@ -440,8 +440,8 @@ export default function ScannerCameraModal({
             type="button"
             onClick={() => setScanMode("datamatrix")}
             className={`flex items-center justify-center gap-1.5 py-2 px-2.5 rounded-xl text-xs font-bold transition cursor-pointer ${scanMode === "datamatrix"
-                ? "bg-emerald-600 text-white shadow-sm"
-                : "text-foreground-muted hover:text-foreground hover:bg-surface"
+              ? "bg-emerald-600 text-white shadow-sm"
+              : "text-foreground-muted hover:text-foreground hover:bg-surface"
               }`}
           >
             <QrCode className="w-4 h-4 shrink-0" />
@@ -452,8 +452,8 @@ export default function ScannerCameraModal({
             type="button"
             onClick={() => setScanMode("auto")}
             className={`flex items-center justify-center gap-1.5 py-2 px-2.5 rounded-xl text-xs font-bold transition cursor-pointer ${scanMode === "auto"
-                ? "bg-emerald-600 text-white shadow-sm"
-                : "text-foreground-muted hover:text-foreground hover:bg-surface"
+              ? "bg-emerald-600 text-white shadow-sm"
+              : "text-foreground-muted hover:text-foreground hover:bg-surface"
               }`}
           >
             <ScanLine className="w-4 h-4 shrink-0" />
@@ -495,8 +495,8 @@ export default function ScannerCameraModal({
             <div className="absolute inset-0 pointer-events-none flex flex-col items-center justify-center p-6 z-10">
               <div
                 className={`relative rounded-2xl border-2 transition-all duration-300 ${scanMode === "datamatrix"
-                    ? "w-48 h-48 sm:w-56 sm:h-56"
-                    : "w-64 h-44 sm:w-72 sm:h-48"
+                  ? "w-48 h-48 sm:w-56 sm:h-56"
+                  : "w-64 h-44 sm:w-72 sm:h-48"
                   } ${scanReussiAnim
                     ? "border-emerald-400 bg-emerald-400/25 scale-105 shadow-2xl shadow-emerald-500/50"
                     : "border-white/50 shadow-lg"
@@ -695,8 +695,8 @@ export default function ScannerCameraModal({
                   type="button"
                   onClick={toggleTorch}
                   className={`p-2.5 rounded-xl border text-xs font-bold flex items-center gap-1.5 transition cursor-pointer ${torchActive
-                      ? "bg-amber-500 text-black border-amber-400 shadow-md shadow-amber-500/20"
-                      : "bg-background border-surface-border text-foreground hover:bg-surface-border/50"
+                    ? "bg-amber-500 text-black border-amber-400 shadow-md shadow-amber-500/20"
+                    : "bg-background border-surface-border text-foreground hover:bg-surface-border/50"
                     }`}
                   title="Allumer / Éteindre le flash"
                 >

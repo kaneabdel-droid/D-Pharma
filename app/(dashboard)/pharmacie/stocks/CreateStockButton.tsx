@@ -84,23 +84,24 @@ export default function CreateStockButton() {
 
     // Compléter les champs manquants en consultant la base de données locale ou l'API publique
     const rechercheCle = codeNet || parse.nom || ''
-    if (rechercheCle && (!parse.nom || !parse.prix_vente || !parse.lot || !parse.date_peremption || !principeActif)) {
+    if (rechercheCle) {
       const existant = await searchMedicamentByCodeOrName(rechercheCle)
       if (existant) {
-        if (existant.nom && !parse.nom) {
+        if (existant.nom) {
           setNom(existant.nom)
-          details.push(existant.nom)
+          if (!details.includes(existant.nom)) details.unshift(existant.nom)
         }
         if (existant.code_barres && !codeNet) {
           setCodeBarres(existant.code_barres)
         }
-        if (existant.principe_actif && !parse.principe_actif) {
+        if (existant.principe_actif) {
           setPrincipeActif(existant.principe_actif)
-          details.push(`DCI: ${existant.principe_actif}`)
+          const dciStr = `DCI: ${existant.principe_actif}`
+          if (!details.includes(dciStr)) details.push(dciStr)
         }
-        if (existant.forme && !forme) setForme(existant.forme)
-        if (existant.dosage && !dosage) setDosage(existant.dosage)
-        if (existant.type_produit && !parse.type_produit) {
+        if (existant.forme) setForme(existant.forme)
+        if (existant.dosage) setDosage(existant.dosage)
+        if (existant.type_produit) {
           setTypeProduit(existant.type_produit as any)
         }
         if (existant.prix_vente && (!parse.prix_vente || parse.prix_vente <= 0)) {
@@ -139,13 +140,13 @@ export default function CreateStockButton() {
     if (codeNet.length >= 6) {
       const existant = await searchMedicamentByCodeOrName(codeNet)
       if (existant) {
-        if (existant.nom && !nom) setNom(existant.nom)
-        if (existant.principe_actif && !principeActif) setPrincipeActif(existant.principe_actif)
-        if (existant.forme && !forme) setForme(existant.forme)
-        if (existant.dosage && !dosage) setDosage(existant.dosage)
+        if (existant.nom) setNom(existant.nom)
+        if (existant.principe_actif) setPrincipeActif(existant.principe_actif)
+        if (existant.forme) setForme(existant.forme)
+        if (existant.dosage) setDosage(existant.dosage)
         if (existant.type_produit) setTypeProduit(existant.type_produit as any)
-        if (existant.prix_vente && !prixVente) setPrixVente(existant.prix_vente.toString())
-        if (existant.prix_achat && !prixAchat) setPrixAchat(existant.prix_achat.toString())
+        if (existant.prix_vente) setPrixVente(existant.prix_vente.toString())
+        if (existant.prix_achat) setPrixAchat(existant.prix_achat.toString())
       }
     }
   }

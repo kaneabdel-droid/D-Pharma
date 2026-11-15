@@ -510,11 +510,21 @@ export async function searchMedicamentByCodeOrName(recherche: string) {
   const q = recherche.trim()
 
   try {
-    // 1. Chercher par code-barres exact dans le catalogue local
+    // 1. Chercher par code-barres exact dans le catalogue local (gère 13 et 14 chiffres avec/sans 0)
+    const cleanDigits = q.replace(/\D/g, '')
+    const q13 = cleanDigits.length === 14 && cleanDigits.startsWith('0') ? cleanDigits.substring(1) : cleanDigits
+    const q14 = cleanDigits.length === 13 ? `0${cleanDigits}` : cleanDigits
+
+    const orClauses = [`code_barres.eq.${q}`]
+    if (cleanDigits && cleanDigits !== q) orClauses.push(`code_barres.eq.${cleanDigits}`)
+    if (q13 && !orClauses.includes(`code_barres.eq.${q13}`)) orClauses.push(`code_barres.eq.${q13}`)
+    if (q14 && !orClauses.includes(`code_barres.eq.${q14}`)) orClauses.push(`code_barres.eq.${q14}`)
+
     const { data: medByCode } = await supabase
       .from('medicaments')
       .select('id, nom, code_barres, type_produit, principe_actif, forme, dosage')
-      .eq('code_barres', q)
+      .or(orClauses.join(','))
+      .limit(1)
       .maybeSingle()
 
     if (medByCode) {
@@ -530,6 +540,7 @@ export async function searchMedicamentByCodeOrName(recherche: string) {
       // Compléter le prix et la formule si manquants (vérifie le code-barres PUIS le nom dans le dictionnaire)
       const refDico =
         chercherDansDictionnaire(medByCode.code_barres || '') ||
+        chercherDansDictionnaire(q13 || q) ||
         (medByCode.nom ? chercherDansDictionnaire(medByCode.nom) : null)
 
       const prixVente = stockRef?.prix_vente && stockRef.prix_vente > 0
@@ -643,7 +654,7 @@ export async function searchMedicamentByCodeOrName(recherche: string) {
     }
 
     // 3. Interroger le dictionnaire pharmaceutique de référence local (UEMOA / Sénégal)
-    const ref = chercherDansDictionnaire(q)
+    const ref = chercherDansDictionnaire(q) || (q13 && q13 !== q ? chercherDansDictionnaire(q13) : null)
     if (ref) {
       const motCle = ref.nom.split(' ')[0]
       const { data: medSimilaire } = await supabase
@@ -668,7 +679,7 @@ export async function searchMedicamentByCodeOrName(recherche: string) {
 
       return {
         id: medSimilaire?.id || null,
-        nom: medSimilaire?.nom || ref.nom,
+        nom: ref.nom,
         code_barres: q.length >= 6 ? q : (medSimilaire?.code_barres || ref.code_barres),
         type_produit: ref.type_produit,
         principe_actif: ref.principe_actif,
@@ -682,7 +693,7 @@ export async function searchMedicamentByCodeOrName(recherche: string) {
     }
 
     // 4. Si non trouvé localement, interroger l'API Publique Officielle des Médicaments (BDPM / ANSM)
-    const apiRes = await chercherMedicamentApiPublique(q)
+    const apiRes = await chercherMedicamentApiPublique(q13 || q)
     if (apiRes) {
       return {
         id: null,

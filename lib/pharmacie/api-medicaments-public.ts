@@ -46,12 +46,12 @@ export async function chercherMedicamentApiPublique(query: string): Promise<Resu
     const cip13 = q.length === 14 && q.startsWith('0') ? q.substring(1) : q;
     try {
       const res = await fetch(`https://medicaments-api.giygas.dev/v1/medicaments?cip=${cip13}`, {
-        signal: AbortSignal.timeout(3500),
+        signal: AbortSignal.timeout(8000),
         headers: { Accept: 'application/json' },
       });
       if (res.ok) {
         const data = await res.json();
-        if (data && (data.elementPharmaceutique || data.nom)) {
+        if (data && (data.elementPharmaceutique || data.denomination || data.nom)) {
           return mapperMedicamentApi(data, cip13);
         }
       }
@@ -65,7 +65,7 @@ export async function chercherMedicamentApiPublique(query: string): Promise<Resu
     const res = await fetch(
       `https://medicaments-api.giygas.dev/v1/medicaments?search=${encodeURIComponent(q)}`,
       {
-        signal: AbortSignal.timeout(3500),
+        signal: AbortSignal.timeout(8000),
         headers: { Accept: 'application/json' },
       }
     );
@@ -108,8 +108,10 @@ function mapperMedicamentApi(item: any, queryOriginale: string): ResultatMedicam
     }
   }
 
+  const nomNet = item.denomination || item.elementPharmaceutique || item.nom || 'Médicament';
+
   return {
-    nom: item.elementPharmaceutique || item.nom,
+    nom: nomNet,
     code_barres: codeBarres,
     principe_actif: substances.length > 0 ? substances.join(' + ') : undefined,
     forme: item.formePharmaceutique || undefined,
