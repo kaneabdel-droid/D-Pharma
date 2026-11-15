@@ -11,9 +11,21 @@ import {
   ScanLine,
   Image as ImageIcon,
   Sparkles,
+  QrCode,
+  FileText,
+  Calendar,
+  Layers,
+  Tag,
+  Loader2,
+  Check,
 } from "lucide-react";
 import { Html5Qrcode, Html5QrcodeSupportedFormats } from "html5-qrcode";
-import { parserCodePharma, CodePharmaParse } from "@/lib/pharmacie/code-parser";
+import {
+  parserCodePharma,
+  parserTexteBoiteMedicament,
+  CodePharmaParse,
+} from "@/lib/pharmacie/code-parser";
+import { chercherDansDictionnaire } from "@/lib/pharmacie/dictionnaire-medicaments";
 
 interface ScannerCameraModalProps {
   isOpen: boolean;
@@ -21,19 +33,22 @@ interface ScannerCameraModalProps {
   onCodeDetecte: (code: string, parseResult?: CodePharmaParse) => void;
   titre?: string;
   sousTitre?: string;
+  modeInitial?: "auto" | "datamatrix" | "ocr";
 }
 
 export default function ScannerCameraModal({
   isOpen,
   onClose,
   onCodeDetecte,
-  titre = "Scanner un Médicament (Caméra)",
+  titre = "Scanner un Médicament",
   sousTitre = "Pointez la caméra vers le Code QR, DataMatrix GS1 ou Code-barres",
+  modeInitial = "auto",
 }: ScannerCameraModalProps) {
   const containerId = "d-pharma-qr-reader";
   const scannerRef = useRef<Html5Qrcode | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
+  const [scanMode, setScanMode] = useState<"auto" | "datamatrix" | "ocr">(modeInitial);
   const [isStarting, setIsStarting] = useState(true);
   const [cameraActive, setCameraActive] = useState(false);
   const [erreur, setErreur] = useState<string | null>(null);
@@ -44,7 +59,12 @@ export default function ScannerCameraModal({
   const [scanReussiAnim, setScanReussiAnim] = useState(false);
   const [detailsExtraits, setDetailsExtraits] = useState<CodePharmaParse | null>(null);
 
-  // Émission d'un bip sonore de confirmation
+  // État OCR
+  const [ocrEnCours, setOcrEnCours] = useState(false);
+  const [ocrProgression, setOcrProgression] = useState<string | null>(null);
+  const [apercuOcr, setApercuOcr] = useState<CodePharmaParse | null>(null);
+
+  // Bip sonore de confirmation
   const biperScan = useCallback(() => {
     try {
       if (typeof window !== "undefined") {
@@ -67,18 +87,39 @@ export default function ScannerCameraModal({
         navigator.vibrate(80);
       }
     } catch {
-      // Ignorer si audio non autorisé
+      // Audio non supporté
     }
   }, []);
 
   // Déclencher le succès lors de la lecture d'un code
   const traiterCodeDetecte = useCallback(
-    (codeBrut: string) => {
+    (codeBrut: string, parseForce?: Partial<CodePharmaParse>) => {
       const code = codeBrut.trim();
-      if (!code || code === dernierCodeScanne) return;
+      if (!code && !parseForce?.code_barres) return;
+      if (code && code === dernierCodeScanne && !parseForce) return;
 
-      const parsed = parserCodePharma(code);
-      setDernierCodeScanne(code);
+      let parsed = parserCodePharma(code);
+      if (parseForce) {
+        parsed = {
+          ...parsed,
+          ...parseForce,
+          code_barres: parseForce.code_barres || parsed.code_barres || code,
+        };
+      }
+
+      // Compléter avec le dictionnaire pharmaceutique si le nom ou prix manque
+      if (parsed.code_barres) {
+        const refDico = chercherDansDictionnaire(parsed.code_barres);
+        if (refDico) {
+          if (!parsed.nom) parsed.nom = refDico.nom;
+          if (!parsed.prix_vente && refDico.prix_vente_indicatif) {
+            parsed.prix_vente = refDico.prix_vente_indicatif;
+          }
+          if (!parsed.type_produit) parsed.type_produit = refDico.type_produit;
+        }
+      }
+
+      setDernierCodeScanne(code || parsed.code_barres);
       setDetailsExtraits(parsed);
       setScanReussiAnim(true);
       biperScan();
@@ -88,7 +129,7 @@ export default function ScannerCameraModal({
         setScanReussiAnim(false);
         setDetailsExtraits(null);
         onClose();
-      }, 550);
+      }, 700);
 
       setTimeout(() => {
         setDernierCodeScanne(null);
@@ -96,6 +137,26 @@ export default function ScannerCameraModal({
     },
     [dernierCodeScanne, biperScan, onCodeDetecte, onClose]
   );
+
+  // Formats supportés selon le mode choisi
+  const getFormats = (mode: "auto" | "datamatrix" | "ocr") => {
+    if (mode === "datamatrix") {
+      return [
+        Html5QrcodeSupportedFormats.DATA_MATRIX,
+        Html5QrcodeSupportedFormats.QR_CODE,
+      ];
+    }
+    return [
+      Html5QrcodeSupportedFormats.DATA_MATRIX,
+      Html5QrcodeSupportedFormats.QR_CODE,
+      Html5QrcodeSupportedFormats.EAN_13,
+      Html5QrcodeSupportedFormats.EAN_8,
+      Html5QrcodeSupportedFormats.CODE_128,
+      Html5QrcodeSupportedFormats.CODE_39,
+      Html5QrcodeSupportedFormats.UPC_A,
+      Html5QrcodeSupportedFormats.UPC_E,
+    ];
+  };
 
   // Démarrage du scanner Html5Qrcode
   useEffect(() => {
@@ -105,34 +166,23 @@ export default function ScannerCameraModal({
     setIsStarting(true);
     setErreur(null);
 
-    const formatsToSupport = [
-      Html5QrcodeSupportedFormats.QR_CODE,
-      Html5QrcodeSupportedFormats.DATA_MATRIX,
-      Html5QrcodeSupportedFormats.EAN_13,
-      Html5QrcodeSupportedFormats.EAN_8,
-      Html5QrcodeSupportedFormats.CODE_128,
-      Html5QrcodeSupportedFormats.CODE_39,
-      Html5QrcodeSupportedFormats.UPC_A,
-      Html5QrcodeSupportedFormats.UPC_E,
-    ];
+    const formatsToSupport = getFormats(scanMode);
 
     const demarrerScanner = async () => {
       try {
-        // Attendre que le conteneur DOM soit monté
         await new Promise((resolve) => setTimeout(resolve, 80));
         if (!estMonte) return;
 
         const conteneur = document.getElementById(containerId);
         if (!conteneur) return;
 
-        // Arrêter toute instance précédente
         if (scannerRef.current) {
           try {
             if (scannerRef.current.isScanning) {
               await scannerRef.current.stop();
             }
             scannerRef.current.clear();
-          } catch {}
+          } catch { }
           scannerRef.current = null;
         }
 
@@ -142,35 +192,42 @@ export default function ScannerCameraModal({
         });
         scannerRef.current = scanner;
 
+        const isSquare = scanMode === "datamatrix";
         const config = {
-          fps: 15,
+          fps: 20,
           qrbox: (viewfinderWidth: number, viewfinderHeight: number) => {
             const minEdge = Math.min(viewfinderWidth, viewfinderHeight);
-            const w = Math.max(220, Math.floor(minEdge * 0.78));
+            if (isSquare) {
+              const size = Math.max(200, Math.floor(minEdge * 0.72));
+              return { width: size, height: size };
+            }
+            const w = Math.max(230, Math.floor(minEdge * 0.8));
             const h = Math.max(160, Math.floor(minEdge * 0.55));
             return { width: w, height: h };
           },
           aspectRatio: 1.333333,
         };
 
+        // Paramètres caméra pour décoder les codes haute précision
+        const cameraConfig: any = {
+          facingMode,
+        };
+
         await scanner.start(
-          { facingMode },
+          cameraConfig,
           config,
           (decodedText) => {
             if (estMonte) {
               traiterCodeDetecte(decodedText);
             }
           },
-          () => {
-            // Frame ignorée sans code
-          }
+          () => { }
         );
 
         if (estMonte) {
           setCameraActive(true);
           setIsStarting(false);
 
-          // Vérifier si la torche est supportée
           try {
             const capabilities: any = scanner.getRunningTrackCameraCapabilities();
             if (capabilities && capabilities.torchFeature().isSupported()) {
@@ -198,7 +255,7 @@ export default function ScannerCameraModal({
         } else if (err?.name === "NotFoundError" || err?.name === "DevicesNotFoundError") {
           msg = "Aucune caméra détectée sur cet appareil.";
         } else {
-          msg = `Accès caméra restreint (${err?.message || err}). Utilisez le bouton ci-dessous pour capturer une photo.`;
+          msg = `Accès caméra restreint (${err?.message || err}). Vous pouvez prendre une photo directe avec le bouton ci-dessous.`;
         }
         setErreur(msg);
       }
@@ -214,17 +271,17 @@ export default function ScannerCameraModal({
             scannerRef.current.stop().then(() => {
               scannerRef.current?.clear();
               scannerRef.current = null;
-            }).catch(() => {});
+            }).catch(() => { });
           } else {
             scannerRef.current.clear();
             scannerRef.current = null;
           }
-        } catch {}
+        } catch { }
       }
       setCameraActive(false);
       setTorchActive(false);
     };
-  }, [isOpen, facingMode, traiterCodeDetecte]);
+  }, [isOpen, facingMode, scanMode, traiterCodeDetecte]);
 
   // Basculer la torche (flash)
   const toggleTorch = async () => {
@@ -246,37 +303,115 @@ export default function ScannerCameraModal({
     setFacingMode((prev) => (prev === "environment" ? "user" : "environment"));
   };
 
-  // Gestion du scan alternatif via fichier / photo
+  // Traitement intelligent d'une photo / image (Code-barres + OCR Boîte)
   const handlePhotoUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
 
     setErreur(null);
+    setOcrEnCours(true);
+    setOcrProgression("Analyse des codes-barres & QR...");
+
     try {
+      let barcodeResult: string | null = null;
       let scanner = scannerRef.current;
       if (!scanner) {
         scanner = new Html5Qrcode(containerId, { verbose: false });
         scannerRef.current = scanner;
       }
-      const decodedText = await scanner.scanFile(file, true);
-      if (decodedText) {
-        traiterCodeDetecte(decodedText);
+
+      // 1. Essai de scan de code-barres / DataMatrix
+      try {
+        barcodeResult = await scanner.scanFile(file, true);
+      } catch {
+        // Pas de code-barres net détecté, on continue vers l'OCR textuel
+      }
+
+      let merged: CodePharmaParse = {
+        raw: barcodeResult || "",
+        code_barres: barcodeResult || "",
+        format: "standard",
+      };
+
+      if (barcodeResult) {
+        merged = parserCodePharma(barcodeResult);
+      }
+
+      // 2. Reconnaissance optique du texte imprimé (OCR)
+      setOcrProgression("Lecture du texte sur la boîte (Lot, Péremption, Prix)...");
+      try {
+        const { recognize } = await import("tesseract.js");
+        const ocrResult = await recognize(file, "fra+eng", {
+          logger: (m) => {
+            if (m.status === "recognizing text") {
+              setOcrProgression(`Lecture du texte (${Math.round((m.progress || 0) * 100)}%)...`);
+            }
+          },
+        });
+
+        const texteExtrait = ocrResult?.data?.text || "";
+        if (texteExtrait.trim()) {
+          const parsedOcr = parserTexteBoiteMedicament(texteExtrait);
+          merged = {
+            raw: merged.raw || texteExtrait,
+            code_barres: merged.code_barres || parsedOcr.code_barres || "",
+            nom: merged.nom || parsedOcr.nom,
+            prix_vente: merged.prix_vente || parsedOcr.prix_vente,
+            lot: merged.lot || parsedOcr.lot,
+            date_peremption: merged.date_peremption || parsedOcr.date_peremption,
+            type_produit: merged.type_produit || parsedOcr.type_produit,
+            format: merged.format || "standard",
+          };
+        }
+      } catch (ocrErr) {
+        console.warn("OCR tesseract non disponible ou interrompu:", ocrErr);
+      }
+
+      // 3. Si on a trouvé un code ou un nom, compléter avec le dictionnaire
+      if (merged.code_barres || merged.nom) {
+        const refDico = chercherDansDictionnaire(merged.code_barres || merged.nom || "");
+        if (refDico) {
+          if (!merged.nom) merged.nom = refDico.nom;
+          if (!merged.prix_vente && refDico.prix_vente_indicatif) {
+            merged.prix_vente = refDico.prix_vente_indicatif;
+          }
+          if (!merged.type_produit) merged.type_produit = refDico.type_produit;
+          if (!merged.code_barres && refDico.code_barres) {
+            merged.code_barres = refDico.code_barres;
+          }
+        }
+      }
+
+      setOcrEnCours(false);
+      setOcrProgression(null);
+
+      // Si des informations clés ont été trouvées, afficher l'aperçu pour validation
+      if (merged.code_barres || merged.nom || merged.lot || merged.date_peremption || merged.prix_vente) {
+        setApercuOcr(merged);
       } else {
-        setErreur("Aucun code QR ni code-barres net détecté sur cette photo.");
+        setErreur("Aucun code-barres ni texte pharmaceutique net détecté. Rapprochez la boîte et veillez à un bon éclairage.");
       }
     } catch (err: any) {
-      console.warn("Erreur scanFile:", err);
-      setErreur("Aucun code-barres ni code QR détecté sur l'image. Rapprochez la boîte et assurez un bon éclairage.");
+      console.warn("Erreur globale handlePhotoUpload:", err);
+      setOcrEnCours(false);
+      setOcrProgression(null);
+      setErreur("Impossible de lire l'image. Veuillez réessayer avec une photo plus nette.");
     } finally {
       if (fileInputRef.current) fileInputRef.current.value = "";
     }
+  };
+
+  const validerApercuOcr = () => {
+    if (!apercuOcr) return;
+    traiterCodeDetecte(apercuOcr.code_barres || "", apercuOcr);
+    setApercuOcr(null);
   };
 
   if (!isOpen) return null;
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/85 backdrop-blur-md overflow-hidden">
-      <div className="relative w-full max-w-lg bg-surface border border-surface-border rounded-3xl shadow-2xl overflow-hidden flex flex-col my-auto max-h-[94vh]">
+      <div className="relative w-full max-w-lg bg-surface border border-surface-border rounded-3xl shadow-2xl overflow-hidden flex flex-col my-auto max-h-[95vh]">
         {/* BANDEAU HAUT */}
         <div className="p-4 border-b border-surface-border flex items-center justify-between bg-surface">
           <div className="flex items-center gap-2.5">
@@ -290,9 +425,36 @@ export default function ScannerCameraModal({
           </div>
           <button
             onClick={onClose}
-            className="p-2 rounded-xl text-foreground-muted hover:text-foreground hover:bg-black/5 dark:hover:bg-white/5 transition"
+            className="p-2 rounded-xl text-foreground-muted hover:text-foreground hover:bg-black/5 dark:hover:bg-white/5 transition cursor-pointer"
           >
             <X className="w-5 h-5" />
+          </button>
+        </div>
+
+        {/* SÉLECTEUR DE MODE DE SCAN */}
+        <div className="grid grid-cols-2 p-2 bg-background/60 gap-1.5 border-b border-surface-border">
+          <button
+            type="button"
+            onClick={() => setScanMode("datamatrix")}
+            className={`flex items-center justify-center gap-1.5 py-2 px-2.5 rounded-xl text-xs font-bold transition cursor-pointer ${scanMode === "datamatrix"
+                ? "bg-emerald-600 text-white shadow-sm"
+                : "text-foreground-muted hover:text-foreground hover:bg-surface"
+              }`}
+          >
+            <QrCode className="w-4 h-4 shrink-0" />
+            <span className="truncate">DataMatrix 2D (Lot + Exp)</span>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => setScanMode("auto")}
+            className={`flex items-center justify-center gap-1.5 py-2 px-2.5 rounded-xl text-xs font-bold transition cursor-pointer ${scanMode === "auto"
+                ? "bg-emerald-600 text-white shadow-sm"
+                : "text-foreground-muted hover:text-foreground hover:bg-surface"
+              }`}
+          >
+            <ScanLine className="w-4 h-4 shrink-0" />
+            <span className="truncate">Code-barres 1D / Tous</span>
           </button>
         </div>
 
@@ -306,21 +468,36 @@ export default function ScannerCameraModal({
 
           {/* Spinner de chargement du flux caméra */}
           {isStarting && (
-            <div className="absolute inset-0 bg-black/80 flex flex-col items-center justify-center gap-2 text-white text-xs z-10">
+            <div className="absolute inset-0 bg-black/85 flex flex-col items-center justify-center gap-2 text-white text-xs z-10">
               <div className="w-8 h-8 border-3 border-emerald-400 border-t-transparent rounded-full animate-spin" />
-              <span>Démarrage du flux caméra en direct...</span>
+              <span>Démarrage du flux caméra haute précision...</span>
+            </div>
+          )}
+
+          {/* Spinner / Barre de progression OCR */}
+          {ocrEnCours && (
+            <div className="absolute inset-0 bg-black/90 flex flex-col items-center justify-center gap-3 text-white text-xs z-30 p-6 text-center">
+              <Loader2 className="w-10 h-10 text-emerald-400 animate-spin" />
+              <div className="font-bold text-sm text-emerald-300">
+                {ocrProgression || "Analyse de la boîte..."}
+              </div>
+              <p className="text-[11px] text-white/70 max-w-xs">
+                Extraction intelligente du Code-barres, Nom, Numéro de Lot, Date de Péremption et Prix...
+              </p>
             </div>
           )}
 
           {/* VISEUR INTERACTIF & ANIMATION LASER */}
-          {cameraActive && !isStarting && (
-            <div className="absolute inset-0 pointer-events-none flex items-center justify-center p-6 z-10">
+          {cameraActive && !isStarting && !ocrEnCours && (
+            <div className="absolute inset-0 pointer-events-none flex flex-col items-center justify-center p-6 z-10">
               <div
-                className={`relative w-64 h-48 sm:w-72 sm:h-52 rounded-2xl border-2 transition-all duration-300 ${
-                  scanReussiAnim
-                    ? "border-emerald-400 bg-emerald-400/20 scale-105 shadow-2xl shadow-emerald-500/50"
+                className={`relative rounded-2xl border-2 transition-all duration-300 ${scanMode === "datamatrix"
+                    ? "w-48 h-48 sm:w-56 sm:h-56"
+                    : "w-64 h-44 sm:w-72 sm:h-48"
+                  } ${scanReussiAnim
+                    ? "border-emerald-400 bg-emerald-400/25 scale-105 shadow-2xl shadow-emerald-500/50"
                     : "border-white/50 shadow-lg"
-                }`}
+                  }`}
               >
                 {/* Coins de cadrage */}
                 <div className="absolute -top-1 -left-1 w-5 h-5 border-t-4 border-l-4 border-emerald-400 rounded-tl-lg" />
@@ -335,15 +512,15 @@ export default function ScannerCameraModal({
 
                 {/* Badge visuel scan réussi */}
                 {scanReussiAnim && (
-                  <div className="absolute inset-0 flex flex-col items-center justify-center p-3 text-white bg-emerald-700/60 backdrop-blur-sm rounded-2xl text-center">
-                    <CheckCircle2 className="w-10 h-10 text-emerald-300 animate-bounce mb-1" />
-                    <span className="font-bold text-sm bg-black/70 px-3 py-1 rounded-full text-emerald-200">
-                      Code détecté !
+                  <div className="absolute inset-0 flex flex-col items-center justify-center p-3 text-white bg-emerald-700/75 backdrop-blur-sm rounded-2xl text-center">
+                    <CheckCircle2 className="w-9 h-9 text-emerald-300 animate-bounce mb-1" />
+                    <span className="font-bold text-xs bg-black/70 px-3 py-1 rounded-full text-emerald-200">
+                      Médicament Identifié !
                     </span>
                     {detailsExtraits && (
-                      <div className="mt-2 text-xs bg-black/80 p-2 rounded-xl border border-emerald-400/30 max-w-full space-y-0.5">
+                      <div className="mt-2 text-xs bg-black/85 p-2 rounded-xl border border-emerald-400/30 max-w-full space-y-1">
                         {detailsExtraits.nom && (
-                          <div className="font-semibold text-white truncate max-w-[200px] sm:max-w-[240px]">
+                          <div className="font-bold text-white truncate max-w-[210px] sm:max-w-[240px]">
                             {detailsExtraits.nom}
                           </div>
                         )}
@@ -351,10 +528,22 @@ export default function ScannerCameraModal({
                           {detailsExtraits.code_barres}
                         </div>
                         {(detailsExtraits.lot || detailsExtraits.date_peremption || detailsExtraits.prix_vente) && (
-                          <div className="flex flex-wrap items-center justify-center gap-1.5 text-[10px] text-white/90 pt-0.5">
-                            {detailsExtraits.lot && <span className="bg-white/20 px-1.5 py-0.5 rounded">Lot: {detailsExtraits.lot}</span>}
-                            {detailsExtraits.date_peremption && <span className="bg-white/20 px-1.5 py-0.5 rounded">Exp: {detailsExtraits.date_peremption}</span>}
-                            {detailsExtraits.prix_vente && <span className="bg-emerald-500/40 px-1.5 py-0.5 rounded font-bold">{detailsExtraits.prix_vente} F</span>}
+                          <div className="flex flex-wrap items-center justify-center gap-1 text-[10px] text-white/95 pt-0.5">
+                            {detailsExtraits.lot && (
+                              <span className="bg-white/20 px-1.5 py-0.5 rounded font-mono">
+                                Lot: {detailsExtraits.lot}
+                              </span>
+                            )}
+                            {detailsExtraits.date_peremption && (
+                              <span className="bg-white/20 px-1.5 py-0.5 rounded font-mono">
+                                Exp: {detailsExtraits.date_peremption}
+                              </span>
+                            )}
+                            {detailsExtraits.prix_vente && (
+                              <span className="bg-emerald-500/40 px-1.5 py-0.5 rounded font-bold">
+                                {detailsExtraits.prix_vente} F
+                              </span>
+                            )}
                           </div>
                         )}
                       </div>
@@ -362,11 +551,119 @@ export default function ScannerCameraModal({
                   </div>
                 )}
               </div>
+
+              {/* Message guide sous le viseur */}
+              {!scanReussiAnim && (
+                <div className="mt-3 bg-black/75 backdrop-blur-sm text-white/90 px-3 py-1 rounded-full text-[11px] text-center font-medium shadow">
+                  {scanMode === "datamatrix"
+                    ? "💡 Visez le code carré 2D pour capturer Code + Lot + Péremption"
+                    : "💡 Alignez le code-barres dans le viseur"}
+                </div>
+              )}
+            </div>
+          )}
+
+          {/* Modal / Aperçu de confirmation OCR */}
+          {apercuOcr && (
+            <div className="absolute inset-0 bg-black/95 z-30 p-4 sm:p-5 flex flex-col justify-between overflow-y-auto text-white">
+              <div className="space-y-3">
+                <div className="flex items-center justify-between border-b border-white/10 pb-2">
+                  <div className="flex items-center gap-2">
+                    <Sparkles className="w-5 h-5 text-emerald-400" />
+                    <span className="font-bold text-sm text-emerald-300">
+                      Informations Détectées sur la Boîte
+                    </span>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => setApercuOcr(null)}
+                    className="p-1 rounded-lg text-white/70 hover:text-white"
+                  >
+                    <X className="w-4 h-4" />
+                  </button>
+                </div>
+
+                <div className="bg-surface/10 border border-white/10 rounded-2xl p-3.5 space-y-2.5 text-xs">
+                  {apercuOcr.nom && (
+                    <div className="flex items-start gap-2">
+                      <FileText className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
+                      <div>
+                        <div className="text-[10px] text-white/60">Nom de l'article :</div>
+                        <div className="font-bold text-sm text-white">{apercuOcr.nom}</div>
+                      </div>
+                    </div>
+                  )}
+
+                  {apercuOcr.code_barres && (
+                    <div className="flex items-start gap-2">
+                      <ScanLine className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
+                      <div>
+                        <div className="text-[10px] text-white/60">Code-barres / CIP :</div>
+                        <div className="font-mono text-emerald-300 font-semibold">
+                          {apercuOcr.code_barres}
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
+                  <div className="grid grid-cols-2 gap-2 pt-1 border-t border-white/10">
+                    <div>
+                      <div className="text-[10px] text-white/60 flex items-center gap-1">
+                        <Layers className="w-3 h-3 text-emerald-400" />
+                        <span>Numéro de Lot :</span>
+                      </div>
+                      <div className="font-mono font-bold text-white text-xs mt-0.5">
+                        {apercuOcr.lot || <span className="text-white/40 italic">Non détecté</span>}
+                      </div>
+                    </div>
+
+                    <div>
+                      <div className="text-[10px] text-white/60 flex items-center gap-1">
+                        <Calendar className="w-3 h-3 text-emerald-400" />
+                        <span>Date Péremption :</span>
+                      </div>
+                      <div className="font-mono font-bold text-white text-xs mt-0.5">
+                        {apercuOcr.date_peremption || <span className="text-white/40 italic">Non détectée</span>}
+                      </div>
+                    </div>
+                  </div>
+
+                  {apercuOcr.prix_vente && (
+                    <div className="pt-1 border-t border-white/10 flex items-center justify-between">
+                      <div className="text-[10px] text-white/60 flex items-center gap-1">
+                        <Tag className="w-3 h-3 text-emerald-400" />
+                        <span>Prix Vente (PPV) :</span>
+                      </div>
+                      <div className="font-bold text-sm text-emerald-400">
+                        {apercuOcr.prix_vente} FCFA
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              <div className="pt-3 flex items-center gap-2">
+                <button
+                  type="button"
+                  onClick={() => setApercuOcr(null)}
+                  className="flex-1 py-2.5 rounded-xl border border-white/20 text-xs font-semibold text-white/80 hover:bg-white/10"
+                >
+                  Reprendre
+                </button>
+                <button
+                  type="button"
+                  onClick={validerApercuOcr}
+                  className="flex-1 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-black font-bold text-xs flex items-center justify-center gap-1.5 shadow-lg shadow-emerald-500/30"
+                >
+                  <Check className="w-4 h-4" />
+                  <span>Valider & Remplir</span>
+                </button>
+              </div>
             </div>
           )}
 
           {/* Message d'erreur caméra si refusée ou indisponible */}
-          {erreur && !scanReussiAnim && (
+          {erreur && !scanReussiAnim && !apercuOcr && (
             <div className="absolute inset-0 bg-black/90 p-6 flex flex-col items-center justify-center text-center text-white z-20">
               <div className="p-3 rounded-full bg-danger/20 text-danger mb-3">
                 <AlertCircle className="w-8 h-8" />
@@ -385,7 +682,7 @@ export default function ScannerCameraModal({
         </div>
 
         {/* BARRE D'ACTIONS & CONTRÔLES */}
-        <div className="p-4 bg-surface border-t border-surface-border space-y-3">
+        <div className="p-3.5 bg-surface border-t border-surface-border space-y-2.5">
           {/* Boutons de contrôle de la caméra */}
           <div className="flex items-center justify-between gap-2">
             <div className="flex items-center gap-2">
@@ -394,11 +691,10 @@ export default function ScannerCameraModal({
                 <button
                   type="button"
                   onClick={toggleTorch}
-                  className={`p-2.5 rounded-xl border text-xs font-bold flex items-center gap-1.5 transition ${
-                    torchActive
+                  className={`p-2.5 rounded-xl border text-xs font-bold flex items-center gap-1.5 transition cursor-pointer ${torchActive
                       ? "bg-amber-500 text-black border-amber-400 shadow-md shadow-amber-500/20"
                       : "bg-background border-surface-border text-foreground hover:bg-surface-border/50"
-                  }`}
+                    }`}
                   title="Allumer / Éteindre le flash"
                 >
                   <Zap className={`w-4 h-4 ${torchActive ? "fill-black" : ""}`} />
@@ -410,7 +706,7 @@ export default function ScannerCameraModal({
               <button
                 type="button"
                 onClick={toggleFacingMode}
-                className="p-2.5 rounded-xl border border-surface-border bg-background hover:bg-surface-border/50 text-foreground text-xs font-bold flex items-center gap-1.5 transition"
+                className="p-2.5 rounded-xl border border-surface-border bg-background hover:bg-surface-border/50 text-foreground text-xs font-bold flex items-center gap-1.5 transition cursor-pointer"
                 title="Changer de caméra (arrière / selfie)"
               >
                 <RotateCcw className="w-4 h-4" />
@@ -418,7 +714,7 @@ export default function ScannerCameraModal({
               </button>
             </div>
 
-            {/* Déclencheur photo alternatif */}
+            {/* Bouton Photo & OCR Boîte (Lecture Texte Lot, Exp, Prix) */}
             <div>
               <input
                 ref={fileInputRef}
@@ -431,11 +727,11 @@ export default function ScannerCameraModal({
               <button
                 type="button"
                 onClick={() => fileInputRef.current?.click()}
-                className="px-3 py-2.5 rounded-xl border border-surface-border bg-background hover:bg-surface-border/50 text-foreground text-xs font-bold flex items-center gap-1.5 transition"
-                title="Prendre une photo avec l'appareil photo du téléphone"
+                className="px-3.5 py-2.5 rounded-xl border border-emerald-500/40 bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-700 dark:text-emerald-300 text-xs font-bold flex items-center gap-2 transition cursor-pointer shadow-sm"
+                title="Prendre une photo du rabat / de la boîte pour extraire Code, Lot, Péremption et Prix"
               >
-                <ImageIcon className="w-4 h-4 text-emerald-500" />
-                <span>Prendre photo</span>
+                <ImageIcon className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
+                <span>Photo Boîte & OCR</span>
               </button>
             </div>
           </div>
@@ -444,7 +740,7 @@ export default function ScannerCameraModal({
           <div className="flex items-center justify-between text-[11px] text-foreground-muted px-1">
             <span className="flex items-center gap-1">
               <ScanLine className="w-3.5 h-3.5 text-emerald-500" />
-              Codes acceptés : QR, DataMatrix GS1, EAN-13
+              GS1 DataMatrix, EAN-13 & Lecture OCR
             </span>
             <span className="font-semibold text-emerald-600 dark:text-emerald-400">
               Détection temps réel

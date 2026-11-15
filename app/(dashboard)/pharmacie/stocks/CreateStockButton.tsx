@@ -23,6 +23,7 @@ export default function CreateStockButton() {
   const [scanFeedback, setScanFeedback] = useState<string | null>(null)
 
   const [scannerOuvert, setScannerOuvert] = useState(false)
+  const [scannerModeInitial, setScannerModeInitial] = useState<"auto" | "datamatrix" | "ocr">("auto")
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
@@ -38,11 +39,11 @@ export default function CreateStockButton() {
     setError(null)
   }
 
-  // Traitement intelligent du scan (QR Code, DataMatrix, Code-barres)
+  // Traitement intelligent du scan (QR Code, DataMatrix GS1, Code-barres, OCR Boîte)
   const handleCodeScanne = async (codeBrut: string, parseResult?: CodePharmaParse) => {
     const parse = parseResult || parserCodePharma(codeBrut)
     const codeNet = parse.code_barres || codeBrut.trim()
-    setCodeBarres(codeNet)
+    if (codeNet) setCodeBarres(codeNet)
 
     const details: string[] = []
 
@@ -53,11 +54,11 @@ export default function CreateStockButton() {
     if (parse.type_produit) {
       setTypeProduit(parse.type_produit as any)
     }
-    if (parse.prix_vente) {
+    if (parse.prix_vente && parse.prix_vente > 0) {
       setPrixVente(parse.prix_vente.toString())
       details.push(`Prix: ${parse.prix_vente} FCFA`)
     }
-    if (parse.prix_achat) {
+    if (parse.prix_achat && parse.prix_achat > 0) {
       setPrixAchat(parse.prix_achat.toString())
     }
     if (parse.lot) {
@@ -69,21 +70,36 @@ export default function CreateStockButton() {
       details.push(`Exp: ${parse.date_peremption}`)
     }
 
-    // Si le nom n'était pas dans le code, chercher si ce médicament existe dans la base ou le dictionnaire
-    if (!parse.nom && codeNet) {
-      const existant = await searchMedicamentByCodeOrName(codeNet)
+    // Compléter les champs manquants en consultant la base de données et le référentiel
+    const rechercheCle = codeNet || parse.nom || ''
+    if (rechercheCle && (!parse.nom || !parse.prix_vente || !parse.lot || !parse.date_peremption)) {
+      const existant = await searchMedicamentByCodeOrName(rechercheCle)
       if (existant) {
-        if (existant.nom) {
+        if (existant.nom && !parse.nom) {
           setNom(existant.nom)
           details.push(existant.nom)
         }
-        if (existant.type_produit) setTypeProduit(existant.type_produit as any)
-        if (existant.prix_vente && !parse.prix_vente) {
+        if (existant.code_barres && !codeNet) {
+          setCodeBarres(existant.code_barres)
+        }
+        if (existant.type_produit && !parse.type_produit) {
+          setTypeProduit(existant.type_produit as any)
+        }
+        if (existant.prix_vente && (!parse.prix_vente || parse.prix_vente <= 0)) {
           setPrixVente(existant.prix_vente.toString())
           details.push(`Prix: ${existant.prix_vente} FCFA`)
         }
-        if (existant.prix_achat && !parse.prix_achat) {
+        if (existant.prix_achat && (!parse.prix_achat || parse.prix_achat <= 0)) {
           setPrixAchat(existant.prix_achat.toString())
+        }
+        if (existant.lot && !parse.lot) {
+          setLot(existant.lot)
+          details.push(`Lot: ${existant.lot}`)
+        }
+        if (existant.date_peremption && !parse.date_peremption) {
+          const dateStr = existant.date_peremption.split('T')[0]
+          setDatePeremption(dateStr)
+          details.push(`Exp: ${dateStr}`)
         }
       }
     }
@@ -91,8 +107,38 @@ export default function CreateStockButton() {
     setScanFeedback(
       details.length > 0
         ? `Informations extraites du scan : ${details.join(' • ')}`
-        : `Code scanné avec succès : ${codeNet}`
+        : `Code scanné avec succès : ${codeNet || codeBrut}`
     )
+  }
+
+  // Auto-complétion lors de la saisie ou scan douchette du code-barres
+  const handleCodeBarresChange = async (val: string) => {
+    setCodeBarres(val)
+    const codeNet = val.trim()
+    if (codeNet.length >= 6) {
+      const existant = await searchMedicamentByCodeOrName(codeNet)
+      if (existant) {
+        if (existant.nom && !nom) setNom(existant.nom)
+        if (existant.type_produit) setTypeProduit(existant.type_produit as any)
+        if (existant.prix_vente && !prixVente) setPrixVente(existant.prix_vente.toString())
+        if (existant.prix_achat && !prixAchat) setPrixAchat(existant.prix_achat.toString())
+        if (existant.lot && !lot) setLot(existant.lot)
+        if (existant.date_peremption && !datePeremption) setDatePeremption(existant.date_peremption.split('T')[0])
+      }
+    }
+  }
+
+  // Auto-complétion lors de la saisie du nom (si code ou prix absent)
+  const handleNomBlur = async () => {
+    if (nom.trim().length >= 3 && (!codeBarres || !prixVente)) {
+      const existant = await searchMedicamentByCodeOrName(nom.trim())
+      if (existant) {
+        if (existant.code_barres && !codeBarres) setCodeBarres(existant.code_barres)
+        if (existant.type_produit) setTypeProduit(existant.type_produit as any)
+        if (existant.prix_vente && !prixVente) setPrixVente(existant.prix_vente.toString())
+        if (existant.prix_achat && !prixAchat) setPrixAchat(existant.prix_achat.toString())
+      }
+    }
   }
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -182,11 +228,10 @@ export default function CreateStockButton() {
                   <button
                     type="button"
                     onClick={() => setTypeProduit('medicament')}
-                    className={`flex flex-col items-center justify-center gap-1 p-2.5 rounded-xl border text-xs font-semibold transition-all cursor-pointer ${
-                      typeProduit === 'medicament'
+                    className={`flex flex-col items-center justify-center gap-1 p-2.5 rounded-xl border text-xs font-semibold transition-all cursor-pointer ${typeProduit === 'medicament'
                         ? 'bg-primary text-white border-primary shadow-sm'
                         : 'bg-background border-surface-border text-foreground hover:bg-surface-border/50'
-                    }`}
+                      }`}
                   >
                     <Pill className="w-4 h-4" />
                     <span>Médicament</span>
@@ -195,11 +240,10 @@ export default function CreateStockButton() {
                   <button
                     type="button"
                     onClick={() => setTypeProduit('materiel')}
-                    className={`flex flex-col items-center justify-center gap-1 p-2.5 rounded-xl border text-xs font-semibold transition-all cursor-pointer ${
-                      typeProduit === 'materiel'
+                    className={`flex flex-col items-center justify-center gap-1 p-2.5 rounded-xl border text-xs font-semibold transition-all cursor-pointer ${typeProduit === 'materiel'
                         ? 'bg-primary text-white border-primary shadow-sm'
                         : 'bg-background border-surface-border text-foreground hover:bg-surface-border/50'
-                    }`}
+                      }`}
                   >
                     <Stethoscope className="w-4 h-4" />
                     <span>Matériel & Fourniture</span>
@@ -208,11 +252,10 @@ export default function CreateStockButton() {
                   <button
                     type="button"
                     onClick={() => setTypeProduit('service')}
-                    className={`flex flex-col items-center justify-center gap-1 p-2.5 rounded-xl border text-xs font-semibold transition-all cursor-pointer ${
-                      typeProduit === 'service'
+                    className={`flex flex-col items-center justify-center gap-1 p-2.5 rounded-xl border text-xs font-semibold transition-all cursor-pointer ${typeProduit === 'service'
                         ? 'bg-primary text-white border-primary shadow-sm'
                         : 'bg-background border-surface-border text-foreground hover:bg-surface-border/50'
-                    }`}
+                      }`}
                   >
                     <Sparkles className="w-4 h-4" />
                     <span>Service Officinal</span>
@@ -225,8 +268,8 @@ export default function CreateStockButton() {
                   {typeProduit === 'service'
                     ? 'Nom du service / prestation *'
                     : typeProduit === 'materiel'
-                    ? 'Désignation du matériel ou fourniture *'
-                    : 'Nom commercial ou DCI du médicament *'}
+                      ? 'Désignation du matériel ou fourniture *'
+                      : 'Nom commercial ou DCI du médicament *'}
                 </label>
                 <input
                   required
@@ -234,13 +277,14 @@ export default function CreateStockButton() {
                   name="nom"
                   value={nom}
                   onChange={(e) => setNom(e.target.value)}
+                  onBlur={handleNomBlur}
                   className={champ}
                   placeholder={
                     typeProduit === 'service'
                       ? 'Ex: Contrôle Glycémie, Prise de Tension, Petit Pansement...'
                       : typeProduit === 'materiel'
-                      ? 'Ex: Déambulateur pliable, Béquilles, Tensiomètre, Boîte de préservatifs...'
-                      : 'Ex: Paracétamol 500mg, Amoxicilline 1g, Arthemeter...'
+                        ? 'Ex: Déambulateur pliable, Béquilles, Tensiomètre, Boîte de préservatifs...'
+                        : 'Ex: Paracétamol 500mg, Amoxicilline 1g, Viscéralgine...'
                   }
                 />
               </div>
@@ -253,11 +297,14 @@ export default function CreateStockButton() {
                     </label>
                     <button
                       type="button"
-                      onClick={() => setScannerOuvert(true)}
+                      onClick={() => {
+                        setScannerModeInitial("auto")
+                        setScannerOuvert(true)
+                      }}
                       className="inline-flex items-center gap-1 text-[11px] font-bold text-emerald-600 dark:text-emerald-400 hover:underline cursor-pointer"
                     >
                       <Camera className="w-3.5 h-3.5" />
-                      <span>Scanner par caméra</span>
+                      <span>Scanner Code (1D/2D)</span>
                     </button>
                   </div>
                   <div className="flex items-center gap-2">
@@ -265,13 +312,22 @@ export default function CreateStockButton() {
                       type="text"
                       name="code_barres"
                       value={codeBarres}
-                      onChange={(e) => setCodeBarres(e.target.value)}
+                      onChange={(e) => handleCodeBarresChange(e.target.value)}
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter') {
+                          e.preventDefault()
+                          handleCodeBarresChange(codeBarres)
+                        }
+                      }}
                       className={champ}
                       placeholder="Scanner ou saisir le code CIP / EAN..."
                     />
                     <button
                       type="button"
-                      onClick={() => setScannerOuvert(true)}
+                      onClick={() => {
+                        setScannerModeInitial("auto")
+                        setScannerOuvert(true)
+                      }}
                       className="p-2.5 rounded-xl border border-surface-border bg-background hover:bg-surface-border/50 text-emerald-600 dark:text-emerald-400 shrink-0 transition cursor-pointer"
                       title="Scanner avec la caméra du smartphone / tablette"
                     >
@@ -349,9 +405,23 @@ export default function CreateStockButton() {
                   </div>
 
                   <div>
-                    <label className="block text-xs font-semibold text-foreground mb-1">
-                      Date de Péremption *
-                    </label>
+                    <div className="flex items-center justify-between mb-1">
+                      <label className="block text-xs font-semibold text-foreground">
+                        Date de Péremption *
+                      </label>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setScannerModeInitial("datamatrix")
+                          setScannerOuvert(true)
+                        }}
+                        className="inline-flex items-center gap-0.5 text-[10px] font-bold text-emerald-600 dark:text-emerald-400 hover:underline cursor-pointer"
+                        title="Scanner le code carré 2D ou la photo du rabat pour extraire la date et le lot"
+                      >
+                        <Camera className="w-3 h-3" />
+                        <span>Scanner</span>
+                      </button>
+                    </div>
                     <input
                       required
                       type="date"
@@ -366,15 +436,29 @@ export default function CreateStockButton() {
 
               {typeProduit === 'medicament' && (
                 <div>
-                  <label className="block text-xs font-semibold text-foreground mb-1">
-                    N° de Lot Fabricant (Optionnel)
-                  </label>
+                  <div className="flex items-center justify-between mb-1">
+                    <label className="block text-xs font-semibold text-foreground">
+                      N° de Lot Fabricant (Optionnel)
+                    </label>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setScannerModeInitial("datamatrix")
+                        setScannerOuvert(true)
+                      }}
+                      className="inline-flex items-center gap-1 text-[10px] font-bold text-emerald-600 dark:text-emerald-400 hover:underline cursor-pointer"
+                      title="Scanner le DataMatrix 2D ou photo du flap pour extraire le numéro de lot"
+                    >
+                      <Camera className="w-3 h-3" />
+                      <span>Scanner Lot & Date</span>
+                    </button>
+                  </div>
                   <input
                     type="text"
                     name="lot"
                     value={lot}
                     onChange={(e) => setLot(e.target.value)}
-                    placeholder="Ex: LOT-2026-X4"
+                    placeholder="Ex: LOT-2026-X4 ou 24K891"
                     className={champ}
                   />
                 </div>
@@ -405,9 +489,18 @@ export default function CreateStockButton() {
       <ScannerCameraModal
         isOpen={scannerOuvert}
         onClose={() => setScannerOuvert(false)}
-        onCodeDetecte={(code) => handleCodeScanne(code)}
-        titre="Scanner pour Entrée en Stock"
-        sousTitre="Scannez le code QR, DataMatrix ou code-barres de la boîte"
+        onCodeDetecte={(code, parseResult) => handleCodeScanne(code, parseResult)}
+        modeInitial={scannerModeInitial}
+        titre={
+          scannerModeInitial === "datamatrix"
+            ? "Scanner Lot, Date & Boîte (DataMatrix 2D)"
+            : "Scanner un Médicament"
+        }
+        sousTitre={
+          scannerModeInitial === "datamatrix"
+            ? "Visez le code carré 2D ou prenez une photo du rabat pour capturer Code + Lot + Péremption"
+            : "Scannez le code-barres 1D ou DataMatrix 2D de la boîte"
+        }
       />
     </>
   )

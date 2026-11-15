@@ -46,6 +46,29 @@ export function normaliserDate(rawDate: string): string | undefined {
     return `${annee}-${mois}-${jour}`;
   }
 
+  // Format MM/YYYY ou MM-YYYY ou MM.YYYY (courant sur boîtes pharmaceutiques)
+  const my4Match = d.match(/^(\d{1,2})[\/\-\.](\d{4})$/);
+  if (my4Match) {
+    const mm = parseInt(my4Match[1], 10);
+    const yyyy = parseInt(my4Match[2], 10);
+    if (mm >= 1 && mm <= 12 && yyyy >= 2000 && yyyy <= 2100) {
+      const dernierJour = new Date(yyyy, mm, 0).getDate();
+      return `${yyyy}-${mm.toString().padStart(2, '0')}-${dernierJour.toString().padStart(2, '0')}`;
+    }
+  }
+
+  // Format MM/YY ou MM-YY (ex: 11/28 ou 05/27)
+  const my2Match = d.match(/^(\d{1,2})[\/\-\.](\d{2})$/);
+  if (my2Match) {
+    const mm = parseInt(my2Match[1], 10);
+    const yy = parseInt(my2Match[2], 10);
+    if (mm >= 1 && mm <= 12) {
+      const yyyy = yy >= 70 ? 1900 + yy : 2000 + yy;
+      const dernierJour = new Date(yyyy, mm, 0).getDate();
+      return `${yyyy}-${mm.toString().padStart(2, '0')}-${dernierJour.toString().padStart(2, '0')}`;
+    }
+  }
+
   // Format YYMMDD (GS1 Healthcare standard)
   const gs1Match = d.match(/^(\d{2})(\d{2})(\d{2})$/);
   if (gs1Match) {
@@ -513,4 +536,102 @@ export function parserCodePharma(texteBrut: string): CodePharmaParse {
   }
 
   return resultat;
+}
+
+/**
+ * Analyse le texte brut extrait par OCR d'une boîte de médicament ou d'une étiquette
+ * pour extraire automatiquement :
+ * - Le numéro de Lot (LOT / BATCH / B.No)
+ * - La date de péremption (EXP / PER / DLUO)
+ * - Le prix de vente étiqueté (PPV / PRIX)
+ * - Le code-barres / CIP (si présent sous forme de chiffres)
+ * - Le nom du médicament (par recherche floue dans le dictionnaire)
+ */
+export function parserTexteBoiteMedicament(texteBrut: string): CodePharmaParse {
+  if (!texteBrut) {
+    return { raw: '', code_barres: '', format: 'standard' };
+  }
+
+  const t = texteBrut.trim();
+  let lot: string | undefined;
+  let date_peremption: string | undefined;
+  let prix_vente: number | undefined;
+  let code_barres: string | undefined;
+  let nom: string | undefined;
+  let type_produit: 'medicament' | 'materiel' | 'service' | undefined = 'medicament';
+
+  // 1. Détection du numéro de Lot
+  const lotMatch = t.match(/(?:LOT|BATCH|B\.?NO|B\/N|N°\s*LOT)[\s\.:\-_]*([A-Z0-9\-_/]{3,20})/i);
+  if (lotMatch) {
+    lot = lotMatch[1].trim();
+  }
+
+  // 2. Détection de la date d'expiration / péremption
+  const expMatch = t.match(/(?:EXP|PER|CAD|DLUO|EXPIRY|VAL|UTILISER\s*AVANT)[\s\.:\-_]*(\d{1,2}[\/\-\.]\d{2,4}|\d{4}[\/\-\.]\d{1,2}[\/\-\.]\d{1,2}|\d{4}[\/\-\.]\d{1,2}|\d{6})/i);
+  if (expMatch) {
+    date_peremption = normaliserDate(expMatch[1]);
+  }
+
+  // Si pas de préfixe explicite mais une date type MM/YYYY ou MM/YY isolée
+  if (!date_peremption) {
+    const genericDateMatch = t.match(/\b(0[1-9]|1[0-2])[\/\-\.](20\d{2}|\d{2})\b/);
+    if (genericDateMatch) {
+      date_peremption = normaliserDate(genericDateMatch[0]);
+    }
+  }
+
+  // 3. Détection du Prix étiqueté (PPV, P.P.V, PRIX, P.V, TARIF, ou montant avec FCFA / F)
+  const prixMatch = t.match(/(?:PPV|P\.P\.V|PRIX|P\.V|TARIF)[\s\.:\-_]*(\d[\d\s]*\d|\d+)\s*(?:F|CFA|FCFA)?/i) ||
+                    t.match(/\b(\d{3,6})\s*(?:FCFA|CFA|F)\b/i);
+  if (prixMatch) {
+    const brut = prixMatch[1].replace(/\s+/g, '');
+    const val = parseFloat(brut);
+    if (!isNaN(val) && val >= 50 && val <= 500000) {
+      prix_vente = val;
+    }
+  }
+
+  // 4. Détection de code-barres numérique (13 ou 14 chiffres, ou 7-8 chiffres)
+  const cbMatch = t.match(/\b(\d{13,14})\b/) || t.match(/\b(\d{7,8})\b/);
+  if (cbMatch) {
+    let cb = cbMatch[1];
+    if (cb.length === 14 && cb.startsWith('0')) cb = cb.substring(1);
+    code_barres = cb;
+  }
+
+  // 5. Recherche du nom du médicament parmi les lignes du texte
+  const lignes = t.split(/[\r\n]+/).map(l => l.trim()).filter(Boolean);
+  for (const ligne of lignes) {
+    if (ligne.length >= 3) {
+      const matchDico = chercherDansDictionnaire(ligne);
+      if (matchDico) {
+        nom = matchDico.nom;
+        if (!code_barres) code_barres = matchDico.code_barres;
+        if (!prix_vente && matchDico.prix_vente_indicatif) prix_vente = matchDico.prix_vente_indicatif;
+        if (matchDico.type_produit) type_produit = matchDico.type_produit;
+        break;
+      }
+    }
+  }
+
+  // 6. Si on a trouvé un code-barres mais pas de nom/prix, enrichir via le dictionnaire
+  if (code_barres && (!nom || !prix_vente)) {
+    const matchDico = chercherDansDictionnaire(code_barres);
+    if (matchDico) {
+      if (!nom) nom = matchDico.nom;
+      if (!prix_vente && matchDico.prix_vente_indicatif) prix_vente = matchDico.prix_vente_indicatif;
+      if (matchDico.type_produit) type_produit = matchDico.type_produit;
+    }
+  }
+
+  return {
+    raw: t,
+    code_barres: code_barres || '',
+    nom,
+    prix_vente,
+    lot,
+    date_peremption,
+    type_produit,
+    format: 'standard'
+  };
 }

@@ -14,6 +14,7 @@ import BilanCaisseModal from './BilanCaisseModal'
 import { ModalEncaissementDirect } from '@/components/ModalEncaissementDirect'
 import ScannerCameraModal from '@/components/ScannerCameraModal'
 import { parserCodePharma, CodePharmaParse } from '@/lib/pharmacie/code-parser'
+import { normaliserTexteComparaison } from '@/lib/pharmacie/dictionnaire-medicaments'
 
 export type Medicament = {
   id: string
@@ -135,10 +136,10 @@ export default function PointDeVenteClient({
 
   const searchInputRef = useRef<HTMLInputElement>(null)
 
-  // Filtrage du catalogue avec tolérance GTIN-13/14 et codes DataMatrix
+  // Filtrage du catalogue avec tolérance GTIN-13/14, codes DataMatrix et insensibilité aux accents
   const filteredMedicaments = initialMedicaments.filter(m => {
-    const term = searchTerm.toLowerCase().trim()
-    if (!term) {
+    const rawTerm = searchTerm.trim()
+    if (!rawTerm) {
       if (selectedCategory === 'tous') return true
       if (selectedCategory === 'service') return m.type_produit === 'service'
       if (selectedCategory === 'materiel') return m.type_produit === 'materiel' || m.type_produit === 'fourniture'
@@ -146,12 +147,17 @@ export default function PointDeVenteClient({
       return true
     }
 
+    const termCode = rawTerm.toLowerCase()
+    const termNorm = normaliserTexteComparaison(rawTerm)
     const medCode = (m.code_barres || '').toLowerCase()
+    const medNomNorm = normaliserTexteComparaison(m.nom)
+
     const matchesSearch =
-      m.nom.toLowerCase().includes(term) ||
+      medNomNorm.includes(termNorm) ||
+      termNorm.includes(medNomNorm) ||
       (medCode && (
-        medCode.includes(term) ||
-        (term.length >= 7 && term.includes(medCode))
+        medCode.includes(termCode) ||
+        (termCode.length >= 7 && termCode.includes(medCode))
       ))
 
     if (!matchesSearch) return false
@@ -183,14 +189,18 @@ export default function PointDeVenteClient({
       const raw = searchTerm.trim()
       const parsed = parserCodePharma(raw)
       const code = (parsed.code_barres || raw).toLowerCase()
+      const termNorm = normaliserTexteComparaison(raw)
 
       const exact = filteredMedicaments.find(m => {
         const medCode = (m.code_barres || '').toLowerCase()
+        const medNomNorm = normaliserTexteComparaison(m.nom)
         return (
           medCode === code ||
-          (code.length >= 7 && (medCode.includes(code) || code.includes(medCode)))
+          (code.length >= 7 && (medCode.includes(code) || code.includes(medCode))) ||
+          medNomNorm === termNorm ||
+          (termNorm.length >= 3 && medNomNorm.includes(termNorm))
         )
-      }) || (parsed.nom ? filteredMedicaments.find(m => m.nom.toLowerCase().includes(parsed.nom!.toLowerCase())) : null)
+      }) || (parsed.nom ? filteredMedicaments.find(m => normaliserTexteComparaison(m.nom).includes(normaliserTexteComparaison(parsed.nom!))) : null)
 
       if (exact) {
         addToCart(exact)
@@ -230,17 +240,21 @@ export default function PointDeVenteClient({
       )
     }
 
-    // 4. Si nom présent dans le QR code / DataMatrix, chercher par nom
+    // 4. Si nom présent dans le QR code / DataMatrix, chercher par nom insensible aux accents
     if (!trouve && nomScanne) {
+      const nomScanneNorm = normaliserTexteComparaison(nomScanne)
       trouve = initialMedicaments.find(
-        m => m.nom.toLowerCase().includes(nomScanne.toLowerCase())
+        m => normaliserTexteComparaison(m.nom).includes(nomScanneNorm) ||
+          nomScanneNorm.includes(normaliserTexteComparaison(m.nom))
       )
     }
 
     // 5. Recherche tolérante si l'utilisateur a scanné un libellé textuel
     if (!trouve && codeNet.length >= 3) {
+      const codeNorm = normaliserTexteComparaison(codeNet)
       trouve = initialMedicaments.find(
-        m => m.nom.toLowerCase().includes(codeNet.toLowerCase())
+        m => normaliserTexteComparaison(m.nom).includes(codeNorm) ||
+          codeNorm.includes(normaliserTexteComparaison(m.nom))
       )
     }
 

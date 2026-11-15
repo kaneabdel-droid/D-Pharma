@@ -103,13 +103,13 @@ export default async function POSPage() {
 
   return (
     <div className="space-y-6">
-      <PointDeVenteClient 
-        initialMedicaments={aggregatedMedicaments} 
+      <PointDeVenteClient
+        initialMedicaments={aggregatedMedicaments}
         comptes={comptesRes.data || []}
         clients={clientsRes.data || []}
         recentVentes={ventesRes.data || []}
-        t={tPos} 
-        locale={locale} 
+        t={tPos}
+        locale={locale}
       />
     </div>
   )

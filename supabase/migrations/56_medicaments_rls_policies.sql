@@ -21,3 +21,4 @@ CREATE POLICY "Authenticated users can update medicaments" ON public.medicaments
 DROP POLICY IF EXISTS "Authenticated users can delete medicaments" ON public.medicaments;
 CREATE POLICY "Authenticated users can delete medicaments" ON public.medicaments
     FOR DELETE TO authenticated USING (true);
+

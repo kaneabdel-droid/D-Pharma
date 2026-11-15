@@ -497,15 +497,24 @@ export async function searchMedicamentByCodeOrName(recherche: string) {
         .limit(1)
         .maybeSingle()
 
+      // Si le stock n'a pas de prix défini, chercher dans le dictionnaire pharmaceutique
+      const refDico = chercherDansDictionnaire(medByCode.code_barres || medByCode.nom)
+      const prixVente = stockRef?.prix_vente && stockRef.prix_vente > 0
+        ? stockRef.prix_vente
+        : refDico?.prix_vente_indicatif || undefined
+      const prixAchat = stockRef?.prix_achat && stockRef.prix_achat > 0
+        ? stockRef.prix_achat
+        : refDico?.prix_achat_indicatif || undefined
+
       return {
         id: medByCode.id,
         nom: medByCode.nom,
         code_barres: medByCode.code_barres,
-        type_produit: medByCode.type_produit || 'medicament',
-        prix_vente: stockRef?.prix_vente,
-        prix_achat: stockRef?.prix_achat,
-        lot: stockRef?.lot,
-        date_peremption: stockRef?.date_peremption
+        type_produit: medByCode.type_produit || refDico?.type_produit || 'medicament',
+        prix_vente: prixVente,
+        prix_achat: prixAchat,
+        lot: stockRef?.lot || undefined,
+        date_peremption: stockRef?.date_peremption || undefined
       }
     }
 
@@ -527,46 +536,77 @@ export async function searchMedicamentByCodeOrName(recherche: string) {
         .limit(1)
         .maybeSingle()
 
+      const refDico = chercherDansDictionnaire(medByName.code_barres || medByName.nom)
+      const prixVente = stockRef?.prix_vente && stockRef.prix_vente > 0
+        ? stockRef.prix_vente
+        : refDico?.prix_vente_indicatif || undefined
+      const prixAchat = stockRef?.prix_achat && stockRef.prix_achat > 0
+        ? stockRef.prix_achat
+        : refDico?.prix_achat_indicatif || undefined
+
       return {
         id: medByName.id,
         nom: medByName.nom,
-        code_barres: medByName.code_barres,
-        type_produit: medByName.type_produit || 'medicament',
-        prix_vente: stockRef?.prix_vente,
-        prix_achat: stockRef?.prix_achat,
-        lot: stockRef?.lot,
-        date_peremption: stockRef?.date_peremption
+        code_barres: medByName.code_barres || q,
+        type_produit: medByName.type_produit || refDico?.type_produit || 'medicament',
+        prix_vente: prixVente,
+        prix_achat: prixAchat,
+        lot: stockRef?.lot || undefined,
+        date_peremption: stockRef?.date_peremption || undefined
       }
     }
 
     // 3. Si non trouvé en base, interroger le dictionnaire pharmaceutique de référence
     const ref = chercherDansDictionnaire(q)
     if (ref) {
+      // Vérifier si un article similaire existe déjà localement pour reprendre son stock ou son id
+      const motCle = ref.nom.split(' ')[0]
+      const { data: medSimilaire } = await supabase
+        .from('medicaments')
+        .select('id, nom, code_barres, type_produit')
+        .ilike('nom', `%${motCle}%`)
+        .limit(1)
+        .maybeSingle()
+
+      let stockExistant: any = null
+      if (medSimilaire) {
+        const { data: s } = await supabase
+          .from('stocks_pharmacie')
+          .select('prix_vente, prix_achat, lot, date_peremption')
+          .eq('medicament_id', medSimilaire.id)
+          .eq('gie_id', tenant.gieId)
+          .order('created_at', { ascending: false })
+          .limit(1)
+          .maybeSingle()
+        stockExistant = s
+      }
+
       return {
-        id: null,
-        nom: ref.nom,
-        code_barres: ref.code_barres,
+        id: medSimilaire?.id || null,
+        nom: medSimilaire?.nom || ref.nom,
+        code_barres: q.length >= 6 ? q : (medSimilaire?.code_barres || ref.code_barres),
         type_produit: ref.type_produit,
-        prix_vente: ref.prix_vente_indicatif,
-        prix_achat: ref.prix_achat_indicatif,
-        lot: null,
-        date_peremption: null
+        prix_vente: stockExistant?.prix_vente || ref.prix_vente_indicatif,
+        prix_achat: stockExistant?.prix_achat || ref.prix_achat_indicatif,
+        lot: stockExistant?.lot || undefined,
+        date_peremption: stockExistant?.date_peremption || undefined
       }
     }
 
     return null
-  } catch {
+  } catch (err) {
+    console.warn('Erreur searchMedicamentByCodeOrName:', err)
     const ref = chercherDansDictionnaire(q)
     if (ref) {
       return {
         id: null,
         nom: ref.nom,
-        code_barres: ref.code_barres,
+        code_barres: ref.code_barres || q,
         type_produit: ref.type_produit,
         prix_vente: ref.prix_vente_indicatif,
         prix_achat: ref.prix_achat_indicatif,
-        lot: null,
-        date_peremption: null
+        lot: undefined,
+        date_peremption: undefined
       }
     }
     return null

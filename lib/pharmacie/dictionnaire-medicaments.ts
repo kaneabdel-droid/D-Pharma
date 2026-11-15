@@ -47,14 +47,84 @@ export const DICTIONNAIRE_PHARMA: Record<string, MedicamentReferentiel> = {
     prix_achat_indicatif: 950,
     categorie: 'Antibactérien'
   },
+  '6118000081760': {
+    code_barres: '6118000081760',
+    nom: 'Viscéralgine 50 mg (Tiémonium méthylsulfate)',
+    dosage: '50 mg',
+    forme: 'Boîte de 20 comprimés',
+    type_produit: 'medicament',
+    prix_vente_indicatif: 1615,
+    prix_achat_indicatif: 1100,
+    categorie: 'Antispasmodique'
+  },
+  '06118000081760': {
+    code_barres: '6118000081760',
+    nom: 'Viscéralgine 50 mg (Tiémonium méthylsulfate)',
+    dosage: '50 mg',
+    forme: 'Boîte de 20 comprimés',
+    type_produit: 'medicament',
+    prix_vente_indicatif: 1615,
+    prix_achat_indicatif: 1100,
+    categorie: 'Antispasmodique'
+  },
   '200000618162': {
     code_barres: '200000618162',
     nom: 'Viscéralgine 50 mg (Tiémonium méthylsulfate)',
     dosage: '50 mg',
     forme: 'Boîte de 20 comprimés',
     type_produit: 'medicament',
-    prix_vente_indicatif: 2200,
-    prix_achat_indicatif: 1500,
+    prix_vente_indicatif: 1615,
+    prix_achat_indicatif: 1100,
+    categorie: 'Antispasmodique'
+  },
+  '0200000618162': {
+    code_barres: '200000618162',
+    nom: 'Viscéralgine 50 mg (Tiémonium méthylsulfate)',
+    dosage: '50 mg',
+    forme: 'Boîte de 20 comprimés',
+    type_produit: 'medicament',
+    prix_vente_indicatif: 1615,
+    prix_achat_indicatif: 1100,
+    categorie: 'Antispasmodique'
+  },
+  '2000006181625': {
+    code_barres: '2000006181625',
+    nom: 'Viscéralgine 50 mg (Tiémonium méthylsulfate)',
+    dosage: '50 mg',
+    forme: 'Boîte de 20 comprimés',
+    type_produit: 'medicament',
+    prix_vente_indicatif: 1615,
+    prix_achat_indicatif: 1100,
+    categorie: 'Antispasmodique'
+  },
+  '3400931181628': {
+    code_barres: '3400931181628',
+    nom: 'Viscéralgine 50 mg (Tiémonium méthylsulfate)',
+    dosage: '50 mg',
+    forme: 'Boîte de 20 comprimés',
+    type_produit: 'medicament',
+    prix_vente_indicatif: 1615,
+    prix_achat_indicatif: 1100,
+    categorie: 'Antispasmodique'
+  },
+  '3400930061816': {
+    code_barres: '3400930061816',
+    nom: 'Viscéralgine 50 mg (Tiémonium méthylsulfate)',
+    dosage: '50 mg',
+    forme: 'Boîte de 20 comprimés',
+    type_produit: 'medicament',
+    prix_vente_indicatif: 1615,
+    prix_achat_indicatif: 1100,
+    categorie: 'Antispasmodique'
+  },
+  '3400930061817': {
+    code_barres: '3400930061817',
+    nom: 'Viscéralgine Sirop 125ml',
+    dosage: '2 mg/ml',
+    forme: 'Flacon de 125 ml',
+    type_produit: 'medicament',
+    prix_vente_indicatif: 1850,
+    prix_achat_indicatif: 1250,
     categorie: 'Antispasmodique'
   },
   '8906067081629': {
@@ -533,45 +603,74 @@ export const DICTIONNAIRE_PHARMA: Record<string, MedicamentReferentiel> = {
 };
 
 /**
+ * Nettoie une chaîne de caractères pour comparaison insensible aux accents, à la casse et à la ponctuation
+ */
+export function normaliserTexteComparaison(texte: string): string {
+  if (!texte) return '';
+  return texte
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '') // Supprime les accents (é -> e, etc.)
+    .toLowerCase()
+    .replace(/[^a-z0-9]/g, ' ') // Remplace la ponctuation par des espaces
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+/**
  * Recherche intelligente dans le dictionnaire pharmaceutique
- * par code-barres exact, GTIN-14, ou par nom (insensible à la casse)
+ * par code-barres exact, GTIN-14, ou par nom (insensible aux accents et à la casse)
  */
 export function chercherDansDictionnaire(query: string): MedicamentReferentiel | null {
   if (!query) return null;
-  const q = query.trim().toLowerCase();
+  const qBrut = query.trim();
+  const qCode = qBrut.toLowerCase();
+  const qNorm = normaliserTexteComparaison(qBrut);
 
-  // 1. Recherche par code exact
-  if (DICTIONNAIRE_PHARMA[query]) {
-    return DICTIONNAIRE_PHARMA[query];
+  // 1. Recherche par code exact direct
+  if (DICTIONNAIRE_PHARMA[qBrut]) {
+    return DICTIONNAIRE_PHARMA[qBrut];
   }
 
   // 2. Recherche si GTIN-14 (enlever le 0 initial pour obtenir le CIP-13)
-  if (q.length === 14 && q.startsWith('0')) {
-    const cip13 = q.substring(1);
+  if (qCode.length === 14 && qCode.startsWith('0')) {
+    const cip13 = qCode.substring(1);
     if (DICTIONNAIRE_PHARMA[cip13]) {
       return DICTIONNAIRE_PHARMA[cip13];
     }
   }
 
   // 3. Recherche inverse (CIP-13 cherché avec 0 devant)
-  if (q.length === 13) {
-    const gtin14 = `0${q}`;
+  if (qCode.length === 13) {
+    const gtin14 = `0${qCode}`;
     if (DICTIONNAIRE_PHARMA[gtin14]) {
       return DICTIONNAIRE_PHARMA[gtin14];
     }
   }
 
-  // 4. Recherche par correspondance sur les clés
+  // 4. Recherche par correspondance sur les clés (codes-barres)
   for (const [code, item] of Object.entries(DICTIONNAIRE_PHARMA)) {
-    if (code.toLowerCase() === q || (q.length >= 7 && (code.includes(q) || q.includes(code)))) {
+    const codeLow = code.toLowerCase();
+    if (codeLow === qCode || (qCode.length >= 7 && (codeLow.includes(qCode) || qCode.includes(codeLow)))) {
       return item;
     }
   }
 
-  // 5. Recherche par nom (correspondance floue)
-  for (const item of Object.values(DICTIONNAIRE_PHARMA)) {
-    if (item.nom.toLowerCase().includes(q) || q.includes(item.nom.toLowerCase())) {
-      return item;
+  // 5. Recherche par nom (insensible aux accents, à la casse et aux espaces)
+  if (qNorm.length >= 2) {
+    const qMots = qNorm.split(' ').filter(m => m.length >= 2);
+
+    for (const item of Object.values(DICTIONNAIRE_PHARMA)) {
+      const nomNorm = normaliserTexteComparaison(item.nom);
+
+      // Correspondance exacte ou inclusion globale
+      if (nomNorm.includes(qNorm) || qNorm.includes(nomNorm)) {
+        return item;
+      }
+
+      // Si recherche multi-mots (ex: "visceralgine 50" ou "phartrim comprimés")
+      if (qMots.length > 0 && qMots.every(mot => nomNorm.includes(mot))) {
+        return item;
+      }
     }
   }
 

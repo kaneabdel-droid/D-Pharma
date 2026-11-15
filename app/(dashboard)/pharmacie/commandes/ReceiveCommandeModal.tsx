@@ -10,6 +10,7 @@ import {
 import { accuserReception } from './actions'
 import ScannerCameraModal from '@/components/ScannerCameraModal'
 import { parserCodePharma, CodePharmaParse } from '@/lib/pharmacie/code-parser'
+import { normaliserTexteComparaison } from '@/lib/pharmacie/dictionnaire-medicaments'
 
 type CommandeLigne = {
   id: string
@@ -230,12 +231,13 @@ export default function ReceiveCommandeModal({
         (l.code_barres && code.length >= 8 && (l.code_barres.includes(code) || code.includes(l.code_barres)))
     )
 
-    // Si pas trouvé par code-barres et qu'un nom est présent dans le code/dictionnaire, chercher par nom
+    // Si pas trouvé par code-barres et qu'un nom est présent dans le code/dictionnaire, chercher par nom insensible aux accents
     if (matchingLots.length === 0 && nomScanne) {
-      matchingLots = lots.filter(l =>
-        l.nom.toLowerCase().includes(nomScanne.toLowerCase()) ||
-        nomScanne.toLowerCase().includes(l.nom.toLowerCase())
-      )
+      const nomScanneNorm = normaliserTexteComparaison(nomScanne)
+      matchingLots = lots.filter(l => {
+        const lotNomNorm = normaliserTexteComparaison(l.nom)
+        return lotNomNorm.includes(nomScanneNorm) || nomScanneNorm.includes(lotNomNorm)
+      })
     }
 
     if (matchingLots.length > 0) {
@@ -828,8 +830,9 @@ export default function ReceiveCommandeModal({
         isOpen={scannerCameraOuvert}
         onClose={() => setScannerCameraOuvert(false)}
         onCodeDetecte={(code, parseResult) => processBarcodeScan(code, parseResult)}
-        titre="Scanner Réception Grossiste"
-        sousTitre="Scannez les boîtes livrées par le grossiste pour pointer les quantités"
+        modeInitial="datamatrix"
+        titre="Scanner Réception Grossiste (DataMatrix 2D / 1D)"
+        sousTitre="Visez le code carré 2D de la boîte pour pointer automatiquement Lot, Péremption et Quantité"
       />
     </>
   )
