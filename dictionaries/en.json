@@ -903,71 +903,98 @@
     "closing": [
       {
         "id": "closing-abonnements",
-        "title": "Formules d’abonnement D-PHARMA",
+        "title": "D-PHARMA Subscription Plans",
         "blocks": [
           {
-            "p": "Trois forfaits évolutifs selon la taille de votre officine :"
+            "p": "Two transparent plans tailored to your pharmacy needs, billed annually with no extra cost per terminal:"
+          },
+          {
+            "cards": [
+              {
+                "t": "Standard Tier — 100,000 FCFA / year",
+                "x": "Complete pharmacy workflow informatization: Touchscreen POS & ultra-fast barcode scanner (< 2s), inventory & batch traceability, strict expiry monitoring (90-day alerts), wholesaler procurement orders (Laborex, Ubipharm, Copharbiotec), delivery reception check, returns & credits, daily cash register, and co-pay/insurance tracking."
+              },
+              {
+                "t": "Premium Tier — 120,000 FCFA / year (Recommended)",
+                "x": "Comprehensive pharmacy management including all Standard features + full SYSCOHADA accounting (General Ledger, Trial Balance), automated VAT tax declarations (DGID Senegal), real-time margin analysis, and 7/7 priority technical support."
+              }
+            ]
           },
           {
             "table": {
               "head": [
-                "Fonctionnalité",
-                "Standard",
-                "Medium",
-                "Premium"
+                "Feature",
+                "Standard (100k F/yr)",
+                "Premium (120k F/yr)"
               ],
               "rows": [
                 [
-                  "Point de Vente (POS) & Scanner",
-                  "✓",
-                  "✓",
-                  "✓"
-                ],
-                [
-                  "Gestion des stocks & Lots",
-                  "✓",
+                  "Touchscreen POS & ultra-fast barcode scanner",
                   "✓",
                   "✓"
                 ],
                 [
-                  "Surveillance des péremptions (90j)",
-                  "✓",
-                  "✓",
-                  "✓"
-                ],
-                [
-                  "Journal de caisse & Soldes",
-                  "✓",
+                  "Complete stock, batch & traceability management",
                   "✓",
                   "✓"
                 ],
                 [
-                  "Portail citoyen sans prix",
-                  "✓",
+                  "Expiry monitoring (90-day anti-waste alerts)",
                   "✓",
                   "✓"
                 ],
                 [
-                  "Commandes grossistes & labos",
+                  "Wholesaler orders (Laborex, Ubipharm, Copharbiotec)",
+                  "✓",
+                  "✓"
+                ],
+                [
+                  "Delivery point-check & Wholesaler returns",
+                  "✓",
+                  "✓"
+                ],
+                [
+                  "Daily cash register & multi-payment (Wave, OM, Cash)",
+                  "✓",
+                  "✓"
+                ],
+                [
+                  "Account customers, credit books & Co-pay / Insurance",
+                  "✓",
+                  "✓"
+                ],
+                [
+                  "Public medicine availability portal (without prices)",
+                  "✓",
+                  "✓"
+                ],
+                [
+                  "100% offline resilient PWA operation",
+                  "✓",
+                  "✓"
+                ],
+                [
+                  "SYSCOHADA general accounting (Journal, Ledger, Balance)",
                   "—",
-                  "✓",
                   "✓"
                 ],
                 [
-                  "Pointage des réceptions",
-                  "—",
-                  "✓",
-                  "✓"
-                ],
-                [
-                  "Trésorerie analytique & Imputations",
-                  "—",
+                  "Automated VAT tax filing (DGID Senegal)",
                   "—",
                   "✓"
                 ],
                 [
-                  "Rapports de marge avancés",
+                  "Income statement & Real-time margin analytics",
                   "—",
+                  "✓"
+                ],
+                [
+                  "Analytical treasury & Bank reconciliation",
+                  "—",
+                  "✓"
+                ],
+                [
+                  "Priority technical support 7/7",
                   "—",
                   "✓"
                 ]

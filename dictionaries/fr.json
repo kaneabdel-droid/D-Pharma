@@ -906,68 +906,95 @@
         "title": "Formules d’abonnement D-PHARMA",
         "blocks": [
           {
-            "p": "Trois forfaits évolutifs selon la taille de votre officine :"
+            "p": "Deux formules transparentes et adaptées à vos besoins, facturées annuellement sans aucun surcoût par poste ou comptoir supplémentaire :"
+          },
+          {
+            "cards": [
+              {
+                "t": "Niveau Standard — 100.000 FCFA / an",
+                "x": "Informatisation complète du cœur de métier officinal : Point de Vente (POS) tactile & scan code-barres ultra-rapide (< 2s), gestion des stocks et traçabilité par lots, contrôle strict des péremptions (alertes 90j), commandes d’approvisionnement grossistes (Laborex, Ubipharm, Copharbiotec), pointage des réceptions, retours & avoirs fournisseurs, caisse quotidienne et suivi Tiers-Payant / IPM."
+              },
+              {
+                "t": "Niveau Premium — 120.000 FCFA / an (Recommandé)",
+                "x": "Gestion intégrale d’officine incluant toutes les fonctionnalités Standard + la Comptabilité générale SYSCOHADA (Partie double pure, Journal, Grand Livre, Balance), la Déclaration automatisée de TVA conforme DGID Sénégal, le Compte de résultat & Analyse de marge en temps réel et l’assistance prioritaire 7j/7."
+              }
+            ]
           },
           {
             "table": {
               "head": [
                 "Fonctionnalité",
-                "Standard",
-                "Medium",
-                "Premium"
+                "Standard (100.000 F/an)",
+                "Premium (120.000 F/an)"
               ],
               "rows": [
                 [
-                  "Point de Vente (POS) & Scanner",
-                  "✓",
-                  "✓",
-                  "✓"
-                ],
-                [
-                  "Gestion des stocks & Lots",
-                  "✓",
+                  "Point de Vente (POS) tactile & Scanner ultra-rapide",
                   "✓",
                   "✓"
                 ],
                 [
-                  "Surveillance des péremptions (90j)",
-                  "✓",
-                  "✓",
-                  "✓"
-                ],
-                [
-                  "Journal de caisse & Soldes",
-                  "✓",
+                  "Gestion des stocks, lots & traçabilité complète",
                   "✓",
                   "✓"
                 ],
                 [
-                  "Portail citoyen sans prix",
-                  "✓",
+                  "Surveillance des péremptions (alertes 90j anti-gaspillage)",
                   "✓",
                   "✓"
                 ],
                 [
-                  "Commandes grossistes & labos",
+                  "Commandes grossistes (Laborex, Ubipharm, Copharbiotec)",
+                  "✓",
+                  "✓"
+                ],
+                [
+                  "Pointage des réceptions & Retours grossistes",
+                  "✓",
+                  "✓"
+                ],
+                [
+                  "Journal de caisse & Encaissements multi-modes (Wave, OM, Cash)",
+                  "✓",
+                  "✓"
+                ],
+                [
+                  "Clients en compte, carnets de crédit & Tiers-Payant (IPM, Mutuelles)",
+                  "✓",
+                  "✓"
+                ],
+                [
+                  "Portail citoyen de disponibilité des médicaments (sans prix)",
+                  "✓",
+                  "✓"
+                ],
+                [
+                  "Fonctionnement 100% hors-ligne (PWA) résilient",
+                  "✓",
+                  "✓"
+                ],
+                [
+                  "Comptabilité générale SYSCOHADA (Journal, Grand Livre, Balance)",
                   "—",
-                  "✓",
                   "✓"
                 ],
                 [
-                  "Pointage des réceptions",
-                  "—",
-                  "✓",
-                  "✓"
-                ],
-                [
-                  "Trésorerie analytique & Imputations",
-                  "—",
+                  "Déclaration fiscale de TVA conforme DGID Sénégal",
                   "—",
                   "✓"
                 ],
                 [
-                  "Rapports de marge avancés",
+                  "Compte de résultat & Analyse de marge en temps réel",
                   "—",
+                  "✓"
+                ],
+                [
+                  "Trésorerie analytique & Rapprochement bancaire",
+                  "—",
+                  "✓"
+                ],
+                [
+                  "Assistance technique prioritaire dédiée 7j/7",
                   "—",
                   "✓"
                 ]

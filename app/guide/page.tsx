@@ -102,13 +102,28 @@ function Blocs({ blocs, g }: { blocs: Bloc[]; g: Guide }) {
             <table className="w-full min-w-[480px] text-sm">
               <thead>
                 <tr className="bg-background">
-                  {b.table.head.map((h, k) => <th key={k} className="px-4 py-3 text-start font-semibold">{h}</th>)}
+                  {b.table.head.map((h, k) => (
+                    <th key={k} className={`px-4 py-3 font-semibold ${k === 0 ? 'text-start' : 'text-center'}`}>
+                      {h}
+                    </th>
+                  ))}
                 </tr>
               </thead>
               <tbody>
                 {b.table.rows.map((r, k) => (
                   <tr key={k} className="border-t border-surface-border">
-                    {r.map((c, j) => <td key={j} className={`px-4 py-3 ${j > 0 ? (c === '✓' ? 'font-bold text-primary' : 'text-foreground-muted') : ''}`}>{c}</td>)}
+                    {r.map((c, j) => (
+                      <td
+                        key={j}
+                        className={`px-4 py-3 ${
+                          j > 0
+                            ? `text-center ${c === '✓' ? 'font-bold text-primary text-base' : 'text-foreground-muted'}`
+                            : 'font-medium text-foreground'
+                        }`}
+                      >
+                        {c}
+                      </td>
+                    ))}
                   </tr>
                 ))}
               </tbody>
