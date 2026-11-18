@@ -83,7 +83,13 @@ export default function EditStockPriceModal({ stock }: { stock: StockItem }) {
 
   const handleCodeScanneModif = async (codeBrut: string, parseResult?: CodePharmaParse) => {
     const parse = parseResult || parserCodePharma(codeBrut)
-    const codeNet = parse.code_barres || codeBrut.trim()
+    let codeNet = parse.code_barres || codeBrut.trim()
+    if (codeNet.length > 14) {
+      const matchCip = codeNet.match(/(?:034009\d{8}|34009\d{8}|\d{13})/);
+      if (matchCip) {
+        codeNet = matchCip[0].length === 14 && matchCip[0].startsWith('0') ? matchCip[0].substring(1) : matchCip[0];
+      }
+    }
     setCodeBarres(codeNet)
 
     const details: string[] = []

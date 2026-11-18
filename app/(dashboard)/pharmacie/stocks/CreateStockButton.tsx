@@ -48,7 +48,14 @@ export default function CreateStockButton() {
   // Traitement intelligent du scan (QR Code, DataMatrix GS1, Code-barres, OCR Boîte)
   const handleCodeScanne = async (codeBrut: string, parseResult?: CodePharmaParse) => {
     const parse = parseResult || parserCodePharma(codeBrut)
-    const codeNet = parse.code_barres || codeBrut.trim()
+    let codeNet = parse.code_barres || codeBrut.trim()
+    // Sécurité absolue : si le codeNet extrait dépasse 14 caractères, extraire uniquement le CIP/GTIN pur
+    if (codeNet.length > 14) {
+      const matchCip = codeNet.match(/(?:034009\d{8}|34009\d{8}|\d{13})/);
+      if (matchCip) {
+        codeNet = matchCip[0].length === 14 && matchCip[0].startsWith('0') ? matchCip[0].substring(1) : matchCip[0];
+      }
+    }
     if (codeNet) setCodeBarres(codeNet)
 
     const details: string[] = []
@@ -131,7 +138,7 @@ export default function CreateStockButton() {
 
     // Détection immédiate si scan d'un QR code, GS1 DataMatrix ou chaîne composite (avec lot, exp, gtin)
     const parse = parserCodePharma(codeNet)
-    if (parse.code_barres && (parse.lot || parse.date_peremption || parse.format !== 'standard' || codeNet.length > 20)) {
+    if (parse.code_barres && (parse.lot || parse.date_peremption || parse.format !== 'standard' || codeNet.length > 14)) {
       handleCodeScanne(codeNet, parse)
       return
     }

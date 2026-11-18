@@ -68,6 +68,12 @@ export function normaliserDate(rawDate: string): string | undefined {
   // Déjà au format YYYY-MM-DD
   if (/^\d{4}-\d{2}-\d{2}$/.test(d)) return d;
 
+  // Format YYYYMMDD (ex: 20281231)
+  const ymd8Match = d.match(/^(20\d{2})(0[1-9]|1[0-2])([0-2]\d|3[01])$/);
+  if (ymd8Match) {
+    return fabriquerDateFinMois(parseInt(ymd8Match[1], 10), parseInt(ymd8Match[2], 10), parseInt(ymd8Match[3], 10));
+  }
+
   // Format DD/MM/YYYY ou DD-MM-YYYY ou DD.MM.YYYY
   const frMatch = d.match(/^(\d{1,2})[\/\-\.](\d{1,2})[\/\-\.](\d{4})$/);
   if (frMatch) {
@@ -180,6 +186,20 @@ export function extraireDatePeremptionBoite(texte: string): string | undefined {
   // 2. Si pas de préfixe explicite, ignorer d'abord les mentions de fabrication (FAB, MFG, PROD)
   const sansFab = texte.replace(/(?:FAB|MFG|PROD|FABRICATION|DATE\s*FAB|MFR)[\s\.:\-_|]*([^\r\n]{2,20})/gi, ' ');
 
+  // Chercher YYYY-MM-DD ou YYYY/MM/DD ou YYYY.MM.DD (format ISO)
+  const isoMatch = sansFab.match(/\b(20[2-3]\d)[\/\-\.](0[1-9]|1[0-2])[\/\-\.]([0-2]?\d|3[01])\b/);
+  if (isoMatch) {
+    const d = normaliserDate(`${isoMatch[1]}-${isoMatch[2]}-${isoMatch[3]}`);
+    if (d) return d;
+  }
+
+  // Chercher YYYYMMDD (8 chiffres collés 20240101-20391231)
+  const ymd8 = sansFab.match(/\b(20[2-3]\d)(0[1-9]|1[0-2])([0-2]\d|3[01])\b/);
+  if (ymd8) {
+    const d = normaliserDate(ymd8[0]);
+    if (d) return d;
+  }
+
   // Chercher d'abord format Jour + Mois textuel + Année (ex: "15 Nov 2027", "15-NOV-27")
   const dayMoisTextRegex = /\b([0-2]?\d|3[01])[\s\.\/\-_|]+(JAN|JANV|FEV|FEVR|FEB|MAR|MARS|APR|AVR|MAY|MAI|JUN|JUIN|JUL|JUIL|AOU|AOUT|AUG|SEP|SEPT|OCT|NOV|DEC)[\s\.\/\-_|]+(20\d{2}|\d{2})\b/i;
   const dmtMatch = sansFab.match(dayMoisTextRegex);
@@ -224,10 +244,23 @@ export function extraireDatePeremptionBoite(texte: string): string | undefined {
 }
 
 /**
+ * Nettoie et normalise un code-barres / CIP :
+ * Si GTIN-14 commençant par 0, extrait le CIP-13.
+ */
+export function nettoyerCodeBarres(rawCode: string | undefined): string | undefined {
+  if (!rawCode) return undefined;
+  let code = String(rawCode).trim().replace(/^\][a-zA-Z][0-9]/, '').replace(/[\s\-_]/g, '');
+  if (code.length === 14 && code.startsWith('0')) {
+    code = code.substring(1);
+  }
+  return code;
+}
+
+/**
  * Décode un code 2D pharmaceutique universel : GS1 DataMatrix, GS1 QR Code,
  * GS1 Digital Link (URL), QR code délimité (CSV/point-virgule), ou clé-valeur.
- * Extrait automatiquement et sépare :
- * - Le Code-barres / GTIN / CIP-13
+ * Extrait automatiquement et sépare rigoureusement :
+ * - Le Code-barres / GTIN / CIP-13 propre (jamais la chaîne composite)
  * - Le Numéro de Lot (AI 10)
  * - La Date de Péremption (AI 17)
  */
@@ -235,19 +268,22 @@ export function parserGS1DataMatrix(texte: string): Partial<CodePharmaParse> | n
   if (!texte) return null;
 
   let raw = texte.trim();
-  // Supprimer tout préfixe de symbologie (ex: ]d2 pour DataMatrix GS1, ]Q3 pour QR GS1, ]C1 pour Code 128 GS1)
-  let clean = raw.replace(/^\][a-zA-Z0-9]{2}/, '');
-  // Remplacer les caractères de contrôle FNC1 (ASCII 29 GS, ASCII 30 RS, ASCII 4 EOT) et retours à la ligne par '|'
-  clean = clean.replace(/[\x1d\x1e\x04\t\r\n]/g, '|').trim();
+  // 1. Supprimer préfixe de symbologie ISO AIM (ex: ]d2 pour DataMatrix, ]Q3 pour QR, ]C1 pour Code 128)
+  let clean = raw.replace(/^\][a-zA-Z][0-9]/, '').trim();
+
+  // 2. Remplacer les caractères de contrôle FNC1 (ASCII 29 GS, ASCII 30 RS, ASCII 4 EOT, ^], ~29, \t, \r, \n) par '|'
+  clean = clean.replace(/[\x1d\x1e\x04\t\r\n]/g, '|');
+  clean = clean.replace(/\^\]/g, '|');
+  clean = clean.replace(/~d029|~29/g, '|');
 
   let code_barres: string | undefined;
   let expDate: string | undefined;
   let lot: string | undefined;
 
-  // Cas 1 : Avec parenthèses explicites (01)...(17)...(10)... ou crochets [01]...[17]...[10]...
+  // CAS A : Format avec parenthèses explicites (01)...(17)...(10)... ou crochets [01]...[17]...[10]...
   if (clean.includes('(01)') || clean.includes('(17)') || clean.includes('(10)') || clean.includes('[01]')) {
     const m01 = clean.match(/[\(\[]01[\)\]](\d{13,14})/);
-    if (m01) code_barres = m01[1].length === 14 && m01[1].startsWith('0') ? m01[1].substring(1) : m01[1];
+    if (m01) code_barres = nettoyerCodeBarres(m01[1]);
 
     const m17 = clean.match(/[\(\[]17[\)\]](\d{6})/);
     if (m17) expDate = normaliserDate(m17[1]);
@@ -256,13 +292,12 @@ export function parserGS1DataMatrix(texte: string): Partial<CodePharmaParse> | n
     if (m10) lot = m10[1].trim();
   }
 
-  // Cas 2 : GS1 Digital Link (URL QR Code Web standard de GS1 Healthcare)
-  // Ex: https://id.gs1.org/01/03400935987102/17/261130/10/LOT459 ou query ?17=261130&10=LOT459
+  // CAS B : GS1 Digital Link (URL standard GS1)
+  // Ex: https://id.gs1.org/01/03400935955838/17/261130/10/LOT459
   if (!code_barres && (clean.includes('/01/') || clean.startsWith('http'))) {
     const mUrl01 = clean.match(/\/01\/(\d{13,14})/);
-    if (mUrl01) {
-      code_barres = mUrl01[1].length === 14 && mUrl01[1].startsWith('0') ? mUrl01[1].substring(1) : mUrl01[1];
-    }
+    if (mUrl01) code_barres = nettoyerCodeBarres(mUrl01[1]);
+
     const mUrl17 = clean.match(/(?:\/17\/|[\?\&]17=)(\d{6})/);
     if (mUrl17) expDate = normaliserDate(mUrl17[1]);
 
@@ -276,27 +311,62 @@ export function parserGS1DataMatrix(texte: string): Partial<CodePharmaParse> | n
     }
   }
 
-  // Cas 3 : Format continu GS1 brut des boîtes de médicaments (commençant par 01...)
-  // Ex: 01034009359871021726113010LOT459 ou 01060098198507871727113010PH789
+  // CAS C : Préfixes AI explicites séparés par espaces ou deux-points (ex: "01 03400935955838 17 261130 10 LOT459" ou "01:03400935955838 17:261130 10:LOT459")
+  if (!code_barres && /(?:^|[\s|;])01[\s:]+\d{13,14}/.test(clean)) {
+    const m01 = clean.match(/(?:^|[\s|;])01[\s:]+(\d{13,14})/);
+    if (m01) code_barres = nettoyerCodeBarres(m01[1]);
+
+    const m17 = clean.match(/(?:^|[\s|;])17[\s:]+(\d{6})/);
+    if (m17) expDate = normaliserDate(m17[1]);
+
+    const m10 = clean.match(/(?:^|[\s|;])10[\s:]+([^\s|;]+)/);
+    if (m10) lot = m10[1].trim();
+  }
+
+  // CAS D : Format continu GS1 brut des boîtes de médicaments (commençant par 01...)
+  // Ex: 01034009359558381726113010LOT459 ou 0134009359558381726113010LOT459
   if (!code_barres && /^01\d{13,14}/.test(clean)) {
-    const mLen14 = clean.match(/^01(\d{14})(.*)$/);
-    const mLen13 = !mLen14 ? clean.match(/^01(\d{13})(.*)$/) : null;
-    const match01 = mLen14 || mLen13;
+    let gtinStr = '';
+    let reste = '';
 
-    if (match01) {
-      const gtin = match01[1];
-      code_barres = gtin.length === 14 && gtin.startsWith('0') ? gtin.substring(1) : gtin;
-      let reste = match01[2];
+    // Vérifier si 14 chiffres commençant par 0 : GTIN-14 standard
+    if (/^010\d{13}/.test(clean)) {
+      gtinStr = clean.substring(3, 16); // 13 chiffres du CIP sans le 0 initial
+      reste = clean.substring(16);
+    } else if (/^01\d{13}17\d{6}/.test(clean)) {
+      // Cas 13 chiffres sans 0 initial suivi immédiatement de AI 17
+      gtinStr = clean.substring(2, 15);
+      reste = clean.substring(15);
+    } else if (/^01\d{13}10/.test(clean)) {
+      // Cas 13 chiffres suivi de AI 10
+      gtinStr = clean.substring(2, 15);
+      reste = clean.substring(15);
+    } else if (/^01\d{13}21/.test(clean)) {
+      // Cas 13 chiffres suivi de AI 21
+      gtinStr = clean.substring(2, 15);
+      reste = clean.substring(15);
+    } else {
+      // Standard : 14 chiffres
+      const mLen14 = clean.match(/^01(\d{14})(.*)$/);
+      if (mLen14) {
+        gtinStr = nettoyerCodeBarres(mLen14[1]) || '';
+        reste = mLen14[2];
+      }
+    }
 
+    if (gtinStr) {
+      code_barres = gtinStr;
+
+      // Parcourir le reste séquentiellement
       while (reste.length > 0) {
-        if (reste.startsWith('|')) {
+        if (reste.startsWith('|') || reste.startsWith(' ')) {
           reste = reste.substring(1);
           continue;
         }
 
         // AI 17 : Date d'expiration (6 chiffres YYMMDD)
         if (reste.startsWith('17') && reste.length >= 8 && /^\d{6}/.test(reste.substring(2, 8))) {
-          expDate = normaliserDate(reste.substring(2, 8));
+          if (!expDate) expDate = normaliserDate(reste.substring(2, 8));
           reste = reste.substring(8);
           continue;
         }
@@ -310,21 +380,21 @@ export function parserGS1DataMatrix(texte: string): Partial<CodePharmaParse> | n
         // AI 10 : Numéro de lot
         if (reste.startsWith('10')) {
           const sansPrefixe = reste.substring(2);
-          const endIdx = sansPrefixe.indexOf('|');
-          if (endIdx !== -1) {
-            lot = sansPrefixe.substring(0, endIdx).trim();
-            reste = sansPrefixe.substring(endIdx + 1);
+          const endIdx = sansPrefixe.search(/[\|\s]/);
+          // Chercher si un autre AI (17 ou 21) est collé sans séparateur
+          const next17 = sansPrefixe.search(/(?:17\d{6})/);
+          const next21 = sansPrefixe.search(/(?:21[A-Za-z0-9])/);
+          let cut = -1;
+          if (endIdx !== -1) cut = endIdx;
+          if (next17 !== -1 && (cut === -1 || next17 < cut)) cut = next17;
+          if (next21 !== -1 && (cut === -1 || next21 < cut)) cut = next21;
+
+          if (cut !== -1) {
+            if (!lot) lot = sansPrefixe.substring(0, cut).trim();
+            reste = sansPrefixe.substring(cut);
           } else {
-            const next17 = sansPrefixe.search(/17\d{6}/);
-            const next21 = sansPrefixe.search(/21[A-Za-z0-9]/);
-            const cut = next17 !== -1 ? next17 : next21;
-            if (cut !== -1) {
-              lot = sansPrefixe.substring(0, cut).trim();
-              reste = sansPrefixe.substring(cut);
-            } else {
-              lot = sansPrefixe.trim();
-              reste = '';
-            }
+            if (!lot) lot = sansPrefixe.trim();
+            reste = '';
           }
           continue;
         }
@@ -332,9 +402,16 @@ export function parserGS1DataMatrix(texte: string): Partial<CodePharmaParse> | n
         // AI 21 : Numéro de série
         if (reste.startsWith('21')) {
           const sansPrefixe = reste.substring(2);
-          const endIdx = sansPrefixe.indexOf('|');
-          if (endIdx !== -1) {
-            reste = sansPrefixe.substring(endIdx + 1);
+          const endIdx = sansPrefixe.search(/[\|\s]/);
+          const next17 = sansPrefixe.search(/(?:17\d{6})/);
+          const next10 = sansPrefixe.search(/(?:10[A-Za-z0-9])/);
+          let cut = -1;
+          if (endIdx !== -1) cut = endIdx;
+          if (next17 !== -1 && (cut === -1 || next17 < cut)) cut = next17;
+          if (next10 !== -1 && (cut === -1 || next10 < cut)) cut = next10;
+
+          if (cut !== -1) {
+            reste = sansPrefixe.substring(cut);
           } else {
             reste = '';
           }
@@ -346,37 +423,74 @@ export function parserGS1DataMatrix(texte: string): Partial<CodePharmaParse> | n
     }
   }
 
-  // Cas 4 : QR Code multi-champs (délimité par ';' ou '|' ou retours de ligne, ou mots-clés LOT / EXP)
+  // CAS E : Analyse libre pour tout QR code / DataMatrix contenant un CIP et des métadonnées (Lot, Exp)
   if (!code_barres || !lot || !expDate) {
+    // 1. Chercher un code-barres / CIP (13 ou 14 chiffres, ou commençant par 34009)
     if (!code_barres) {
-      const cbMatch = clean.match(/\b(3\d{12}|6\d{12}|8\d{12}|\d{13})\b/);
-      if (cbMatch) code_barres = cbMatch[1];
-    }
-    if (!lot) {
-      const lotMatch = clean.match(/(?:LOT|BATCH|B\.?NO|B\/N|N°\s*LOT)[\s\.:\-_|]*([A-Z0-9\-_/]{2,20})/i);
-      if (lotMatch) lot = lotMatch[1].trim();
-    }
-    if (!expDate) {
-      const expMatch = clean.match(/(?:EXP|PER|CAD|DLUO|VAL)[\s\.:\-_|]*([^\r\n\|;,]{2,20})/i);
-      if (expMatch) expDate = normaliserDate(expMatch[1]);
-      else expDate = extraireDatePeremptionBoite(clean);
+      const cipPrefixMatch = clean.match(/(?:CIP|EAN|GTIN|CODE)[\s\.:\-_|]*(\d{13,14})\b/i);
+      if (cipPrefixMatch) {
+        code_barres = nettoyerCodeBarres(cipPrefixMatch[1]);
+      } else {
+        const cipMatch = clean.match(/\b(34009\d{8}|034009\d{8})\b/);
+        if (cipMatch) {
+          code_barres = nettoyerCodeBarres(cipMatch[1]);
+        } else {
+          const genMatch = clean.match(/\b(3\d{12}|6\d{12}|8\d{12}|\d{13,14})\b/);
+          if (genMatch) {
+            code_barres = nettoyerCodeBarres(genMatch[1]);
+          }
+        }
+      }
     }
 
-    // Format séparé par délimiteurs (ex: 3400935987102;LOT123;2026-11-30)
-    if ((clean.includes(';') || clean.includes('|') || clean.includes(',')) && (!code_barres || !lot)) {
-      const parts = clean.split(/[;,|]+/).map(p => p.trim()).filter(Boolean);
+    // 2. Chercher la date d'expiration d'abord
+    if (!expDate) {
+      const expPrefixMatch = clean.match(/(?:EXP|EXPIRY|PER|CAD|DLUO|VAL)[\s\.:\-_|]*([^\r\n\|;,]{2,20})/i);
+      if (expPrefixMatch) {
+        expDate = normaliserDate(expPrefixMatch[1]) || extraireDatePeremptionBoite(clean);
+      } else {
+        expDate = extraireDatePeremptionBoite(clean);
+      }
+    }
+
+    // 3. Chercher le lot
+    if (!lot) {
+      // Avec préfixe LOT/BATCH explicite
+      const lotMatch = clean.match(/(?:LOT|BATCH|B\.?NO|B\/N|N°\s*LOT)[\s\.:\-_|]*([A-Z0-9\-_/]{2,20})/i);
+      if (lotMatch) {
+        let val = lotMatch[1].trim();
+        // Si le match se termine par un tiret suivi d'une date (ex: LOT459-20281231)
+        const dateSuffix = val.match(/^(.*?)[-_](20\d{2}[0-1]\d[0-3]\d|20\d{2}-\d{2}-\d{2}|\d{2}[\/\-]\d{2}[\/\-]\d{2,4})$/);
+        if (dateSuffix) {
+          val = dateSuffix[1];
+          if (!expDate) expDate = normaliserDate(dateSuffix[2]);
+        }
+        lot = val;
+      }
+    }
+
+    // 4. Si format délimité par ';' ou '|' ou ',' ou '-' ou espaces
+    if (!lot) {
+      const parts = clean.split(/[;,|\s]+/).map(p => p.trim()).filter(Boolean);
       for (const p of parts) {
-        if (/^\d{13,14}$/.test(p) && !code_barres) {
-          code_barres = p.length === 14 && p.startsWith('0') ? p.substring(1) : p;
-        } else if (/^\d{4}-\d{2}-\d{2}$/.test(p) && !expDate) {
-          expDate = p;
-        } else if (/^\d{6}$/.test(p) && !expDate) {
-          expDate = normaliserDate(p);
-        } else if (p.length >= 3 && p.length <= 20 && !lot && !/^\d+$/.test(p)) {
+        if (code_barres && (p === code_barres || p === `0${code_barres}` || p === `01${code_barres}` || p === `010${code_barres}`)) continue;
+        if (expDate && (p === expDate || normaliserDate(p) === expDate)) continue;
+        if (/^\d{4}-\d{2}-\d{2}$/.test(p) || /^\d{6}$/.test(p) || /^\d{8}$/.test(p)) continue;
+        if (/^(?:CIP|EXP|LOT|BATCH)/i.test(p)) {
+          const stripped = p.replace(/^(?:CIP|EXP|LOT|BATCH)[\s\.:\-_|]*/i, '').trim();
+          if (stripped && !lot) lot = stripped;
+          continue;
+        }
+        if (p.length >= 3 && p.length <= 20 && !/^\d+$/.test(p) && !lot) {
           lot = p;
         }
       }
     }
+  }
+
+  // Nettoyage final du lot
+  if (lot) {
+    lot = lot.replace(/^(?:LOT|BATCH|B\.NO)[\s\.:\-_]+/i, '').trim();
   }
 
   if (code_barres || lot || expDate) {
@@ -690,17 +804,33 @@ export function parserCodePharma(texteBrut: string): CodePharmaParse {
 
   // 6. Code standard (EAN-13, EAN-8, Code 128, etc.)
   if (!resultat) {
-    // Nettoyer les espaces, caractères non imprimables et préfixes de symbologie
-    let codePropre = nettoye.replace(/^\][a-zA-Z0-9]{2}/, '').replace(/[\x00-\x1F\x7F-\x9F\s]/g, '');
+    // Nettoyer les espaces, caractères non imprimables et préfixes de symbologie ISO AIM
+    let codePropre = nettoye.replace(/^\][a-zA-Z][0-9]/, '').replace(/[\x00-\x1F\x7F-\x9F\s]/g, '');
     
     // Si GTIN-14 commençant par 0, extraire le CIP-13
     if (codePropre.length === 14 && codePropre.startsWith('0')) {
       codePropre = codePropre.substring(1);
     }
 
+    // Sécurité essentielle : si le code brut fait plus de 14 caractères, il s'agit d'une chaîne composite.
+    // Ne JAMAIS laisser une chaîne composite brute dans code_barres !
+    let lotExtrait: string | undefined;
+    let expDateExtraite: string | undefined;
+    if (codePropre.length > 14) {
+      const matchCip = codePropre.match(/(?:034009\d{8}|34009\d{8}|\d{13})/);
+      if (matchCip) {
+        codePropre = matchCip[0].length === 14 && matchCip[0].startsWith('0') ? matchCip[0].substring(1) : matchCip[0];
+      }
+      expDateExtraite = extraireDatePeremptionBoite(nettoye);
+      const mLot = nettoye.match(/(?:LOT|BATCH|B\.?NO|B\/N|N°\s*LOT)[\s\.:\-_|]*([A-Z0-9\-_/]{2,20})/i);
+      if (mLot) lotExtrait = mLot[1].trim();
+    }
+
     resultat = {
       raw: nettoye,
       code_barres: codePropre,
+      lot: lotExtrait,
+      date_peremption: expDateExtraite,
       format: 'standard',
     };
   }
