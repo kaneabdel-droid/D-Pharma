@@ -110,9 +110,15 @@ export default async function HomePage({
               </Link>
               <Link
                 href="/login"
-                className="rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-primary-hover transition-colors"
+                className="hidden sm:inline-flex rounded-lg border border-surface-border px-3.5 py-2 text-sm font-semibold text-foreground hover:border-primary hover:text-primary transition-colors"
               >
                 {lp.nav?.login || 'Connexion'}
+              </Link>
+              <Link
+                href="/signup"
+                className="rounded-lg bg-primary px-4 py-2 text-sm font-bold text-white shadow-sm hover:bg-primary-hover transition-colors"
+              >
+                Créer mon officine
               </Link>
             </div>
           </div>
@@ -135,20 +141,28 @@ export default async function HomePage({
 
             <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
               <Link
-                href="/decouvrir-dpharma"
-                className="inline-flex items-center gap-2 rounded-xl bg-primary px-7 py-3.5 text-base font-bold text-white shadow-lg hover:bg-primary-hover transition-all transform hover:-translate-y-0.5"
+                href="/signup"
+                className="inline-flex items-center gap-2 rounded-xl bg-primary px-8 py-4 text-base font-bold text-white shadow-lg shadow-primary/25 hover:bg-primary-hover transition-all transform hover:-translate-y-0.5"
               >
-                {lp.hero?.demo_btn || 'Tester la démo en direct'} <ArrowRight className="w-5 h-5" />
+                <Sparkles className="w-5 h-5" />
+                <span>Créer mon officine (Essai gratuit)</span>
+                <ArrowRight className="w-5 h-5" />
+              </Link>
+              <Link
+                href="/decouvrir-dpharma"
+                className="inline-flex items-center gap-2 rounded-xl border border-surface-border bg-surface px-6 py-4 text-base font-semibold text-foreground hover:border-primary hover:text-primary transition-colors"
+              >
+                {lp.hero?.demo_btn || 'Tester la démo en direct'}
               </Link>
               <Link
                 href="/tarifs"
-                className="inline-flex items-center gap-2 rounded-xl border border-surface-border bg-surface px-6 py-3.5 text-base font-semibold text-foreground hover:border-primary hover:text-primary transition-colors"
+                className="inline-flex items-center gap-2 rounded-xl border border-surface-border bg-surface px-6 py-4 text-base font-semibold text-foreground hover:border-primary hover:text-primary transition-colors"
               >
                 {lp.hero?.pricing_btn || 'Voir nos forfaits'}
               </Link>
               <Link
                 href="/recherche-medicament"
-                className="inline-flex items-center gap-2 rounded-xl border border-primary/20 bg-primary/5 px-6 py-3.5 text-base font-semibold text-primary hover:bg-primary/10 transition-colors"
+                className="inline-flex items-center gap-2 rounded-xl border border-primary/20 bg-primary/5 px-6 py-4 text-base font-semibold text-primary hover:bg-primary/10 transition-colors"
               >
                 <Search className="w-4 h-4" /> {lp.hero?.patients_btn || 'Espace Patients'}
               </Link>

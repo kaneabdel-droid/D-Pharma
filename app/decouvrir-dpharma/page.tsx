@@ -65,16 +65,22 @@ export default async function DecouvrirDpharmaPage({
           <Link href="/" className="flex items-center gap-2 text-sm font-medium text-foreground-muted hover:text-primary">
             <ArrowLeft className="h-4 w-4" /> Retour à l&apos;accueil
           </Link>
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-3">
             <LanguageSelector currentLang={locale} />
-            <Link href="/guide" className="text-sm font-medium text-foreground-muted hover:text-primary">
+            <Link href="/guide" className="hidden sm:inline text-sm font-medium text-foreground-muted hover:text-primary">
               Guide d&apos;utilisation
             </Link>
             <Link
               href="/login"
-              className="rounded-md border border-primary/40 px-4 py-2 text-sm font-semibold text-primary transition hover:bg-primary hover:text-white"
+              className="rounded-lg border border-surface-border px-3.5 py-1.5 text-sm font-semibold text-foreground transition hover:border-primary hover:text-primary"
             >
               Connexion
+            </Link>
+            <Link
+              href="/signup"
+              className="rounded-lg bg-primary px-3.5 py-1.5 text-sm font-bold text-white shadow-sm transition hover:bg-primary-hover"
+            >
+              Inscrire mon officine
             </Link>
           </div>
         </div>
@@ -215,9 +221,8 @@ export default async function DecouvrirDpharmaPage({
                   </div>
                   <Link
                     href={`/checkout?plan=${p.id}`}
-                    className={`w-full text-center py-3.5 px-4 rounded-xl font-bold text-base transition-colors shadow-md ${
-                      p.populaire ? 'bg-primary text-white hover:bg-primary-hover' : 'border-2 border-primary text-primary hover:bg-primary hover:text-white'
-                    }`}
+                    className={`w-full text-center py-3.5 px-4 rounded-xl font-bold text-base transition-colors shadow-md ${p.populaire ? 'bg-primary text-white hover:bg-primary-hover' : 'border-2 border-primary text-primary hover:bg-primary hover:text-white'
+                      }`}
                   >
                     Démarrer avec {p.nom}
                   </Link>
