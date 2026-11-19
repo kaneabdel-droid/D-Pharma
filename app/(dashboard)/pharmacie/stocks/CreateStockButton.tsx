@@ -326,32 +326,107 @@ export default function CreateStockButton() {
               </div>
 
               {typeProduit === 'medicament' && (
-                <div>
-                  <div className="flex items-center justify-between mb-1">
-                    <label className="block text-xs font-semibold text-foreground">
-                      Formule Chimique / DCI (Principe Actif)
-                    </label>
-                    <span className="text-[10px] text-foreground-muted">Auto-rempli par scan ou recherche</span>
+                <div className="space-y-3 p-3.5 rounded-2xl bg-surface-hover/50 border border-surface-border">
+                  {/* Formule Chimique / DCI */}
+                  <div>
+                    <div className="flex items-center justify-between mb-1">
+                      <label className="block text-xs font-semibold text-foreground">
+                        Formule Chimique / DCI (Principe Actif)
+                      </label>
+                      <span className="text-[10px] text-foreground-muted">Modifiable manuellement</span>
+                    </div>
+                    <input
+                      type="text"
+                      name="principe_actif"
+                      value={principeActif}
+                      onChange={(e) => setPrincipeActif(e.target.value)}
+                      className={champ}
+                      placeholder="Ex: Paracétamol, Amoxicilline, Tiémonium méthylsulfate..."
+                    />
                   </div>
-                  <input
-                    type="text"
-                    name="principe_actif"
-                    value={principeActif}
-                    onChange={(e) => setPrincipeActif(e.target.value)}
-                    className={champ}
-                    placeholder="Ex: Cotrimoxazole, Paracétamol, Amoxicilline, Tiémonium méthylsulfate..."
-                  />
+
+                  {/* Forme galénique & Dosage */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                      <div className="flex items-center justify-between mb-1">
+                        <label className="block text-xs font-semibold text-foreground">
+                          Forme galénique
+                        </label>
+                        <span className="text-[10px] text-foreground-muted">ex: Sirop, Comprimé</span>
+                      </div>
+                      <input
+                        type="text"
+                        name="forme"
+                        value={forme}
+                        onChange={(e) => setForme(e.target.value)}
+                        className={champ}
+                        placeholder="Ex: Sirop, Comprimé, Gélule..."
+                      />
+                      {/* Suggestions de sélection rapide */}
+                      <div className="flex flex-wrap gap-1 mt-1.5">
+                        {['Comprimé', 'Sirop', 'Gélule', 'Suspension', 'Injectable', 'Pommade', 'Sachet', 'Collyre'].map((f) => (
+                          <button
+                            key={f}
+                            type="button"
+                            onClick={() => setForme(f)}
+                            className={`text-[10px] px-2 py-0.5 rounded-md border transition-all ${
+                              forme?.toLowerCase() === f.toLowerCase()
+                                ? 'bg-primary text-white border-primary font-bold shadow-xs'
+                                : 'bg-surface border-surface-border text-foreground-muted hover:border-primary/50 hover:text-foreground'
+                            }`}
+                          >
+                            {f}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div>
+                      <div className="flex items-center justify-between mb-1">
+                        <label className="block text-xs font-semibold text-foreground">
+                          Dosage / Concentration
+                        </label>
+                        <span className="text-[10px] text-foreground-muted">ex: 500 mg, 125 mg/5ml</span>
+                      </div>
+                      <input
+                        type="text"
+                        name="dosage"
+                        value={dosage}
+                        onChange={(e) => setDosage(e.target.value)}
+                        className={champ}
+                        placeholder="Ex: 500 mg, 1 g, 125 mg/5ml, 2.4%..."
+                      />
+                      {/* Suggestions de sélection rapide */}
+                      <div className="flex flex-wrap gap-1 mt-1.5">
+                        {['500 mg', '1 g', '1000 mg', '250 mg', '125 mg/5ml', '2.4%', '20 mg/ml'].map((d) => (
+                          <button
+                            key={d}
+                            type="button"
+                            onClick={() => setDosage(d)}
+                            className={`text-[10px] px-2 py-0.5 rounded-md border transition-all ${
+                              dosage?.toLowerCase() === d.toLowerCase()
+                                ? 'bg-primary text-white border-primary font-bold shadow-xs'
+                                : 'bg-surface border-surface-border text-foreground-muted hover:border-primary/50 hover:text-foreground'
+                            }`}
+                          >
+                            {d}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+
                   {(principeActif || forme || dosage) && (
-                    <div className="mt-1.5 flex items-center gap-2 px-2.5 py-1.5 rounded-xl bg-primary/10 border border-primary/20 text-xs text-primary font-medium">
+                    <div className="flex items-center gap-2 px-2.5 py-1.5 rounded-xl bg-primary/10 border border-primary/20 text-xs text-primary font-medium">
                       <Sparkles className="w-3.5 h-3.5 shrink-0 text-primary" />
                       <span className="truncate">
-                        DCI / Formule : <strong>{principeActif || '—'}</strong>
+                        Formule enregistrée : <strong>{principeActif || '—'}</strong>
+                        {(forme || dosage) && (
+                          <span className="text-foreground-muted ml-1 font-normal">
+                            ({[dosage, forme].filter(Boolean).join(' • ')})
+                          </span>
+                        )}
                       </span>
-                      {(forme || dosage) && (
-                        <span className="text-foreground-muted text-[11px] shrink-0">
-                          ({[dosage, forme].filter(Boolean).join(' • ')})
-                        </span>
-                      )}
                     </div>
                   )}
                 </div>

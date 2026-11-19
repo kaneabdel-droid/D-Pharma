@@ -806,7 +806,7 @@ export function parserCodePharma(texteBrut: string): CodePharmaParse {
   if (!resultat) {
     // Nettoyer les espaces, caractères non imprimables et préfixes de symbologie ISO AIM
     let codePropre = nettoye.replace(/^\][a-zA-Z][0-9]/, '').replace(/[\x00-\x1F\x7F-\x9F\s]/g, '');
-    
+
     // Si GTIN-14 commençant par 0, extraire le CIP-13
     if (codePropre.length === 14 && codePropre.startsWith('0')) {
       codePropre = codePropre.substring(1);
@@ -887,7 +887,7 @@ export function parserTexteBoiteMedicament(texteBrut: string): CodePharmaParse {
 
   // 3. Détection du Prix étiqueté (PPV, P.P.V, PRIX, P.V, TARIF, ou montant avec FCFA / F)
   const prixMatch = t.match(/(?:PPV|P\.P\.V|PRIX|P\.V|TARIF)[\s\.:\-_]*(\d[\d\s]*\d|\d+)\s*(?:F|CFA|FCFA)?/i) ||
-                    t.match(/\b(\d{3,6})\s*(?:FCFA|CFA|F)\b/i);
+    t.match(/\b(\d{3,6})\s*(?:FCFA|CFA|F)\b/i);
   if (prixMatch) {
     const brut = prixMatch[1].replace(/\s+/g, '');
     const val = parseFloat(brut);

@@ -126,13 +126,13 @@ export default async function TarifsDpharmaPage() {
               </div>
 
               {/* Plan Premium */}
-              <div className="rounded-3xl border-2 border-primary p-8 bg-surface shadow-xl relative flex flex-col justify-between overflow-hidden">
-                <div className="absolute top-0 right-8 -translate-y-1/2 bg-primary text-white text-xs font-bold uppercase tracking-wider px-4 py-1 rounded-full shadow-md">
+              <div className="rounded-3xl border-2 border-primary p-8 bg-surface shadow-xl relative flex flex-col justify-between">
+                <div className="absolute top-5 right-6 sm:right-8 bg-primary text-white text-[11px] font-bold uppercase tracking-wider px-3.5 py-1.5 rounded-full shadow-md z-10">
                   Recommandé • Compta & Fiscal
                 </div>
 
                 <div>
-                  <div className="mb-4">
+                  <div className="mb-4 pr-36">
                     <span className="px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-bold uppercase tracking-wider">
                       Gestion Intégrale + SYSCOHADA
                     </span>

@@ -22,6 +22,9 @@ type StockItem = {
     nom: string
     code_barres?: string | null
     type_produit?: string | null
+    principe_actif?: string | null
+    forme?: string | null
+    dosage?: string | null
   }
 }
 
@@ -39,6 +42,9 @@ export default function EditStockPriceModal({ stock }: { stock: StockItem }) {
   // Champs modifiables
   const [nom, setNom] = useState(stock.medicaments.nom)
   const [codeBarres, setCodeBarres] = useState(stock.medicaments.code_barres || '')
+  const [principeActif, setPrincipeActif] = useState(stock.medicaments.principe_actif || '')
+  const [forme, setForme] = useState(stock.medicaments.forme || '')
+  const [dosage, setDosage] = useState(stock.medicaments.dosage || '')
   const [typeProduit, setTypeProduit] = useState<'medicament' | 'materiel' | 'service'>(
     (stock.medicaments.type_produit as any) || 'medicament'
   )
@@ -56,6 +62,9 @@ export default function EditStockPriceModal({ stock }: { stock: StockItem }) {
   useEffect(() => {
     setNom(stock.medicaments.nom)
     setCodeBarres(stock.medicaments.code_barres || '')
+    setPrincipeActif(stock.medicaments.principe_actif || '')
+    setForme(stock.medicaments.forme || '')
+    setDosage(stock.medicaments.dosage || '')
     setTypeProduit((stock.medicaments.type_produit as any) || 'medicament')
     setQuantite(stock.quantite.toString())
     setPrixVente(stock.prix_vente.toString())
@@ -67,6 +76,9 @@ export default function EditStockPriceModal({ stock }: { stock: StockItem }) {
   const handleOpen = () => {
     setNom(stock.medicaments.nom)
     setCodeBarres(stock.medicaments.code_barres || '')
+    setPrincipeActif(stock.medicaments.principe_actif || '')
+    setForme(stock.medicaments.forme || '')
+    setDosage(stock.medicaments.dosage || '')
     setTypeProduit((stock.medicaments.type_produit as any) || 'medicament')
     setQuantite(stock.quantite.toString())
     setPrixVente(stock.prix_vente.toString())
@@ -97,6 +109,12 @@ export default function EditStockPriceModal({ stock }: { stock: StockItem }) {
       setNom(parse.nom)
       details.push(parse.nom)
     }
+    if (parse.principe_actif) {
+      setPrincipeActif(parse.principe_actif)
+      details.push(`DCI: ${parse.principe_actif}`)
+    }
+    if (parse.forme) setForme(parse.forme)
+    if (parse.dosage) setDosage(parse.dosage)
     if (parse.prix_vente) {
       setPrixVente(parse.prix_vente.toString())
       details.push(`${parse.prix_vente} FCFA`)
@@ -120,6 +138,12 @@ export default function EditStockPriceModal({ stock }: { stock: StockItem }) {
           setNom(existant.nom)
           details.push(existant.nom)
         }
+        if (existant.principe_actif) {
+          setPrincipeActif(existant.principe_actif)
+          details.push(`DCI: ${existant.principe_actif}`)
+        }
+        if (existant.forme) setForme(existant.forme)
+        if (existant.dosage) setDosage(existant.dosage)
         if (existant.type_produit) setTypeProduit(existant.type_produit as any)
         if (existant.prix_vente && !parse.prix_vente) {
           setPrixVente(existant.prix_vente.toString())
@@ -149,6 +173,9 @@ export default function EditStockPriceModal({ stock }: { stock: StockItem }) {
     formData.set('medicament_id', stock.medicaments.id || '')
     formData.set('nom', nom)
     formData.set('code_barres', codeBarres)
+    formData.set('principe_actif', principeActif)
+    formData.set('forme', forme)
+    formData.set('dosage', dosage)
     formData.set('type_produit', typeProduit)
     formData.set('quantite', quantite)
     formData.set('prix_vente', prixVente)
@@ -320,8 +347,8 @@ export default function EditStockPriceModal({ stock }: { stock: StockItem }) {
                       type="button"
                       onClick={() => setTypeProduit('medicament')}
                       className={`flex flex-col items-center justify-center gap-1 p-2 rounded-xl border text-xs font-semibold transition-all ${typeProduit === 'medicament'
-                          ? 'bg-primary text-white border-primary shadow-sm'
-                          : 'bg-background border-surface-border text-foreground hover:bg-surface-border/50'
+                        ? 'bg-primary text-white border-primary shadow-sm'
+                        : 'bg-background border-surface-border text-foreground hover:bg-surface-border/50'
                         }`}
                     >
                       <Pill className="w-4 h-4" />
@@ -332,8 +359,8 @@ export default function EditStockPriceModal({ stock }: { stock: StockItem }) {
                       type="button"
                       onClick={() => setTypeProduit('materiel')}
                       className={`flex flex-col items-center justify-center gap-1 p-2 rounded-xl border text-xs font-semibold transition-all ${typeProduit === 'materiel'
-                          ? 'bg-primary text-white border-primary shadow-sm'
-                          : 'bg-background border-surface-border text-foreground hover:bg-surface-border/50'
+                        ? 'bg-primary text-white border-primary shadow-sm'
+                        : 'bg-background border-surface-border text-foreground hover:bg-surface-border/50'
                         }`}
                     >
                       <Stethoscope className="w-4 h-4" />
@@ -344,8 +371,8 @@ export default function EditStockPriceModal({ stock }: { stock: StockItem }) {
                       type="button"
                       onClick={() => setTypeProduit('service')}
                       className={`flex flex-col items-center justify-center gap-1 p-2 rounded-xl border text-xs font-semibold transition-all ${typeProduit === 'service'
-                          ? 'bg-primary text-white border-primary shadow-sm'
-                          : 'bg-background border-surface-border text-foreground hover:bg-surface-border/50'
+                        ? 'bg-primary text-white border-primary shadow-sm'
+                        : 'bg-background border-surface-border text-foreground hover:bg-surface-border/50'
                         }`}
                     >
                       <Sparkles className="w-4 h-4" />
@@ -368,6 +395,107 @@ export default function EditStockPriceModal({ stock }: { stock: StockItem }) {
                     placeholder="Ex: Paracétamol 500mg, Amoxicilline 1g..."
                   />
                 </div>
+
+                {/* FORMULE CHIMIQUE, FORME ET DOSAGE (MODIFIABLES MANUELLEMENT) */}
+                {typeProduit === 'medicament' && (
+                  <div className="space-y-3 p-3.5 rounded-2xl bg-surface-hover/50 border border-surface-border">
+                    <div>
+                      <div className="flex items-center justify-between mb-1">
+                        <label className="block text-xs font-semibold text-foreground">
+                          Formule Chimique / DCI (Principe Actif)
+                        </label>
+                        <span className="text-[10px] text-foreground-muted">Modifiable manuellement</span>
+                      </div>
+                      <input
+                        type="text"
+                        value={principeActif}
+                        onChange={(e) => setPrincipeActif(e.target.value)}
+                        className={champ}
+                        placeholder="Ex: Paracétamol, Amoxicilline, Tiémonium méthylsulfate..."
+                      />
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      <div>
+                        <div className="flex items-center justify-between mb-1">
+                          <label className="block text-xs font-semibold text-foreground">
+                            Forme galénique
+                          </label>
+                          <span className="text-[10px] text-foreground-muted">ex: Sirop, Comprimé</span>
+                        </div>
+                        <input
+                          type="text"
+                          value={forme}
+                          onChange={(e) => setForme(e.target.value)}
+                          className={champ}
+                          placeholder="Ex: Sirop, Comprimé, Gélule..."
+                        />
+                        <div className="flex flex-wrap gap-1 mt-1.5">
+                          {['Comprimé', 'Sirop', 'Gélule', 'Suspension', 'Injectable', 'Pommade', 'Sachet', 'Collyre'].map((f) => (
+                            <button
+                              key={f}
+                              type="button"
+                              onClick={() => setForme(f)}
+                              className={`text-[10px] px-2 py-0.5 rounded-md border transition-all ${
+                                forme?.toLowerCase() === f.toLowerCase()
+                                  ? 'bg-primary text-white border-primary font-bold shadow-xs'
+                                  : 'bg-surface border-surface-border text-foreground-muted hover:border-primary/50 hover:text-foreground'
+                              }`}
+                            >
+                              {f}
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+
+                      <div>
+                        <div className="flex items-center justify-between mb-1">
+                          <label className="block text-xs font-semibold text-foreground">
+                            Dosage / Concentration
+                          </label>
+                          <span className="text-[10px] text-foreground-muted">ex: 500 mg, 125 mg/5ml</span>
+                        </div>
+                        <input
+                          type="text"
+                          value={dosage}
+                          onChange={(e) => setDosage(e.target.value)}
+                          className={champ}
+                          placeholder="Ex: 500 mg, 1 g, 125 mg/5ml, 2.4%..."
+                        />
+                        <div className="flex flex-wrap gap-1 mt-1.5">
+                          {['500 mg', '1 g', '1000 mg', '250 mg', '125 mg/5ml', '2.4%', '20 mg/ml'].map((d) => (
+                            <button
+                              key={d}
+                              type="button"
+                              onClick={() => setDosage(d)}
+                              className={`text-[10px] px-2 py-0.5 rounded-md border transition-all ${
+                                dosage?.toLowerCase() === d.toLowerCase()
+                                  ? 'bg-primary text-white border-primary font-bold shadow-xs'
+                                  : 'bg-surface border-surface-border text-foreground-muted hover:border-primary/50 hover:text-foreground'
+                              }`}
+                            >
+                              {d}
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+
+                    {(principeActif || forme || dosage) && (
+                      <div className="flex items-center gap-2 px-2.5 py-1.5 rounded-xl bg-primary/10 border border-primary/20 text-xs text-primary font-medium">
+                        <Sparkles className="w-3.5 h-3.5 shrink-0 text-primary" />
+                        <span className="truncate">
+                          Formule enregistrée : <strong>{principeActif || '—'}</strong>
+                          {(forme || dosage) && (
+                            <span className="text-foreground-muted ml-1 font-normal">
+                              ({[dosage, forme].filter(Boolean).join(' • ')})
+                            </span>
+                          )}
+                        </span>
+                      </div>
+                    )}
+                  </div>
+                )}
 
                 {/* CODE-BARRES AVEC SCAN CAMÉRA */}
                 {typeProduit !== 'service' && (

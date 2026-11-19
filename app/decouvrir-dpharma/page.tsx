@@ -201,12 +201,12 @@ export default async function DecouvrirDpharmaPage({
                   key={p.id}
                   className={`rounded-3xl bg-background border-2 ${p.color} p-8 flex flex-col justify-between shadow-lg relative`}
                 >
-                  <div className="absolute top-0 right-6 transform -translate-y-1/2">
-                    <span className={`${p.populaire ? 'bg-primary text-white shadow-md' : 'bg-surface-border text-foreground'} text-xs font-bold px-3.5 py-1 rounded-full uppercase tracking-wider`}>
+                  <div className="absolute top-5 right-6 z-10">
+                    <span className={`${p.populaire ? 'bg-primary text-white shadow-md' : 'bg-surface-border text-foreground'} text-[11px] font-bold px-3.5 py-1.5 rounded-full uppercase tracking-wider`}>
                       {p.badge}
                     </span>
                   </div>
-                  <div>
+                  <div className="pr-32 sm:pr-36">
                     <h3 className={`text-2xl font-bold mb-1 ${p.populaire ? 'text-primary' : 'text-foreground'}`}>{p.nom}</h3>
                     <p className={`text-2xl font-extrabold mb-3 ${p.populaire ? 'text-primary' : 'text-foreground'}`}>{p.prix}</p>
                     <p className="text-sm text-foreground-muted mb-6">{p.resume}</p>

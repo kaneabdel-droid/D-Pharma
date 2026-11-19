@@ -51,16 +51,15 @@ export async function addStock(formData: FormData) {
 
       if (existingMed) {
         medicament_id = existingMed.id
-        if (nom && existingMed.nom !== nom) {
-          try {
-            await supabase.from('medicaments').update({ nom, type_produit, principe_actif, forme, dosage }).eq('id', medicament_id)
-          } catch {
-            await supabase.from('medicaments').update({ nom, type_produit }).eq('id', medicament_id)
-          }
-        } else if (principe_actif && !existingMed.principe_actif) {
-          try {
-            await supabase.from('medicaments').update({ principe_actif, forme, dosage }).eq('id', medicament_id)
-          } catch {}
+        const updatePayload: any = { type_produit }
+        if (nom) updatePayload.nom = nom
+        if (principe_actif !== undefined) updatePayload.principe_actif = principe_actif
+        if (forme !== undefined) updatePayload.forme = forme
+        if (dosage !== undefined) updatePayload.dosage = dosage
+        try {
+          await supabase.from('medicaments').update(updatePayload).eq('id', medicament_id)
+        } catch {
+          await supabase.from('medicaments').update({ nom, type_produit }).eq('id', medicament_id)
         }
       }
     }
@@ -84,16 +83,17 @@ export async function addStock(formData: FormData) {
             .update({ code_barres: null })
             .eq('code_barres', code_barres)
             .neq('id', medicament_id)
+        }
 
-          try {
-            await supabase.from('medicaments').update({ code_barres, type_produit, principe_actif, forme, dosage }).eq('id', medicament_id)
-          } catch {
-            await supabase.from('medicaments').update({ code_barres, type_produit }).eq('id', medicament_id)
-          }
-        } else if (principe_actif && !existingMedName.principe_actif) {
-          try {
-            await supabase.from('medicaments').update({ principe_actif, forme, dosage }).eq('id', medicament_id)
-          } catch {}
+        const updatePayload: any = { type_produit }
+        if (code_barres) updatePayload.code_barres = code_barres
+        if (principe_actif !== undefined) updatePayload.principe_actif = principe_actif
+        if (forme !== undefined) updatePayload.forme = forme
+        if (dosage !== undefined) updatePayload.dosage = dosage
+        try {
+          await supabase.from('medicaments').update(updatePayload).eq('id', medicament_id)
+        } catch {
+          await supabase.from('medicaments').update({ code_barres, type_produit }).eq('id', medicament_id)
         }
       }
     }
@@ -262,6 +262,9 @@ export async function updateArticleComplet(formData: FormData) {
   const prix_achat = parseFloat(formData.get('prix_achat') as string || '0')
   const date_peremption = (formData.get('date_peremption') as string) || ''
   const lot = ((formData.get('lot') as string) || '').trim()
+  const principe_actif = ((formData.get('principe_actif') as string) || '').trim() || null
+  const forme = ((formData.get('forme') as string) || '').trim() || null
+  const dosage = ((formData.get('dosage') as string) || '').trim() || null
 
   if (!stockId) {
     return { error: 'Identifiant de stock manquant.' }
@@ -304,7 +307,10 @@ export async function updateArticleComplet(formData: FormData) {
         .update({
           nom,
           code_barres: code_barres || null,
-          type_produit
+          type_produit,
+          principe_actif,
+          forme,
+          dosage,
         })
         .eq('id', medicamentId)
 

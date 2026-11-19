@@ -39,7 +39,10 @@ export default async function StocksPage() {
         id,
         nom,
         code_barres,
-        type_produit
+        type_produit,
+        principe_actif,
+        forme,
+        dosage
       )
     `)
     .eq('gie_id', tenant.gieId)
@@ -116,7 +119,18 @@ export default async function StocksPage() {
                       return (
                         <tr key={item.id} className="hover:bg-background/50 transition-colors">
                           <td className="whitespace-nowrap py-3.5 pl-4 pr-3 text-sm font-medium text-foreground sm:pl-6">
-                            {item.medicaments.nom}
+                            <div>{item.medicaments.nom}</div>
+                            {(item.medicaments.principe_actif || item.medicaments.forme || item.medicaments.dosage) && (
+                              <div className="text-[11px] text-foreground-muted font-normal mt-0.5">
+                                {item.medicaments.principe_actif || ''}
+                                {(item.medicaments.forme || item.medicaments.dosage) && (
+                                  <span className="opacity-80">
+                                    {item.medicaments.principe_actif ? ' • ' : ''}
+                                    {[item.medicaments.dosage, item.medicaments.forme].filter(Boolean).join(' ')}
+                                  </span>
+                                )}
+                              </div>
+                            )}
                           </td>
                           <td className="whitespace-nowrap px-3 py-3.5 text-xs">
                             <span className={`inline-block px-2 py-0.5 rounded-md font-bold uppercase text-[10px] ${
